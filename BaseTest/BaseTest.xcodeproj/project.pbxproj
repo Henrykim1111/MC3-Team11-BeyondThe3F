@@ -16,6 +16,10 @@
 		95019E7C2A5E8BE300F06482 /* MuhoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E7B2A5E8BE300F06482 /* MuhoView.swift */; };
 		95019E7E2A5E8C0F00F06482 /* PeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E7D2A5E8C0F00F06482 /* PeterView.swift */; };
 		95019E802A5E8C1600F06482 /* HenryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E7F2A5E8C1600F06482 /* HenryView.swift */; };
+		95019E842A5E930000F06482 /* AustinHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E832A5E930000F06482 /* AustinHomeView.swift */; };
+		95019E862A5E934400F06482 /* AustinMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E852A5E934400F06482 /* AustinMapView.swift */; };
+		95019E882A5E936E00F06482 /* AustinSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E872A5E936E00F06482 /* AustinSearchView.swift */; };
+		95019E8A2A5E937D00F06482 /* AustinSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E892A5E937D00F06482 /* AustinSettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +33,10 @@
 		95019E7B2A5E8BE300F06482 /* MuhoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuhoView.swift; sourceTree = "<group>"; };
 		95019E7D2A5E8C0F00F06482 /* PeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeterView.swift; sourceTree = "<group>"; };
 		95019E7F2A5E8C1600F06482 /* HenryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HenryView.swift; sourceTree = "<group>"; };
+		95019E832A5E930000F06482 /* AustinHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinHomeView.swift; sourceTree = "<group>"; };
+		95019E852A5E934400F06482 /* AustinMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinMapView.swift; sourceTree = "<group>"; };
+		95019E872A5E936E00F06482 /* AustinSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinSearchView.swift; sourceTree = "<group>"; };
+		95019E892A5E937D00F06482 /* AustinSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinSettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +93,7 @@
 		95019E722A5E8B7800F06482 /* Austin */ = {
 			isa = PBXGroup;
 			children = (
+				95019E822A5E92EA00F06482 /* View */,
 				95019E772A5E8BC000F06482 /* AustinView.swift */,
 			);
 			path = Austin;
@@ -120,6 +129,17 @@
 				95019E7F2A5E8C1600F06482 /* HenryView.swift */,
 			);
 			path = Henry;
+			sourceTree = "<group>";
+		};
+		95019E822A5E92EA00F06482 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				95019E832A5E930000F06482 /* AustinHomeView.swift */,
+				95019E852A5E934400F06482 /* AustinMapView.swift */,
+				95019E872A5E936E00F06482 /* AustinSearchView.swift */,
+				95019E892A5E937D00F06482 /* AustinSettingView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,13 +212,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95019E862A5E934400F06482 /* AustinMapView.swift in Sources */,
 				95019E672A5E895200F06482 /* ContentView.swift in Sources */,
+				95019E882A5E936E00F06482 /* AustinSearchView.swift in Sources */,
 				95019E7C2A5E8BE300F06482 /* MuhoView.swift in Sources */,
 				95019E802A5E8C1600F06482 /* HenryView.swift in Sources */,
 				95019E7A2A5E8BD500F06482 /* AewolView.swift in Sources */,
 				95019E782A5E8BC000F06482 /* AustinView.swift in Sources */,
 				95019E652A5E895200F06482 /* BaseTestApp.swift in Sources */,
 				95019E7E2A5E8C0F00F06482 /* PeterView.swift in Sources */,
+				95019E8A2A5E937D00F06482 /* AustinSettingView.swift in Sources */,
+				95019E842A5E930000F06482 /* AustinHomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
