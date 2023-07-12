@@ -9,13 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        // DO NOT EDIT HERE
+        // ContentView를 수정하지 마시오
+        Text("BaseTest App")
     }
 }
 
