@@ -12,11 +12,19 @@ struct AustinView: View {
         TabView {
             AustinHomeView()
                 .tabItem {
-                    Label("Home", systemImage: "tray.and.arrow.down.fill")
+                    Label("Home", systemImage: "house.fill")
                 }
             AustinMapView()
                 .tabItem {
-                    Label("Home", systemImage: "tray.and.arrow.down.fill")
+                    Label("Map", systemImage: "map.fill")
+                }
+            AustinSearchView()
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+            AustinSettingView()
+                .tabItem {
+                    Label("Setting", systemImage: "gear")
                 }
         }
     }
