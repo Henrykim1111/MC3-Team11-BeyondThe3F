@@ -130,9 +130,6 @@ class AnnotationView: MKAnnotationView {
         clusteringIdentifier = clusterID
         image = UIImage(named: "annotaionImage")
     }
-    // 주석 클러스터링🍎
-    // 주석을 클러스터로 그룹화하려면 clusteringIdentifier 그룹의 각 주석 보기에 속성을 동일한 값으로 설정합니다. 예를 들어, 클러스터링 주석 보기에서 겹치는 clusterID 주석을 표시하기 위해 UnicycleAnnotationView의 각 인스턴스에 대한 clusteringIdentifier를 "clusterID" 로 설정합니다.
-
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -142,8 +139,6 @@ class AnnotationView: MKAnnotationView {
         super.prepareForDisplay()
         displayPriority = .defaultLow
     }
-    // 디스플레이 우선순위🍎
-    // annotation 뷰가 다른 annotation 뷰와 겹칠 때 어떻게 동작하는지 확인하려면 displayPriority 속성을 설정합니다. clusterID의 displayPriority는 defaultLow로 설정되어 있기 때문에 MapView에서 다른 annotation들이 겹칠 경우 clusterID 주석을 숨길 것입니다.
 }
 
 final class ClusteringAnnotationView: MKAnnotationView {
