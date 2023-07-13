@@ -14,17 +14,13 @@ struct AustinView: View {
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
-            AustinTestMapView()
+            AustinMapView()
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }
             AustinSearchView()
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
-                }
-            AustinSettingView()
-                .tabItem {
-                    Label("Setting", systemImage: "gear")
                 }
         }
     }
