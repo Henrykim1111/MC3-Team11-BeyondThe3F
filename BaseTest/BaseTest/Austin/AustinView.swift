@@ -14,7 +14,7 @@ struct AustinView: View {
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
-            AustinMapView()
+            AustinTestMapView()
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }

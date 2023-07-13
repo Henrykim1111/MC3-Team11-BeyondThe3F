@@ -20,6 +20,7 @@
 		95019E862A5E934400F06482 /* AustinMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E852A5E934400F06482 /* AustinMapView.swift */; };
 		95019E882A5E936E00F06482 /* AustinSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E872A5E936E00F06482 /* AustinSearchView.swift */; };
 		95019E8A2A5E937D00F06482 /* AustinSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E892A5E937D00F06482 /* AustinSettingView.swift */; };
+		95019E8C2A5EB3B000F06482 /* AustinTestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E8B2A5EB3B000F06482 /* AustinTestMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		95019E852A5E934400F06482 /* AustinMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinMapView.swift; sourceTree = "<group>"; };
 		95019E872A5E936E00F06482 /* AustinSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinSearchView.swift; sourceTree = "<group>"; };
 		95019E892A5E937D00F06482 /* AustinSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinSettingView.swift; sourceTree = "<group>"; };
+		95019E8B2A5EB3B000F06482 /* AustinTestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinTestMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				95019E852A5E934400F06482 /* AustinMapView.swift */,
 				95019E872A5E936E00F06482 /* AustinSearchView.swift */,
 				95019E892A5E937D00F06482 /* AustinSettingView.swift */,
+				95019E8B2A5EB3B000F06482 /* AustinTestMapView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				95019E862A5E934400F06482 /* AustinMapView.swift in Sources */,
 				95019E672A5E895200F06482 /* ContentView.swift in Sources */,
 				95019E882A5E936E00F06482 /* AustinSearchView.swift in Sources */,
+				95019E8C2A5EB3B000F06482 /* AustinTestMapView.swift in Sources */,
 				95019E7C2A5E8BE300F06482 /* MuhoView.swift in Sources */,
 				95019E802A5E8C1600F06482 /* HenryView.swift in Sources */,
 				95019E7A2A5E8BD500F06482 /* AewolView.swift in Sources */,
