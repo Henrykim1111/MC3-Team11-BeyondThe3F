@@ -9,8 +9,21 @@ import SwiftUI
 import MapKit
 
 struct AustinMapView: View {
+    @State private var musicList: [MusicDummyItem] = []
+    @State private var isMoving = true
     var body: some View {
-        MapView()
+        VStack {
+            MapView(musicList: $musicList)
+            if isMoving {
+                if musicList.isEmpty {
+                    ProgressView()
+                        .frame(height: 300)
+                } else {
+                    AustinMapSearchMusicListModalView(musicList: $musicList)
+                        .frame(height: 300)
+                }
+            }
+        }
     }
 }
 
@@ -21,6 +34,7 @@ struct AustinMapView_Previews: PreviewProvider {
 }
 
 struct MapView: UIViewRepresentable {
+    @Binding var musicList: [MusicDummyItem]
 
     var annotaionDataList = annotaionDummyData
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64422936785126, longitude: 142.39329541313924), span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 2))
@@ -33,8 +47,32 @@ struct MapView: UIViewRepresentable {
         init(_ parent: MapView) {
             self.parent = parent
         }
+        func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+            parent.musicList = []
+        }
+        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+            print(mapView.visibleAnnotations())
+            var newAnnotaionList: [MusicDummyItem] = []
+            for annotation in mapView.visibleAnnotations() {
+                if let landmark = annotation as? LandmarkAnnotation {
+                    newAnnotaionList.append(MusicDummyItem(songName: landmark.songName ?? "", coverImageName: landmark.imageName ?? "", artistName: landmark.artistName ?? ""))
+                }
+            }
+            parent.musicList = newAnnotaionList
+        }
         
-    /// showing annotation on the map
+//        /// mapViewDidFinishLoadingMap
+//        func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+//            print(mapView.visibleAnnotations())
+//            var newAnnotaionList: [MusicDummyItem] = []
+//            for annotation in mapView.visibleAnnotations() {
+//                if let landmark = annotation as? LandmarkAnnotation {
+//                    newAnnotaionList.append(MusicDummyItem(songName: landmark.songName ?? "", coverImageName: landmark.imageName ?? "", artistName: landmark.artistName ?? ""))
+//                }
+//            }
+//            parent.musicList = newAnnotaionList
+//
+//        }
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             switch annotation {
             case is LandmarkAnnotation:
@@ -44,9 +82,9 @@ struct MapView: UIViewRepresentable {
             default:
                 return nil
             }
-
         }
         func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
+            
             let clusterAnnotaion = MKClusterAnnotation(memberAnnotations: memberAnnotations)
             clusterAnnotaion.title  = "clusted"
             return clusterAnnotaion
@@ -68,7 +106,12 @@ struct MapView: UIViewRepresentable {
         view.mapType = .standard
         
         for annotaionData in annotaionDataList {
-            let annotation = LandmarkAnnotation(coordinate: annotaionData.coordinate, imageName: annotaionData.imageName ?? "")
+            let annotation = LandmarkAnnotation(
+                coordinate: annotaionData.coordinate,
+                imageName: annotaionData.imageName ?? "",
+                songName: annotaionData.songName ?? "",
+                artistName: annotaionData.artistName ?? ""
+            )
             view.addAnnotation(annotation)
         }
         
@@ -79,13 +122,22 @@ struct MapView: UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView, context: Context) {
         
     }
+    
+    
 }
 
+extension MKMapView {
+    func visibleAnnotations() -> [MKAnnotation] {
+        return self.annotations(in: self.visibleMapRect).map { obj -> MKAnnotation in return obj as! MKAnnotation }
+    }
+}
 struct SampleData: Identifiable {
     var id = UUID()
     var latitude: Double
     var longitude: Double
     var imageName: String?
+    var songName: String?
+    var artistName: String?
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
             latitude: latitude,
@@ -94,10 +146,10 @@ struct SampleData: Identifiable {
 }
 
 var annotaionDummyData = [
-    SampleData(latitude: 43.70564024126748, longitude: 142.37968945214223, imageName: "annotaion0"),
-    SampleData(latitude: 43.81257464206404, longitude: 142.82112322464369, imageName: "annotaion1"),
-    SampleData(latitude: 43.38416585162576, longitude: 141.7252598737476, imageName: "annotaion2"),
-    SampleData(latitude: 45.29168643283501, longitude: 141.95286751470724, imageName: "annotaion3"),
+    SampleData(latitude: 43.70564024126748,longitude: 142.37968945214223,imageName: "annotaion0",songName: "BIG WAVE",artistName: "artist0"),
+    SampleData(latitude: 43.81257464206404, longitude: 142.82112322464369, imageName: "annotaion1",songName: "BIG WAVE",artistName: "artist0"),
+    SampleData(latitude: 43.38416585162576, longitude: 141.7252598737476, imageName: "annotaion2",songName: "BIG WAVE",artistName: "artist0"),
+    SampleData(latitude: 45.29168643283501, longitude: 141.95286751470724, imageName: "annotaion3",songName: "BIG WAVE",artistName: "artist0")
 ]
 
 
@@ -105,13 +157,19 @@ class LandmarkAnnotation: NSObject, MKAnnotation {
 
     let coordinate: CLLocationCoordinate2D
     let imageName: String?
+    var songName: String?
+    var artistName: String?
 
     init(
          coordinate: CLLocationCoordinate2D,
-         imageName: String = ""
+         imageName: String = "",
+         songName: String = "",
+         artistName: String = ""
     ) {
         self.coordinate = coordinate
         self.imageName = imageName
+        self.songName = songName
+        self.artistName = artistName
         super.init()
     }
 
