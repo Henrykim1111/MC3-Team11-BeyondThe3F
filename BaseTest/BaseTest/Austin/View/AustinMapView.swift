@@ -55,24 +55,12 @@ struct MapView: UIViewRepresentable {
             var newAnnotaionList: [MusicDummyItem] = []
             for annotation in mapView.visibleAnnotations() {
                 if let landmark = annotation as? LandmarkAnnotation {
-                    newAnnotaionList.append(MusicDummyItem(songName: landmark.songName ?? "", coverImageName: landmark.imageName ?? "", artistName: landmark.artistName ?? ""))
+                    newAnnotaionList.append(
+                        MusicDummyItem(songName: landmark.songName ?? "", coverImageName: landmark.imageName ?? "", artistName: landmark.artistName ?? "", musicId: landmark.musicId ?? ""))
                 }
             }
             parent.musicList = newAnnotaionList
         }
-        
-//        /// mapViewDidFinishLoadingMap
-//        func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-//            print(mapView.visibleAnnotations())
-//            var newAnnotaionList: [MusicDummyItem] = []
-//            for annotation in mapView.visibleAnnotations() {
-//                if let landmark = annotation as? LandmarkAnnotation {
-//                    newAnnotaionList.append(MusicDummyItem(songName: landmark.songName ?? "", coverImageName: landmark.imageName ?? "", artistName: landmark.artistName ?? ""))
-//                }
-//            }
-//            parent.musicList = newAnnotaionList
-//
-//        }
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             switch annotation {
             case is LandmarkAnnotation:
@@ -110,7 +98,8 @@ struct MapView: UIViewRepresentable {
                 coordinate: annotaionData.coordinate,
                 imageName: annotaionData.imageName ?? "",
                 songName: annotaionData.songName ?? "",
-                artistName: annotaionData.artistName ?? ""
+                artistName: annotaionData.artistName ?? "",
+                musicId: annotaionData.musicId ?? ""
             )
             view.addAnnotation(annotation)
         }
@@ -138,6 +127,7 @@ struct SampleData: Identifiable {
     var imageName: String?
     var songName: String?
     var artistName: String?
+    var musicId: String?
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
             latitude: latitude,
@@ -146,10 +136,10 @@ struct SampleData: Identifiable {
 }
 
 var annotaionDummyData = [
-    SampleData(latitude: 43.70564024126748,longitude: 142.37968945214223,imageName: "annotaion0",songName: "BIG WAVE",artistName: "artist0"),
-    SampleData(latitude: 43.81257464206404, longitude: 142.82112322464369, imageName: "annotaion1",songName: "BIG WAVE",artistName: "artist0"),
-    SampleData(latitude: 43.38416585162576, longitude: 141.7252598737476, imageName: "annotaion2",songName: "BIG WAVE",artistName: "artist0"),
-    SampleData(latitude: 45.29168643283501, longitude: 141.95286751470724, imageName: "annotaion3",songName: "BIG WAVE",artistName: "artist0")
+    SampleData(latitude: 43.70564024126748,longitude: 142.37968945214223,imageName: "annotaion0",songName: "BIG WAVE",artistName: "artist0", musicId: "1004836383"),
+    SampleData(latitude: 43.81257464206404, longitude: 142.82112322464369, imageName: "annotaion1",songName: "BIG WAVE",artistName: "artist0", musicId: "1004836383"),
+    SampleData(latitude: 43.38416585162576, longitude: 141.7252598737476, imageName: "annotaion2",songName: "BIG WAVE",artistName: "artist0", musicId: "1004836383"),
+    SampleData(latitude: 45.29168643283501, longitude: 141.95286751470724, imageName: "annotaion3",songName: "BIG WAVE",artistName: "artist0", musicId: "1004836383")
 ]
 
 
@@ -159,17 +149,20 @@ class LandmarkAnnotation: NSObject, MKAnnotation {
     let imageName: String?
     var songName: String?
     var artistName: String?
+    var musicId: String?
 
     init(
          coordinate: CLLocationCoordinate2D,
          imageName: String = "",
          songName: String = "",
-         artistName: String = ""
+         artistName: String = "",
+         musicId: String = ""
     ) {
         self.coordinate = coordinate
         self.imageName = imageName
         self.songName = songName
         self.artistName = artistName
+        self.musicId = musicId
         super.init()
     }
 

@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct MusicDummyItem: Hashable {
     var songName: String
     var coverImageName: String
     var artistName: String
+    var musicId: String?
 }
 
 struct AustinMapSearchMusicListModalView: View {
     @Binding var musicList: [MusicDummyItem]
+    private let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     var body: some View {
         ScrollView {
             VStack {
@@ -36,6 +39,20 @@ struct AustinMapSearchMusicListModalView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 20, height: 20)
+                            .onTapGesture {
+                                if item.musicId != "" {
+                                    musicPlayer.setQueue(with: [item.musicId!])
+                                    Task {
+                                        self.musicPlayer.prepareToPlay {error in
+                                            if let error = error {
+                                                print(error)
+                                            } else {
+                                                self.musicPlayer.play()
+                                            }
+                                       }
+                                    }
+                                }
+                            }
                     }
                 }
             }
