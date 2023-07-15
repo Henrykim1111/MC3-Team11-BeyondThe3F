@@ -20,6 +20,8 @@
 		95019E882A5E936E00F06482 /* AustinSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E872A5E936E00F06482 /* AustinSearchView.swift */; };
 		95019E8C2A5EB3B000F06482 /* AustinMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E8B2A5EB3B000F06482 /* AustinMapView.swift */; };
 		95019E9D2A5FFA8300F06482 /* AustinMapSearchMusicListModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E9C2A5FFA8300F06482 /* AustinMapSearchMusicListModalView.swift */; };
+		95019EA02A6276F000F06482 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019E9F2A6276F000F06482 /* Annotation.swift */; };
+		95019EA22A6276FE00F06482 /* MusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95019EA12A6276FE00F06482 /* MusicItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		95019E872A5E936E00F06482 /* AustinSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinSearchView.swift; sourceTree = "<group>"; };
 		95019E8B2A5EB3B000F06482 /* AustinMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinMapView.swift; sourceTree = "<group>"; };
 		95019E9C2A5FFA8300F06482 /* AustinMapSearchMusicListModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustinMapSearchMusicListModalView.swift; sourceTree = "<group>"; };
+		95019E9F2A6276F000F06482 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		95019EA12A6276FE00F06482 /* MusicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,12 +138,22 @@
 		95019E822A5E92EA00F06482 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				95019E9E2A6276DF00F06482 /* Model */,
 				95019E832A5E930000F06482 /* AustinHomeView.swift */,
 				95019E872A5E936E00F06482 /* AustinSearchView.swift */,
 				95019E8B2A5EB3B000F06482 /* AustinMapView.swift */,
 				95019E9C2A5FFA8300F06482 /* AustinMapSearchMusicListModalView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		95019E9E2A6276DF00F06482 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				95019E9F2A6276F000F06482 /* Annotation.swift */,
+				95019EA12A6276FE00F06482 /* MusicItem.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,7 +236,9 @@
 				95019E782A5E8BC000F06482 /* AustinView.swift in Sources */,
 				95019E652A5E895200F06482 /* BaseTestApp.swift in Sources */,
 				95019E7E2A5E8C0F00F06482 /* PeterView.swift in Sources */,
+				95019EA02A6276F000F06482 /* Annotation.swift in Sources */,
 				95019E842A5E930000F06482 /* AustinHomeView.swift in Sources */,
+				95019EA22A6276FE00F06482 /* MusicItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
