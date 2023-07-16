@@ -12,6 +12,7 @@ struct ContentView: View {
         // DO NOT EDIT HERE
         // ContentView를 수정하지 마시오
         Text("BaseTest App")
+        AustinView()
     }
 }
 

@@ -9,7 +9,20 @@ import SwiftUI
 
 struct AustinView: View {
     var body: some View {
-        Text("Hello Austin")
+        TabView {
+            AustinHomeView()
+                .tabItem {
+                    Label("Home", systemImage: "house.fill")
+                }
+            AustinMapView()
+                .tabItem {
+                    Label("Map", systemImage: "map.fill")
+                }
+            AustinSearchView()
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+        }
     }
 }
 
