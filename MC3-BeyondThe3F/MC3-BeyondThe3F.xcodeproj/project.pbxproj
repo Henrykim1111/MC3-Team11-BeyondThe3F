@@ -51,9 +51,12 @@
 		9516915F2A651B630070D47C /* MC3-BeyondThe3F */ = {
 			isa = PBXGroup;
 			children = (
+				951691732A6520770070D47C /* Resource */,
+				951691702A651C4F0070D47C /* Global */,
+				9516916F2A651C4A0070D47C /* Model */,
+				9516916E2A651C420070D47C /* View */,
 				951691602A651B630070D47C /* MC3_BeyondThe3FApp.swift */,
 				951691622A651B630070D47C /* ContentView.swift */,
-				951691642A651B640070D47C /* Assets.xcassets */,
 				951691662A651B640070D47C /* Preview Content */,
 			);
 			path = "MC3-BeyondThe3F";
@@ -65,6 +68,67 @@
 				951691672A651B640070D47C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9516916E2A651C420070D47C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9516916F2A651C4A0070D47C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		951691702A651C4F0070D47C /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				951691752A660CA80070D47C /* Helper */,
+				951691722A65206C0070D47C /* Modifier */,
+				951691712A65205C0070D47C /* Extension */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		951691712A65205C0070D47C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		951691722A65206C0070D47C /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modifier;
+			sourceTree = "<group>";
+		};
+		951691732A6520770070D47C /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				951691742A6520840070D47C /* Fonts */,
+				951691642A651B640070D47C /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		951691742A6520840070D47C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		951691752A660CA80070D47C /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
