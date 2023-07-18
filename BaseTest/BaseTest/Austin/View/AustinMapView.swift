@@ -13,7 +13,7 @@ struct AustinMapView: View {
     @State private var isMoving = true
     var body: some View {
         VStack {
-            MapView(musicList: $musicList)b
+            MapView(musicList: $musicList)
             if isMoving {
                 if musicList.isEmpty {
                     ProgressView()
