@@ -46,8 +46,6 @@ extension Color {
             return Color(hex: "B3A7FF")
         case .secondary:
             return Color(hex: "2C2C5A")
-        default:
-            return Color(hex: "000")
         }
     }
 }
