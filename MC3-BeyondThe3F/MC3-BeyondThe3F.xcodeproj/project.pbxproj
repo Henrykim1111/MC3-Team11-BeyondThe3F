@@ -18,6 +18,8 @@
 		951691A42A663A4E0070D47C /* BucketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691A32A663A4E0070D47C /* BucketView.swift */; };
 		951691A62A663AE00070D47C /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691A52A663AE00070D47C /* MapView.swift */; };
 		951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691A92A663C6E0070D47C /* ColorExtension.swift */; };
+		951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691AB2A663E7C0070D47C /* TypoModifier.swift */; };
+		951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691AD2A663F9A0070D47C /* ViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		951691A32A663A4E0070D47C /* BucketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketView.swift; sourceTree = "<group>"; };
 		951691A52A663AE00070D47C /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		951691A92A663C6E0070D47C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		951691AB2A663E7C0070D47C /* TypoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoModifier.swift; sourceTree = "<group>"; };
+		951691AD2A663F9A0070D47C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 		9516919C2A6629B20070D47C /* Modifier */ = {
 			isa = PBXGroup;
 			children = (
+				951691AB2A663E7C0070D47C /* TypoModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				951691A92A663C6E0070D47C /* ColorExtension.swift */,
+				951691AD2A663F9A0070D47C /* ViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -238,8 +244,10 @@
 				951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
+				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
+				951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */,
 				951691A22A6639320070D47C /* MainTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
