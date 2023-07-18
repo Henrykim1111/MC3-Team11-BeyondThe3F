@@ -13,6 +13,7 @@
 		9516918A2A6629680070D47C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 951691892A6629680070D47C /* Preview Assets.xcassets */; };
 		9516918C2A6629680070D47C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9516918B2A6629680070D47C /* Persistence.swift */; };
 		9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9516918D2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld */; };
+		951691A02A6634C00070D47C /* DefaultCoreDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		9516918B2A6629680070D47C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		9516918E2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MC3_BeyondThe3F.xcdatamodel; sourceTree = "<group>"; };
 		951691902A6629680070D47C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCoreDataView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,9 +65,7 @@
 				951691962A6629790070D47C /* Global */,
 				951691822A6629670070D47C /* MC3_BeyondThe3FApp.swift */,
 				951691842A6629670070D47C /* ContentView.swift */,
-				951691862A6629680070D47C /* Assets.xcassets */,
 				951691902A6629680070D47C /* Info.plist */,
-				9516918D2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld */,
 				951691882A6629680070D47C /* Preview Content */,
 			);
 			path = "MC3-BeyondThe3F";
@@ -92,6 +92,7 @@
 		951691972A6629820070D47C /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				951691862A6629680070D47C /* Assets.xcassets */,
 				9516919A2A6629A10070D47C /* Font */,
 			);
 			path = Resource;
@@ -100,6 +101,7 @@
 		951691982A6629870070D47C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				9516918B2A6629680070D47C /* Persistence.swift */,
+				9516918D2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				951691A02A6634C00070D47C /* DefaultCoreDataView.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
