@@ -22,7 +22,7 @@ extension Color {
         self.init(red: r, green: g, blue: b)
     }
     
-    func custom(_ color: CustomColor) -> Color {
+    static func custom(_ color: CustomColor) -> Color {
         switch color{
         case .white:
             return Color(hex: "ffffff")

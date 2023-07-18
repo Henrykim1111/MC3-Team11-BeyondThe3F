@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct TitleModifier: ViewModifier {
-    var color: ColorEnum = .white
+    var color: CustomColor = .white
     
     func body(content: Content) -> some View {
         content
             .fontWeight(.heavy)
             .font(.system(size: 32))
-            .foregroundColor()
+            .foregroundColor(Color.custom(color))
     }
 }
