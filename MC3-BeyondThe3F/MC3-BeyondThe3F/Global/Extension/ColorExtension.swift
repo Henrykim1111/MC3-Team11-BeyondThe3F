@@ -27,26 +27,28 @@ extension Color {
         case .white:
             return Color(hex: "ffffff")
         case .gray100:
-            return Color(hex: "CECECF")
+            return Color(hex: "F6F6F6")
         case .gray200:
-            return Color(hex: "9C9C9F")
+            return Color(hex: "ECECEC")
         case .gray300:
-            return Color(hex: "6B6B70")
+            return Color(hex: "DFDFDF")
         case .gray400:
-            return Color(hex: "393940")
+            return Color(hex: "C2C2C2")
         case .gray500:
-            return Color(hex: "080810")
+            return Color(hex: "979797")
         case .gray600:
-            return Color(hex: "080816")
+            return Color(hex: "565656")
         case .gray700:
-            return Color(hex: "05050A")
+            return Color(hex: "2D2D2D")
         case .primary:
             return Color(hex: "7F6AFF")
-        case .primaryLight:
-            return Color(hex: "B3A7FF")
         case .secondary:
-            return Color(hex: "2C2C5A")
+            return Color(hex: "60618A")
+        case .secondaryDark:
+            return Color(hex: "262545")
+        
         }
+        
     }
 }
 
@@ -61,8 +63,8 @@ enum CustomColor {
     case gray700
     
     case primary
-    case primaryLight
     
     case secondary
+    case secondaryDark
 }
 

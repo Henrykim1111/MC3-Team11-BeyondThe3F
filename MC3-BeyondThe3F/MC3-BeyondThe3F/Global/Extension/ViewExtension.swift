@@ -8,8 +8,11 @@
 import SwiftUI
 
 extension View {
-    func title(color: CustomColor = .gray700) -> some View {
-        modifier(TitleModifier(color: color))
+    func title1(color: CustomColor = .gray700) -> some View {
+        modifier(Title1Modifier(color: color))
+    }
+    func title2(color: CustomColor = .gray700) -> some View {
+        modifier(Title2Modifier(color: color))
     }
     func headline(color: CustomColor = .gray700) -> some View {
         modifier(HeadlineModifier(color: color))
