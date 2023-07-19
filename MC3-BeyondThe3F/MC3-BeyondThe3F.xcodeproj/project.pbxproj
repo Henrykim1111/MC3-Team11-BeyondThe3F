@@ -20,6 +20,7 @@
 		951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691A92A663C6E0070D47C /* ColorExtension.swift */; };
 		951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691AB2A663E7C0070D47C /* TypoModifier.swift */; };
 		951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691AD2A663F9A0070D47C /* ViewExtension.swift */; };
+		95366C912A67F6310003556F /* MusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95366C902A67F6310003556F /* MusicItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		951691A92A663C6E0070D47C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		951691AB2A663E7C0070D47C /* TypoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoModifier.swift; sourceTree = "<group>"; };
 		951691AD2A663F9A0070D47C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		95366C902A67F6310003556F /* MusicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 		951691992A66298C0070D47C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				95366C902A67F6310003556F /* MusicItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
+				95366C912A67F6310003556F /* MusicItem.swift in Sources */,
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
