@@ -26,7 +26,7 @@ struct MapView_Previews: PreviewProvider {
 }
 
 let annotaionDummyData:[MusicItem] = [
-    MusicItem(musicId: "1004836383", latitude: 43.70564024126748,longitude: 142.37968945214223,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion0"),
+    MusicItem(musicId: "1004836383", latitude: 43.70564024126748,longitude: 142.37968945214223,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotationTest"),
     MusicItem(musicId: "1004836383", latitude: 43.81257464206404,longitude: 142.82112322464369,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion1"),
     MusicItem(musicId: "1004836383", latitude: 43.38416585162576,longitude: 141.7252598737476,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion2"),
     MusicItem(musicId: "1004836383", latitude: 45.29168643283501,longitude: 141.95286751470724,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion3")
@@ -130,7 +130,7 @@ class MusicAnnotationView: MKAnnotationView {
             image = UIImage(named: "annotationImage")
             return
         }
-        image = UIImage(named: "\(landmark.imageName ?? "annotationImage")")
+        image = resizeImage(imageName: landmark.imageName)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -140,6 +140,25 @@ class MusicAnnotationView: MKAnnotationView {
     override func prepareForDisplay() {
         super.prepareForDisplay()
         displayPriority = .defaultLow
+    }
+    private func resizeImage(imageName: String?) -> UIImage{
+        guard let imageNameString = imageName else {
+            return UIImage(named: "annotationImage")!
+        }
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
+        return renderer.image { ctx in
+            UIColor.white.setFill()
+            let rectWhite = CGRect(x: 0, y: 10, width: 64, height: 64)
+            let roundedWhite = UIBezierPath(roundedRect: rectWhite, cornerRadius: 10)
+            roundedWhite.addClip()
+            UIRectFill(rectWhite)
+            
+            let rect = CGRect(x: 5, y: 15, width: 54, height: 54)
+            let rounded = UIBezierPath(roundedRect: rect, cornerRadius: 7)
+            rounded.addClip()
+            let img = UIImage(named: imageNameString)
+            img?.draw(in: rect)
+        }
     }
 }
 
@@ -159,15 +178,22 @@ final class ClusteringAnnotationView: MKAnnotationView {
         super.prepareForDisplay()
         guard let cluster = annotation as? MKClusterAnnotation else { return }
         
-        self.image = self.drawRatio(cluster)
+        self.image = self.addClusterCount(drawRatio(cluster), cluster)
     }
     
     private func drawRatio(_ cluster: MKClusterAnnotation) -> UIImage {
         
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 70, height: 60))
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
         return renderer.image { ctx in
+            UIColor.white.setFill()
+            let rectWhite = CGRect(x: 0, y: 10, width: 64, height: 64)
+            let roundedWhite = UIBezierPath(roundedRect: rectWhite, cornerRadius: 10)
+            roundedWhite.addClip()
+            UIRectFill(rectWhite)
             
-            let rect = CGRect(x: 0, y: 10, width: 50, height: 50)
+            let rect = CGRect(x: 5, y: 15, width: 54, height: 54)
+            let rounded = UIBezierPath(roundedRect: rect, cornerRadius: 7)
+            rounded.addClip()
             if let landmark = cluster.memberAnnotations.first as? MusicAnnotation {
                 let img = UIImage(named: "\(landmark.imageName ?? "annotaionImage")")
                 img?.draw(in: rect)
@@ -175,16 +201,23 @@ final class ClusteringAnnotationView: MKAnnotationView {
                 let img = UIImage(named: "annotaionImage")
                 img?.draw(in: rect)
             }
-
-            UIColor.white.setFill()
+        }
+    }
+    private func addClusterCount(_ image:UIImage,_ cluster: MKClusterAnnotation) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
+        return renderer.image { ctx in
             
-            UIBezierPath(ovalIn: CGRect(x: 35, y: 0, width: 20, height: 20)).fill()
+            let rect = CGRect(x: 0, y: 0, width: 80, height: 80)
+            image.draw(in: rect)
+            UIColor(Color.custom(.primary)).setFill()
             
-            let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.darkGray,
-                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+            UIBezierPath(ovalIn: CGRect(x: 50, y: 5, width: 24, height: 24)).fill()
+            
+            let attributes = [ NSAttributedString.Key.foregroundColor: UIColor(Color.custom(.white)),
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
             let text = "\(cluster.memberAnnotations.count)"
             let size = text.size(withAttributes: attributes)
-            let textRect = CGRect(x: 40, y: 0, width: size.width, height: size.height)
+            let textRect = CGRect(x: 57, y: 7, width: size.width, height: size.height)
             text.draw(in: textRect, withAttributes: attributes)
         }
     }
