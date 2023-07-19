@@ -26,10 +26,4 @@ struct MusicItem: Identifiable, Hashable {
             longitude: longitude)
     }
 }
-let annotaionDummyData:[MusicItem] = [
-    MusicItem(musicId: "1004836383", latitude: 43.70564024126748,longitude: 142.37968945214223,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion0"),
-    MusicItem(musicId: "1004836383", latitude: 43.81257464206404,longitude: 142.82112322464369,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion1"),
-    MusicItem(musicId: "1004836383", latitude: 43.38416585162576,longitude: 141.7252598737476,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion2"),
-    MusicItem(musicId: "1004836383", latitude: 45.29168643283501,longitude: 141.95286751470724,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion3")
-]
-let startRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64422936785126, longitude: 142.39329541313924), span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 2))
+
