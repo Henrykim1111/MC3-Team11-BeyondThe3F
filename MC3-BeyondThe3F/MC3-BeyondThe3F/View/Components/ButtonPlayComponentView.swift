@@ -9,23 +9,17 @@ import SwiftUI
 
 struct ButtonPlayComponentView: View {
     var body: some View {
-        ZStack{
-            VStack {
-                
-            }
-                .frame(width: 48, height: 48)
-                .background(Color.custom(.primary))
-                .cornerRadius(100)
-            
-            VStack {
-                Image(systemName: "play.fill")
-                    
-                    .frame(width: 18, height: 24)
-                    .foregroundColor(Color.custom(.white))
-                    .offset(x: 1, y: 0)
-                    
-            }
+        VStack {
+            SFImageComponentView(
+                symbolName: .play,
+                color: .white,
+                width: 18,
+                height: 24)
+                .offset(x: 1, y: 0)
         }
+        .frame(width: 48, height: 48)
+        .background(Color.custom(.primary))
+        .cornerRadius(24)
     }
         
     

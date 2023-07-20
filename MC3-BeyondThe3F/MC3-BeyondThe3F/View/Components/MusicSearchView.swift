@@ -9,33 +9,41 @@ import SwiftUI
 
 struct MusicSearchView: View {
     @State private var textInput: String = ""
+    @State private var onSearching = false
+    
     var body: some View {
         HStack{
             HStack {
-                Image(systemName: "magnifyingglass")
+                SFImageComponentView(
+                    symbolName: onSearching ? .chevronBack : .magnifyingGlass,
+                    color: .white)
                 Spacer()
                     .frame(width: 20)
                 TextField("음악을 검색해보세요", text: $textInput)
+                    .onTapGesture {
+                        onSearching.toggle()
+                    }
+                    
+                    
                 Spacer()
-                Image(systemName: "mic.fill")
-                          
-
-                       
-                   }.padding()
-                .foregroundColor(.white)
-                .padding()
-                .frame(width: 350, height: 48)
-                .background(Color.custom(.secondaryDark))
-                .cornerRadius(4)
-                .colorScheme(.dark)
-                .accentColor(.white)
+                SFImageComponentView(symbolName: .mic, color: .white)
+            }
+            .padding()
+            .foregroundColor(.white)
+            .padding()
+            .frame(maxWidth: 350)
+            .frame(height: 48)
+            .background(Color.custom(.secondaryDark))
+            .cornerRadius(4)
+            .colorScheme(.dark)
+            .accentColor(.white)
+            
             Spacer()
-            Image(systemName: "gearshape.fill")
-                .foregroundColor(.white)
-               }
+            
+            SFImageComponentView(symbolName: .gearShape, color: .white)
         }
-        
     }
+}
 
 
 struct MusicSearchView_Previews: PreviewProvider {
