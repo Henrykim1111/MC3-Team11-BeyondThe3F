@@ -10,12 +10,6 @@
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
 		74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */; };
 		74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */; };
-		74EF8C8C2A67FCDD006B8DBC /* SavedBarComponentView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C8B2A67FCDD006B8DBC /* SavedBarComponentView1.swift */; };
-		74EF8C8E2A67FE45006B8DBC /* SavedBarComponentView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C8D2A67FE45006B8DBC /* SavedBarComponentView2.swift */; };
-		74EF8C902A67FE50006B8DBC /* SavedBarComponentView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C8F2A67FE50006B8DBC /* SavedBarComponentView3.swift */; };
-		74EF8C922A6802B5006B8DBC /* SaveButtonComponentView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C912A6802B5006B8DBC /* SaveButtonComponentView1.swift */; };
-		74EF8C942A6802C0006B8DBC /* SaveButtonComponentView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C932A6802C0006B8DBC /* SaveButtonComponentView2.swift */; };
-		74EF8C962A680365006B8DBC /* SaveAtThisLocationButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C952A680365006B8DBC /* SaveAtThisLocationButtonComponentView.swift */; };
 		74EF8C982A6804F4006B8DBC /* PlayButtonBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C972A6804F4006B8DBC /* PlayButtonBar.swift */; };
 		74EF8C9A2A683179006B8DBC /* RandomPlayButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C992A683179006B8DBC /* RandomPlayButtonComponentView.swift */; };
 		74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */; };
@@ -40,18 +34,13 @@
 		953BD74D2A68DE6C0047C21C /* MusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD74B2A68DE6C0047C21C /* MusicItem.swift */; };
 		953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD74E2A6910480047C21C /* SFImageComponentView.swift */; };
 		953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7502A6919370047C21C /* SmallButtonComponentView.swift */; };
+		953BD7532A69234D0047C21C /* PrimaryButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7522A69234D0047C21C /* PrimaryButtonComponentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
 		74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPlayComponentView.swift; sourceTree = "<group>"; };
 		74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinLocationComponentView.swift; sourceTree = "<group>"; };
-		74EF8C8B2A67FCDD006B8DBC /* SavedBarComponentView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedBarComponentView1.swift; sourceTree = "<group>"; };
-		74EF8C8D2A67FE45006B8DBC /* SavedBarComponentView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedBarComponentView2.swift; sourceTree = "<group>"; };
-		74EF8C8F2A67FE50006B8DBC /* SavedBarComponentView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedBarComponentView3.swift; sourceTree = "<group>"; };
-		74EF8C912A6802B5006B8DBC /* SaveButtonComponentView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButtonComponentView1.swift; sourceTree = "<group>"; };
-		74EF8C932A6802C0006B8DBC /* SaveButtonComponentView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButtonComponentView2.swift; sourceTree = "<group>"; };
-		74EF8C952A680365006B8DBC /* SaveAtThisLocationButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAtThisLocationButtonComponentView.swift; sourceTree = "<group>"; };
 		74EF8C972A6804F4006B8DBC /* PlayButtonBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButtonBar.swift; sourceTree = "<group>"; };
 		74EF8C992A683179006B8DBC /* RandomPlayButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPlayButtonComponentView.swift; sourceTree = "<group>"; };
 		74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchView.swift; sourceTree = "<group>"; };
@@ -78,6 +67,7 @@
 		953BD74B2A68DE6C0047C21C /* MusicItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicItem.swift; sourceTree = "<group>"; };
 		953BD74E2A6910480047C21C /* SFImageComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageComponentView.swift; sourceTree = "<group>"; };
 		953BD7502A6919370047C21C /* SmallButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallButtonComponentView.swift; sourceTree = "<group>"; };
+		953BD7522A69234D0047C21C /* PrimaryButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonComponentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,14 +86,9 @@
 			children = (
 				953BD74E2A6910480047C21C /* SFImageComponentView.swift */,
 				953BD7502A6919370047C21C /* SmallButtonComponentView.swift */,
+				953BD7522A69234D0047C21C /* PrimaryButtonComponentView.swift */,
 				74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */,
 				74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */,
-				74EF8C8B2A67FCDD006B8DBC /* SavedBarComponentView1.swift */,
-				74EF8C8D2A67FE45006B8DBC /* SavedBarComponentView2.swift */,
-				74EF8C8F2A67FE50006B8DBC /* SavedBarComponentView3.swift */,
-				74EF8C912A6802B5006B8DBC /* SaveButtonComponentView1.swift */,
-				74EF8C932A6802C0006B8DBC /* SaveButtonComponentView2.swift */,
-				74EF8C952A680365006B8DBC /* SaveAtThisLocationButtonComponentView.swift */,
 				74EF8C972A6804F4006B8DBC /* PlayButtonBar.swift */,
 				74EF8C992A683179006B8DBC /* RandomPlayButtonComponentView.swift */,
 				74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */,
@@ -307,13 +292,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				953BD7532A69234D0047C21C /* PrimaryButtonComponentView.swift in Sources */,
 				953BD74D2A68DE6C0047C21C /* MusicItem.swift in Sources */,
-				74EF8C942A6802C0006B8DBC /* SaveButtonComponentView2.swift in Sources */,
 				951691A42A663A4E0070D47C /* BucketView.swift in Sources */,
 				951691A62A663AE00070D47C /* MapView.swift in Sources */,
 				951691A02A6634C00070D47C /* DefaultCoreDataView.swift in Sources */,
-				74EF8C8C2A67FCDD006B8DBC /* SavedBarComponentView1.swift in Sources */,
-				74EF8C962A680365006B8DBC /* SaveAtThisLocationButtonComponentView.swift in Sources */,
 				951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
 				74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */,
@@ -324,10 +307,8 @@
 				74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */,
 				74EF8C9E2A683755006B8DBC /* MusicSearchView2.swift in Sources */,
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
-				74EF8C8E2A67FE45006B8DBC /* SavedBarComponentView2.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
-				74EF8C902A67FE50006B8DBC /* SavedBarComponentView3.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
@@ -336,7 +317,6 @@
 				74EF8C9A2A683179006B8DBC /* RandomPlayButtonComponentView.swift in Sources */,
 				74EF8C982A6804F4006B8DBC /* PlayButtonBar.swift in Sources */,
 				951691A22A6639320070D47C /* MainTabView.swift in Sources */,
-				74EF8C922A6802B5006B8DBC /* SaveButtonComponentView1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
