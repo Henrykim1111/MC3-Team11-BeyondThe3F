@@ -40,7 +40,7 @@ struct MapUIKitView: UIViewRepresentable {
     @State var region = startRegion
     @Binding var musicList: [MusicItem]
 
-    var annotaionDataList = annotaionDummyData
+    private let annotaionDataList = annotaionDummyData
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapUIKitView
