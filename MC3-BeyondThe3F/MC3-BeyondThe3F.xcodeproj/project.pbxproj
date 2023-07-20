@@ -7,28 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		74167D132A678C9200F5C691 /* CameraComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D122A678C9200F5C691 /* CameraComponentView.swift */; };
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
-		74167D172A678E0000F5C691 /* PlayButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D162A678E0000F5C691 /* PlayButtonComponentView.swift */; };
-		74EF8C602A67A688006B8DBC /* ShuffleComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C5F2A67A688006B8DBC /* ShuffleComponentView.swift */; };
-		74EF8C622A67B97E006B8DBC /* ChevronForwardComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C612A67B97E006B8DBC /* ChevronForwardComponentView.swift */; };
-		74EF8C642A67BB9B006B8DBC /* ChevronBackwardComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C632A67BB9B006B8DBC /* ChevronBackwardComponentView.swift */; };
-		74EF8C662A67BBFA006B8DBC /* MagnifyingGlassComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C652A67BBFA006B8DBC /* MagnifyingGlassComponentView.swift */; };
-		74EF8C682A67BD62006B8DBC /* MicComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C672A67BD62006B8DBC /* MicComponentView.swift */; };
-		74EF8C6A2A67BE53006B8DBC /* GearShapeComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C692A67BE53006B8DBC /* GearShapeComponentView.swift */; };
-		74EF8C6C2A67BEB5006B8DBC /* ScopeComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C6B2A67BEB5006B8DBC /* ScopeComponentView.swift */; };
-		74EF8C6E2A67C097006B8DBC /* TrayComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C6D2A67C097006B8DBC /* TrayComponentView.swift */; };
-		74EF8C702A67C0EF006B8DBC /* MapComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C6F2A67C0EF006B8DBC /* MapComponentView.swift */; };
-		74EF8C722A67C150006B8DBC /* CancelComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C712A67C150006B8DBC /* CancelComponentView.swift */; };
 		74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */; };
-		74EF8C762A67C51E006B8DBC /* PlayLargeComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C752A67C51E006B8DBC /* PlayLargeComponentView.swift */; };
-		74EF8C782A67C8E5006B8DBC /* ForwardComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C772A67C8E5006B8DBC /* ForwardComponentView.swift */; };
-		74EF8C7A2A67CA48006B8DBC /* ListComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C792A67CA48006B8DBC /* ListComponentView.swift */; };
-		74EF8C7C2A67CAC0006B8DBC /* EllipsisComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C7B2A67CAC0006B8DBC /* EllipsisComponentView.swift */; };
-		74EF8C7E2A67CE19006B8DBC /* PlusComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C7D2A67CE19006B8DBC /* PlusComponentView.swift */; };
-		74EF8C802A67D05B006B8DBC /* IcloudAndArrowDownComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C7F2A67D05B006B8DBC /* IcloudAndArrowDownComponentView.swift */; };
 		74EF8C822A67D0E0006B8DBC /* CameraButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C812A67D0E0006B8DBC /* CameraButtonComponentView.swift */; };
-		74EF8C842A67D176006B8DBC /* PhotoComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C832A67D176006B8DBC /* PhotoComponentView.swift */; };
 		74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */; };
 		74EF8C882A67D517006B8DBC /* GalleryButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C872A67D517006B8DBC /* GalleryButtonComponentView.swift */; };
 		74EF8C8A2A67D5FC006B8DBC /* AlbumCoverButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C892A67D5FC006B8DBC /* AlbumCoverButtonComponentView.swift */; };
@@ -64,28 +45,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		74167D122A678C9200F5C691 /* CameraComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraComponentView.swift; sourceTree = "<group>"; };
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
-		74167D162A678E0000F5C691 /* PlayButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButtonComponentView.swift; sourceTree = "<group>"; };
-		74EF8C5F2A67A688006B8DBC /* ShuffleComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleComponentView.swift; sourceTree = "<group>"; };
-		74EF8C612A67B97E006B8DBC /* ChevronForwardComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronForwardComponentView.swift; sourceTree = "<group>"; };
-		74EF8C632A67BB9B006B8DBC /* ChevronBackwardComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronBackwardComponentView.swift; sourceTree = "<group>"; };
-		74EF8C652A67BBFA006B8DBC /* MagnifyingGlassComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnifyingGlassComponentView.swift; sourceTree = "<group>"; };
-		74EF8C672A67BD62006B8DBC /* MicComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicComponentView.swift; sourceTree = "<group>"; };
-		74EF8C692A67BE53006B8DBC /* GearShapeComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearShapeComponentView.swift; sourceTree = "<group>"; };
-		74EF8C6B2A67BEB5006B8DBC /* ScopeComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeComponentView.swift; sourceTree = "<group>"; };
-		74EF8C6D2A67C097006B8DBC /* TrayComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayComponentView.swift; sourceTree = "<group>"; };
-		74EF8C6F2A67C0EF006B8DBC /* MapComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapComponentView.swift; sourceTree = "<group>"; };
-		74EF8C712A67C150006B8DBC /* CancelComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelComponentView.swift; sourceTree = "<group>"; };
 		74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPlayComponentView.swift; sourceTree = "<group>"; };
-		74EF8C752A67C51E006B8DBC /* PlayLargeComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayLargeComponentView.swift; sourceTree = "<group>"; };
-		74EF8C772A67C8E5006B8DBC /* ForwardComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardComponentView.swift; sourceTree = "<group>"; };
-		74EF8C792A67CA48006B8DBC /* ListComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListComponentView.swift; sourceTree = "<group>"; };
-		74EF8C7B2A67CAC0006B8DBC /* EllipsisComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipsisComponentView.swift; sourceTree = "<group>"; };
-		74EF8C7D2A67CE19006B8DBC /* PlusComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusComponentView.swift; sourceTree = "<group>"; };
-		74EF8C7F2A67D05B006B8DBC /* IcloudAndArrowDownComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IcloudAndArrowDownComponentView.swift; sourceTree = "<group>"; };
 		74EF8C812A67D0E0006B8DBC /* CameraButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonComponentView.swift; sourceTree = "<group>"; };
-		74EF8C832A67D176006B8DBC /* PhotoComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoComponentView.swift; sourceTree = "<group>"; };
 		74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinLocationComponentView.swift; sourceTree = "<group>"; };
 		74EF8C872A67D517006B8DBC /* GalleryButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryButtonComponentView.swift; sourceTree = "<group>"; };
 		74EF8C892A67D5FC006B8DBC /* AlbumCoverButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCoverButtonComponentView.swift; sourceTree = "<group>"; };
@@ -137,26 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				953BD74E2A6910480047C21C /* SFImageComponentView.swift */,
-				74167D162A678E0000F5C691 /* PlayButtonComponentView.swift */,
-				74EF8C5F2A67A688006B8DBC /* ShuffleComponentView.swift */,
-				74EF8C612A67B97E006B8DBC /* ChevronForwardComponentView.swift */,
-				74EF8C632A67BB9B006B8DBC /* ChevronBackwardComponentView.swift */,
-				74EF8C652A67BBFA006B8DBC /* MagnifyingGlassComponentView.swift */,
-				74EF8C672A67BD62006B8DBC /* MicComponentView.swift */,
-				74EF8C692A67BE53006B8DBC /* GearShapeComponentView.swift */,
-				74EF8C6B2A67BEB5006B8DBC /* ScopeComponentView.swift */,
-				74EF8C6D2A67C097006B8DBC /* TrayComponentView.swift */,
-				74EF8C6F2A67C0EF006B8DBC /* MapComponentView.swift */,
-				74EF8C712A67C150006B8DBC /* CancelComponentView.swift */,
 				74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */,
-				74EF8C752A67C51E006B8DBC /* PlayLargeComponentView.swift */,
-				74EF8C772A67C8E5006B8DBC /* ForwardComponentView.swift */,
-				74EF8C792A67CA48006B8DBC /* ListComponentView.swift */,
-				74EF8C7B2A67CAC0006B8DBC /* EllipsisComponentView.swift */,
-				74EF8C7D2A67CE19006B8DBC /* PlusComponentView.swift */,
-				74EF8C7F2A67D05B006B8DBC /* IcloudAndArrowDownComponentView.swift */,
-				74167D122A678C9200F5C691 /* CameraComponentView.swift */,
-				74EF8C832A67D176006B8DBC /* PhotoComponentView.swift */,
 				74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */,
 				74EF8C812A67D0E0006B8DBC /* CameraButtonComponentView.swift */,
 				74EF8C872A67D517006B8DBC /* GalleryButtonComponentView.swift */,
@@ -371,56 +314,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				953BD74D2A68DE6C0047C21C /* MusicItem.swift in Sources */,
-				74EF8C7A2A67CA48006B8DBC /* ListComponentView.swift in Sources */,
 				74EF8C942A6802C0006B8DBC /* SaveButtonComponentView2.swift in Sources */,
-				74EF8C722A67C150006B8DBC /* CancelComponentView.swift in Sources */,
 				951691A42A663A4E0070D47C /* BucketView.swift in Sources */,
-				74EF8C602A67A688006B8DBC /* ShuffleComponentView.swift in Sources */,
-				74EF8C842A67D176006B8DBC /* PhotoComponentView.swift in Sources */,
-				74EF8C6E2A67C097006B8DBC /* TrayComponentView.swift in Sources */,
 				951691A62A663AE00070D47C /* MapView.swift in Sources */,
 				951691A02A6634C00070D47C /* DefaultCoreDataView.swift in Sources */,
 				74EF8C8C2A67FCDD006B8DBC /* SavedBarComponentView1.swift in Sources */,
-				74EF8C762A67C51E006B8DBC /* PlayLargeComponentView.swift in Sources */,
 				74EF8C962A680365006B8DBC /* SaveAtThisLocationButtonComponentView.swift in Sources */,
 				951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
-				74EF8C802A67D05B006B8DBC /* IcloudAndArrowDownComponentView.swift in Sources */,
 				74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */,
 				74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */,
-				74EF8C622A67B97E006B8DBC /* ChevronForwardComponentView.swift in Sources */,
 				74EF8C822A67D0E0006B8DBC /* CameraButtonComponentView.swift in Sources */,
 				74EF8CA02A68B751006B8DBC /* PauseComponentView.swift in Sources */,
-				74EF8C6C2A67BEB5006B8DBC /* ScopeComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
 				74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */,
-				74EF8C782A67C8E5006B8DBC /* ForwardComponentView.swift in Sources */,
 				74EF8C9E2A683755006B8DBC /* MusicSearchView2.swift in Sources */,
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
 				74EF8C8E2A67FE45006B8DBC /* SavedBarComponentView2.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				74EF8C882A67D517006B8DBC /* GalleryButtonComponentView.swift in Sources */,
-				74167D172A678E0000F5C691 /* PlayButtonComponentView.swift in Sources */,
 				74EF8C902A67FE50006B8DBC /* SavedBarComponentView3.swift in Sources */,
-				74EF8C702A67C0EF006B8DBC /* MapComponentView.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
 				74EF8C8A2A67D5FC006B8DBC /* AlbumCoverButtonComponentView.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
-				74EF8C7C2A67CAC0006B8DBC /* EllipsisComponentView.swift in Sources */,
 				74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */,
-				74EF8C682A67BD62006B8DBC /* MicComponentView.swift in Sources */,
 				951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */,
 				74EF8C9A2A683179006B8DBC /* RandomPlayButtonComponentView.swift in Sources */,
 				74EF8C982A6804F4006B8DBC /* PlayButtonBar.swift in Sources */,
-				74EF8C662A67BBFA006B8DBC /* MagnifyingGlassComponentView.swift in Sources */,
 				951691A22A6639320070D47C /* MainTabView.swift in Sources */,
 				74EF8C922A6802B5006B8DBC /* SaveButtonComponentView1.swift in Sources */,
-				74EF8C7E2A67CE19006B8DBC /* PlusComponentView.swift in Sources */,
-				74EF8C6A2A67BE53006B8DBC /* GearShapeComponentView.swift in Sources */,
-				74167D132A678C9200F5C691 /* CameraComponentView.swift in Sources */,
-				74EF8C642A67BB9B006B8DBC /* ChevronBackwardComponentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

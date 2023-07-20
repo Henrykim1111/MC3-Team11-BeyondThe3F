@@ -20,6 +20,13 @@ struct SFImageComponentView: View {
         case tray
         case map
         case cancel
+        case forward
+        case list
+        case ellipsis
+        case plus
+        case icloud
+        case camera
+        case photo
         
         var name: String {
             switch self {
@@ -45,6 +52,20 @@ struct SFImageComponentView: View {
                 return "map.fill"
             case .cancel:
                 return "xmark"
+            case .forward:
+                return "forward.fill"
+            case .list:
+                return "list.bullet"
+            case .ellipsis:
+                return "ellipsis"
+            case .plus:
+                return "plus"
+            case .icloud:
+                return "icloud.and.arrow.down.fill"
+            case .camera:
+                return "camera.fill"
+            case .photo:
+                return "photo"
             }
         }
     }
