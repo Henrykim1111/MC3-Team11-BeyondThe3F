@@ -31,7 +31,8 @@ struct PrimaryButtonComponentView: View {
     var body: some View {
         Text(buttonType.content)
             .foregroundColor(Color.custom(foregroundColor))
-            .frame(width: 350, height: 48)
+            .frame(maxWidth: 350)
+            .frame(height: 48)
             .background(Color.custom(backgroundColor))
             .cornerRadius(4)
             .opacity(buttonType == .saved ? 0.9 : 1)

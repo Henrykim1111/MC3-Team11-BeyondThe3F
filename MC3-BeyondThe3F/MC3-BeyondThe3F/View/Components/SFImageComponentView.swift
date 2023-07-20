@@ -25,6 +25,7 @@ enum SFImageType: String {
     case icloud
     case camera
     case photo
+    case pause
     
     var name: String {
         switch self {
@@ -64,6 +65,8 @@ enum SFImageType: String {
             return "camera.fill"
         case .photo:
             return "photo"
+        case .pause:
+            return "pause.fill"
         }
     }
 }
