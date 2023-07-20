@@ -10,6 +10,11 @@
 		74167D132A678C9200F5C691 /* CameraComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D122A678C9200F5C691 /* CameraComponentView.swift */; };
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
 		74167D172A678E0000F5C691 /* PlayButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D162A678E0000F5C691 /* PlayButtonComponentView.swift */; };
+		743C7C5C2A691665003B3D88 /* MusicListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743C7C5B2A691665003B3D88 /* MusicListRowView.swift */; };
+		74BF13482A68FD5F00AEBE75 /* MusicPlayerComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BF13472A68FD5F00AEBE75 /* MusicPlayerComponentView.swift */; };
+		74BF134A2A6909B700AEBE75 /* ContentsSmallComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BF13492A6909B700AEBE75 /* ContentsSmallComponentView.swift */; };
+		74BF134C2A690A4A00AEBE75 /* TapeComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BF134B2A690A4A00AEBE75 /* TapeComponentView.swift */; };
+		74BF134E2A690CD400AEBE75 /* ScopeButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BF134D2A690CD400AEBE75 /* ScopeButtonComponentView.swift */; };
 		74EF8C602A67A688006B8DBC /* ShuffleComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C5F2A67A688006B8DBC /* ShuffleComponentView.swift */; };
 		74EF8C622A67B97E006B8DBC /* ChevronForwardComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C612A67B97E006B8DBC /* ChevronForwardComponentView.swift */; };
 		74EF8C642A67BB9B006B8DBC /* ChevronBackwardComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C632A67BB9B006B8DBC /* ChevronBackwardComponentView.swift */; };
@@ -63,6 +68,11 @@
 		74167D122A678C9200F5C691 /* CameraComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraComponentView.swift; sourceTree = "<group>"; };
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
 		74167D162A678E0000F5C691 /* PlayButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButtonComponentView.swift; sourceTree = "<group>"; };
+		743C7C5B2A691665003B3D88 /* MusicListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListRowView.swift; sourceTree = "<group>"; };
+		74BF13472A68FD5F00AEBE75 /* MusicPlayerComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerComponentView.swift; sourceTree = "<group>"; };
+		74BF13492A6909B700AEBE75 /* ContentsSmallComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsSmallComponentView.swift; sourceTree = "<group>"; };
+		74BF134B2A690A4A00AEBE75 /* TapeComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapeComponentView.swift; sourceTree = "<group>"; };
+		74BF134D2A690CD400AEBE75 /* ScopeButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeButtonComponentView.swift; sourceTree = "<group>"; };
 		74EF8C5F2A67A688006B8DBC /* ShuffleComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleComponentView.swift; sourceTree = "<group>"; };
 		74EF8C612A67B97E006B8DBC /* ChevronForwardComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronForwardComponentView.swift; sourceTree = "<group>"; };
 		74EF8C632A67BB9B006B8DBC /* ChevronBackwardComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronBackwardComponentView.swift; sourceTree = "<group>"; };
@@ -141,8 +151,8 @@
 				74EF8C712A67C150006B8DBC /* CancelComponentView.swift */,
 				74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */,
 				74EF8C752A67C51E006B8DBC /* PlayLargeComponentView.swift */,
-				74EF8C772A67C8E5006B8DBC /* ForwardComponentView.swift */,
 				74EF8C792A67CA48006B8DBC /* ListComponentView.swift */,
+				74EF8C772A67C8E5006B8DBC /* ForwardComponentView.swift */,
 				74EF8C7B2A67CAC0006B8DBC /* EllipsisComponentView.swift */,
 				74EF8C7D2A67CE19006B8DBC /* PlusComponentView.swift */,
 				74EF8C7F2A67D05B006B8DBC /* IcloudAndArrowDownComponentView.swift */,
@@ -164,6 +174,11 @@
 				74EF8C9D2A683755006B8DBC /* MusicSearchView2.swift */,
 				74EF8C9F2A68B751006B8DBC /* PauseComponentView.swift */,
 				74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */,
+				74BF13492A6909B700AEBE75 /* ContentsSmallComponentView.swift */,
+				74BF13472A68FD5F00AEBE75 /* MusicPlayerComponentView.swift */,
+				74BF134B2A690A4A00AEBE75 /* TapeComponentView.swift */,
+				74BF134D2A690CD400AEBE75 /* ScopeButtonComponentView.swift */,
+				743C7C5B2A691665003B3D88 /* MusicListRowView.swift */,
 				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
 			);
 			path = Components;
@@ -232,8 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				74167D112A678A2000F5C691 /* Components */,
-				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 				951691A12A6639320070D47C /* MainTabView.swift */,
+				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 				951691A32A663A4E0070D47C /* BucketView.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
 			);
@@ -376,6 +391,7 @@
 				74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */,
 				74EF8C622A67B97E006B8DBC /* ChevronForwardComponentView.swift in Sources */,
 				74EF8C822A67D0E0006B8DBC /* CameraButtonComponentView.swift in Sources */,
+				743C7C5C2A691665003B3D88 /* MusicListRowView.swift in Sources */,
 				74EF8CA02A68B751006B8DBC /* PauseComponentView.swift in Sources */,
 				74EF8C6C2A67BEB5006B8DBC /* ScopeComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
@@ -383,12 +399,14 @@
 				74EF8C782A67C8E5006B8DBC /* ForwardComponentView.swift in Sources */,
 				74EF8C9E2A683755006B8DBC /* MusicSearchView2.swift in Sources */,
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
+				74BF134A2A6909B700AEBE75 /* ContentsSmallComponentView.swift in Sources */,
 				74EF8C8E2A67FE45006B8DBC /* SavedBarComponentView2.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
 				74EF8C882A67D517006B8DBC /* GalleryButtonComponentView.swift in Sources */,
 				74167D172A678E0000F5C691 /* PlayButtonComponentView.swift in Sources */,
 				74EF8C902A67FE50006B8DBC /* SavedBarComponentView3.swift in Sources */,
 				74EF8C702A67C0EF006B8DBC /* MapComponentView.swift in Sources */,
+				74BF134E2A690CD400AEBE75 /* ScopeButtonComponentView.swift in Sources */,
 				74EF8C8A2A67D5FC006B8DBC /* AlbumCoverButtonComponentView.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
@@ -398,11 +416,13 @@
 				951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */,
 				74EF8C9A2A683179006B8DBC /* RandomPlayButtonComponentView.swift in Sources */,
 				74EF8C982A6804F4006B8DBC /* PlayButtonBar.swift in Sources */,
+				74BF13482A68FD5F00AEBE75 /* MusicPlayerComponentView.swift in Sources */,
 				74EF8C662A67BBFA006B8DBC /* MagnifyingGlassComponentView.swift in Sources */,
 				951691A22A6639320070D47C /* MainTabView.swift in Sources */,
 				74EF8C922A6802B5006B8DBC /* SaveButtonComponentView1.swift in Sources */,
 				74EF8C7E2A67CE19006B8DBC /* PlusComponentView.swift in Sources */,
 				74EF8C6A2A67BE53006B8DBC /* GearShapeComponentView.swift in Sources */,
+				74BF134C2A690A4A00AEBE75 /* TapeComponentView.swift in Sources */,
 				74167D132A678C9200F5C691 /* CameraComponentView.swift in Sources */,
 				74EF8C642A67BB9B006B8DBC /* ChevronBackwardComponentView.swift in Sources */,
 			);
