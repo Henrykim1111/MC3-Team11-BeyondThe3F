@@ -57,6 +57,9 @@
 		951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691A92A663C6E0070D47C /* ColorExtension.swift */; };
 		951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691AB2A663E7C0070D47C /* TypoModifier.swift */; };
 		951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691AD2A663F9A0070D47C /* ViewExtension.swift */; };
+		95366C952A67F9690003556F /* TestImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95366C942A67F9690003556F /* TestImage.xcassets */; };
+		953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD74A2A68DE6C0047C21C /* MusicAnnotation.swift */; };
+		953BD74D2A68DE6C0047C21C /* MusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD74B2A68DE6C0047C21C /* MusicItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +115,9 @@
 		951691A92A663C6E0070D47C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		951691AB2A663E7C0070D47C /* TypoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoModifier.swift; sourceTree = "<group>"; };
 		951691AD2A663F9A0070D47C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		95366C942A67F9690003556F /* TestImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TestImage.xcassets; sourceTree = "<group>"; };
+		953BD74A2A68DE6C0047C21C /* MusicAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicAnnotation.swift; sourceTree = "<group>"; };
+		953BD74B2A68DE6C0047C21C /* MusicItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +230,7 @@
 			children = (
 				951691862A6629680070D47C /* Image.xcassets */,
 				9516919A2A6629A10070D47C /* Font */,
+				95366C942A67F9690003556F /* TestImage.xcassets */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -243,6 +250,8 @@
 		951691992A66298C0070D47C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				953BD74A2A68DE6C0047C21C /* MusicAnnotation.swift */,
+				953BD74B2A68DE6C0047C21C /* MusicItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -346,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9516918A2A6629680070D47C /* Preview Assets.xcassets in Resources */,
+				95366C952A67F9690003556F /* TestImage.xcassets in Resources */,
 				951691872A6629680070D47C /* Image.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				953BD74D2A68DE6C0047C21C /* MusicItem.swift in Sources */,
 				74EF8C7A2A67CA48006B8DBC /* ListComponentView.swift in Sources */,
 				74EF8C942A6802C0006B8DBC /* SaveButtonComponentView2.swift in Sources */,
 				74EF8C722A67C150006B8DBC /* CancelComponentView.swift in Sources */,
@@ -385,6 +396,7 @@
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
 				74EF8C8E2A67FE45006B8DBC /* SavedBarComponentView2.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
+				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				74EF8C882A67D517006B8DBC /* GalleryButtonComponentView.swift in Sources */,
 				74167D172A678E0000F5C691 /* PlayButtonComponentView.swift in Sources */,
 				74EF8C902A67FE50006B8DBC /* SavedBarComponentView3.swift in Sources */,
@@ -536,6 +548,8 @@
 				DEVELOPMENT_TEAM = 333J2S2AQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치를 언제 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -565,6 +579,8 @@
 				DEVELOPMENT_TEAM = 333J2S2AQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치를 언제 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
