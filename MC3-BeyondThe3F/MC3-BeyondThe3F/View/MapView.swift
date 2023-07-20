@@ -7,10 +7,13 @@
 
 import SwiftUI
 import MapKit
+import CoreLocation
 
 struct MapView: View {
     @State private var musicList: [MusicItem] = []
     @State private var isMoving = true
+    let locationManager = CLLocationManager()
+    
     var body: some View {
         VStack {
             MapUIKitView(musicList: $musicList)
@@ -93,6 +96,8 @@ struct MapUIKitView: UIViewRepresentable {
             let annotation = MusicAnnotation(annotaionData)
             view.addAnnotation(annotation)
         }
+        view.showsUserLocation = true
+        view.setUserTrackingMode(.follow, animated: true)
         
         return view
         
@@ -110,9 +115,6 @@ extension MKMapView {
         return self.annotations(in: self.visibleMapRect).map { obj -> MKAnnotation in return obj as! MKAnnotation }
     }
 }
-
-
-
 
 /// here posible to customize annotation view
 let clusterID = "clustering"
@@ -141,6 +143,7 @@ class MusicAnnotationView: MKAnnotationView {
         super.prepareForDisplay()
         displayPriority = .defaultLow
     }
+    
     private func resizeImage(imageName: String?) -> UIImage{
         guard let imageNameString = imageName else {
             return UIImage(named: "annotationImage")!
@@ -203,6 +206,7 @@ final class ClusteringAnnotationView: MKAnnotationView {
             }
         }
     }
+    
     private func addClusterCount(_ image:UIImage,_ cluster: MKClusterAnnotation) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
         return renderer.image { ctx in
