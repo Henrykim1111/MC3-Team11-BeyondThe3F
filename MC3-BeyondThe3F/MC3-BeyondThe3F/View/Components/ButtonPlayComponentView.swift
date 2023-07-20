@@ -26,7 +26,7 @@ struct ButtonPlayComponentView: View {
                     
             }
         }
-        }
+    }
         
     
     struct ButtonPlayComponentView_Previews: PreviewProvider {
