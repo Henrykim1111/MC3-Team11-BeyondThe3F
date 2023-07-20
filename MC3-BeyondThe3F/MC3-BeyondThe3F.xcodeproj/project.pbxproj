@@ -86,6 +86,11 @@
 				74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */,
 				74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */,
 				74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */,
+				74BF13492A6909B700AEBE75 /* ContentsSmallComponentView.swift */,
+				74BF13472A68FD5F00AEBE75 /* MusicPlayerComponentView.swift */,
+				74BF134B2A690A4A00AEBE75 /* TapeComponentView.swift */,
+				74BF134D2A690CD400AEBE75 /* ScopeButtonComponentView.swift */,
+				743C7C5B2A691665003B3D88 /* MusicListRowView.swift */,
 				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
 			);
 			path = Components;
@@ -155,8 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				74167D112A678A2000F5C691 /* Components */,
-				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 				951691A12A6639320070D47C /* MainTabView.swift */,
+				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 				951691A32A663A4E0070D47C /* BucketView.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
 			);
