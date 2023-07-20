@@ -11,7 +11,6 @@ struct GearShapeComponentView: View {
     var color: CustomColor = .white
     var body: some View {
         Image(systemName: "gearshape.fill")
-            
             .frame(width: 24, height: 24)
             .foregroundColor(Color.custom(color))
     }

@@ -60,6 +60,7 @@
 		95366C952A67F9690003556F /* TestImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95366C942A67F9690003556F /* TestImage.xcassets */; };
 		953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD74A2A68DE6C0047C21C /* MusicAnnotation.swift */; };
 		953BD74D2A68DE6C0047C21C /* MusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD74B2A68DE6C0047C21C /* MusicItem.swift */; };
+		953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD74E2A6910480047C21C /* SFImageComponentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +119,7 @@
 		95366C942A67F9690003556F /* TestImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TestImage.xcassets; sourceTree = "<group>"; };
 		953BD74A2A68DE6C0047C21C /* MusicAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicAnnotation.swift; sourceTree = "<group>"; };
 		953BD74B2A68DE6C0047C21C /* MusicItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicItem.swift; sourceTree = "<group>"; };
+		953BD74E2A6910480047C21C /* SFImageComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageComponentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 		74167D112A678A2000F5C691 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				953BD74E2A6910480047C21C /* SFImageComponentView.swift */,
 				74167D162A678E0000F5C691 /* PlayButtonComponentView.swift */,
 				74EF8C5F2A67A688006B8DBC /* ShuffleComponentView.swift */,
 				74EF8C612A67B97E006B8DBC /* ChevronForwardComponentView.swift */,
@@ -401,6 +404,7 @@
 				74167D172A678E0000F5C691 /* PlayButtonComponentView.swift in Sources */,
 				74EF8C902A67FE50006B8DBC /* SavedBarComponentView3.swift in Sources */,
 				74EF8C702A67C0EF006B8DBC /* MapComponentView.swift in Sources */,
+				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
 				74EF8C8A2A67D5FC006B8DBC /* AlbumCoverButtonComponentView.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,

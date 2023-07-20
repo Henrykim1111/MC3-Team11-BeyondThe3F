@@ -11,7 +11,6 @@ struct PlayButtonComponentView: View {
     var color: CustomColor = .white
     var body: some View {
         Image(systemName: "play.fill")
-            
             .frame(width: 24, height: 24)
             .foregroundColor(Color.custom(color))
     }

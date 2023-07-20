@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct ScopeComponentView: View {
-    var color: CustomColor = .white
+    var color: CustomColor = .gray700
     var body: some View {
         Image(systemName: "scope")
-           
             .frame(width: 24, height: 24)
             .foregroundColor(Color.custom(color))
     }

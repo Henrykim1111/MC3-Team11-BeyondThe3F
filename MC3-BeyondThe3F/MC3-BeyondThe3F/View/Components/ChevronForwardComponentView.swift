@@ -11,14 +11,13 @@ struct ChevronForwardComponentView: View {
     var color: CustomColor = .white
     var body: some View {
         Image(systemName: "chevron.forward")
-            
             .frame(width: 24, height: 24)
             .foregroundColor(Color.custom(color))
     }
 }
-    struct ChevronForwardComponentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ChevronForwardComponentView()
-        }
+struct ChevronForwardComponentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChevronForwardComponentView()
     }
+}
 

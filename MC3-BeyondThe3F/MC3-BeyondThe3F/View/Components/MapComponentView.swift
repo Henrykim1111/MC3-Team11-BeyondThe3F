@@ -10,8 +10,7 @@ import SwiftUI
 struct MapComponentView: View {
     var color: CustomColor = .white
     var body: some View {
-        Image(systemName: "map.fill")
-            
+        Image(systemName: "map.fill") 
             .frame(width: 24, height: 24)
             .foregroundColor(Color.custom(color))
     }

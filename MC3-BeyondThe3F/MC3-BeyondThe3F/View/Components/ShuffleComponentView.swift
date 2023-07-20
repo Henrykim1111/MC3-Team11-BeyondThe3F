@@ -11,7 +11,6 @@ struct ShuffleComponentView: View {
     var color: CustomColor = .white
     var body: some View {
         Image(systemName: "shuffle")
-            
             .frame(width: 24, height: 24)
             .foregroundColor(Color.custom(color))
     }
