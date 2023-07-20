@@ -79,6 +79,8 @@ struct SFImageComponentView: View {
     
     var body: some View {
         Image(systemName: symbolName.name)
+            .resizable()
+            .scaledToFit()
             .frame(width: CGFloat(width), height: CGFloat(height))
             .foregroundColor(Color.custom(color))
     }
