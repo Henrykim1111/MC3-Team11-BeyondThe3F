@@ -48,10 +48,10 @@ struct SFImageComponentView: View {
             }
         }
     }
-    private let symbolName: SFImageType = .map
-    private let color: CustomColor = .gray700
-    private let width = 24
-    private let height = 24
+    let symbolName: SFImageType
+    var color: CustomColor = .gray700
+    var width = 24
+    var height = 24
     
     var body: some View {
         Image(systemName: symbolName.name)
@@ -62,6 +62,6 @@ struct SFImageComponentView: View {
 
 struct SFImageComponentView_Previews: PreviewProvider {
     static var previews: some View {
-        SFImageComponentView()
+        SFImageComponentView(symbolName: .play)
     }
 }
