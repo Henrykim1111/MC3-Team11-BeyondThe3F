@@ -32,6 +32,10 @@
 		953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7502A6919370047C21C /* SmallButtonComponentView.swift */; };
 		953BD7532A69234D0047C21C /* PrimaryButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7522A69234D0047C21C /* PrimaryButtonComponentView.swift */; };
 		953BD7552A69260A0047C21C /* MidButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7542A69260A0047C21C /* MidButtonComponent.swift */; };
+		953BD7572A69FFDF0047C21C /* SFImageComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7562A69FFDF0047C21C /* SFImageComponentView.swift */; };
+		953BD7592A69FFE70047C21C /* ScopeButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7582A69FFE70047C21C /* ScopeButtonComponentView.swift */; };
+		953BD75B2A69FFFE0047C21C /* MusicPlayerComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD75A2A69FFFE0047C21C /* MusicPlayerComponentView.swift */; };
+		953BD75D2A6A001D0047C21C /* MusicListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD75C2A6A001D0047C21C /* MusicListRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +66,10 @@
 		953BD7502A6919370047C21C /* SmallButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallButtonComponentView.swift; sourceTree = "<group>"; };
 		953BD7522A69234D0047C21C /* PrimaryButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonComponentView.swift; sourceTree = "<group>"; };
 		953BD7542A69260A0047C21C /* MidButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidButtonComponent.swift; sourceTree = "<group>"; };
+		953BD7562A69FFDF0047C21C /* SFImageComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFImageComponentView.swift; sourceTree = "<group>"; };
+		953BD7582A69FFE70047C21C /* ScopeButtonComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeButtonComponentView.swift; sourceTree = "<group>"; };
+		953BD75A2A69FFFE0047C21C /* MusicPlayerComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerComponentView.swift; sourceTree = "<group>"; };
+		953BD75C2A6A001D0047C21C /* MusicListRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicListRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,19 +86,18 @@
 		74167D112A678A2000F5C691 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				953BD75C2A6A001D0047C21C /* MusicListRowView.swift */,
 				953BD74E2A6910480047C21C /* SFImageComponentView.swift */,
 				953BD7502A6919370047C21C /* SmallButtonComponentView.swift */,
 				953BD7542A69260A0047C21C /* MidButtonComponent.swift */,
+				953BD7562A69FFDF0047C21C /* SFImageComponentView.swift */,
+				953BD7582A69FFE70047C21C /* ScopeButtonComponentView.swift */,
 				953BD7522A69234D0047C21C /* PrimaryButtonComponentView.swift */,
 				74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */,
+				953BD75A2A69FFFE0047C21C /* MusicPlayerComponentView.swift */,
 				74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */,
 				74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */,
 				74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */,
-				74BF13492A6909B700AEBE75 /* ContentsSmallComponentView.swift */,
-				74BF13472A68FD5F00AEBE75 /* MusicPlayerComponentView.swift */,
-				74BF134B2A690A4A00AEBE75 /* TapeComponentView.swift */,
-				74BF134D2A690CD400AEBE75 /* ScopeButtonComponentView.swift */,
-				743C7C5B2A691665003B3D88 /* MusicListRowView.swift */,
 				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
 			);
 			path = Components;
@@ -289,10 +296,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				953BD7532A69234D0047C21C /* PrimaryButtonComponentView.swift in Sources */,
+				953BD75D2A6A001D0047C21C /* MusicListRowView.swift in Sources */,
 				953BD7552A69260A0047C21C /* MidButtonComponent.swift in Sources */,
 				953BD74D2A68DE6C0047C21C /* MusicItem.swift in Sources */,
 				951691A42A663A4E0070D47C /* BucketView.swift in Sources */,
 				951691A62A663AE00070D47C /* MapView.swift in Sources */,
+				953BD75B2A69FFFE0047C21C /* MusicPlayerComponentView.swift in Sources */,
 				951691A02A6634C00070D47C /* DefaultCoreDataView.swift in Sources */,
 				951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
@@ -301,10 +310,12 @@
 				953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
 				74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */,
+				953BD7592A69FFE70047C21C /* ScopeButtonComponentView.swift in Sources */,
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
+				953BD7572A69FFDF0047C21C /* SFImageComponentView.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
 				74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */,

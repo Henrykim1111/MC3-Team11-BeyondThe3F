@@ -12,13 +12,54 @@ import CoreLocation
 struct MapView: View {
     @State private var musicList: [MusicItem] = []
     @State private var isMoving = true
-    let locationManager = CLLocationManager()
+    @State var locationManager = CLLocationManager()
+    @State var userLocation = CLLocationCoordinate2D(latitude: 37.7749,longitude: -122.4194)
+    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     
     var body: some View {
-        VStack {
-            MapUIKitView(musicList: $musicList)
+        VStack(spacing: 0) {
+            MapUIKitView(
+                musicList: $musicList,
+                locationManager: $locationManager,
+                userLocation: $userLocation,
+                userRegion: $region
+            )
+            HStack {
+                Spacer()
+                Button {
+                    region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+                } label: {
+                    Text("my position")
+                }
+                
+            }
+            HStack {
+                Rectangle()
+                    .foregroundColor(Color.custom(.white))
+                    .frame(width: 60, height: 60)
+                VStack(alignment: .leading) {
+                    Text("타이틀")
+                        .body1(color: .white)
+                    Text("서브 타이틀")
+                        .body2(color: .white)
+                }
+                Spacer()
+                HStack(spacing: 24) {
+                    SFImageComponentView(symbolName: .play, color: .white, width: 24, height: 24)
+                    SFImageComponentView(symbolName: .forward, color: .white, width: 32, height: 32)
+                    SFImageComponentView(symbolName: .list, color: .white, width: 32, height: 32)
+                }
+            }
+            .frame(maxWidth: 390)
+            .frame(height: 88)
+            .padding([.leading, .trailing])
+            .background(Color.custom(.secondaryDark))
         }
-        .ignoresSafeArea()
+        .ignoresSafeArea(.all, edges: .top)
+        .onAppear {
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        }
     }
 }
 
@@ -39,15 +80,27 @@ let startRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 4
 struct MapUIKitView: UIViewRepresentable {
     @State var region = startRegion
     @Binding var musicList: [MusicItem]
+    @Binding var locationManager: CLLocationManager
+    @Binding var userLocation: CLLocationCoordinate2D
+    @Binding var userRegion: MKCoordinateRegion
 
     private let annotaionDataList = annotaionDummyData
 
-    class Coordinator: NSObject, MKMapViewDelegate {
+    class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: MapUIKitView
 
         init(_ parent: MapUIKitView) {
             self.parent = parent
         }
+        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            if let location = locations.first {
+                let latitude = location.coordinate.latitude
+                let longitude = location.coordinate.longitude
+                self.parent.userLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            }
+            
+        }
+        
         /// 화면 이동중 musicList reset
         func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
             self.setMusicList([])
@@ -104,7 +157,7 @@ struct MapUIKitView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        
+        uiView.setRegion(userRegion, animated: true)
     }
     
     
