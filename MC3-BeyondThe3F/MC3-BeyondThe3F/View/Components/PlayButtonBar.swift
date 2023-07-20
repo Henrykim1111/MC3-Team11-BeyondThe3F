@@ -9,7 +9,28 @@ import SwiftUI
 
 struct PlayButtonBar: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            
+            VStack{
+               
+                    
+            }
+            .foregroundColor(.white)
+            .frame(width: 167, height: 48)
+            .background(Color.custom(.primary))
+            .cornerRadius(4)
+            HStack{
+                Image(systemName: "play.fill")
+                    .foregroundColor(.white)
+                Text("재생")
+                    .foregroundColor(.white)
+                    
+        
+            }
+            
+            
+        }
+       
     }
 }
 

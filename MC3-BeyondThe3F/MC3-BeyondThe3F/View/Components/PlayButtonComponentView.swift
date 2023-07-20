@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct PlayButtonComponentView: View {
+    var color: CustomColor = .white
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(systemName: "play.fill")
+            
+            .frame(width: 24, height: 24)
+            .foregroundColor(Color.custom(color))
     }
 }
 
@@ -18,3 +22,6 @@ struct PlayButtonComponentView_Previews: PreviewProvider {
         PlayButtonComponentView()
     }
 }
+
+//폰트, 깃허브에서 오류 수정한 것 풀 받기, CancelComponentView 안보임
+

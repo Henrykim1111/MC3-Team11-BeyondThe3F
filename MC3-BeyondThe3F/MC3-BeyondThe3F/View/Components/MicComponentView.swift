@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct MicComponentView: View {
+    var color: CustomColor = .white
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(systemName: "mic.fill")
+            
+            .frame(width: 24, height: 24)
+            .foregroundColor(Color.custom(color))
     }
 }
 

@@ -8,9 +8,32 @@
 import SwiftUI
 
 struct MusicSearchView2: View {
+    @State private var textInput: String = ""
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+        HStack{
+            HStack {
+                Image(systemName: "chevron.backward")
+                Spacer()
+                    .frame(width: 20)
+                TextField("음악을 검색해보세요", text: $textInput)
+                Spacer()
+                Image(systemName: "mic.fill")
+                          
+
+                       
+                   }.padding()
+                .foregroundColor(.white)
+                .padding()
+                .frame(width: 350, height: 48)
+                .background(Color.custom(.secondaryDark))
+                .cornerRadius(4)
+                .colorScheme(.dark)
+                .accentColor(.white)
+            Spacer()
+            Image(systemName: "gearshape.fill")
+                .foregroundColor(.white)
+               }
+        }
 }
 
 struct MusicSearchView2_Previews: PreviewProvider {

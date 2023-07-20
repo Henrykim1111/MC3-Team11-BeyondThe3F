@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct ForwardComponentView: View {
+    var color: CustomColor = .white
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(systemName: "forward.fill")
+           
+            .frame(width: 32, height: 32)
+            .foregroundColor(Color.custom(color))
     }
 }
 

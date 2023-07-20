@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct PauseComponentView: View {
+    var color: CustomColor = .white
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(systemName: "pause.fill")
+           
+            .frame(width: 29, height: 32)
+            .foregroundColor(Color.custom(color))
     }
-}
+    }
+
 
 struct PauseComponentView_Previews: PreviewProvider {
     static var previews: some View {

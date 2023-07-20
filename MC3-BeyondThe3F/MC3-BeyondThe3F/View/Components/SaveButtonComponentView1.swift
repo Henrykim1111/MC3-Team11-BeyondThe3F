@@ -9,7 +9,12 @@ import SwiftUI
 
 struct SaveButtonComponentView1: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("저장")
+            .foregroundColor(.white)
+            .frame(width: 350, height: 48)
+            .background(Color.custom(.primary))
+            .cornerRadius(4)
+            
     }
 }
 

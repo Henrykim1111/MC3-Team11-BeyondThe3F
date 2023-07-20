@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct IcloudAndArrowDownComponentView: View {
+    var color: CustomColor = .white
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(systemName: "icloud.and.arrow.down.fill")
+            .frame(width: 24, height: 24)
+            .foregroundColor(Color.custom(color))
     }
 }
 

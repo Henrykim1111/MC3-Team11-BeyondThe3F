@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct ListComponentView: View {
+    var color: CustomColor = .white
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(systemName: "list.bullet")
+            
+            .frame(width: 32, height: 32)
+            .foregroundColor(Color.custom(color))
     }
-}
+    }
+
 
 struct ListComponentView_Previews: PreviewProvider {
     static var previews: some View {

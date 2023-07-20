@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct PlusComponentView: View {
+    var color: CustomColor = .white
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(systemName: "plus")
+            .frame(width: 32, height: 32)
+            .foregroundColor(Color.custom(color))
     }
 }
 

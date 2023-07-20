@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct EllipsisComponentView: View {
+    var color: CustomColor = .white
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(systemName: "ellipsis")
+            .frame(width: 32, height: 32)
+            .foregroundColor(Color.custom(color))
+            .rotationEffect(Angle(degrees: 90))
+            
     }
 }
 

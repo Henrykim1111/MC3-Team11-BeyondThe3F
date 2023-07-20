@@ -8,18 +8,11 @@
 import SwiftUI
 
 struct CameraComponentView: View {
-    var backgroundColor: CustomColor = .gray700
-    var foregroundColor: CustomColor = .white
-    
+    var color: CustomColor = .white
     var body: some View {
-        HStack{
-            Image(systemName: "camera.fill")
-            Text("카메라")
-        }
-        .frame(width: 110, height: 48)
-        .background(Color.custom(backgroundColor))
-        .foregroundColor(Color.custom(foregroundColor))
-        .cornerRadius(8)
+        Image(systemName: "camera.fill")
+            .frame(width: 24, height: 24)
+            .foregroundColor(Color.custom(color))
     }
 }
 

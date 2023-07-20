@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct ChevronFrontComponentView: View {
+struct ChevronForwardComponentView: View {
     var color: CustomColor = .white
     var body: some View {
         Image(systemName: "chevron.forward")
-            .resizable()
+            
             .frame(width: 24, height: 24)
             .foregroundColor(Color.custom(color))
     }
-    
-    struct ChevronFrontComponentView_Previews: PreviewProvider {
+}
+    struct ChevronForwardComponentView_Previews: PreviewProvider {
         static var previews: some View {
-            ChevronFrontComponentView()
+            ChevronForwardComponentView()
         }
     }
-}
+

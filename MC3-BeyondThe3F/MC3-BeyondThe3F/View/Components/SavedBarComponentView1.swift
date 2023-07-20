@@ -9,7 +9,13 @@ import SwiftUI
 
 struct SavedBarComponentView1: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("저장되었습니다!")
+            .foregroundColor(.black)
+            .frame(width: 350, height: 48)
+            .background(Color.custom(.white))
+            .cornerRadius(4)
+            
+            
     }
 }
 

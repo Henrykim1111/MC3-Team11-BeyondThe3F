@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct AlbumCoverButtonComponentView: View {
+    var backgroundColor: CustomColor = .gray700
+    var foregroundColor: CustomColor = .white
+ 
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack{
+            Image(systemName: "icloud.and.arrow.down.fill")
+            Text("앨범 커버")
+        }
+        .frame(width: 110, height: 48)
+        .background(Color.custom(.secondaryDark))
+        .foregroundColor(Color.custom(.white))
+        .cornerRadius(8)
+        
     }
 }
 

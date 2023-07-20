@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct PinLocationComponentView: View {
+    var color: CustomColor = .gray700
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image("pinLocation")
+            .resizable()
+            .frame(width: 39.33, height: 59)
+            .foregroundColor(Color.custom(color))
     }
-}
-
-struct PinLocationComponentView_Previews: PreviewProvider {
-    static var previews: some View {
-        PinLocationComponentView()
+    
+    struct PinLocationComponentView_Previews: PreviewProvider {
+        static var previews: some View {
+            PinLocationComponentView()
+        }
     }
 }

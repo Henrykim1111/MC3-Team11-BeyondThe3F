@@ -9,7 +9,18 @@ import SwiftUI
 
 struct TestComponentView: View {
     var body: some View {
-        CameraComponentView(backgroundColor: .primary, foregroundColor: .gray200)
+        VStack{
+            CameraButtonComponentView()
+            CameraButtonComponentView(backgroundColor: .primary, foregroundColor: .gray200)
+            Button {
+                
+            } label: {
+                ButtonPlayComponentView()
+            }
+            ButtonPlayComponentView()
+
+            
+        }
     }
 }
 

@@ -11,8 +11,8 @@ struct ScopeComponentView: View {
     var color: CustomColor = .white
     var body: some View {
         Image(systemName: "scope")
-            .resizable()
-            .frame(width: 28, height: 24)
+           
+            .frame(width: 24, height: 24)
             .foregroundColor(Color.custom(color))
     }
 }
