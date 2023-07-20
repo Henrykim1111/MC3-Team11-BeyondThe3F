@@ -14,8 +14,6 @@ struct SavedBarComponentView1: View {
             .frame(width: 350, height: 48)
             .background(Color.custom(.white))
             .cornerRadius(4)
-            
-            
     }
 }
 
