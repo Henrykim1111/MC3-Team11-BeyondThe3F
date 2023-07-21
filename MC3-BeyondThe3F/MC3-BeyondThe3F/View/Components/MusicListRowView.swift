@@ -27,8 +27,8 @@ struct MusicListRowView: View {
             }
             Spacer()
                 .frame(width: 106)
-            PlayButtonComponentView()
-            EllipsisComponentView()
+            SFImageComponentView(symbolName: .play)
+            SFImageComponentView(symbolName: .ellipsis)
             
             
             

@@ -25,9 +25,11 @@ struct MusicPlayerComponentView: View {
                     .body2(color: .gray500)
             }
             Spacer()
-            PlayButtonComponentView()
-            ForwardComponentView()
-            ListComponentView()
+            HStack(spacing: 20) {
+                SFImageComponentView(symbolName: .play, color: .white, width: 20)
+                SFImageComponentView(symbolName: .forward, color: .white, width: 35)
+                SFImageComponentView(symbolName: .list, color: .white)
+            }
             Spacer()
                 .frame(width: 10)
         }
