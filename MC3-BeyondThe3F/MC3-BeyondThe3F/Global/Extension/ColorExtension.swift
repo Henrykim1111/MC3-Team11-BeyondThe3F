@@ -46,6 +46,8 @@ extension Color {
             return Color(hex: "60618A")
         case .secondaryDark:
             return Color(hex: "262545")
+        case .background:
+            return Color(hex: "121123")
         
         }
         
@@ -66,5 +68,6 @@ enum CustomColor {
     
     case secondary
     case secondaryDark
+    case background
 }
 

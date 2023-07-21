@@ -12,6 +12,7 @@ import CoreLocation
 struct MapView: View {
     @State private var musicList: [MusicItem] = []
     @State private var isMoving = true
+    @State private var isPresented = true
     @State var locationManager = CLLocationManager()
     @State var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
@@ -52,6 +53,15 @@ struct MapView: View {
             locationManager.requestWhenInUseAuthorization()
             locationManager.startUpdatingLocation()
         }
+        .sheet(isPresented: $isPresented, content: {
+            VStack{
+                Text("hello")
+            }
+            .presentationDetents([.height(200)])
+            .background(C)
+        })
+        .presentationDragIndicator(.visible)
+
     }
 }
 
