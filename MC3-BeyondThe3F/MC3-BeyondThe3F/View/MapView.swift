@@ -11,14 +11,13 @@ import CoreLocation
 
 struct MapView: View {
     @State private var musicList: [MusicItemVO] = []
-    @State private var isMoving = true
     @State private var draggedYOffset = 0.0
     @State private var accumulatedYOffset = 0.0
-    @State var locationManager = CLLocationManager()
-    @State var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
-    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
-    let maxHeight = 500.0
-    let minHeight = 100.0
+    @State private var locationManager = CLLocationManager()
+    @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
+    @State var region = startRegion
+    private let maxHeight = 500.0
+    private let minHeight = 100.0
     
     var body: some View {
         VStack(spacing: 0) {
@@ -79,31 +78,7 @@ struct MapView: View {
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
                     .offset(y: draggedYOffset)
-                    .gesture(
-                        DragGesture()
-                            .onChanged { gesture in
-                                let caculatedValue = accumulatedYOffset + gesture.translation.height
-                                if caculatedValue > maxHeight {
-                                    draggedYOffset = maxHeight
-                                } else if caculatedValue < minHeight {
-                                    draggedYOffset = minHeight
-                                } else {
-                                    draggedYOffset = caculatedValue
-                                }
-                            }
-                            .onEnded { gesture in
-                                let caculatedValue = accumulatedYOffset + gesture.translation.height
-                                if caculatedValue > maxHeight {
-                                    accumulatedYOffset = maxHeight
-                                } else if caculatedValue < minHeight {
-                                    accumulatedYOffset = minHeight
-                                } else {
-                                    accumulatedYOffset = caculatedValue
-                                }
-                                
-                                
-                            }
-                    )
+                    .gesture(drag)
                 }
                 VStack {
                     Spacer()
@@ -113,11 +88,7 @@ struct MapView: View {
                     HStack {
                         Spacer()
                         Button {
-                            locationManager.startUpdatingLocation()
-                               if let userCurrentLocation = locationManager.location?.coordinate {
-                                   userLocation = userCurrentLocation
-                               }
-                            region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+                            showUserLocation()
                         } label: {
                             ScopeButtonComponentView()
                         }
@@ -132,6 +103,38 @@ struct MapView: View {
             locationManager.requestWhenInUseAuthorization()
             locationManager.startUpdatingLocation()
         }
+    }
+    
+    var drag: some Gesture {
+        DragGesture()
+            .onChanged { gesture in
+                let caculatedValue = accumulatedYOffset + gesture.translation.height
+                if caculatedValue > maxHeight {
+                    draggedYOffset = maxHeight
+                } else if caculatedValue < minHeight {
+                    draggedYOffset = minHeight
+                } else {
+                    draggedYOffset = caculatedValue
+                }
+            }
+            .onEnded { gesture in
+                let caculatedValue = accumulatedYOffset + gesture.translation.height
+                if caculatedValue > maxHeight {
+                    accumulatedYOffset = maxHeight
+                } else if caculatedValue < minHeight {
+                    accumulatedYOffset = minHeight
+                } else {
+                    accumulatedYOffset = caculatedValue
+                }
+        }
+    }
+    
+    private func showUserLocation(){
+        locationManager.startUpdatingLocation()
+           if let userCurrentLocation = locationManager.location?.coordinate {
+               userLocation = userCurrentLocation
+           }
+        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
     }
 }
 
