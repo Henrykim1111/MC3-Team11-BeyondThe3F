@@ -39,6 +39,7 @@
 		953BD75D2A6A001D0047C21C /* MusicListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD75C2A6A001D0047C21C /* MusicListRowView.swift */; };
 		953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD75F2A6A6D0A0047C21C /* ClusteringAnnotationView.swift */; };
 		953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */; };
+		953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7632A6A77240047C21C /* MapSearchComponentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		953BD75C2A6A001D0047C21C /* MusicListRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicListRowView.swift; sourceTree = "<group>"; };
 		953BD75F2A6A6D0A0047C21C /* ClusteringAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusteringAnnotationView.swift; sourceTree = "<group>"; };
 		953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAnnotationView.swift; sourceTree = "<group>"; };
+		953BD7632A6A77240047C21C /* MapSearchComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchComponentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */,
 				74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */,
 				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
+				953BD7632A6A77240047C21C /* MapSearchComponentView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				953BD75B2A69FFFE0047C21C /* MusicPlayerComponentView.swift in Sources */,
 				951691A02A6634C00070D47C /* DefaultCoreDataView.swift in Sources */,
 				951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */,
+				953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
 				74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */,
 				953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */,

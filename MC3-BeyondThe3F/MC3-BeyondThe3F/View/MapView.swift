@@ -11,13 +11,16 @@ import CoreLocation
 
 struct MapView: View {
     @State private var musicList: [MusicItemVO] = []
-    @State private var draggedYOffset = 0.0
-    @State private var accumulatedYOffset = 0.0
+    
+    @State private var draggedYOffset = 500.0
+    @State private var accumulatedYOffset = 500.0
+    private let maxHeight = 500.0
+    private let minHeight = 100.0
+    
     @State private var locationManager = CLLocationManager()
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = startRegion
-    private let maxHeight = 500.0
-    private let minHeight = 100.0
+    
     
     var body: some View {
         VStack(spacing: 0) {
@@ -32,6 +35,15 @@ struct MapView: View {
                     Spacer()
                     VStack{
                         VStack{
+                            HStack {
+                                Spacer()
+                                Rectangle()
+                                    .foregroundColor(Color.custom(.white))
+                                    .frame(width: 40, height: 5)
+                                    .opacity(0.4)
+                                    .cornerRadius(3)
+                                Spacer()
+                            }
                             HStack {
                                 Image("annotaion0")
                                     .resizable()
@@ -119,14 +131,24 @@ struct MapView: View {
             }
             .onEnded { gesture in
                 let caculatedValue = accumulatedYOffset + gesture.translation.height
-                if caculatedValue > maxHeight {
-                    accumulatedYOffset = maxHeight
-                } else if caculatedValue < minHeight {
-                    accumulatedYOffset = minHeight
-                } else {
-                    accumulatedYOffset = caculatedValue
+                
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    if caculatedValue > maxHeight {
+                        accumulatedYOffset = maxHeight
+                    } else if caculatedValue < minHeight {
+                        accumulatedYOffset = minHeight
+                    } else {
+                        if caculatedValue > 400 {
+                            accumulatedYOffset = maxHeight
+                        } else if caculatedValue > 200 {
+                            accumulatedYOffset = 300.0
+                        } else {
+                            accumulatedYOffset = minHeight
+                        }
+                        draggedYOffset = accumulatedYOffset
+                    }
                 }
-        }
+            }
     }
     
     private func showUserLocation(){
