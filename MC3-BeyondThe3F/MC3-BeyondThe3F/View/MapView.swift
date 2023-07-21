@@ -12,10 +12,13 @@ import CoreLocation
 struct MapView: View {
     @State private var musicList: [MusicItemVO] = []
     @State private var isMoving = true
-    @State private var isPresented = true
+    @State private var draggedYOffset = 0.0
+    @State private var accumulatedYOffset = 0.0
     @State var locationManager = CLLocationManager()
     @State var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+    let maxHeight = 500.0
+    let minHeight = 100.0
     
     var body: some View {
         VStack(spacing: 0) {
@@ -26,6 +29,82 @@ struct MapView: View {
                     userLocation: $userLocation,
                     userRegion: $region
                 )
+                VStack {
+                    Spacer()
+                    VStack{
+                        VStack{
+                            HStack {
+                                Image("annotaion0")
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                    .cornerRadius(8)
+                                    .padding(.trailing, 15)
+                                VStack(alignment: .leading){
+                                    Text("장소")
+                                        .title2(color: .white)
+                                        .padding(.bottom, 2)
+                                    Text("6곡 수집")
+                                        .body1(color: .white)
+                                }
+                                Spacer()
+                            }
+                            .padding(.bottom,15)
+                            
+                            HStack {
+                                MidButtonComponent()
+                                Spacer()
+                                MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
+                            }
+                        }
+                        .padding()
+                        
+                        Divider()
+                            .overlay(Color.custom(.white))
+                        ScrollView {
+                            VStack{
+                                ForEach(musicItemVODummyData) { musicItem in
+                                    MusicListRowView(
+                                        imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
+                                        songName: musicItem.songName,
+                                        artistName: musicItem.artistName)
+                                }
+                            }
+                        }
+                        .padding()
+                        
+                    }
+                    .frame(idealWidth: 390, maxWidth: 390)
+                    .frame(height: .infinity)
+                    .background(Color.custom(.background))
+                    .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
+                    .offset(y: draggedYOffset)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { gesture in
+                                let caculatedValue = accumulatedYOffset + gesture.translation.height
+                                if caculatedValue > maxHeight {
+                                    draggedYOffset = maxHeight
+                                } else if caculatedValue < minHeight {
+                                    draggedYOffset = minHeight
+                                } else {
+                                    draggedYOffset = caculatedValue
+                                }
+                            }
+                            .onEnded { gesture in
+                                let caculatedValue = accumulatedYOffset + gesture.translation.height
+                                if caculatedValue > maxHeight {
+                                    accumulatedYOffset = maxHeight
+                                } else if caculatedValue < minHeight {
+                                    accumulatedYOffset = minHeight
+                                } else {
+                                    accumulatedYOffset = caculatedValue
+                                }
+                                
+                                
+                            }
+                    )
+                }
                 VStack {
                     Spacer()
                         .frame(height: 30)
@@ -53,37 +132,6 @@ struct MapView: View {
             locationManager.requestWhenInUseAuthorization()
             locationManager.startUpdatingLocation()
         }
-        .sheet(isPresented: $isPresented, content: {
-            VStack{
-                HStack {
-                    Image("annotaion0")
-                        .resizable()
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(8)
-                        .padding(.trailing, 15)
-                    VStack(alignment: .leading){
-                        Text("장소")
-                            .title2(color: .white)
-                            .padding(.bottom, 2)
-                        Text("6곡 수집")
-                            .body1(color: .white)
-                    }
-                    Spacer()
-                }
-                .padding(.bottom,15)
-                
-                HStack {
-                    MidButtonComponent()
-                    Spacer()
-                    MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
-                }
-            }
-            .padding()
-            .frame(width: 390, height: .infinity)
-            .background(Color.custom(.background))
-        })
-        .presentationDragIndicator(.visible)
-
     }
 }
 
@@ -93,7 +141,7 @@ struct MapView_Previews: PreviewProvider {
     }
 }
 
-let annotaionDummyData:[MusicItemVO] = [
+let musicItemVODummyData:[MusicItemVO] = [
     MusicItemVO(musicId: "1004836383", latitude: 43.70564024126748,longitude: 142.37968945214223,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotationTest"),
     MusicItemVO(musicId: "1004836383", latitude: 43.81257464206404,longitude: 142.82112322464369,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion1"),
     MusicItemVO(musicId: "1004836383", latitude: 43.38416585162576,longitude: 141.7252598737476,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion2"),
@@ -108,7 +156,7 @@ struct MapUIKitView: UIViewRepresentable {
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
 
-    private let annotaionDataList = annotaionDummyData
+    private let annotaionDataList = musicItemVODummyData
 
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: MapUIKitView
