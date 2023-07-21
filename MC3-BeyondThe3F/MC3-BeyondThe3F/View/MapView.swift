@@ -13,7 +13,7 @@ struct MapView: View {
     @State private var musicList: [MusicItem] = []
     @State private var isMoving = true
     @State var locationManager = CLLocationManager()
-    @State var userLocation = CLLocationCoordinate2D(latitude: 37.7749,longitude: -122.4194)
+    @State var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
     
     var body: some View {
