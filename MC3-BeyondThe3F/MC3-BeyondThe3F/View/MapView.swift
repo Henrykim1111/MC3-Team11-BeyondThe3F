@@ -10,7 +10,7 @@ import MapKit
 import CoreLocation
 
 struct MapView: View {
-    @State private var musicList: [MusicItem] = []
+    @State private var musicList: [MusicItemVO] = []
     @State private var isMoving = true
     @State var locationManager = CLLocationManager()
     @State var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
@@ -61,17 +61,17 @@ struct MapView_Previews: PreviewProvider {
     }
 }
 
-let annotaionDummyData:[MusicItem] = [
-    MusicItem(musicId: "1004836383", latitude: 43.70564024126748,longitude: 142.37968945214223,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotationTest"),
-    MusicItem(musicId: "1004836383", latitude: 43.81257464206404,longitude: 142.82112322464369,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion1"),
-    MusicItem(musicId: "1004836383", latitude: 43.38416585162576,longitude: 141.7252598737476,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion2"),
-    MusicItem(musicId: "1004836383", latitude: 45.29168643283501,longitude: 141.95286751470724,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generagedData: "", imageName: "annotaion3")
+let annotaionDummyData:[MusicItemVO] = [
+    MusicItemVO(musicId: "1004836383", latitude: 43.70564024126748,longitude: 142.37968945214223,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotationTest"),
+    MusicItemVO(musicId: "1004836383", latitude: 43.81257464206404,longitude: 142.82112322464369,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion1"),
+    MusicItemVO(musicId: "1004836383", latitude: 43.38416585162576,longitude: 141.7252598737476,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion2"),
+    MusicItemVO(musicId: "1004836383", latitude: 45.29168643283501,longitude: 141.95286751470724,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion3")
 ]
 let startRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64422936785126, longitude: 142.39329541313924), span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 2))
 
 struct MapUIKitView: UIViewRepresentable {
     @State var region = startRegion
-    @Binding var musicList: [MusicItem]
+    @Binding var musicList: [MusicItemVO]
     @Binding var locationManager: CLLocationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
@@ -97,7 +97,7 @@ struct MapUIKitView: UIViewRepresentable {
             self.setMusicList([])
         }
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            var newAnnotaionList: [MusicItem] = []
+            var newAnnotaionList: [MusicItemVO] = []
             for annotation in mapView.visibleAnnotations() {
                 if let defaultAnnotation = annotation as? MusicAnnotation {
                     newAnnotaionList.append(defaultAnnotation.getMusicItemFromAnnotation())
@@ -120,7 +120,7 @@ struct MapUIKitView: UIViewRepresentable {
             clusterAnnotaion.title  = "clusted"
             return clusterAnnotaion
         }
-        private func setMusicList(_ newMusicList: [MusicItem]) {
+        private func setMusicList(_ newMusicList: [MusicItemVO]) {
             parent.musicList = newMusicList
         }
     }
@@ -177,7 +177,7 @@ class MusicAnnotationView: MKAnnotationView {
             image = UIImage(named: "annotationImage")
             return
         }
-        image = resizeImage(imageName: landmark.imageName)
+        image = resizeImage(imageName: landmark.savedImage)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -243,7 +243,7 @@ final class ClusteringAnnotationView: MKAnnotationView {
             let rounded = UIBezierPath(roundedRect: rect, cornerRadius: 7)
             rounded.addClip()
             if let landmark = cluster.memberAnnotations.first as? MusicAnnotation {
-                let img = UIImage(named: "\(landmark.imageName ?? "annotaionImage")")
+                let img = UIImage(named: "\(landmark.savedImage ?? "annotaionImage")")
                 img?.draw(in: rect)
             } else {
                 let img = UIImage(named: "annotaionImage")

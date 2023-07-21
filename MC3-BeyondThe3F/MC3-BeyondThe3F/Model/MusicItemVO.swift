@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-struct MusicItem: Identifiable, Hashable {
+struct MusicItemVO: Identifiable, Hashable {
     var id = UUID()
     var musicId: String
     var latitude: Double
@@ -16,8 +16,8 @@ struct MusicItem: Identifiable, Hashable {
     var playedCount: Int
     var songName: String
     var artistName: String
-    var generagedData: String
-    var imageName: String?
+    var generatedDate: Date
+    var savedImage: String?
     var locationInfo: String?
     var desc: String?
     var coordinate: CLLocationCoordinate2D {
@@ -26,4 +26,3 @@ struct MusicItem: Identifiable, Hashable {
             longitude: longitude)
     }
 }
-
