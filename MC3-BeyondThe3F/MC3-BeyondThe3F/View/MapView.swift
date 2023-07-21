@@ -12,6 +12,7 @@ import CoreLocation
 struct MapView: View {
     @State private var musicList: [MusicItemVO] = []
     @State private var isMoving = true
+    @State private var isPresented = true
     @State var locationManager = CLLocationManager()
     @State var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
@@ -52,6 +53,37 @@ struct MapView: View {
             locationManager.requestWhenInUseAuthorization()
             locationManager.startUpdatingLocation()
         }
+        .sheet(isPresented: $isPresented, content: {
+            VStack{
+                HStack {
+                    Image("annotaion0")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(8)
+                        .padding(.trailing, 15)
+                    VStack(alignment: .leading){
+                        Text("장소")
+                            .title2(color: .white)
+                            .padding(.bottom, 2)
+                        Text("6곡 수집")
+                            .body1(color: .white)
+                    }
+                    Spacer()
+                }
+                .padding(.bottom,15)
+                
+                HStack {
+                    MidButtonComponent()
+                    Spacer()
+                    MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
+                }
+            }
+            .padding()
+            .frame(width: 390, height: .infinity)
+            .background(Color.custom(.background))
+        })
+        .presentationDragIndicator(.visible)
+
     }
 }
 
