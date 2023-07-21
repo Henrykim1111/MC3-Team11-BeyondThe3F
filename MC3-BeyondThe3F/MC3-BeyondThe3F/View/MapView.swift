@@ -55,10 +55,32 @@ struct MapView: View {
         }
         .sheet(isPresented: $isPresented, content: {
             VStack{
-                Text("hello")
+                HStack {
+                    Image("annotaion0")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(8)
+                        .padding(.trailing, 15)
+                    VStack(alignment: .leading){
+                        Text("장소")
+                            .title2(color: .white)
+                            .padding(.bottom, 2)
+                        Text("6곡 수집")
+                            .body1(color: .white)
+                    }
+                    Spacer()
+                }
+                .padding(.bottom,15)
+                
+                HStack {
+                    MidButtonComponent()
+                    Spacer()
+                    MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
+                }
             }
-            .presentationDetents([.height(200)])
-            .background(C)
+            .padding()
+            .frame(width: 390, height: .infinity)
+            .background(Color.custom(.background))
         })
         .presentationDragIndicator(.visible)
 
