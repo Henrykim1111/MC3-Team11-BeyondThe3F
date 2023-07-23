@@ -16,6 +16,8 @@ struct EditMapPositionView: View {
     @State var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
     @State private var textInput = ""
+    @State private var selectedCoordinate = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
+    @State private var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
     
     var body: some View {
         VStack{
@@ -38,10 +40,12 @@ struct EditMapPositionView: View {
             EditMapUIView(
                 userLocation: $userLocation,
                 userRegion: $region,
-                currentAnnotation: MKPointAnnotation()
+                selectedCoordinate: $selectedCoordinate,
+                currentAnnotation: MKPointAnnotation(),
+                selectedPositionDescription: $selectedPositionDescription
             )
             VStack(alignment: .leading) {
-                Text("경북 포항시 남구 지곡로 80")
+                Text("\(selectedPositionDescription)")
                     .headline(color: .white)
                 Spacer()
                     .frame(height: 80)
@@ -54,6 +58,7 @@ struct EditMapPositionView: View {
             locationManager.getLocationAuth()
         }
     }
+    
 }
 
 struct EditMapPositionView_Previews: PreviewProvider {
@@ -69,7 +74,9 @@ struct EditMapUIView: UIViewRepresentable{
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
     @State var view = MKMapView()
+    @Binding var selectedCoordinate : CLLocationCoordinate2D
     var currentAnnotation : MKAnnotation
+    @Binding var selectedPositionDescription: String
     
     let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
     
@@ -109,11 +116,8 @@ struct EditMapUIView: UIViewRepresentable{
             clusterAnnotaion.title  = "clusted"
             return clusterAnnotaion
         }
-        private func setMusicList(_ newMusicList: [MusicItemVO]) {
-//            parent.musicList = newMusicList
-        }
+        
         @objc func triggerTouchAction(sender: UITapGestureRecognizer) {
-            print("hi")
             parent.view.removeAnnotation(parent.currentAnnotation)
             if sender.state == .ended {
                 let point = sender.location(in: parent.view)
@@ -124,14 +128,30 @@ struct EditMapUIView: UIViewRepresentable{
                 annotation.title = "Start"
                 parent.view.addAnnotation(annotation)
                 parent.currentAnnotation = annotation
+                parent.selectedCoordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                
+                getSearchPlace(coord: CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
             }
-            
+        }
+        private func getSearchPlace(coord: CLLocationCoordinate2D){
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(CLLocation(latitude: coord.latitude, longitude: coord.longitude)) { placemarks, e in
+                guard e == nil else {
+                    return
+                }
+                
+                // Most geocoding requests contain only one result.
+                if let firstPlacemark = placemarks?.first {
+                    self.parent.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
+                }
+            }
         }
     }
 
     func makeCoordinator() -> Coordinator {
         EditMapUIView.Coordinator(self)
     }
+    
 
 
     func makeUIView(context: Context) -> MKMapView {
@@ -150,7 +170,7 @@ struct EditMapUIView: UIViewRepresentable{
     
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        uiView.setRegion(userRegion, animated: true)
+//        uiView.setRegion(userRegion, animated: true)
     }
     
 
