@@ -10,7 +10,6 @@ import MapKit
 import CoreLocation
 
 struct EditMapPositionView: View {
-    @State private var musicList: [MusicItemVO] = []
     @State private var isMoving = true
     @State private var isPresented = true
     @State var locationManager = LocationHelper.shared
@@ -38,7 +37,9 @@ struct EditMapPositionView: View {
             .padding()
             EditMapUIView(
                 userLocation: $userLocation,
-                userRegion: $region)
+                userRegion: $region,
+                currentAnnotation: MKPointAnnotation()
+            )
             VStack(alignment: .leading) {
                 Text("경북 포항시 남구 지곡로 80")
                     .headline(color: .white)
@@ -67,9 +68,11 @@ struct EditMapUIView: UIViewRepresentable{
     let locationManager = LocationHelper.shared.locationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
-
-    private let annotaionDataList = musicItemVODummyData
-
+    @State var view = MKMapView()
+    var currentAnnotation : MKAnnotation
+    
+    let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+    
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: EditMapUIView
 
@@ -86,16 +89,10 @@ struct EditMapUIView: UIViewRepresentable{
         
         /// 화면 이동중 musicList reset
         func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-            self.setMusicList([])
+            
         }
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            var newAnnotaionList: [MusicItemVO] = []
-            for annotation in mapView.visibleAnnotations() {
-                if let defaultAnnotation = annotation as? MusicAnnotation {
-                    newAnnotaionList.append(defaultAnnotation.getMusicItemFromAnnotation())
-                }
-            }
-            setMusicList(newAnnotaionList)
+            
         }
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             switch annotation {
@@ -115,6 +112,21 @@ struct EditMapUIView: UIViewRepresentable{
         private func setMusicList(_ newMusicList: [MusicItemVO]) {
 //            parent.musicList = newMusicList
         }
+        @objc func triggerTouchAction(sender: UITapGestureRecognizer) {
+            print("hi")
+            parent.view.removeAnnotation(parent.currentAnnotation)
+            if sender.state == .ended {
+                let point = sender.location(in: parent.view)
+                let coordinate = parent.view.convert(point, toCoordinateFrom: parent.view)
+                print(coordinate)
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "Start"
+                parent.view.addAnnotation(annotation)
+                parent.currentAnnotation = annotation
+            }
+            
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -123,26 +135,24 @@ struct EditMapUIView: UIViewRepresentable{
 
 
     func makeUIView(context: Context) -> MKMapView {
-        let view = MKMapView()
         view.delegate = context.coordinator
         view.setRegion(region, animated: false)
         view.mapType = .standard
-        
-        for annotaionData in annotaionDataList {
-            let annotation = MusicAnnotation(annotaionData)
-            view.addAnnotation(annotation)
-        }
         view.showsUserLocation = true
         view.setUserTrackingMode(.follow, animated: true)
         
+        let gestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.triggerTouchAction(sender:)))
+        view.addGestureRecognizer(gestureRecognizer)
         
         return view
         
     }
+    
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
         uiView.setRegion(userRegion, animated: true)
     }
     
+
     
 }

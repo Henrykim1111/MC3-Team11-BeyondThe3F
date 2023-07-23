@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BucketView: View {
     var body: some View {
-        Text("Hello, World!")
+        EditMapPositionView()
     }
 }
 
