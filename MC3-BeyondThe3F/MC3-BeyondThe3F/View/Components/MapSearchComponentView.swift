@@ -23,11 +23,10 @@ struct MapSearchComponentView: View {
             }
             .padding()
             .foregroundColor(.white)
-            .padding()
             .frame(maxWidth: 390)
             .frame(height: 48)
             .background(Color.custom(.secondaryDark))
-            .cornerRadius(4)
+            .cornerRadius(8)
             .colorScheme(.dark)
             .accentColor(.white)
     }

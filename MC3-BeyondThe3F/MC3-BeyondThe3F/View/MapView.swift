@@ -20,6 +20,7 @@ struct MapView: View {
     @State private var locationManager = CLLocationManager()
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = startRegion
+    @State var isShowUserLocation = false
     
     
     var body: some View {
@@ -29,7 +30,8 @@ struct MapView: View {
                     musicList: $musicList,
                     locationManager: $locationManager,
                     userLocation: $userLocation,
-                    userRegion: $region
+                    userRegion: $region,
+                    isShowUserLocation: $isShowUserLocation
                 )
                 VStack {
                     Spacer()
@@ -45,16 +47,25 @@ struct MapView: View {
                                 Spacer()
                             }
                             HStack {
-                                Image("annotaion0")
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                    .cornerRadius(8)
-                                    .padding(.trailing, 15)
+                                if musicList.isEmpty {
+                                    ProgressView()
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(8)
+                                        .foregroundColor(Color.custom(.white))
+                                        .padding(.trailing, 15)
+                                } else {
+                                    Image("annotaion0")
+                                        .resizable()
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(8)
+                                        .padding(.trailing, 15)
+                                }
+
                                 VStack(alignment: .leading){
                                     Text("장소")
                                         .title2(color: .white)
                                         .padding(.bottom, 2)
-                                    Text("6곡 수집")
+                                    Text("\(musicList.count)곡 수집")
                                         .body1(color: .white)
                                 }
                                 Spacer()
@@ -73,7 +84,7 @@ struct MapView: View {
                             .overlay(Color.custom(.white))
                         ScrollView {
                             VStack{
-                                ForEach(musicItemVODummyData) { musicItem in
+                                ForEach(musicList) { musicItem in
                                     MusicListRowView(
                                         imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
                                         songName: musicItem.songName,
@@ -82,10 +93,10 @@ struct MapView: View {
                             }
                         }
                         .padding()
-                        
+                        .frame(minHeight: 300)
                     }
                     .frame(idealWidth: 390, maxWidth: 390)
-                    .frame(height: .infinity)
+                    .frame(height: 600)
                     .background(Color.custom(.background))
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
@@ -95,11 +106,12 @@ struct MapView: View {
                 VStack {
                     Spacer()
                         .frame(height: 30)
-                    MusicSearchView()
+                    MapSearchComponentView()
                     Spacer()
                     HStack {
                         Spacer()
                         Button {
+                            isShowUserLocation = true
                             showUserLocation()
                         } label: {
                             ScopeButtonComponentView()
@@ -153,9 +165,9 @@ struct MapView: View {
     
     private func showUserLocation(){
         locationManager.startUpdatingLocation()
-           if let userCurrentLocation = locationManager.location?.coordinate {
-               userLocation = userCurrentLocation
-           }
+        if let userCurrentLocation = locationManager.location?.coordinate {
+            userLocation = userCurrentLocation
+        }
         region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
     }
 }
@@ -180,6 +192,7 @@ struct MapUIKitView: UIViewRepresentable {
     @Binding var locationManager: CLLocationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
+    @Binding var isShowUserLocation: Bool
 
     private let annotaionDataList = musicItemVODummyData
 
@@ -195,6 +208,7 @@ struct MapUIKitView: UIViewRepresentable {
                 let longitude = location.coordinate.longitude
                 self.parent.userLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             }
+            
         }
         
         /// 화면 이동중 musicList reset
@@ -254,9 +268,11 @@ struct MapUIKitView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        uiView.setRegion(userRegion, animated: true)
+        if isShowUserLocation  {
+            uiView.setRegion(userRegion, animated: true)
+            isShowUserLocation = false
+        }
     }
-    
     
 }
 
