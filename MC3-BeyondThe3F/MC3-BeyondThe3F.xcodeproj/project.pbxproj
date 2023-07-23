@@ -37,6 +37,10 @@
 		953BD7592A69FFE70047C21C /* ScopeButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7582A69FFE70047C21C /* ScopeButtonComponentView.swift */; };
 		953BD75B2A69FFFE0047C21C /* MusicPlayerComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD75A2A69FFFE0047C21C /* MusicPlayerComponentView.swift */; };
 		953BD75D2A6A001D0047C21C /* MusicListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD75C2A6A001D0047C21C /* MusicListRowView.swift */; };
+		953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD75F2A6A6D0A0047C21C /* ClusteringAnnotationView.swift */; };
+		953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */; };
+		953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7632A6A77240047C21C /* MapSearchComponentView.swift */; };
+		95D6CE142A6D084E0053AE8E /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE132A6D084E0053AE8E /* LocationHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +76,10 @@
 		953BD7582A69FFE70047C21C /* ScopeButtonComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeButtonComponentView.swift; sourceTree = "<group>"; };
 		953BD75A2A69FFFE0047C21C /* MusicPlayerComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerComponentView.swift; sourceTree = "<group>"; };
 		953BD75C2A6A001D0047C21C /* MusicListRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicListRowView.swift; sourceTree = "<group>"; };
+		953BD75F2A6A6D0A0047C21C /* ClusteringAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusteringAnnotationView.swift; sourceTree = "<group>"; };
+		953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAnnotationView.swift; sourceTree = "<group>"; };
+		953BD7632A6A77240047C21C /* MapSearchComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchComponentView.swift; sourceTree = "<group>"; };
+		95D6CE132A6D084E0053AE8E /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +109,7 @@
 				74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */,
 				74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */,
 				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
+				953BD7632A6A77240047C21C /* MapSearchComponentView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -168,6 +177,7 @@
 		951691982A6629870070D47C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				953BD75E2A6A6CF30047C21C /* Annotations */,
 				74167D112A678A2000F5C691 /* Components */,
 				951691A12A6639320070D47C /* MainTabView.swift */,
 				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
@@ -197,6 +207,7 @@
 		9516919B2A6629AD0070D47C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				95D6CE132A6D084E0053AE8E /* LocationHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -225,6 +236,15 @@
 				9516918D2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		953BD75E2A6A6CF30047C21C /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				953BD75F2A6A6D0A0047C21C /* ClusteringAnnotationView.swift */,
+				953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */,
+			);
+			path = Annotations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,8 +327,11 @@
 				953BD75B2A69FFFE0047C21C /* MusicPlayerComponentView.swift in Sources */,
 				951691A02A6634C00070D47C /* DefaultCoreDataView.swift in Sources */,
 				951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */,
+				953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
 				74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */,
+				95D6CE142A6D084E0053AE8E /* LocationHelper.swift in Sources */,
+				953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */,
 				74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */,
 				953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
@@ -321,6 +344,7 @@
 				764936AF2A6A169B001C0C54 /* MusicDataModel.swift in Sources */,
 				953BD7572A69FFDF0047C21C /* SFImageComponentView.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
+				953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
 				74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */,
 				951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */,

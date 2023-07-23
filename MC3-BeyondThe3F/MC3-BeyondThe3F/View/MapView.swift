@@ -9,49 +9,239 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
+struct Place: Identifiable, Hashable {
+    var id = UUID().uuidString
+    var place: CLPlacemark
+}
+
 struct MapView: View {
+    @State private var mapView = MKMapView()
+    
     @State private var musicList: [MusicItemVO] = []
-    @State private var isMoving = true
-    @State var locationManager = CLLocationManager()
-    @State var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
-    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+    
+    @State private var draggedYOffset = 500.0
+    @State private var accumulatedYOffset = 500.0
+    private let maxHeight = 500.0
+    private let minHeight = 100.0
+    
+    let locationHelper = LocationHelper.shared
+    @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
+    @State var region = startRegion
+    @State var isShowUserLocation = false
+    
+    @State private var searchText = ""
+    @State private var searchPlaces : [Place] = []
     
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
                 MapUIKitView(
+                    mapView: $mapView,
                     musicList: $musicList,
-                    locationManager: $locationManager,
+                    locationManager: locationHelper.locationManager,
                     userLocation: $userLocation,
-                    userRegion: $region
+                    userRegion: $region,
+                    isShowUserLocation: $isShowUserLocation
                 )
                 VStack {
                     Spacer()
-                        .frame(height: 30)
-                    MusicSearchView()
+                    VStack{
+                        VStack{
+                            HStack {
+                                Spacer()
+                                Rectangle()
+                                    .foregroundColor(Color.custom(.white))
+                                    .frame(width: 40, height: 5)
+                                    .opacity(0.4)
+                                    .cornerRadius(3)
+                                Spacer()
+                            }
+                            HStack {
+                                if musicList.isEmpty {
+                                    ProgressView()
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(8)
+                                        .foregroundColor(Color.custom(.white))
+                                        .padding(.trailing, 15)
+                                } else {
+                                    Image("annotaion0")
+                                        .resizable()
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(8)
+                                        .padding(.trailing, 15)
+                                }
+
+                                VStack(alignment: .leading){
+                                    Text("장소")
+                                        .title2(color: .white)
+                                        .padding(.bottom, 2)
+                                    Text("\(musicList.count)곡 수집")
+                                        .body1(color: .white)
+                                }
+                                Spacer()
+                            }
+                            .padding(.bottom,15)
+                            
+                            HStack {
+                                MidButtonComponent()
+                                Spacer()
+                                MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
+                            }
+                        }
+                        .padding()
+                        
+                        Divider()
+                            .overlay(Color.custom(.white))
+                        ScrollView {
+                            VStack{
+                                ForEach(musicList) { musicItem in
+                                    MusicListRowView(
+                                        imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
+                                        songName: musicItem.songName,
+                                        artistName: musicItem.artistName,
+                                        musicListRowType: .saved,
+                                        buttonEllipsisAction: {
+                                            
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                        .padding()
+                        .frame(minHeight: 300)
+                    }
+                    .frame(idealWidth: 390, maxWidth: 390)
+                    .frame(height: 600)
+                    .background(Color.custom(.background))
+                    .presentationDragIndicator(.visible)
+                    .offset(y: draggedYOffset)
+                    .gesture(drag)
+                }
+                VStack {
                     Spacer()
+                        .frame(height: 30)
+                    MapSearchComponentView(textInput: $searchText)
+                    if searchText == "" {
+                        Spacer()
+                    } else {
+                        ScrollView {
+                            VStack {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    ForEach(searchPlaces, id: \.self) { place in
+                                        Button{
+                                            moveToSelectedPlaced(place: place)
+                                        } label: {
+                                            HStack {
+                                                Text("\(place.place.name ?? "no name")")
+                                                    .body1(color: .white)
+                                                Spacer()
+                                            }
+                                            .frame(height: 56)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .frame(width: 350, height: 300)
+                        .background(Color.custom(.background))
+                        Spacer()
+                    }
                     HStack {
                         Spacer()
                         Button {
-                            locationManager.startUpdatingLocation()
-                               if let userCurrentLocation = locationManager.location?.coordinate {
-                                   userLocation = userCurrentLocation
-                               }
-                            region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+                            isShowUserLocation = true
+                            showUserLocation()
                         } label: {
                             ScopeButtonComponentView()
                         }
                     }
                 }
                 .padding()
+                .background(
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        searchText == "" ? .green.opacity(0) : Color.custom(.background)
+                    }
+
+                )
             }
             MusicPlayerComponentView()
         }
         .ignoresSafeArea(.all, edges: .top)
         .onAppear {
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
+            locationHelper.getLocationAuth()
         }
+        .onChange(of: searchText) { newValue in
+            getSearchPlace()
+        }
+        
+    }
+    
+    var drag: some Gesture {
+        DragGesture()
+            .onChanged { gesture in
+                let caculatedValue = accumulatedYOffset + gesture.translation.height
+                if caculatedValue > maxHeight {
+                    draggedYOffset = maxHeight
+                } else if caculatedValue < minHeight {
+                    draggedYOffset = minHeight
+                } else {
+                    draggedYOffset = caculatedValue
+                }
+            }
+            .onEnded { gesture in
+                let caculatedValue = accumulatedYOffset + gesture.translation.height
+                
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    if caculatedValue > maxHeight {
+                        accumulatedYOffset = maxHeight
+                    } else if caculatedValue < minHeight {
+                        accumulatedYOffset = minHeight
+                    } else {
+                        if caculatedValue > 400 {
+                            accumulatedYOffset = maxHeight
+                        } else if caculatedValue > 200 {
+                            accumulatedYOffset = 300.0
+                        } else {
+                            accumulatedYOffset = minHeight
+                        }
+                        draggedYOffset = accumulatedYOffset
+                    }
+                }
+            }
+    }
+        
+    private func showUserLocation(){
+        locationHelper.locationManager.startUpdatingLocation()
+        if let userCurrentLocation = locationHelper.locationManager.location?.coordinate {
+            userLocation = userCurrentLocation
+        }
+        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+    }
+    private func getSearchPlace(){
+        searchPlaces.removeAll()
+                
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchText
+        
+        MKLocalSearch(request: request).start { (response, _) in
+            
+            guard let result = response else { return }
+            
+            self.searchPlaces = result.mapItems.compactMap({ (item) -> Place? in
+                return Place(place: item.placemark)
+            })
+        }
+    }
+    
+    private func moveToSelectedPlaced(place: Place){
+        searchText = ""
+        
+        guard let coordinate = place.place.location?.coordinate else { return }
+
+        let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        
+        mapView.setRegion(coordinateRegion, animated: true)
+        mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
     }
 }
 
@@ -61,7 +251,7 @@ struct MapView_Previews: PreviewProvider {
     }
 }
 
-let annotaionDummyData:[MusicItemVO] = [
+let musicItemVODummyData:[MusicItemVO] = [
     MusicItemVO(musicId: "1004836383", latitude: 43.70564024126748,longitude: 142.37968945214223,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotationTest"),
     MusicItemVO(musicId: "1004836383", latitude: 43.81257464206404,longitude: 142.82112322464369,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion1"),
     MusicItemVO(musicId: "1004836383", latitude: 43.38416585162576,longitude: 141.7252598737476,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion2"),
@@ -70,13 +260,15 @@ let annotaionDummyData:[MusicItemVO] = [
 let startRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64422936785126, longitude: 142.39329541313924), span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 2))
 
 struct MapUIKitView: UIViewRepresentable {
+    @Binding var mapView: MKMapView
     @State var region = startRegion
     @Binding var musicList: [MusicItemVO]
-    @Binding var locationManager: CLLocationManager
+    let locationManager: CLLocationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
+    @Binding var isShowUserLocation: Bool
 
-    private let annotaionDataList = annotaionDummyData
+    private let annotaionDataList = musicItemVODummyData
 
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: MapUIKitView
@@ -92,10 +284,10 @@ struct MapUIKitView: UIViewRepresentable {
             }
         }
         
-        /// 화면 이동중 musicList reset
         func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
             self.setMusicList([])
         }
+        
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
             var newAnnotaionList: [MusicItemVO] = []
             for annotation in mapView.visibleAnnotations() {
@@ -105,6 +297,7 @@ struct MapUIKitView: UIViewRepresentable {
             }
             setMusicList(newAnnotaionList)
         }
+        
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             switch annotation {
             case is MusicAnnotation:
@@ -115,6 +308,7 @@ struct MapUIKitView: UIViewRepresentable {
                 return nil
             }
         }
+        
         func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
             let clusterAnnotaion = MKClusterAnnotation(memberAnnotations: memberAnnotations)
             clusterAnnotaion.title  = "clusted"
@@ -131,27 +325,27 @@ struct MapUIKitView: UIViewRepresentable {
 
 
     func makeUIView(context: Context) -> MKMapView {
-        let view = MKMapView()
-        view.delegate = context.coordinator
-        view.setRegion(region, animated: false)
-        view.mapType = .standard
+        mapView.delegate = context.coordinator
+        mapView.setRegion(region, animated: false)
+        mapView.mapType = .standard
         
         for annotaionData in annotaionDataList {
             let annotation = MusicAnnotation(annotaionData)
-            view.addAnnotation(annotation)
+            mapView.addAnnotation(annotation)
         }
-        view.showsUserLocation = true
-        view.setUserTrackingMode(.follow, animated: true)
         
+        mapView.showsUserLocation = true
+        mapView.setUserTrackingMode(.follow, animated: true)
         
-        return view
-        
+        return mapView
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        uiView.setRegion(userRegion, animated: true)
+        if isShowUserLocation  {
+            uiView.setRegion(userRegion, animated: true)
+            isShowUserLocation = false
+        }
     }
-    
     
 }
 
@@ -161,113 +355,3 @@ extension MKMapView {
     }
 }
 
-/// here posible to customize annotation view
-let clusterID = "clustering"
-
-class MusicAnnotationView: MKAnnotationView {
-
-    static let ReuseID = "cultureAnnotation"
-
-    /// setting the key for clustering annotations
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        clusteringIdentifier = clusterID
-        
-        guard let landmark = annotation as? MusicAnnotation else {
-            image = UIImage(named: "annotationImage")
-            return
-        }
-        image = resizeImage(imageName: landmark.savedImage)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func prepareForDisplay() {
-        super.prepareForDisplay()
-        displayPriority = .defaultLow
-    }
-    
-    private func resizeImage(imageName: String?) -> UIImage{
-        guard let imageNameString = imageName else {
-            return UIImage(named: "annotationImage")!
-        }
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
-        return renderer.image { ctx in
-            UIColor.white.setFill()
-            let rectWhite = CGRect(x: 0, y: 10, width: 64, height: 64)
-            let roundedWhite = UIBezierPath(roundedRect: rectWhite, cornerRadius: 10)
-            roundedWhite.addClip()
-            UIRectFill(rectWhite)
-            
-            let rect = CGRect(x: 5, y: 15, width: 54, height: 54)
-            let rounded = UIBezierPath(roundedRect: rect, cornerRadius: 7)
-            rounded.addClip()
-            let img = UIImage(named: imageNameString)
-            img?.draw(in: rect)
-        }
-    }
-}
-
-final class ClusteringAnnotationView: MKAnnotationView {
-    static let ReuseID = "ClusteringAnnotationView"
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        collisionMode = .circle
-        centerOffset = CGPoint(x: 0, y: -10)
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("This method cannot be called.")
-    }
-    override func prepareForDisplay() {
-        super.prepareForDisplay()
-        guard let cluster = annotation as? MKClusterAnnotation else { return }
-        
-        self.image = self.addClusterCount(drawRatio(cluster), cluster)
-    }
-    
-    private func drawRatio(_ cluster: MKClusterAnnotation) -> UIImage {
-        
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
-        return renderer.image { ctx in
-            UIColor.white.setFill()
-            let rectWhite = CGRect(x: 0, y: 10, width: 64, height: 64)
-            let roundedWhite = UIBezierPath(roundedRect: rectWhite, cornerRadius: 10)
-            roundedWhite.addClip()
-            UIRectFill(rectWhite)
-            
-            let rect = CGRect(x: 5, y: 15, width: 54, height: 54)
-            let rounded = UIBezierPath(roundedRect: rect, cornerRadius: 7)
-            rounded.addClip()
-            if let landmark = cluster.memberAnnotations.first as? MusicAnnotation {
-                let img = UIImage(named: "\(landmark.savedImage ?? "annotaionImage")")
-                img?.draw(in: rect)
-            } else {
-                let img = UIImage(named: "annotaionImage")
-                img?.draw(in: rect)
-            }
-        }
-    }
-    
-    private func addClusterCount(_ image:UIImage,_ cluster: MKClusterAnnotation) -> UIImage {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
-        return renderer.image { ctx in
-            
-            let rect = CGRect(x: 0, y: 0, width: 80, height: 80)
-            image.draw(in: rect)
-            UIColor(Color.custom(.primary)).setFill()
-            
-            UIBezierPath(ovalIn: CGRect(x: 50, y: 5, width: 24, height: 24)).fill()
-            
-            let attributes = [ NSAttributedString.Key.foregroundColor: UIColor(Color.custom(.white)),
-                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
-            let text = "\(cluster.memberAnnotations.count)"
-            let size = text.size(withAttributes: attributes)
-            let textRect = CGRect(x: 57, y: 7, width: size.width, height: size.height)
-            text.draw(in: textRect, withAttributes: attributes)
-        }
-    }
-}

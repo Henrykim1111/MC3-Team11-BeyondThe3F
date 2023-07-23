@@ -8,39 +8,65 @@
 import SwiftUI
 
 struct MusicListRowView: View {
+    let imageName: String
+    let songName: String
+    let artistName: String
+    enum MusicListRowType {
+        case notSaved
+        case saved
+    }
+    let musicListRowType : MusicListRowType
+    var buttonPlayAction: () -> Void = { return }
+    var buttonEllipsisAction: () -> Void = { return }
+    
     var body: some View {
         HStack{
-            Spacer()
-                .frame(width: 20)
-            Rectangle()
+            Image(imageName)
+                .resizable()
                 .frame(width: 60, height: 60)
                 .cornerRadius(8)
                 .foregroundColor(.white)
             Spacer()
                 .frame(width: 16)
             VStack(alignment: .leading){
-                Text("최애의 아이")
+                Text("\(imageName)")
                     .body1(color: .white)
                     .padding(.bottom, 4)
-                Text("YOASOBI")
+                Text("\(artistName)")
                     .body2(color: .gray500)
             }
             Spacer()
-                .frame(width: 106)
-            SFImageComponentView(symbolName: .play)
-            SFImageComponentView(symbolName: .ellipsis)
-            
-            
-            
-            
+            switch musicListRowType {
+            case .saved:
+                Button {
+                    buttonEllipsisAction()
+                } label: {
+                    SFImageComponentView(symbolName: .ellipsis, color: .white)
+                        .rotationEffect(.degrees(90.0))
+                }
+            case .notSaved:
+                Button {
+                    buttonPlayAction()
+                } label: {
+                    SFImageComponentView(symbolName: .play, color: .white)
+                }
+                Spacer()
+                    .frame(width: 15)
+                Button {
+                    buttonEllipsisAction()
+                } label: {
+                    SFImageComponentView(symbolName: .ellipsis, color: .white)
+                }
+            }
         }
-        .frame(width: 390, height: 88)
+        .frame(maxWidth: 390)
+        .frame(height: 88)
         
     }
 }
 
 struct MusicListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MusicListRowView()
+        MusicListRowView(imageName: "annotation0", songName: "BIG WAVE", artistName: "artist", musicListRowType: .notSaved)
     }
 }

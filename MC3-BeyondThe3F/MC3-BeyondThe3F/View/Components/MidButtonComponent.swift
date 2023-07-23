@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MidButtonComponent: View {
     enum MidType: String {
-        case 카메라
+        case 임의재생
         case 재생
     }
     
