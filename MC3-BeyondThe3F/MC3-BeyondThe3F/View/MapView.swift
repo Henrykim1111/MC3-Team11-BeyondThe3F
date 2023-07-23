@@ -16,6 +16,8 @@ struct Place: Identifiable, Hashable {
 }
 
 struct MapView: View {
+    @State private var mapView = MKMapView()
+    
     @State private var musicList: [MusicItemVO] = []
     
     @State private var draggedYOffset = 500.0
@@ -35,6 +37,7 @@ struct MapView: View {
         VStack(spacing: 0) {
             ZStack {
                 MapUIKitView(
+                    mapView: $mapView,
                     musicList: $musicList,
                     locationManager: locationHelper.locationManager,
                     userLocation: $userLocation,
@@ -126,12 +129,16 @@ struct MapView: View {
                             VStack {
                                 withAnimation(.easeInOut(duration: 0.2)) {
                                     ForEach(searchPlaces, id: \.self) { place in
-                                        HStack {
-                                            Text("\(place.place.name ?? "no name")")
-                                                .body1(color: .white)
-                                            Spacer()
+                                        Button{
+                                            moveToSelectedPlaced(place: place)
+                                        } label: {
+                                            HStack {
+                                                Text("\(place.place.name ?? "no name")")
+                                                    .body1(color: .white)
+                                                Spacer()
+                                            }
+                                            .frame(height: 56)
                                         }
-                                        .frame(height: 56)
                                     }
                                 }
                             }
@@ -226,6 +233,28 @@ struct MapView: View {
             })
         }
     }
+    
+    private func moveToSelectedPlaced(place: Place){
+        // Showing Pin On Map...
+                
+        searchText = ""
+        
+        guard let coordinate = place.place.location?.coordinate else { return }
+        // coordinate 주석의 좌표점
+        
+        // Moving Map To That Location...
+        let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        // 지정된 좌표 및 거리 값으로 새 좌표 영역을 표시
+        
+        mapView.setRegion(coordinateRegion, animated: true)
+        // setRegion 보이는 영역을 변경하고 선택적으로 변경사항을 애니메이션화
+        // region 지도보기에 표시할 새영역
+        // 새 영역으로 전환을 애니메이션으로 만들 것인지 또는 맵이 지정된 영역의 중심에 즉시 배치되도록 할 것인지 지정
+        
+        mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
+        // 가장자리 주위에 추가 공간을 지정 지도에서 현재 보이는 부분을 변경
+        // visibleMapRect 현재 지도 보기에서 표시되는 영역
+    }
 }
 
 struct MapView_Previews: PreviewProvider {
@@ -243,6 +272,7 @@ let musicItemVODummyData:[MusicItemVO] = [
 let startRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64422936785126, longitude: 142.39329541313924), span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 2))
 
 struct MapUIKitView: UIViewRepresentable {
+    @Binding var mapView: MKMapView
     @State var region = startRegion
     @Binding var musicList: [MusicItemVO]
     let locationManager: CLLocationManager
@@ -306,20 +336,20 @@ struct MapUIKitView: UIViewRepresentable {
 
 
     func makeUIView(context: Context) -> MKMapView {
-        let view = MKMapView()
-        view.delegate = context.coordinator
-        view.setRegion(region, animated: false)
-        view.mapType = .standard
+        
+        mapView.delegate = context.coordinator
+        mapView.setRegion(region, animated: false)
+        mapView.mapType = .standard
         
         for annotaionData in annotaionDataList {
             let annotation = MusicAnnotation(annotaionData)
-            view.addAnnotation(annotation)
+            mapView.addAnnotation(annotation)
         }
-        view.showsUserLocation = true
-        view.setUserTrackingMode(.follow, animated: true)
+        mapView.showsUserLocation = true
+        mapView.setUserTrackingMode(.follow, animated: true)
         
         
-        return view
+        return mapView
         
     }
 
