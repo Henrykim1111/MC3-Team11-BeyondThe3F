@@ -43,4 +43,5 @@ class MusicItemDataModel {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
+    
 }
