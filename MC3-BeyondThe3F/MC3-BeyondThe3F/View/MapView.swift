@@ -10,7 +10,6 @@ import MapKit
 import CoreLocation
 
 struct Place: Identifiable, Hashable {
-    
     var id = UUID().uuidString
     var place: CLPlacemark
 }
@@ -235,25 +234,14 @@ struct MapView: View {
     }
     
     private func moveToSelectedPlaced(place: Place){
-        // Showing Pin On Map...
-                
         searchText = ""
         
         guard let coordinate = place.place.location?.coordinate else { return }
-        // coordinate 주석의 좌표점
-        
-        // Moving Map To That Location...
+
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-        // 지정된 좌표 및 거리 값으로 새 좌표 영역을 표시
         
         mapView.setRegion(coordinateRegion, animated: true)
-        // setRegion 보이는 영역을 변경하고 선택적으로 변경사항을 애니메이션화
-        // region 지도보기에 표시할 새영역
-        // 새 영역으로 전환을 애니메이션으로 만들 것인지 또는 맵이 지정된 영역의 중심에 즉시 배치되도록 할 것인지 지정
-        
         mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
-        // 가장자리 주위에 추가 공간을 지정 지도에서 현재 보이는 부분을 변경
-        // visibleMapRect 현재 지도 보기에서 표시되는 영역
     }
 }
 
@@ -294,13 +282,12 @@ struct MapUIKitView: UIViewRepresentable {
                 let longitude = location.coordinate.longitude
                 self.parent.userLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             }
-            
         }
         
-        /// 화면 이동중 musicList reset
         func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
             self.setMusicList([])
         }
+        
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
             var newAnnotaionList: [MusicItemVO] = []
             for annotation in mapView.visibleAnnotations() {
@@ -310,6 +297,7 @@ struct MapUIKitView: UIViewRepresentable {
             }
             setMusicList(newAnnotaionList)
         }
+        
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             switch annotation {
             case is MusicAnnotation:
@@ -320,6 +308,7 @@ struct MapUIKitView: UIViewRepresentable {
                 return nil
             }
         }
+        
         func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
             let clusterAnnotaion = MKClusterAnnotation(memberAnnotations: memberAnnotations)
             clusterAnnotaion.title  = "clusted"
@@ -336,7 +325,6 @@ struct MapUIKitView: UIViewRepresentable {
 
 
     func makeUIView(context: Context) -> MKMapView {
-        
         mapView.delegate = context.coordinator
         mapView.setRegion(region, animated: false)
         mapView.mapType = .standard
@@ -345,12 +333,11 @@ struct MapUIKitView: UIViewRepresentable {
             let annotation = MusicAnnotation(annotaionData)
             mapView.addAnnotation(annotation)
         }
+        
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.follow, animated: true)
         
-        
         return mapView
-        
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
