@@ -11,6 +11,14 @@ struct MusicListRowView: View {
     let imageName: String
     let songName: String
     let artistName: String
+    enum MusicListRowType {
+        case notSaved
+        case saved
+    }
+    let musicListRowType : MusicListRowType
+    var buttonPlayAction: () -> Void = { return }
+    var buttonEllipsisAction: () -> Void = { return }
+    
     var body: some View {
         HStack{
             Image(imageName)
@@ -28,11 +36,28 @@ struct MusicListRowView: View {
                     .body2(color: .gray500)
             }
             Spacer()
-                
-            SFImageComponentView(symbolName: .play, color: .white)
-            Spacer()
-                .frame(width: 15)
-            SFImageComponentView(symbolName: .ellipsis, color: .white)
+            switch musicListRowType {
+            case .saved:
+                Button {
+                    buttonEllipsisAction()
+                } label: {
+                    SFImageComponentView(symbolName: .ellipsis, color: .white)
+                        .rotationEffect(.degrees(90.0))
+                }
+            case .notSaved:
+                Button {
+                    buttonPlayAction()
+                } label: {
+                    SFImageComponentView(symbolName: .play, color: .white)
+                }
+                Spacer()
+                    .frame(width: 15)
+                Button {
+                    buttonEllipsisAction()
+                } label: {
+                    SFImageComponentView(symbolName: .ellipsis, color: .white)
+                }
+            }
         }
         .frame(maxWidth: 390)
         .frame(height: 88)
@@ -42,6 +67,6 @@ struct MusicListRowView: View {
 
 struct MusicListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MusicListRowView(imageName: "annotation0", songName: "BIG WAVE", artistName: "artist")
+        MusicListRowView(imageName: "annotation0", songName: "BIG WAVE", artistName: "artist", musicListRowType: .notSaved)
     }
 }

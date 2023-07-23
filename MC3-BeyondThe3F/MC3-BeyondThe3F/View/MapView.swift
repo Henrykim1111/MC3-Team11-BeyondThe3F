@@ -23,6 +23,7 @@ struct MapView: View {
     @State var isShowUserLocation = false
     
     
+    
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
@@ -88,7 +89,12 @@ struct MapView: View {
                                     MusicListRowView(
                                         imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
                                         songName: musicItem.songName,
-                                        artistName: musicItem.artistName)
+                                        artistName: musicItem.artistName,
+                                        musicListRowType: .saved,
+                                        buttonEllipsisAction: {
+                                            
+                                        }
+                                    )
                                 }
                             }
                         }
