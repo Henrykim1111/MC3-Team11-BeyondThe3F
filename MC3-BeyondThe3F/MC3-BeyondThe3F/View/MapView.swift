@@ -17,7 +17,7 @@ struct MapView: View {
     private let maxHeight = 500.0
     private let minHeight = 100.0
     
-    @State private var locationManager = CLLocationManager()
+    let locationHelper = LocationHelper.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = startRegion
     @State var isShowUserLocation = false
@@ -29,7 +29,7 @@ struct MapView: View {
             ZStack {
                 MapUIKitView(
                     musicList: $musicList,
-                    locationManager: $locationManager,
+                    locationManager: locationHelper.locationManager,
                     userLocation: $userLocation,
                     userRegion: $region,
                     isShowUserLocation: $isShowUserLocation
@@ -104,7 +104,6 @@ struct MapView: View {
                     .frame(idealWidth: 390, maxWidth: 390)
                     .frame(height: 600)
                     .background(Color.custom(.background))
-                    .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
                     .offset(y: draggedYOffset)
                     .gesture(drag)
@@ -130,8 +129,7 @@ struct MapView: View {
         }
         .ignoresSafeArea(.all, edges: .top)
         .onAppear {
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
+            locationHelper.getLocationAuth()
         }
     }
     
@@ -168,10 +166,10 @@ struct MapView: View {
                 }
             }
     }
-    
+        
     private func showUserLocation(){
-        locationManager.startUpdatingLocation()
-        if let userCurrentLocation = locationManager.location?.coordinate {
+        locationHelper.locationManager.startUpdatingLocation()
+        if let userCurrentLocation = locationHelper.locationManager.location?.coordinate {
             userLocation = userCurrentLocation
         }
         region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
@@ -195,7 +193,7 @@ let startRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 4
 struct MapUIKitView: UIViewRepresentable {
     @State var region = startRegion
     @Binding var musicList: [MusicItemVO]
-    @Binding var locationManager: CLLocationManager
+    let locationManager: CLLocationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
     @Binding var isShowUserLocation: Bool
