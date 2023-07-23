@@ -9,6 +9,12 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
+struct Place: Identifiable, Hashable {
+    
+    var id = UUID().uuidString
+    var place: CLPlacemark
+}
+
 struct MapView: View {
     @State private var musicList: [MusicItemVO] = []
     
@@ -22,7 +28,8 @@ struct MapView: View {
     @State var region = startRegion
     @State var isShowUserLocation = false
     
-    
+    @State private var searchText = ""
+    @State private var searchPlaces : [Place] = []
     
     var body: some View {
         VStack(spacing: 0) {
@@ -111,8 +118,28 @@ struct MapView: View {
                 VStack {
                     Spacer()
                         .frame(height: 30)
-                    MapSearchComponentView()
-                    Spacer()
+                    MapSearchComponentView(textInput: $searchText)
+                    if searchText == "" {
+                        Spacer()
+                    } else {
+                        ScrollView {
+                            VStack {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    ForEach(searchPlaces, id: \.self) { place in
+                                        HStack {
+                                            Text("\(place.place.name ?? "no name")")
+                                                .body1(color: .white)
+                                            Spacer()
+                                        }
+                                        .frame(height: 56)
+                                    }
+                                }
+                            }
+                        }
+                        .frame(width: 350, height: 300)
+                        .background(Color.custom(.background))
+                        Spacer()
+                    }
                     HStack {
                         Spacer()
                         Button {
@@ -124,6 +151,12 @@ struct MapView: View {
                     }
                 }
                 .padding()
+                .background(
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        searchText == "" ? .green.opacity(0) : Color.custom(.background)
+                    }
+
+                )
             }
             MusicPlayerComponentView()
         }
@@ -131,6 +164,10 @@ struct MapView: View {
         .onAppear {
             locationHelper.getLocationAuth()
         }
+        .onChange(of: searchText) { newValue in
+            getSearchPlace()
+        }
+        
     }
     
     var drag: some Gesture {
@@ -173,6 +210,21 @@ struct MapView: View {
             userLocation = userCurrentLocation
         }
         region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+    }
+    private func getSearchPlace(){
+        searchPlaces.removeAll()
+                
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchText
+        
+        MKLocalSearch(request: request).start { (response, _) in
+            
+            guard let result = response else { return }
+            
+            self.searchPlaces = result.mapItems.compactMap({ (item) -> Place? in
+                return Place(place: item.placemark)
+            })
+        }
     }
 }
 

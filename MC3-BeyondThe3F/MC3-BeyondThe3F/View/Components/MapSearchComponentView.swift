@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MapSearchComponentView: View {
-    @State private var textInput: String = ""
+    @Binding var textInput: String
     
     var body: some View {
             HStack {
@@ -32,8 +32,8 @@ struct MapSearchComponentView: View {
     }
 }
 
-struct MapSearchComponentView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapSearchComponentView()
-    }
-}
+//struct MapSearchComponentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MapSearchComponentView()
+//    }
+//}

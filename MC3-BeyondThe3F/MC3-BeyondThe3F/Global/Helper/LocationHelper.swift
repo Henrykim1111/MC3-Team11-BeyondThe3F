@@ -12,10 +12,17 @@ class LocationHelper: ObservableObject {
     private init(){}
     static let shared = LocationHelper()
     
+    var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     let locationManager = CLLocationManager()
     
     func getLocationAuth(){
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+    }
+    
+    func getUserCurrentLocation(){
+        if let userCurrentLocation = locationManager.location?.coordinate {
+            userLocation = userCurrentLocation
+        }
     }
 }
