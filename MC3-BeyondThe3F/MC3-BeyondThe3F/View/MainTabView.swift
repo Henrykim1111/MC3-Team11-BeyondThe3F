@@ -20,6 +20,12 @@ struct MainTabView: View {
                     Image(systemName: "map.fill")
                     Text("지도")
                 }
+        }.onAppear{
+            insertDummy()
+            
+            
+            let mainDataModel = MainDataModel.shared
+            mainDataModel.getData
         }
     }
 }

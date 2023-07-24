@@ -18,7 +18,7 @@ struct MusicItemVO: Identifiable, Hashable {
     var artistName: String
     var generatedDate: Date
     var savedImage: String?
-    var locationInfo: String?
+    var locationInfo: String = ""
     var desc: String?
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
