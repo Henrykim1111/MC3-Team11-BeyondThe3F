@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
+		7433A2462A6E1D9A00EFA99B /* EditDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7433A2452A6E1D9A00EFA99B /* EditDateView.swift */; };
+		7433A2482A6E1E1800EFA99B /* AddMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7433A2472A6E1E1800EFA99B /* AddMusicView.swift */; };
 		74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */; };
 		74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */; };
 		74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */; };
@@ -49,6 +51,8 @@
 
 /* Begin PBXFileReference section */
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
+		7433A2452A6E1D9A00EFA99B /* EditDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDateView.swift; sourceTree = "<group>"; };
+		7433A2472A6E1E1800EFA99B /* AddMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicView.swift; sourceTree = "<group>"; };
 		74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPlayComponentView.swift; sourceTree = "<group>"; };
 		74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinLocationComponentView.swift; sourceTree = "<group>"; };
 		74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchView.swift; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 				951691A32A663A4E0070D47C /* BucketView.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
 				95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */,
+				7433A2452A6E1D9A00EFA99B /* EditDateView.swift */,
+				7433A2472A6E1E1800EFA99B /* AddMusicView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -331,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				953BD7532A69234D0047C21C /* PrimaryButtonComponentView.swift in Sources */,
+				7433A2462A6E1D9A00EFA99B /* EditDateView.swift in Sources */,
 				953BD75D2A6A001D0047C21C /* MusicListRowView.swift in Sources */,
 				953BD7552A69260A0047C21C /* MidButtonComponent.swift in Sources */,
 				953BD74D2A68DE6C0047C21C /* MusicItemVO.swift in Sources */,
@@ -342,6 +349,7 @@
 				953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
 				74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */,
+				7433A2482A6E1E1800EFA99B /* AddMusicView.swift in Sources */,
 				95D6CE142A6D084E0053AE8E /* LocationHelper.swift in Sources */,
 				76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */,
 				953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */,
