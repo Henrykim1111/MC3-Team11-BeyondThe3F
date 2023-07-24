@@ -10,7 +10,7 @@
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
 		74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */; };
 		74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */; };
-		74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */; };
+		74EF8C9C2A6832BF006B8DBC /* MusicSearchComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C9B2A6832BF006B8DBC /* MusicSearchComponentView.swift */; };
 		74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */; };
 		76104ABC2A6D7991000B8E65 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104ABB2A6D7991000B8E65 /* MainDataModel.swift */; };
 		76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104ABD2A6D7EF7000B8E65 /* dummy.swift */; };
@@ -51,7 +51,7 @@
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
 		74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPlayComponentView.swift; sourceTree = "<group>"; };
 		74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinLocationComponentView.swift; sourceTree = "<group>"; };
-		74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchView.swift; sourceTree = "<group>"; };
+		74EF8C9B2A6832BF006B8DBC /* MusicSearchComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchComponentView.swift; sourceTree = "<group>"; };
 		74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsLargeComponentView.swift; sourceTree = "<group>"; };
 		76104ABB2A6D7991000B8E65 /* MainDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDataModel.swift; sourceTree = "<group>"; };
 		76104ABD2A6D7EF7000B8E65 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */,
 				953BD75A2A69FFFE0047C21C /* MusicPlayerComponentView.swift */,
 				74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */,
-				74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */,
+				74EF8C9B2A6832BF006B8DBC /* MusicSearchComponentView.swift */,
 				74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */,
 				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
 				953BD7632A6A77240047C21C /* MapSearchComponentView.swift */,
@@ -348,7 +348,7 @@
 				74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */,
 				953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
-				74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */,
+				74EF8C9C2A6832BF006B8DBC /* MusicSearchComponentView.swift in Sources */,
 				95D6CE182A6D4B0C0053AE8E /* EditMapPositionView.swift in Sources */,
 				953BD7592A69FFE70047C21C /* ScopeButtonComponentView.swift in Sources */,
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
