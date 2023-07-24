@@ -14,7 +14,6 @@
 		74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */; };
 		76104ABC2A6D7991000B8E65 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104ABB2A6D7991000B8E65 /* MainDataModel.swift */; };
 		76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104ABD2A6D7EF7000B8E65 /* dummy.swift */; };
-		76104AC32A6D9B1C000B8E65 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104AC22A6D9B1C000B8E65 /* LocationManager.swift */; };
 		76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104AC42A6DF978000B8E65 /* MainVO.swift */; };
 		764936AF2A6A169B001C0C54 /* MusicDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764936AE2A6A169B001C0C54 /* MusicDataModel.swift */; };
 		951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691822A6629670070D47C /* MC3_BeyondThe3FApp.swift */; };
@@ -56,7 +55,6 @@
 		74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsLargeComponentView.swift; sourceTree = "<group>"; };
 		76104ABB2A6D7991000B8E65 /* MainDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDataModel.swift; sourceTree = "<group>"; };
 		76104ABD2A6D7EF7000B8E65 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
-		76104AC22A6D9B1C000B8E65 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		76104AC42A6DF978000B8E65 /* MainVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVO.swift; sourceTree = "<group>"; };
 		764936AE2A6A169B001C0C54 /* MusicDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDataModel.swift; sourceTree = "<group>"; };
 		9516917F2A6629670070D47C /* MC3-BeyondThe3F.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MC3-BeyondThe3F.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,7 +204,6 @@
 				764936AE2A6A169B001C0C54 /* MusicDataModel.swift */,
 				76104ABB2A6D7991000B8E65 /* MainDataModel.swift */,
 				76104ABD2A6D7EF7000B8E65 /* dummy.swift */,
-				76104AC22A6D9B1C000B8E65 /* LocationManager.swift */,
 				76104AC42A6DF978000B8E65 /* MainVO.swift */,
 			);
 			path = Model;
@@ -349,7 +346,6 @@
 				76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */,
 				953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */,
 				74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */,
-				76104AC32A6D9B1C000B8E65 /* LocationManager.swift in Sources */,
 				953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
 				74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */,
