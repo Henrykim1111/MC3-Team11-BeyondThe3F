@@ -90,7 +90,7 @@ struct MapMusicInfoView: View {
             .gesture(drag)
             .onAppear {
                 maxHeight = geo.size.height - 120
-                minHeight = 100
+                minHeight = 30
                 draggedYOffset = geo.size.height - 120
                 accumulatedYOffset = geo.size.height - 120
                 print(geo.size.height)

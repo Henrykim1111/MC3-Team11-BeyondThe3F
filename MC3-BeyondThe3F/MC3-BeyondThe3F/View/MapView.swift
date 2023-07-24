@@ -38,7 +38,6 @@ struct MapView: View {
                     isShowUserLocation: $isShowUserLocation,
                     locationManager: locationHelper.locationManager
                 )
-                MapMusicInfoView(musicList: $musicList)
                 VStack {
                     Spacer()
                         .frame(height: 30)
@@ -77,14 +76,16 @@ struct MapView: View {
                             ScopeButtonComponentView()
                         }
                     }
+                    Spacer()
+                        .frame(height: 120)
                 }
                 .padding()
                 .background(
                     withAnimation(.easeInOut(duration: 0.2)) {
                         searchText == "" ? .green.opacity(0) : Color.custom(.background)
                     }
-
                 )
+                MapMusicInfoView(musicList: $musicList)
             }
             MusicPlayerComponentView()
         }
