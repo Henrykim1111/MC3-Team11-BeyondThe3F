@@ -24,7 +24,7 @@ struct MapView: View {
     private let maxHeight = 500.0
     private let minHeight = 100.0
     
-    let locationHelper = LocationHelper.shared
+    let locationHelper = LocationManager.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = startRegion
     @State var isShowUserLocation = false
