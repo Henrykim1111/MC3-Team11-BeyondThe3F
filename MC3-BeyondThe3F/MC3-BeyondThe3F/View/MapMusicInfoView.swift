@@ -89,10 +89,10 @@ struct MapMusicInfoView: View {
             .offset(y: draggedYOffset)
             .gesture(drag)
             .onAppear {
-                maxHeight = geo.size.height - 100
+                maxHeight = geo.size.height - 120
                 minHeight = 100
-                draggedYOffset = geo.size.height - 100
-                accumulatedYOffset = geo.size.height - 100
+                draggedYOffset = geo.size.height - 120
+                accumulatedYOffset = geo.size.height - 120
                 print(geo.size.height)
             }
         }
@@ -118,10 +118,10 @@ struct MapMusicInfoView: View {
                     } else if caculatedValue < minHeight {
                         accumulatedYOffset = minHeight
                     } else {
-                        if caculatedValue > 400 {
+                        if caculatedValue > (maxHeight + minHeight) / 2 + 100 {
                             accumulatedYOffset = maxHeight
-                        } else if caculatedValue > 200 {
-                            accumulatedYOffset = 300.0
+                        } else if caculatedValue > (maxHeight + minHeight) / 2 - 100 {
+                            accumulatedYOffset = (maxHeight + minHeight) / 2
                         } else {
                             accumulatedYOffset = minHeight
                         }
