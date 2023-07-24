@@ -12,7 +12,7 @@ import CoreLocation
 struct EditMapPositionView: View {
     @State private var isMoving = true
     @State private var isPresented = true
-    @State private var locationManager = LocationHelper.shared
+    @State private var locationManager = LocationManager.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
     @State private var textInput = ""
@@ -69,7 +69,7 @@ struct EditMapPositionView_Previews: PreviewProvider {
 
 struct EditMapUIView: UIViewRepresentable{
     @State private var region = startRegion
-    private let locationManager = LocationHelper.shared.locationManager
+    private let locationManager = LocationManager.shared.locationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
     @State private var view = MKMapView()
