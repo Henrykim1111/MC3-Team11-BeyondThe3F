@@ -46,7 +46,7 @@ struct MusicSearchComponentView: View {
 }
 
 
-struct MusicSearchView_Previews: PreviewProvider {
+struct MusicSearchComponentView_Previews: PreviewProvider {
     static var previews: some View {
         MusicSearchComponentView()
     }
