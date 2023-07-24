@@ -45,6 +45,7 @@
 		953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */; };
 		953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7632A6A77240047C21C /* MapSearchComponentView.swift */; };
 		95D6CE142A6D084E0053AE8E /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE132A6D084E0053AE8E /* LocationHelper.swift */; };
+		95D6CE182A6D4B0C0053AE8E /* EditMapPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAnnotationView.swift; sourceTree = "<group>"; };
 		953BD7632A6A77240047C21C /* MapSearchComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchComponentView.swift; sourceTree = "<group>"; };
 		95D6CE132A6D084E0053AE8E /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
+		95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMapPositionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 				951691A32A663A4E0070D47C /* BucketView.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
+				95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
 				74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */,
+				95D6CE182A6D4B0C0053AE8E /* EditMapPositionView.swift in Sources */,
 				953BD7592A69FFE70047C21C /* ScopeButtonComponentView.swift in Sources */,
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
