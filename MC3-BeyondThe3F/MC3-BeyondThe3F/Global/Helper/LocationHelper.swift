@@ -18,9 +18,10 @@ class LocationHelper: ObservableObject {
     func getLocationAuth(){
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        getUserCurrentLocation()
     }
     
-    func getUserCurrentLocation(){
+    private func getUserCurrentLocation(){
         if let userCurrentLocation = locationManager.location?.coordinate {
             userLocation = userCurrentLocation
         }

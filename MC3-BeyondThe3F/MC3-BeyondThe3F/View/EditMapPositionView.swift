@@ -12,16 +12,15 @@ import CoreLocation
 struct EditMapPositionView: View {
     @State private var isMoving = true
     @State private var isPresented = true
-    @State var locationManager = LocationHelper.shared
-    @State var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
-    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+    @State private var locationManager = LocationHelper.shared
+    @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
     @State private var textInput = ""
     @State private var selectedCoordinate = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State private var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
     
     var body: some View {
         VStack{
-            
             HStack {
                 SFImageComponentView(symbolName: .chevronBack, color: .white)
                 Spacer()
@@ -48,9 +47,9 @@ struct EditMapPositionView: View {
                 Text("\(selectedPositionDescription)")
                     .headline(color: .white)
                 Spacer()
-                    .frame(height: 80)
                 PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
             }
+            .frame(maxHeight: 200)
             .padding()
         }
         .background(Color.custom(.background))
@@ -69,16 +68,16 @@ struct EditMapPositionView_Previews: PreviewProvider {
 
 
 struct EditMapUIView: UIViewRepresentable{
-    @State var region = startRegion
-    let locationManager = LocationHelper.shared.locationManager
+    @State private var region = startRegion
+    private let locationManager = LocationHelper.shared.locationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
-    @State var view = MKMapView()
+    @State private var view = MKMapView()
     @Binding var selectedCoordinate : CLLocationCoordinate2D
     var currentAnnotation : MKAnnotation
     @Binding var selectedPositionDescription: String
     
-    let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+    private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
     
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: EditMapUIView
@@ -94,7 +93,6 @@ struct EditMapUIView: UIViewRepresentable{
             }
         }
         
-        /// 화면 이동중 musicList reset
         func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
             
         }
@@ -151,8 +149,6 @@ struct EditMapUIView: UIViewRepresentable{
     func makeCoordinator() -> Coordinator {
         EditMapUIView.Coordinator(self)
     }
-    
-
 
     func makeUIView(context: Context) -> MKMapView {
         view.delegate = context.coordinator
@@ -168,11 +164,6 @@ struct EditMapUIView: UIViewRepresentable{
         
     }
     
-
     func updateUIView(_ uiView: MKMapView, context: Context) {
-//        uiView.setRegion(userRegion, animated: true)
     }
-    
-
-    
 }
