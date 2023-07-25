@@ -496,8 +496,10 @@
 				DEVELOPMENT_TEAM = 333J2S2AQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치를 언제 허용하시겠습니까?";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음 기능을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -508,7 +510,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ada.DefaultAppName.MC3-BeyondThe3F";
+				PRODUCT_BUNDLE_IDENTIFIER = "ada.TuneSpot.MC3-BeyondThe3F";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -527,8 +529,10 @@
 				DEVELOPMENT_TEAM = 333J2S2AQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치를 언제 허용하시겠습니까?";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음 기능을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -539,7 +543,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ada.DefaultAppName.MC3-BeyondThe3F";
+				PRODUCT_BUNDLE_IDENTIFIER = "ada.TuneSpot.MC3-BeyondThe3F";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
