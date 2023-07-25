@@ -40,6 +40,8 @@ class MainDataModel{
             return left < right
         }
 
-        return tempArr.map{ MainVO(locationInfo: $0[0].locationInfo ?? "", musicList: $0) }
+        return tempArr[0..<(tempArr.count > 5 ? 5 : tempArr.count)].map{
+            MainVO(locationInfo: $0[0].locationInfo ?? "", musicList: $0)
+        }
     }
 }

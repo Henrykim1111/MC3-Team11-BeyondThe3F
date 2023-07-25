@@ -22,6 +22,10 @@ struct MainTabView: View {
                 }
         }.onAppear{
             insertDummy()
+            Task{
+                await AuthManger.requestMusicAuth()
+            }
+            print(MainDataModel.shared.getData)
         }
     }
 }
