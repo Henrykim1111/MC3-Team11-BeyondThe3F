@@ -24,8 +24,7 @@ struct MainTabView: View {
             insertDummy()
             
             
-            let mainDataModel = MainDataModel.shared
-            mainDataModel.getData
+            
         }
     }
 }

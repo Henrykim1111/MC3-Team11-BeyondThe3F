@@ -45,6 +45,7 @@
 		953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */; };
 		953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7632A6A77240047C21C /* MapSearchComponentView.swift */; };
 		95D6CE142A6D084E0053AE8E /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE132A6D084E0053AE8E /* LocationHelper.swift */; };
+		FB9AEE422A6F4CC600B015C5 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9AEE412A6F4CC600B015C5 /* Carousel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAnnotationView.swift; sourceTree = "<group>"; };
 		953BD7632A6A77240047C21C /* MapSearchComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchComponentView.swift; sourceTree = "<group>"; };
 		95D6CE132A6D084E0053AE8E /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
+		FB9AEE412A6F4CC600B015C5 /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				951691A12A6639320070D47C /* MainTabView.swift */,
 				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 				951691A32A663A4E0070D47C /* BucketView.swift */,
+				FB9AEE412A6F4CC600B015C5 /* Carousel.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
 			);
 			path = View;
@@ -345,6 +348,7 @@
 				95D6CE142A6D084E0053AE8E /* LocationHelper.swift in Sources */,
 				76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */,
 				953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */,
+				FB9AEE422A6F4CC600B015C5 /* Carousel.swift in Sources */,
 				74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */,
 				76104AC32A6D9B1C000B8E65 /* LocationManager.swift in Sources */,
 				953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */,
@@ -493,7 +497,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = 8S86367NT3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
@@ -524,7 +528,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = 8S86367NT3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
