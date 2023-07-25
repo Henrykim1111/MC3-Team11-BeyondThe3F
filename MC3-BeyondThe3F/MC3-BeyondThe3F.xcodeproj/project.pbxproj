@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		627E3F442A6E6D6300979803 /* MusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627E3F432A6E6D6300979803 /* MusicSearchView.swift */; };
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
 		74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */; };
 		74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		627E3F432A6E6D6300979803 /* MusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchView.swift; sourceTree = "<group>"; };
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
 		74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPlayComponentView.swift; sourceTree = "<group>"; };
 		74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinLocationComponentView.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				951691A32A663A4E0070D47C /* BucketView.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
 				95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */,
+				627E3F432A6E6D6300979803 /* MusicSearchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
+				627E3F442A6E6D6300979803 /* MusicSearchView.swift in Sources */,
 				74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */,
 				76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */,
 				951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */,
@@ -513,6 +517,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -546,6 +551,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
