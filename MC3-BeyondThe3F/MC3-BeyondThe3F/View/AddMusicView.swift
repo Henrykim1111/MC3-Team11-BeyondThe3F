@@ -59,13 +59,12 @@ struct MusicNameRow: View {
                 .frame(width: 180)
             NavigationLink(destination: itemData.destination) {
                 Text(itemData.additionalInfo)
-                .font(.headline)
-                .foregroundColor(.gray)
+                    .body1(color: .gray500)
                     
                     }
                 }
             }
-    }
+    }// 텍스트 커스텀이 안되네...?
 
 struct AddMusicView: View {
     var body: some View {
@@ -76,10 +75,7 @@ struct AddMusicView: View {
                         Rectangle()
                             .foregroundColor(.black)
                             .cornerRadius(6)
-                       
-
                     }
-                    .background(.white)
                     .frame(width: 350, height: 350)
                     //frame 크기 조절해서 쓰세요~~~
                     //large: width: 310, height: 370 정도
