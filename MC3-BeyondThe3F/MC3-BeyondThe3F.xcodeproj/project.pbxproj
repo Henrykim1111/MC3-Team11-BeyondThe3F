@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		627E3F442A6E6D6300979803 /* MusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627E3F432A6E6D6300979803 /* MusicSearchView.swift */; };
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
 		74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */; };
 		74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */; };
@@ -16,7 +17,8 @@
 		76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104ABD2A6D7EF7000B8E65 /* dummy.swift */; };
 		76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104AC42A6DF978000B8E65 /* MainVO.swift */; };
 		764936AF2A6A169B001C0C54 /* MusicDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764936AE2A6A169B001C0C54 /* MusicDataModel.swift */; };
-		76975F442A700994005FEFE2 /* AuthManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F432A700994005FEFE2 /* AuthManger.swift */; };
+		76975F392A6FC70B005FEFE2 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F382A6FC70B005FEFE2 /* AuthManager.swift */; };
+		76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F3C2A700298005FEFE2 /* SearchDataModel.swift */; };
 		951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691822A6629670070D47C /* MC3_BeyondThe3FApp.swift */; };
 		951691852A6629670070D47C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691842A6629670070D47C /* ContentView.swift */; };
 		951691872A6629680070D47C /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 951691862A6629680070D47C /* Image.xcassets */; };
@@ -49,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		627E3F432A6E6D6300979803 /* MusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchView.swift; sourceTree = "<group>"; };
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
 		74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPlayComponentView.swift; sourceTree = "<group>"; };
 		74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinLocationComponentView.swift; sourceTree = "<group>"; };
@@ -58,7 +61,8 @@
 		76104ABD2A6D7EF7000B8E65 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		76104AC42A6DF978000B8E65 /* MainVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVO.swift; sourceTree = "<group>"; };
 		764936AE2A6A169B001C0C54 /* MusicDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDataModel.swift; sourceTree = "<group>"; };
-		76975F432A700994005FEFE2 /* AuthManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManger.swift; sourceTree = "<group>"; };
+		76975F382A6FC70B005FEFE2 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthManager.swift; path = "../../../../../../jaesikpyeon/.Trash/MC3-Team11-BeyondThe3F/MC3-BeyondThe3F/MC3-BeyondThe3F/Global/AuthManager.swift"; sourceTree = "<group>"; };
+		76975F3C2A700298005FEFE2 /* SearchDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchDataModel.swift; path = ../../SearchDataModel.swift; sourceTree = "<group>"; };
 		9516917F2A6629670070D47C /* MC3-BeyondThe3F.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MC3-BeyondThe3F.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		951691822A6629670070D47C /* MC3_BeyondThe3FApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MC3_BeyondThe3FApp.swift; sourceTree = "<group>"; };
 		951691842A6629670070D47C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				951691A32A663A4E0070D47C /* BucketView.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
 				95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */,
+				627E3F432A6E6D6300979803 /* MusicSearchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				76104ABB2A6D7991000B8E65 /* MainDataModel.swift */,
 				76104ABD2A6D7EF7000B8E65 /* dummy.swift */,
 				76104AC42A6DF978000B8E65 /* MainVO.swift */,
+				76975F3C2A700298005FEFE2 /* SearchDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -359,11 +365,13 @@
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
+				76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */,
 				764936AF2A6A169B001C0C54 /* MusicDataModel.swift in Sources */,
 				953BD7572A69FFDF0047C21C /* SFImageComponentView.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
+				627E3F442A6E6D6300979803 /* MusicSearchView.swift in Sources */,
 				74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */,
 				76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */,
 				951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */,
@@ -509,6 +517,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -542,6 +551,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
