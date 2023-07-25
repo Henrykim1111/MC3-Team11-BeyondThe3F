@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MusicSearchComponentView: View {
-//    @State private var textInput: String = ""
-    @Binding var textInput: String
+    @State private var textInput: String = ""
     @State private var onSearching = false
     
     var body: some View {
@@ -21,9 +20,9 @@ struct MusicSearchComponentView: View {
                 Spacer()
                     .frame(width: 20)
                 TextField("음악을 검색해보세요", text: $textInput)
-//                    .onTapGesture {
-//                        onSearching.toggle()
-//                    }
+                    .onTapGesture {
+                        onSearching.toggle()
+                    }
                     
                     
                 Spacer()
@@ -47,8 +46,8 @@ struct MusicSearchComponentView: View {
 }
 
 
-//struct MusicSearchComponentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MusicSearchComponentView()
-//    }
-//}
+struct MusicSearchComponentView_Previews: PreviewProvider {
+    static var previews: some View {
+        MusicSearchComponentView()
+    }
+}

@@ -12,9 +12,6 @@ struct SearchItem: Identifiable, Equatable {
     let id = UUID()
     var searchText: String
     var searchDate: String
-//    var remadeDate: String {
-//        remakeDate()
-//    }
     
     var resentlySearchList : [SearchItem] = [
         SearchItem(searchText: "hello", searchDate: "2023-07-23 15:47:15 +0000"),
@@ -46,6 +43,7 @@ struct MusicSearchView: View {
         ZStack {
             VStack {
                 MusicSearchComponentView(textInput: $searchTerm)
+                // MusicSearchComponentView에서 @Binding var textInput: String로 수정 후 확인 가능
                 Spacer()
                     .frame(height: 24)
                 
@@ -139,6 +137,7 @@ extension MusicSearchView {
             }
         }
     }
+    
     
     private var resentlySearchListLow: some View {
         VStack {
