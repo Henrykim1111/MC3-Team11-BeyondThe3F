@@ -17,6 +17,7 @@
 		76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104AC42A6DF978000B8E65 /* MainVO.swift */; };
 		764936AF2A6A169B001C0C54 /* MusicDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764936AE2A6A169B001C0C54 /* MusicDataModel.swift */; };
 		76975F392A6FC70B005FEFE2 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F382A6FC70B005FEFE2 /* AuthManager.swift */; };
+		76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F3C2A700298005FEFE2 /* SearchDataModel.swift */; };
 		951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691822A6629670070D47C /* MC3_BeyondThe3FApp.swift */; };
 		951691852A6629670070D47C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691842A6629670070D47C /* ContentView.swift */; };
 		951691872A6629680070D47C /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 951691862A6629680070D47C /* Image.xcassets */; };
@@ -59,6 +60,7 @@
 		76104AC42A6DF978000B8E65 /* MainVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVO.swift; sourceTree = "<group>"; };
 		764936AE2A6A169B001C0C54 /* MusicDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDataModel.swift; sourceTree = "<group>"; };
 		76975F382A6FC70B005FEFE2 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthManager.swift; path = "../../../../../../jaesikpyeon/.Trash/MC3-Team11-BeyondThe3F/MC3-BeyondThe3F/MC3-BeyondThe3F/Global/AuthManager.swift"; sourceTree = "<group>"; };
+		76975F3C2A700298005FEFE2 /* SearchDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchDataModel.swift; path = ../../SearchDataModel.swift; sourceTree = "<group>"; };
 		9516917F2A6629670070D47C /* MC3-BeyondThe3F.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MC3-BeyondThe3F.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		951691822A6629670070D47C /* MC3_BeyondThe3FApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MC3_BeyondThe3FApp.swift; sourceTree = "<group>"; };
 		951691842A6629670070D47C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				76104ABB2A6D7991000B8E65 /* MainDataModel.swift */,
 				76104ABD2A6D7EF7000B8E65 /* dummy.swift */,
 				76104AC42A6DF978000B8E65 /* MainVO.swift */,
+				76975F3C2A700298005FEFE2 /* SearchDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
+				76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */,
 				764936AF2A6A169B001C0C54 /* MusicDataModel.swift in Sources */,
 				953BD7572A69FFDF0047C21C /* SFImageComponentView.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
