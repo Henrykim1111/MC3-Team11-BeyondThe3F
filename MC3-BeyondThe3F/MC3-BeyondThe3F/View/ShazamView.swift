@@ -15,12 +15,22 @@ private enum ShazamResultType {
 }
 
 struct ShazamView: View {
+    @StateObject private var shazamViewModel = ShazamViewModel()
     @State private var musicName = "Big Wave"
     @State private var artistName = "293 studio"
-    @State private var currentState : ShazamResultType = .success
+    @State private var musicImageUrl : URL?
+    @State private var currentState : ShazamResultType = .listening
+    @State private var musicId: String?
+    @State private var circleScaleSmall: CGFloat = 1
+    @State private var circleScaleBig: CGFloat = 1
+    private let circleAnimationSmall = Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
+    private let circleAnimationBig = Animation.easeInOut(duration: 1).repeatForever(autoreverses: true).delay(0.1)
     
     var body: some View {
         VStack {
+            HStack{
+                Spacer()
+            }
             Spacer()
             switch currentState {
             case .listening:
@@ -45,41 +55,98 @@ struct ShazamView: View {
                 ShazamBottomErrorView
             }
         }
-        .frame(width: UIScreen.main.bounds.size.width, height: .infinity)
+        .frame(width: UIScreen.main.bounds.width, height: .infinity)
+        .frame(minWidth: 300, minHeight: 300)
         .padding()
         .navigationTitle("샤잠")
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.custom(.background))
+        .onAppear {
+            shazamViewModel.startRecognition()
+            startListeningAnimation()
+        }
+        .onChange(of: shazamViewModel.currentItem) { _ in
+            if let shazamResult = shazamViewModel.currentItem, shazamViewModel.shazaming {
+                self.musicName = shazamResult.title ?? ""
+                self.artistName = shazamResult.artist ?? ""
+                self.currentState = .success
+                self.musicId = shazamResult.appleMusicID ?? ""
+                self.musicImageUrl = shazamResult.artworkURL
+                shazamViewModel.stopRecognition()
+            } else {
+                self.currentState = .error
+                
+                shazamViewModel.stopRecognition()
+            }
+        }
+    }
+    
+    func startListeningAnimation(){
+        withAnimation(self.circleAnimationSmall) {
+            circleScaleSmall = 1.4
+        }
+        withAnimation(self.circleAnimationBig) {
+            circleScaleBig = 1.2
+        }
     }
 }
+
 extension ShazamView {
     // MARK: Top View
     var ShazamTopListeningView: some View {
         ZStack {
-            Rectangle()
-                .fill(Color.custom(.primary))
-                .frame(width: 150, height: 150)
-                .cornerRadius(75)
-            Image(systemName: "shazam.logo.fill")
-                .resizable()
-                .frame(width: 85, height: 85)
-                .foregroundColor(Color.custom(.white))
+            ZStack {
+                Rectangle()
+                    .fill(Color.custom(.primary))
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(75)
+                    
+                Image(systemName: "shazam.logo.fill")
+                    .resizable()
+                    .frame(width: 85, height: 85)
+                    .foregroundColor(Color.custom(.white))
+                    .cornerRadius(100)
+            }
+            .frame(width: 200, height: 200)
+            .background(Color.custom(.primary).opacity(0.7))
+            .cornerRadius(100)
+            
+            Circle()
+                .strokeBorder(Color.custom(.secondary), lineWidth: 8)
+                .frame(width: 240, height: 240)
+                .scaleEffect(circleScaleSmall)
+            
+            Circle()
+                .strokeBorder(Color.custom(.secondaryDark), lineWidth: 5)
+                .frame(width: 350, height: 350)
+                .scaleEffect(circleScaleBig)
         }
-        .frame(width: 200, height: 200)
-        .background(Color.custom(.primary).opacity(0.7))
-        .cornerRadius(100)
+        
     }
     
     var ShazamTopSuccessView: some View {
         ZStack {
-            Rectangle()
-                .fill(Color.custom(.primary))
-                .frame(width: 150, height: 150)
-                .cornerRadius(75)
-            Image(systemName: "shazam.logo.fill")
-                .resizable()
-                .frame(width: 85, height: 85)
-                .foregroundColor(Color.custom(.white))
+            if self.musicImageUrl == nil {
+                Rectangle()
+                    .fill(Color.custom(.primary))
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(75)
+                Image(systemName: "shazam.logo.fill")
+                    .resizable()
+                    .frame(width: 85, height: 85)
+                    .foregroundColor(Color.custom(.white))
+            } else {
+                AsyncImage(url: musicImageUrl) { image in
+                    image
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                        .cornerRadius(100)
+                        .scaledToFit()
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: 200, height: 200)
+                }
+            }
         }
         .frame(width: 200, height: 200)
         .background(Color.custom(.primary).opacity(0.7))
@@ -123,14 +190,24 @@ extension ShazamView {
                         gradient: Gradient(
                             colors: [Color.custom(.secondary), Color.custom(.background)]),
                             startPoint: .top,endPoint: .bottom))
-                    .frame(width: 390,height: 90)
+                    .frame(width: UIScreen.main.bounds.width, height: 90)
+                    .frame(minWidth: 300)
                     .cornerRadius(10)
             }
+            .padding()
             VStack(spacing: 0) {
-                ButtonPlayComponentView()
-                    .padding(2)
-                    .background(Color.custom(.background))
-                    .cornerRadius(25)
+                Button {
+                    // MARK: add to music play list the music Id
+                    guard let appleMusicId = self.musicId else {
+                        return
+                    }
+                    print(appleMusicId)
+                } label: {
+                    ButtonPlayComponentView()
+                        .padding(2)
+                        .background(Color.custom(.background))
+                        .cornerRadius(25)
+                }
                 Spacer()
                     .frame(height: 10)
                 Text(musicName)
@@ -138,6 +215,18 @@ extension ShazamView {
                     .padding(.bottom, 5)
                 Text(artistName)
                     .body2(color: .white)
+            }
+            VStack {
+                Spacer()
+                    .frame(height: 200)
+                Button {
+                    self.currentState = .listening
+                    shazamViewModel.startRecognition()
+                    startListeningAnimation()
+                } label: {
+                    Text("다시 듣기")
+                        .body2(color: .white)
+                }
             }
         }
         .frame(height: 120)
