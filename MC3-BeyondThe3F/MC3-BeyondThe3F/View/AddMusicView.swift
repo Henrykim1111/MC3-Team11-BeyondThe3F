@@ -22,6 +22,16 @@ enum AddMusicItemData: CaseIterable {
             return "날짜"
         }
     }
+    var additionalInfo: String {
+            switch self {
+            case .music:
+                return "음악 정보"
+            case .location:
+                return "위치 정보"
+            case .date:
+                return "날짜 정보"
+            }
+        }
     var destination : some View {
         Group {
             switch self {
@@ -41,13 +51,22 @@ struct MusicNameRow: View {
     
     
     var body: some View {
-        NavigationLink {
-            itemData.destination
-        } label: {
+        HStack {
             Text("\(itemData.description)")
-        }
+                .font(.headline)
+                .foregroundColor(.white)
+            Spacer()
+                .frame(width: 180)
+            NavigationLink(destination: itemData.destination) {
+                Text(itemData.additionalInfo)
+                .font(.headline)
+                .foregroundColor(.gray)
+                    
+                    }
+                }
+            }
     }
-}
+
 struct AddMusicView: View {
     var body: some View {
         NavigationStack{
@@ -89,15 +108,7 @@ struct AddMusicView: View {
                    
             }
             .background(Color.custom(.background))
-            
            
-            
-            
-            
-            
-            
-            
-            
         }
     }
     
