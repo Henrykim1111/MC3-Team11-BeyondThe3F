@@ -22,10 +22,6 @@ enum AddMusicItemData: CaseIterable {
             return "날짜"
         }
     }
-    
-    
-    
-    
     var destination : some View {
         Group {
             switch self {
@@ -56,19 +52,47 @@ struct AddMusicView: View {
     var body: some View {
         NavigationStack{
             VStack{
+                VStack{
+                    VStack(spacing:16){
+                        Rectangle()
+                            .foregroundColor(.black)
+                            .cornerRadius(6)
+                       
+
+                    }
+                    .background(.white)
+                    .frame(width: 350, height: 350)
+                    //frame 크기 조절해서 쓰세요~~~
+                    //large: width: 310, height: 370 정도
+                    
+                }
+                .background(Color.custom(.background))
+                .padding(16)
+              
+                
                     List{
                         ForEach(AddMusicItemData.allCases, id: \.self) { addCase in
                             MusicNameRow(itemData: addCase)
+                                .listRowBackground(Color.custom(.background)) 
+                                .listRowSeparator(.hidden)
                         }
                     }
+                    .scrollContentBackground(.hidden)
                     Spacer()
+                    
                     NavigationLink {
                         MainTabView()
                     } label: {
                         PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
                     }
                     .navigationTitle("음악 추가")
+                   
             }
+            .background(Color.custom(.background))
+            
+           
+            
+            
             
             
             
@@ -83,3 +107,4 @@ struct AddMusicView: View {
         }
     }
 }
+

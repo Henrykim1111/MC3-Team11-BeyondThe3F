@@ -26,12 +26,19 @@ struct EditDateView: View {
 
                 
             }
+            .frame(maxWidth: .infinity)
+            .background(Color.custom(.background))
+            .edgesIgnoringSafeArea(.all)
             .navigationTitle("날짜 선택")
             .navigationBarTitleDisplayMode(.inline)
         }
+        
         .tint(.custom(.white))
+        
     }
+        
 }
+   
 
 struct EditDateView_Previews: PreviewProvider {
     static var previews: some View {
