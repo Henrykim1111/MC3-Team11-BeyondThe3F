@@ -10,10 +10,10 @@ import SwiftUI
 struct MapMusicInfoView: View {
     @Binding var musicList: [MusicItemVO]
     
-    @State private var draggedYOffset = 500.0
-    @State private var accumulatedYOffset = 500.0
-    @State private var maxHeight = 500.0
-    @State private var minHeight = 100.0
+    @State private var draggedYOffset: CGFloat = 500.0
+    @State private var accumulatedYOffset: CGFloat = 500.0
+    @State private var maxHeight: CGFloat = 500.0
+    @State private var minHeight: CGFloat = 100.0
     
     var body: some View {
         GeometryReader { geo in
@@ -68,7 +68,7 @@ struct MapMusicInfoView: View {
                     VStack{
                         ForEach(musicList) { musicItem in
                             MusicListRowView(
-                                imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
+                                imageName: musicItem.savedImage ?? "annotation0",
                                 songName: musicItem.songName,
                                 artistName: musicItem.artistName,
                                 musicListRowType: .saved,
@@ -93,7 +93,6 @@ struct MapMusicInfoView: View {
                 minHeight = 30
                 draggedYOffset = geo.size.height - 120
                 accumulatedYOffset = geo.size.height - 120
-                print(geo.size.height)
             }
         }
     }

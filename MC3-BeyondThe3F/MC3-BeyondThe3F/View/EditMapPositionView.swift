@@ -45,7 +45,8 @@ struct EditMapPositionView: View {
                 )
                 VStack {
                     Image("pinLocation")
-                        .offset(y: -30)
+                    Spacer()
+                        .frame(height: 30)
                 }
             }
             VStack(alignment: .leading) {
