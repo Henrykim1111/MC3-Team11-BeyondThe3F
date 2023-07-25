@@ -20,6 +20,7 @@ struct MusicItemVO: Identifiable, Hashable {
     var savedImage: String?
     var locationInfo: String = ""
     var desc: String?
+    
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
             latitude: latitude,
