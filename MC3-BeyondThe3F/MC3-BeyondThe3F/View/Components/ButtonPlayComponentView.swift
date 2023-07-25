@@ -13,8 +13,8 @@ struct ButtonPlayComponentView: View {
             SFImageComponentView(
                 symbolName: .play,
                 color: .white,
-                width: 18,
-                height: 24)
+                width: 16,
+                height: 20)
                 .offset(x: 1, y: 0)
         }
         .frame(width: 48, height: 48)
