@@ -4,13 +4,13 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="MusicItem" representedClassName="MusicItem" syncable="YES" codeGenerationType="class">
-        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="artistName" attributeType="String" defaultValueString=""/>
         <attribute name="generatedDate" attributeType="Date" defaultDateTimeInterval="711466320" usesScalarValueType="NO"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="locationInfo" attributeType="String" defaultValueString=""/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="musicId" attributeType="String" defaultValueString=""/>
-        <attribute name="playedCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="savedImage" optional="YES" attributeType="String"/>
+        <attribute name="songName" attributeType="String" defaultValueString=""/>
     </entity>
 </model>
