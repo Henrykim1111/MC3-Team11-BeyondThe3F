@@ -22,9 +22,6 @@ struct MainTabView: View {
                 }
         }.onAppear{
             insertDummy()
-            
-            
-            
         }
     }
 }
