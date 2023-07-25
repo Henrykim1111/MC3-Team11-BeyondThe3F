@@ -8,7 +8,7 @@
 import SwiftUI
 import MusicKit
 
-struct SearchItem: Identifiable, Equatable {
+struct SearchItem: Identifiable {
     let id = UUID()
     var searchText: String
     var searchDate: String
@@ -176,12 +176,30 @@ extension MusicSearchView {
                         Text(item.title)
                             .body1(color: .white)
                             .padding(.bottom, 4)
-                        Text(item.id.rawValue)
+                        Text(item.artistName)
                             .body2(color: .gray500)
                     }
                     Spacer()
+                    Button {
+                        // 음악 추가하는 페이지로 이동
+                    } label: {
+                        SFImageComponentView(symbolName: .ellipsis, color: .white)
+                            .rotationEffect(.degrees(90.0))
+                    }
                 }
             }
         }
     }
+    
+//    private var musicSearchResultsListLow: some View {
+//        VStack {
+//            ForEach(searchSongs, id: \.self) { item in
+//                MusicListRowView(imageName: item.artwork ?? "annotation0",
+//                                 songName: item.title,
+//                                 artistName: item.id.rawValue,
+//                                 musicListRowType: .saved)
+//            }
+//        }
+//    }
+    
 }
