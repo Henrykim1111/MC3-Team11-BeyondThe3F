@@ -8,85 +8,76 @@
 import SwiftUI
 import MusicKit
 
-struct SearchItem: Identifiable {
+struct SearchItem: Identifiable, Equatable {
     let id = UUID()
     var searchText: String
     var searchDate: String
+//    var remadeDate: String {
+//        remakeDate()
+//    }
+    
+    var resentlySearchList : [SearchItem] = [
+        SearchItem(searchText: "hello", searchDate: "2023-07-23 15:47:15 +0000"),
+        SearchItem(searchText: "love", searchDate: "2023-07-23 15:47:15 +0000")
+    ]
+    
+    func remakeDate() -> String {
+        let dateString = self.searchDate
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        guard let date = formatter.date(from: dateString) else {
+            return ""
+        }
+        formatter.dateFormat = "MM.dd"
+        return formatter.string(from: date)
+    }
 }
+
+
+
 
 struct MusicSearchView: View {
     
-    @State var resentlySearchList : [SearchItem] = [
-        SearchItem(searchText: "hello", searchDate: "07.23"),
-        SearchItem(searchText: "love", searchDate: "07.23")
-    ]
-    
+    @Binding var resentlySearchList : [SearchItem]
     @State private var searchTerm = ""
     @State private var searchSongs: MusicItemCollection<Song> = []
     
     var body: some View {
-        NavigationStack {
+        ZStack {
             VStack {
-                MusicSearchComponentView(textInput: $searchTerm)    // MusicSearchCompoinentView UI 수정 필요
-                
+                MusicSearchComponentView(textInput: $searchTerm)
                 Spacer()
                     .frame(height: 24)
                 
                 if searchTerm == "" {
-                    
-                    VStack {
-                        HStack {
-                            Text("최근 검색 목록")
-                                .headline(color: .white)
-                            Spacer()
-                            Button {    // 최근 검색 목록 리스트 모두 삭제
-                                resentlySearchList.removeAll()
-                            } label: {
-                                Text("모두 지우기")
-                                    .body2(color: .primary)
-                            }
-                        }
+                    if resentlySearchList.isEmpty {
+                        Text("최근 검색어 내역이 없습니다.")
+                            .body2(color: .gray200)
+                        Spacer()
+                    } else {
+                        resentlySearchTitle
                         Spacer()
                             .frame(height: 16)
                         resentlySearchListLow
+                        Spacer()
                     }
-                    Spacer()
-                    
                 } else {
-    
                     ScrollView {
-                        VStack {
-                            ForEach(searchSongs, id: \.self) { item in
-                                HStack {
-                                    if let existingArtwork = item.artwork {
-                                        ArtworkImage(existingArtwork, width: 60)
-                                            .cornerRadius(8)
-                                    }
-                                    Spacer()
-                                        .frame(width: 16)
-                                    VStack(alignment: .leading){
-                                        Text(item.title)
-                                            .body1(color: .white)
-                                            .padding(.bottom, 4)
-                                        Text(item.id.rawValue)
-                                            .body2(color: .gray500)
-                                    }
-                                    Spacer()
-                                }
-                            }
-                        }
+                        musicSearchResultsListLow
                     }
                 }
             }
+            .padding()
             .background(Color.custom(.background))
+            .onChange(of: searchTerm, perform: requestUpdateSearchResults)
+            
+            VStack {
+                Spacer()
+                MusicPlayerComponentView()
+            }
         }
-        .padding()
-        .background(Color.custom(.background))
-        .onChange(of: searchTerm, perform: requestUpdateSearchResults)
     }
-    
-    
-    
+
     
     private func requestUpdateSearchResults(for searchTerm: String) {
         Task {
@@ -106,12 +97,14 @@ struct MusicSearchView: View {
         }
     }
     
+    
     @MainActor
     private func apply(_ searchResponse: MusicCatalogSearchResponse, for searchTerm: String) {
         if self.searchTerm == searchTerm {
             self.searchSongs = searchResponse.songs
         }
     }
+    
     
     @MainActor
     private func reset() {
@@ -122,51 +115,74 @@ struct MusicSearchView: View {
 
 
 
-struct MusicSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        MusicSearchView()
-    }
-}
+//struct MusicSearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MusicSearchView()
+//    }
+//}
 
 
 
 
 extension MusicSearchView {
     
-    private var resentlySearchListLow: some View {
-        ForEach(0 ..< resentlySearchList.count, id: \.self) { index in
-            HStack {
-                Text(resentlySearchList[index].searchText)
-                    .body1(color: .white)
-                Spacer()
-                Text(resentlySearchList[index].searchDate)
-                    .body2(color: .gray400)
-                Spacer()
-                    .frame(width: 24)
-                SFImageComponentView(symbolName: .cancel, color: .white)
-                    .onTapGesture {
-                        resentlySearchList.remove(at: index)
-                    }
+    private var resentlySearchTitle: some View {
+        HStack {
+            Text("최근 검색 목록")
+                .headline(color: .white)
+            Spacer()
+            Button {
+                resentlySearchList.removeAll()
+            } label: {
+                Text("모두 지우기")
+                    .body2(color: .primary)
             }
-            .frame(maxWidth: 390)
-            .frame(height: 56)
+        }
+    }
+    
+    private var resentlySearchListLow: some View {
+        VStack {
+            ForEach(0 ..< resentlySearchList.count, id: \.self) { index in
+                HStack {
+                    Text(resentlySearchList[index].searchText)
+                        .body1(color: .white)
+                    Spacer()
+                    Text(resentlySearchList[index].remakeDate())
+                        .body2(color: .gray400)
+                    Spacer()
+                        .frame(width: 24)
+                    SFImageComponentView(symbolName: .cancel, color: .white)
+                        .onTapGesture {
+                            resentlySearchList.remove(at: index)
+                        }
+                }
+                .frame(maxWidth: 390)
+                .frame(height: 56)
+            }
+        }
+    }
+
+
+    private var musicSearchResultsListLow: some View {
+        VStack {
+            ForEach(searchSongs, id: \.self) { item in
+                HStack {
+                    if let existingArtwork = item.artwork {
+                        ArtworkImage(existingArtwork, width: 60)
+                            .cornerRadius(8)
+                    }
+                    Spacer()
+                        .frame(width: 16)
+                    VStack(alignment: .leading){
+                        Text(item.title)
+                            .body1(color: .white)
+                            .padding(.bottom, 4)
+                        Text(item.id.rawValue)
+                            .body2(color: .gray500)
+                    }
+                    Spacer()
+                }
+            }
         }
     }
 }
-
-
-
-
-
-
-
-//    func remakedDate() -> String {
-//        let dateString = card.createdDate
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yy-MM-dd"
-//        guard let date = formatter.date(from: dateString) else {
-//            return ""
-//        }
-//        formatter.dateFormat = "dd"
-//        return formatter.string(from: date)
-//    }
