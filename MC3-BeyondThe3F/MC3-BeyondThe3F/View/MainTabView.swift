@@ -22,10 +22,9 @@ struct MainTabView: View {
                 }
         }.onAppear{
             insertDummy()
-            
-            
-            let mainDataModel = MainDataModel.shared
-            mainDataModel.getData
+            Task{
+                await AuthManger.requestMusicAuth()
+            }
         }
     }
 }
