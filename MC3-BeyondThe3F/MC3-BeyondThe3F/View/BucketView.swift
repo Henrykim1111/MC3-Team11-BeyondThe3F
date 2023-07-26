@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct BucketView: View {
+    
+    @State private var searchTerm = ""
+        
     var body: some View {
         VStack {
-            MusicSearchView()
-            Carousel()
+            MusicSearchComponentView(textInput: $searchTerm)
+            CarouselView()
             MusicPlayerComponentView()
         }
+        .background(Color.custom(.background))
     }
 }
 
