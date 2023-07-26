@@ -42,7 +42,7 @@ struct MusicSearchView: View {
     var body: some View {
         ZStack {
             VStack {
-                MusicSearchComponentView(textInput: $searchTerm)
+                // MusicSearchComponentView(textInput: $searchTerm)
                 // MusicSearchComponentView에서 @Binding var textInput: String로 수정 후 확인 가능
                 Spacer()
                     .frame(height: 24)
