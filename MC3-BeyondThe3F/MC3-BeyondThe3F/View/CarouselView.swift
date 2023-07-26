@@ -25,31 +25,31 @@ struct CarouselView: View {
             let baseOffset: CGFloat = spacing + visibleEdgeSpace
             let pageWidth: CGFloat = proxy.size.width - (visibleEdgeSpace + spacing) * 2
             let offsetX: CGFloat = baseOffset + CGFloat(currentIndex) * -pageWidth + CGFloat(currentIndex) * -spacing + dragOffset
-            VStack {
-                HStack(spacing: spacing) {
-                    ForEach(0..<carouselList.count, id: \.self) { pageIndex in
-                        CarouselCardItem(
-                            carouselItemData: carouselList[pageIndex],
-                            pageWidth: pageWidth
-                        )
-                    }
-                    .contentShape(Rectangle())
+// VStack {
+            HStack(spacing: spacing) {
+                ForEach(0..<carouselList.count, id: \.self) { pageIndex in
+                    CarouselCardItem(
+                        carouselItemData: carouselList[pageIndex],
+                        pageWidth: pageWidth
+                    )
                 }
-                .offset(x: offsetX)
-                .gesture(
-                    DragGesture()
-                        .updating($dragOffset) { value, out, _ in
-                            out = value.translation.width
-                        }
-                        .onEnded { value in
-                            let offsetX = value.translation.width
-                            let progress = -offsetX / pageWidth
-                            let increment = Int(progress.rounded())
-                            
-                            currentIndex = max(min(currentIndex + increment, pageCount - 1), 0)
-                        }
-                )
+                .contentShape(Rectangle())
             }
+            .offset(x: offsetX)
+            .gesture(
+                DragGesture()
+                    .updating($dragOffset) { value, out, _ in
+                        out = value.translation.width
+                    }
+                    .onEnded { value in
+                        let offsetX = value.translation.width
+                        let progress = -offsetX / pageWidth
+                        let increment = Int(progress.rounded())
+                        
+                        currentIndex = max(min(currentIndex + increment, pageCount - 1), 0)
+                    }
+            )
+// }
             .onAppear{
                 carouselList = mainDataModel.getData
             }
@@ -75,7 +75,7 @@ struct CarouselCardItem: View {
                 Spacer()
                 ButtonPlayComponentView()
             }
-            .padding(20)
+            .padding(16)
             
             Divider()
                 .background(Color.custom(.gray500))
@@ -99,16 +99,38 @@ struct CarouselCardItem: View {
                     }
                     .padding(.bottom, 10)
                 }
+
+                
+/*
+// 곡 리스트 개수에 따라 카드뷰 크기 조절 테스트용..
+                HStack(spacing: 0) {
+                        Image(carouselItemData.musicList[0].savedImage ?? "annotaion0")
+                            .resizable()
+                            .frame(width:60, height: 60)
+                            .cornerRadius(8)
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text("\(carouselItemData.musicList[0].songName ?? "")")
+                                .body1(color: .white)
+                                .padding(.bottom, 5)
+                            Text("\(carouselItemData.musicList[0].artistName ?? "")")
+                                .body2(color: .gray500)
+                        }
+                        .padding(.horizontal)
+                        Spacer()
+                    }
+                    .padding(.bottom, 10)
+*/ 
+                
             }
-            .padding(20)
+// fixedSize 적용 시 카드 뷰 높이가 달라지는 현상 발생.. 대체 와이..
+//            .fixedSize(horizontal: false, vertical: true)
+            .padding(16)
         }
         .background(Color.custom(.secondaryDark))
         .cornerRadius(8)
         .frame(
             width: pageWidth
         )
-        .frame(minHeight: 200)
-        
     }
 }
 

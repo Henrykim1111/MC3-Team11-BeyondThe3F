@@ -13,7 +13,8 @@ struct BucketView: View {
         
     var body: some View {
         VStack {
-            MusicSearchComponentView(textInput: $searchTerm)
+            MusicSearchComponentView()
+                .padding()
             CarouselView()
             MusicPlayerComponentView()
         }
