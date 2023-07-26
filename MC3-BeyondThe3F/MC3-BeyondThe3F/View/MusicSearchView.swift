@@ -13,28 +13,18 @@ struct SearchItem: Identifiable {
     var searchText: String
     var stringDate: String
     var searchDate: Date
-    
-    static func formatToString(searchDate: Date) -> String{
-       let formatter = DateFormatter()
-       let dateString = formatter.string(from: searchDate)
-       formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-       guard let date = formatter.date(from: dateString) else {
-           return ""
-       }
-       formatter.dateFormat = "MM.dd"
-       return formatter.string(from: date)
-   }
 }
 
 
 struct MusicSearchView: View {
     
     @State var resentlySearchList : [SearchItem] = [
-        SearchItem(searchText: "hello", stringDate: SearchItem.formatToString(searchDate: Date()), searchDate: Date()),
-        SearchItem(searchText: "love", stringDate: SearchItem.formatToString(searchDate: Date()), searchDate: Date())
+        SearchItem(searchText: "hello", stringDate: Date.formatToString(searchDate: Date()), searchDate: Date()),
+        SearchItem(searchText: "love", stringDate: Date.formatToString(searchDate: Date()), searchDate: Date())
     ]
     @Binding var searchTerm: String
     @State private var searchSongs: MusicItemCollection<Song> = []
+    private let historymodel = HistoryDataModel.shared
     
     var body: some View {
         ZStack {
@@ -98,7 +88,7 @@ struct MusicSearchView: View {
         self.resentlySearchList.append(
             SearchItem(
                 searchText: historyTerm,
-                stringDate: SearchItem.formatToString(searchDate: Date()),
+                stringDate: Date.formatToString(searchDate: Date()),
                 searchDate: Date()
             )
         )
