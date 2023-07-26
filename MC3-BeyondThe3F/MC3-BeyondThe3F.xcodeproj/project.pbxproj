@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6221EA2C2A701553003BD47F /* MusicPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6221EA2B2A701553003BD47F /* MusicPlayView.swift */; };
 		627E3F442A6E6D6300979803 /* MusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627E3F432A6E6D6300979803 /* MusicSearchView.swift */; };
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
 		74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6221EA2B2A701553003BD47F /* MusicPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayView.swift; sourceTree = "<group>"; };
 		627E3F432A6E6D6300979803 /* MusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchView.swift; sourceTree = "<group>"; };
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
 		74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPlayComponentView.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				951691A52A663AE00070D47C /* MapView.swift */,
 				95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */,
 				627E3F432A6E6D6300979803 /* MusicSearchView.swift */,
+				6221EA2B2A701553003BD47F /* MusicPlayView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				953BD7532A69234D0047C21C /* PrimaryButtonComponentView.swift in Sources */,
 				953BD75D2A6A001D0047C21C /* MusicListRowView.swift in Sources */,
 				953BD7552A69260A0047C21C /* MidButtonComponent.swift in Sources */,
+				6221EA2C2A701553003BD47F /* MusicPlayView.swift in Sources */,
 				953BD74D2A68DE6C0047C21C /* MusicItemVO.swift in Sources */,
 				951691A42A663A4E0070D47C /* BucketView.swift in Sources */,
 				951691A62A663AE00070D47C /* MapView.swift in Sources */,
