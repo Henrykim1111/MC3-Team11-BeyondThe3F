@@ -13,11 +13,6 @@ struct SearchItem: Identifiable {
     var searchText: String
     var searchDate: String
     
-    var resentlySearchList : [SearchItem] = [
-        SearchItem(searchText: "hello", searchDate: "2023-07-23 15:47:15 +0000"),
-        SearchItem(searchText: "love", searchDate: "2023-07-23 15:47:15 +0000")
-    ]
-    
     func remakeDate() -> String {
         let dateString = self.searchDate
         let formatter = DateFormatter()
@@ -31,11 +26,12 @@ struct SearchItem: Identifiable {
 }
 
 
-
-
 struct MusicSearchView: View {
     
-    @Binding var resentlySearchList : [SearchItem]
+    @State var resentlySearchList : [SearchItem] = [
+        SearchItem(searchText: "hello", searchDate: "2023-07-23 15:47:15 +0000"),
+        SearchItem(searchText: "love", searchDate: "2023-07-23 15:47:15 +0000")
+    ]
     @State private var searchTerm = ""
     @State private var searchSongs: MusicItemCollection<Song> = []
     
@@ -48,17 +44,18 @@ struct MusicSearchView: View {
                     .frame(height: 24)
                 
                 if searchTerm == "" {
+                    resentlySearchTitle
+                    Spacer()
+                        .frame(height: 16)
                     if resentlySearchList.isEmpty {
-                        Text("최근 검색어 내역이 없습니다.")
-                            .body2(color: .gray200)
-                        Spacer()
-                    } else {
-                        resentlySearchTitle
                         Spacer()
                             .frame(height: 16)
+                        Text("최근 검색어 내역이 없습니다.")
+                            .body2(color: .gray200)
+                    } else {
                         resentlySearchListLow
-                        Spacer()
                     }
+                    Spacer()
                 } else {
                     ScrollView {
                         musicSearchResultsListLow
@@ -113,11 +110,12 @@ struct MusicSearchView: View {
 
 
 
-//struct MusicSearchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MusicSearchView()
-//    }
-//}
+
+struct MusicSearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        MusicSearchView()
+    }
+}
 
 
 
@@ -181,7 +179,7 @@ extension MusicSearchView {
                     }
                     Spacer()
                     Button {
-                        // 음악 추가하는 페이지로 이동
+                        // TODO: 음악 추가하는 페이지로 이동
                     } label: {
                         SFImageComponentView(symbolName: .ellipsis, color: .white)
                             .rotationEffect(.degrees(90.0))
