@@ -21,6 +21,7 @@ struct ShazamView: View {
     @State private var musicImageUrl : URL?
     @State private var currentState : ShazamResultType = .listening
     @State private var musicId: String?
+    
     @State private var circleScaleSmall: CGFloat = 1
     @State private var circleScaleBig: CGFloat = 1
     private let circleAnimationSmall = Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
@@ -55,7 +56,8 @@ struct ShazamView: View {
                 ShazamBottomErrorView
             }
         }
-        .frame(width: UIScreen.main.bounds.width, height: .infinity)
+        .frame(width: UIScreen.main.bounds.width)
+        .frame(maxHeight: UIScreen.main.bounds.height)
         .frame(minWidth: 300, minHeight: 300)
         .padding()
         .navigationTitle("샤잠")
@@ -197,7 +199,7 @@ extension ShazamView {
             .padding()
             VStack(spacing: 0) {
                 Button {
-                    // MARK: add to music play list the music Id
+                    // TODO: add to music play list the music Id
                     guard let appleMusicId = self.musicId else {
                         return
                     }
@@ -220,9 +222,10 @@ extension ShazamView {
                 Spacer()
                     .frame(height: 200)
                 Button {
+                    startListeningAnimation()
                     self.currentState = .listening
                     shazamViewModel.startRecognition()
-                    startListeningAnimation()
+                    
                 } label: {
                     Text("다시 듣기")
                         .body2(color: .white)
