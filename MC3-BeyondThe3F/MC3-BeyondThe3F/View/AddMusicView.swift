@@ -51,9 +51,9 @@ struct MusicNameRow: View {
     
     
     var body: some View {
-        HStack {
+        HStack (spacing: 16){
             Text("\(itemData.description)")
-                .font(.headline)
+                .headline(color: .white)
                 .foregroundColor(.white)
             
             Spacer()
@@ -102,14 +102,12 @@ struct AddMusicView: View {
                 } label: {
                     PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
                 }
-                .navigationTitle("음악 추가")
+                .navigationTitle("음악 편집")
                 .navigationBarTitleDisplayMode(.inline)
-                   
             }
             .background(Color.custom(.background))
         }
     }
-    
     struct AddMusicView_Previews: PreviewProvider {
         static var previews: some View {
             AddMusicView()
