@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct EditDateView: View {
-    @State private var wakeUp = Date()
+    @State private var selectedDate = Date()
     
     var body: some View {
         NavigationStack{
             VStack{
                 Spacer()
-                DatePicker("", selection: $wakeUp,  displayedComponents: .date)
+                DatePicker("", selection: $selectedDate,  displayedComponents: .date)
                             .datePickerStyle(WheelDatePickerStyle()).labelsHidden()
                 Spacer()
                 NavigationLink {

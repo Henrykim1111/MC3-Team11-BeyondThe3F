@@ -65,7 +65,7 @@ struct MusicNameRow: View {
             }
         }
     }
-}// 텍스트 커스텀이 안되네...?
+}
 
 struct AddMusicView: View {
     var body: some View {
@@ -78,9 +78,8 @@ struct AddMusicView: View {
                             .cornerRadius(6)
                     }
                     .frame(width: 350, height: 350)
-                    //frame 크기 조절해서 쓰세요~~~
-                    //large: width: 310, height: 370 정도
-                    
+                    // TODO: frame 크기 조절
+                                        
                 }
                 .background(Color.custom(.background))
                 .padding(16)
