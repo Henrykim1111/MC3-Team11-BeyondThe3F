@@ -55,23 +55,24 @@ struct MusicNameRow: View {
             Text("\(itemData.description)")
                 .font(.headline)
                 .foregroundColor(.white)
+            
             Spacer()
                 .frame(width: 180)
+                
             NavigationLink(destination: itemData.destination) {
-                Text(itemData.additionalInfo)
-                    .body1(color: .gray500)
-                    
-                    }
-                }
+                    Text(itemData.additionalInfo)
+                        .body1(color: .gray500)
             }
-    }// 텍스트 커스텀이 안되네...?
+        }
+    }
+}// 텍스트 커스텀이 안되네...?
 
 struct AddMusicView: View {
     var body: some View {
         NavigationStack{
             VStack{
                 VStack{
-                    VStack(spacing:16){
+                    VStack(spacing:0){
                         Rectangle()
                             .foregroundColor(.black)
                             .cornerRadius(6)
@@ -85,26 +86,27 @@ struct AddMusicView: View {
                 .padding(16)
               
                 
-                    List{
-                        ForEach(AddMusicItemData.allCases, id: \.self) { addCase in
-                            MusicNameRow(itemData: addCase)
-                                .listRowBackground(Color.custom(.background)) 
-                                .listRowSeparator(.hidden)
-                        }
+                List{
+                    ForEach(AddMusicItemData.allCases, id: \.self) { addCase in
+                        MusicNameRow(itemData: addCase)
+                            .listRowBackground(Color.custom(.background))
+                            .listRowSeparator(.hidden)
                     }
-                    .scrollContentBackground(.hidden)
-                    Spacer()
-                    
-                    NavigationLink {
-                        MainTabView()
-                    } label: {
-                        PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
-                    }
-                    .navigationTitle("음악 추가")
+                }
+                .listStyle(PlainListStyle())
+                .scrollContentBackground(.hidden)
+                Spacer()
+                
+                NavigationLink {
+                    MainTabView()
+                } label: {
+                    PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                }
+                .navigationTitle("음악 추가")
+                .navigationBarTitleDisplayMode(.inline)
                    
             }
             .background(Color.custom(.background))
-           
         }
     }
     
