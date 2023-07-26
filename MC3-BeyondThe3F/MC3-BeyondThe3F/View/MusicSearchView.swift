@@ -11,35 +11,34 @@ import MusicKit
 struct SearchItem: Identifiable {
     let id = UUID()
     var searchText: String
-    var searchDate: String
+    var stringDate: String
+    var searchDate: Date
     
-    func remakeDate() -> String {
-        let dateString = self.searchDate
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        guard let date = formatter.date(from: dateString) else {
-            return ""
-        }
-        formatter.dateFormat = "MM.dd"
-        return formatter.string(from: date)
-    }
+    static func formatToString(searchDate: Date) -> String{
+       let formatter = DateFormatter()
+       let dateString = formatter.string(from: searchDate)
+       formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+       guard let date = formatter.date(from: dateString) else {
+           return ""
+       }
+       formatter.dateFormat = "MM.dd"
+       return formatter.string(from: date)
+   }
 }
 
 
 struct MusicSearchView: View {
     
     @State var resentlySearchList : [SearchItem] = [
-        SearchItem(searchText: "hello", searchDate: "2023-07-23 15:47:15 +0000"),
-        SearchItem(searchText: "love", searchDate: "2023-07-23 15:47:15 +0000")
+        SearchItem(searchText: "hello", stringDate: SearchItem.formatToString(searchDate: Date()), searchDate: Date()),
+        SearchItem(searchText: "love", stringDate: SearchItem.formatToString(searchDate: Date()), searchDate: Date())
     ]
-    @State private var searchTerm = ""
+    @Binding var searchTerm: String
     @State private var searchSongs: MusicItemCollection<Song> = []
     
     var body: some View {
         ZStack {
             VStack {
-                // MusicSearchComponentView(textInput: $searchTerm)
-                // MusicSearchComponentView에서 @Binding var textInput: String로 수정 후 확인 가능
                 Spacer()
                     .frame(height: 24)
                 
@@ -53,23 +52,18 @@ struct MusicSearchView: View {
                         Text("최근 검색어 내역이 없습니다.")
                             .body2(color: .gray200)
                     } else {
-                        resentlySearchListLow
+                        ResentlySearchList
                     }
                     Spacer()
                 } else {
                     ScrollView {
-                        musicSearchResultsListLow
+                        MusicSearchResultsList
                     }
                 }
             }
             .padding()
             .background(Color.custom(.background))
             .onChange(of: searchTerm, perform: requestUpdateSearchResults)
-            
-            VStack {
-                Spacer()
-                MusicPlayerComponentView()
-            }
         }
     }
 
@@ -91,7 +85,24 @@ struct MusicSearchView: View {
             }
         }
     }
+    private func playMusic(musicId: String){
+        // TODO: musicListRow를 클릭한 경우 해당 음악이 playMusic에 추가되는 기능 구현 필요
+    }
     
+    private func addMusicToData(music: Song){
+        // TODO: 해당 musicListRow의 + 버튼을 누른 경우 musicVO에 추가되는 기능 구현 필요
+    }
+    
+    private func searchHistoryTerm(historyTerm: String){
+        self.searchTerm = historyTerm
+        self.resentlySearchList.append(
+            SearchItem(
+                searchText: historyTerm,
+                stringDate: SearchItem.formatToString(searchDate: Date()),
+                searchDate: Date()
+            )
+        )
+    }
     
     @MainActor
     private func apply(_ searchResponse: MusicCatalogSearchResponse, for searchTerm: String) {
@@ -109,16 +120,22 @@ struct MusicSearchView: View {
 
 
 
-
-
-struct MusicSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        MusicSearchView()
+struct MusicSearchPreview: View {
+    @State var searchTerm: String = ""
+    var body: some View {
+        VStack {
+            TextField("음악을 검색하세요", text: $searchTerm)
+            MusicSearchView(searchTerm: $searchTerm)
+        }
     }
 }
 
 
-
+struct MusicSearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        MusicSearchPreview()
+    }
+}
 
 extension MusicSearchView {
     
@@ -136,68 +153,74 @@ extension MusicSearchView {
         }
     }
     
-    
-    private var resentlySearchListLow: some View {
+    private var ResentlySearchList: some View {
         VStack {
-            ForEach(0 ..< resentlySearchList.count, id: \.self) { index in
-                HStack {
-                    Text(resentlySearchList[index].searchText)
-                        .body1(color: .white)
-                    Spacer()
-                    Text(resentlySearchList[index].remakeDate())
-                        .body2(color: .gray400)
-                    Spacer()
-                        .frame(width: 24)
-                    SFImageComponentView(symbolName: .cancel, color: .white)
+            if resentlySearchList.isEmpty {
+                Text("검색 기록이 없습니다")
+            } else {
+                ForEach(0 ..< resentlySearchList.count, id: \.self) { index in
+                    HStack {
+                        Text(resentlySearchList[index].searchText)
+                            .body1(color: .white)
+                        Spacer()
+                        Text(resentlySearchList[index].stringDate)
+                            .body2(color: .gray400)
+                        Spacer()
+                            .frame(width: 24)
+                        SFImageComponentView(
+                            symbolName: .cancel,
+                            color: .white,
+                            width: 16,
+                            height: 16
+                        )
                         .onTapGesture {
                             resentlySearchList.remove(at: index)
                         }
+                    }
+                    .frame(maxWidth: 390)
+                    .frame(height: 56)
+                    .onTapGesture {
+                        searchHistoryTerm(historyTerm: resentlySearchList[index].searchText)
+                    }
                 }
-                .frame(maxWidth: 390)
-                .frame(height: 56)
             }
         }
     }
 
-
-    private var musicSearchResultsListLow: some View {
+    private var MusicSearchResultsList: some View {
         VStack {
-            ForEach(searchSongs, id: \.self) { item in
-                HStack {
-                    if let existingArtwork = item.artwork {
-                        ArtworkImage(existingArtwork, width: 60)
-                            .cornerRadius(8)
-                    }
-                    Spacer()
-                        .frame(width: 16)
-                    VStack(alignment: .leading){
-                        Text(item.title)
-                            .body1(color: .white)
-                            .padding(.bottom, 4)
-                        Text(item.artistName)
-                            .body2(color: .gray500)
-                    }
-                    Spacer()
-                    Button {
-                        // TODO: 음악 추가하는 페이지로 이동
-                    } label: {
-                        SFImageComponentView(symbolName: .ellipsis, color: .white)
-                            .rotationEffect(.degrees(90.0))
+            Spacer()
+                .frame(width: 390)
+            if searchSongs.isEmpty {
+                Text("해당하는 노래를 찾지 못했습니다")
+                    .body2(color: .white)
+            } else {
+                ForEach(searchSongs, id: \.self) { item in
+                    HStack {
+                        if let existingArtwork = item.artwork {
+                            ArtworkImage(existingArtwork, width: 60)
+                                .cornerRadius(8)
+                        }
+                        Spacer()
+                            .frame(width: 16)
+                        VStack(alignment: .leading){
+                            Text(item.title)
+                                .body1(color: .white)
+                                .padding(.bottom, 4)
+                            Text(item.artistName)
+                                .body2(color: .gray500)
+                        }
+                        Spacer()
+                        Button {
+                            // TODO: 음악 추가하는 페이지로 이동
+                        } label: {
+                            SFImageComponentView(symbolName: .ellipsis, color: .white)
+                                .rotationEffect(.degrees(90.0))
+                        }
                     }
                 }
             }
         }
     }
-    
-//    private var musicSearchResultsListLow: some View {
-//        VStack {
-//            ForEach(searchSongs, id: \.self) { item in
-//                MusicListRowView(imageName: item.artwork ?? "annotation0",
-//                                 songName: item.title,
-//                                 artistName: item.id.rawValue,
-//                                 musicListRowType: .saved)
-//            }
-//        }
-//    }
     
 }
