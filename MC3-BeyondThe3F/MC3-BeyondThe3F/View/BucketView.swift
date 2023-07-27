@@ -10,10 +10,11 @@ import SwiftUI
 struct BucketView: View {
     
     @State private var searchTerm = ""
+    @State private var showSearchView = false
         
     var body: some View {
         VStack {
-            MusicSearchComponentView()
+            MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
                 .padding()
             CarouselView()
             MusicPlayerComponentView()

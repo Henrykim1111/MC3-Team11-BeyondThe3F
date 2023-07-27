@@ -72,7 +72,7 @@ struct MusicSearchComponentView: View {
     }
 }
 
-struct MusicSearchCompomponentPreview: View {
+private struct MusicSearchCompomponentPreview: View {
     @State private var searchTerm = ""
     @State private var showSearchView = false
     var body: some View {
