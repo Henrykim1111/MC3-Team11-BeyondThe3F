@@ -11,30 +11,24 @@ struct EditDateView: View {
     @State private var selectedDate = Date()
     
     var body: some View {
-        NavigationStack{
-            VStack{
-                Spacer()
-                DatePicker("", selection: $selectedDate,  displayedComponents: .date)
-                            .datePickerStyle(WheelDatePickerStyle()).labelsHidden()
-                Spacer()
-                NavigationLink {
-                    AddMusicView()
-                        .toolbarRole(.editor)
-                } label: {
-                    PrimaryButtonComponentView(buttonType: .recordTheDate, backgroundColor: .primary)
-                }
-
-                
+        VStack{
+            Spacer()
+            DatePicker("", selection: $selectedDate,  displayedComponents: .date)
+                        .datePickerStyle(WheelDatePickerStyle()).labelsHidden()
+            Spacer()
+            NavigationLink {
+                AddMusicView()
+                    .toolbarRole(.editor)
+            } label: {
+                PrimaryButtonComponentView(buttonType: .recordTheDate, backgroundColor: .primary)
             }
-            .frame(maxWidth: .infinity)
-            .background(Color.custom(.background))
-            .edgesIgnoringSafeArea(.all)
-            .navigationTitle("날짜 선택")
-            .navigationBarTitleDisplayMode(.inline)
+
+            
         }
-        
-        .tint(.custom(.white))
-        
+        .frame(maxWidth: .infinity)
+        .background(Color.custom(.background))
+        .navigationTitle("날짜 선택")
+        .navigationBarTitleDisplayMode(.inline)
     }
         
 }

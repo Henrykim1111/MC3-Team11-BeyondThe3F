@@ -12,6 +12,7 @@ import MusicKit
 struct MusicSearchView: View {
     @StateObject private var musicSearchViewModel = MusicSearchViewModel()
     @State private var isPresentedDeleteAll = false
+    @State private var showAddMusicView = false
     @Binding var searchTerm: String
     
     var body: some View {
@@ -58,6 +59,9 @@ struct MusicSearchView: View {
             .padding()
             .background(Color.custom(.background))
             .onChange(of: searchTerm, perform: musicSearchViewModel.requestUpdateSearchResults)
+            .sheet(isPresented: $showAddMusicView) {
+                EditMapPositionView()
+            }
         }
         .alert("정말로 검색 기록을 모두 지우시겠어요?", isPresented: $isPresentedDeleteAll) {
             Button("삭제", role: .destructive) {
@@ -66,7 +70,8 @@ struct MusicSearchView: View {
             Button("취소", role: .cancel) {
                 isPresentedDeleteAll = false
             }
-          }
+        }
+        
 
     }
 }
@@ -144,10 +149,9 @@ extension MusicSearchView {
                         }
                         Spacer()
                         Button {
-                            // TODO: 음악 추가하는 페이지로 이동 기능 구현
+                            self.showAddMusicView = true
                         } label: {
-                            SFImageComponentView(symbolName: .ellipsis, color: .white)
-                                .rotationEffect(.degrees(90.0))
+                            SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
                         }
                     }
                 }
