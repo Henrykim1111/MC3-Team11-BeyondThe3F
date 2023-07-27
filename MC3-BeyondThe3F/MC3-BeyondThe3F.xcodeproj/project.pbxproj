@@ -7,15 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6221EA2C2A701553003BD47F /* MusicPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6221EA2B2A701553003BD47F /* MusicPlayView.swift */; };
+		627E3F442A6E6D6300979803 /* MusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627E3F432A6E6D6300979803 /* MusicSearchView.swift */; };
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
+		7433A2462A6E1D9A00EFA99B /* EditDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7433A2452A6E1D9A00EFA99B /* EditDateView.swift */; };
+		7433A2482A6E1E1800EFA99B /* AddMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7433A2472A6E1E1800EFA99B /* AddMusicView.swift */; };
 		74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */; };
 		74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */; };
-		74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */; };
+		74EF8C9C2A6832BF006B8DBC /* MusicSearchComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8C9B2A6832BF006B8DBC /* MusicSearchComponentView.swift */; };
 		74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */; };
 		76104ABC2A6D7991000B8E65 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104ABB2A6D7991000B8E65 /* MainDataModel.swift */; };
 		76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104ABD2A6D7EF7000B8E65 /* dummy.swift */; };
 		76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104AC42A6DF978000B8E65 /* MainVO.swift */; };
 		764936AF2A6A169B001C0C54 /* MusicDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764936AE2A6A169B001C0C54 /* MusicDataModel.swift */; };
+		76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F3C2A700298005FEFE2 /* SearchDataModel.swift */; };
+		76975F492A700DE2005FEFE2 /* AuthManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F482A700DE2005FEFE2 /* AuthManger.swift */; };
+		76975F4B2A70124E005FEFE2 /* HistoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F4A2A70124E005FEFE2 /* HistoryDataModel.swift */; };
+		76975F512A7177F3005FEFE2 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F502A7177F3005FEFE2 /* MusicPlayer.swift */; };
 		951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691822A6629670070D47C /* MC3_BeyondThe3FApp.swift */; };
 		951691852A6629670070D47C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951691842A6629670070D47C /* ContentView.swift */; };
 		951691872A6629680070D47C /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 951691862A6629680070D47C /* Image.xcassets */; };
@@ -49,15 +57,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6221EA2B2A701553003BD47F /* MusicPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayView.swift; sourceTree = "<group>"; };
+		627E3F432A6E6D6300979803 /* MusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchView.swift; sourceTree = "<group>"; };
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
+		7433A2452A6E1D9A00EFA99B /* EditDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDateView.swift; sourceTree = "<group>"; };
+		7433A2472A6E1E1800EFA99B /* AddMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicView.swift; sourceTree = "<group>"; };
 		74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPlayComponentView.swift; sourceTree = "<group>"; };
 		74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinLocationComponentView.swift; sourceTree = "<group>"; };
-		74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchView.swift; sourceTree = "<group>"; };
+		74EF8C9B2A6832BF006B8DBC /* MusicSearchComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchComponentView.swift; sourceTree = "<group>"; };
 		74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsLargeComponentView.swift; sourceTree = "<group>"; };
 		76104ABB2A6D7991000B8E65 /* MainDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDataModel.swift; sourceTree = "<group>"; };
 		76104ABD2A6D7EF7000B8E65 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		76104AC42A6DF978000B8E65 /* MainVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVO.swift; sourceTree = "<group>"; };
 		764936AE2A6A169B001C0C54 /* MusicDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDataModel.swift; sourceTree = "<group>"; };
+		76975F3C2A700298005FEFE2 /* SearchDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchDataModel.swift; path = ../../SearchDataModel.swift; sourceTree = "<group>"; };
+		76975F482A700DE2005FEFE2 /* AuthManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthManger.swift; sourceTree = "<group>"; };
+		76975F4A2A70124E005FEFE2 /* HistoryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataModel.swift; sourceTree = "<group>"; };
+		76975F502A7177F3005FEFE2 /* MusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
 		9516917F2A6629670070D47C /* MC3-BeyondThe3F.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MC3-BeyondThe3F.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		951691822A6629670070D47C /* MC3_BeyondThe3FApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MC3_BeyondThe3FApp.swift; sourceTree = "<group>"; };
 		951691842A6629670070D47C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,7 +132,7 @@
 				74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */,
 				953BD75A2A69FFFE0047C21C /* MusicPlayerComponentView.swift */,
 				74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */,
-				74EF8C9B2A6832BF006B8DBC /* MusicSearchView.swift */,
+				74EF8C9B2A6832BF006B8DBC /* MusicSearchComponentView.swift */,
 				74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */,
 				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
 				953BD7632A6A77240047C21C /* MapSearchComponentView.swift */,
@@ -195,6 +211,10 @@
 				951691A52A663AE00070D47C /* MapView.swift */,
 				95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */,
 				95D6CE192A6E5AC30053AE8E /* MapMusicInfoView.swift */,
+				7433A2452A6E1D9A00EFA99B /* EditDateView.swift */,
+				7433A2472A6E1E1800EFA99B /* AddMusicView.swift */,
+				627E3F432A6E6D6300979803 /* MusicSearchView.swift */,
+				6221EA2B2A701553003BD47F /* MusicPlayView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -208,6 +228,9 @@
 				76104ABB2A6D7991000B8E65 /* MainDataModel.swift */,
 				76104ABD2A6D7EF7000B8E65 /* dummy.swift */,
 				76104AC42A6DF978000B8E65 /* MainVO.swift */,
+				76975F3C2A700298005FEFE2 /* SearchDataModel.swift */,
+				76975F4A2A70124E005FEFE2 /* HistoryDataModel.swift */,
+				76975F502A7177F3005FEFE2 /* MusicPlayer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -222,6 +245,7 @@
 		9516919B2A6629AD0070D47C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				76975F482A700DE2005FEFE2 /* AuthManger.swift */,
 				95D6CE132A6D084E0053AE8E /* LocationHelper.swift */,
 			);
 			path = Helper;
@@ -334,8 +358,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				953BD7532A69234D0047C21C /* PrimaryButtonComponentView.swift in Sources */,
+				7433A2462A6E1D9A00EFA99B /* EditDateView.swift in Sources */,
 				953BD75D2A6A001D0047C21C /* MusicListRowView.swift in Sources */,
 				953BD7552A69260A0047C21C /* MidButtonComponent.swift in Sources */,
+				6221EA2C2A701553003BD47F /* MusicPlayView.swift in Sources */,
 				953BD74D2A68DE6C0047C21C /* MusicItemVO.swift in Sources */,
 				951691A42A663A4E0070D47C /* BucketView.swift in Sources */,
 				951691A62A663AE00070D47C /* MapView.swift in Sources */,
@@ -346,24 +372,30 @@
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
 				95D6CE1A2A6E5AC30053AE8E /* MapMusicInfoView.swift in Sources */,
 				74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */,
+				7433A2482A6E1E1800EFA99B /* AddMusicView.swift in Sources */,
 				95D6CE142A6D084E0053AE8E /* LocationHelper.swift in Sources */,
+				76975F512A7177F3005FEFE2 /* MusicPlayer.swift in Sources */,
 				76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */,
 				953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */,
 				74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */,
 				953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
-				74EF8C9C2A6832BF006B8DBC /* MusicSearchView.swift in Sources */,
+				74EF8C9C2A6832BF006B8DBC /* MusicSearchComponentView.swift in Sources */,
 				95D6CE182A6D4B0C0053AE8E /* EditMapPositionView.swift in Sources */,
 				953BD7592A69FFE70047C21C /* ScopeButtonComponentView.swift in Sources */,
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
+				76975F492A700DE2005FEFE2 /* AuthManger.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
+				76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */,
 				764936AF2A6A169B001C0C54 /* MusicDataModel.swift in Sources */,
 				953BD7572A69FFDF0047C21C /* SFImageComponentView.swift in Sources */,
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
+				76975F4B2A70124E005FEFE2 /* HistoryDataModel.swift in Sources */,
+				627E3F442A6E6D6300979803 /* MusicSearchView.swift in Sources */,
 				74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */,
 				76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */,
 				951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */,
@@ -497,22 +529,25 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = TAP4M2PF77;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치를 언제 허용하시겠습니까?";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음 기능을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ada.DefaultAppName.MC3-BeyondThe3F";
+				PRODUCT_BUNDLE_IDENTIFIER = "ada.TuneSpot.MC3-BeyondThe3F";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -528,22 +563,25 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = TAP4M2PF77;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치를 언제 허용하시겠습니까?";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음 기능을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ada.DefaultAppName.MC3-BeyondThe3F";
+				PRODUCT_BUNDLE_IDENTIFIER = "ada.TuneSpot.MC3-BeyondThe3F";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

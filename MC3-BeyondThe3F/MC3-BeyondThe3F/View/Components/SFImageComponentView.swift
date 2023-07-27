@@ -19,6 +19,7 @@ enum SFImageType: String {
     case map
     case cancel
     case forward
+    case backward
     case list
     case ellipsis
     case plus
@@ -53,6 +54,8 @@ enum SFImageType: String {
             return "xmark"
         case .forward:
             return "forward.fill"
+        case .backward:
+            return "backward.fill"
         case .list:
             return "list.bullet"
         case .ellipsis:

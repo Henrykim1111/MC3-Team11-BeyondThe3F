@@ -31,3 +31,12 @@ func insertDummy(){
     }
 }
 
+func insertHistory(){
+    var historyDataModel = HistoryDataModel.shared
+    guard historyDataModel.history.count == 0 else{ return }
+    
+    for i in 1...10{
+        historyDataModel.saveData(musicId: "sampleMusicId\(i)", songName: "sampleSongName\(i)")
+    }
+    
+}

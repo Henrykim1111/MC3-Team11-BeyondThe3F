@@ -53,7 +53,11 @@ struct EditMapPositionView: View {
                 Text("\(selectedPositionDescription)")
                     .headline(color: .white)
                 Spacer()
-                PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                NavigationLink {
+                    EditDateView()
+                } label: {
+                    PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                }
             }
             .frame(maxHeight: 200)
             .padding()

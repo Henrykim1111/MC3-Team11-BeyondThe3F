@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MusicSearchView: View {
+struct MusicSearchComponentView: View {
     @State private var textInput: String = ""
     @State private var onSearching = false
     
@@ -46,8 +46,8 @@ struct MusicSearchView: View {
 }
 
 
-struct MusicSearchView_Previews: PreviewProvider {
+struct MusicSearchComponentView_Previews: PreviewProvider {
     static var previews: some View {
-        MusicSearchView()
+        MusicSearchComponentView()
     }
 }
