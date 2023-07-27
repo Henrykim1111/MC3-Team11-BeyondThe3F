@@ -11,6 +11,7 @@ struct MusicSearchComponentView: View {
     @Binding var searchTerm: String
     @Binding var showSearchView: Bool
     @FocusState private var onSearching : Bool
+    @State private var showShazamView = false
     
     
     var body: some View {
@@ -63,16 +64,23 @@ struct MusicSearchComponentView: View {
             Spacer()
             
             // TODO: Navigate to ShazamView
-            Image(systemName: "shazam.logo.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: CGFloat(29), height: CGFloat(29))
-                .foregroundColor(Color.custom(.gray200))
+            Button {
+                showShazamView = true
+            } label: {
+                Image(systemName: "shazam.logo.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: CGFloat(29), height: CGFloat(29))
+                    .foregroundColor(Color.custom(.gray200))
+            }
+        }
+        .sheet(isPresented: $showShazamView) {
+            ShazamView()
         }
     }
 }
 
-struct MusicSearchCompomponentPreview: View {
+private struct MusicSearchCompomponentPreview: View {
     @State private var searchTerm = ""
     @State private var showSearchView = false
     var body: some View {

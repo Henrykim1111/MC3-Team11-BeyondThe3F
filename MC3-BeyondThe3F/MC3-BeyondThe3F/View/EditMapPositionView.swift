@@ -20,50 +20,52 @@ struct EditMapPositionView: View {
     @State private var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
     
     var body: some View {
-        VStack{
-            HStack {
-                SFImageComponentView(symbolName: .chevronBack, color: .white)
-                Spacer()
-                    .frame(width: 20)
-                TextField("위치를 검색해보세요", text: $textInput)
-                    .padding()
-                    .background(Color.custom(.secondaryDark))
-                    .foregroundColor(Color.custom(.white))
-                    .colorScheme(.dark)
-                    .accentColor(Color.custom(.white))
-                    .frame(width: .infinity)
-                    .frame(height: 48)
-                    .cornerRadius(10)
-            }
-            .padding()
-            ZStack {
-                EditMapUIView(
-                    userLocation: $userLocation,
-                    userRegion: $region,
-                    selectedCoordinate: $selectedCoordinate,
-                    selectedPositionDescription: $selectedPositionDescription
-                )
-                VStack {
-                    Image("pinLocation")
+        NavigationStack {
+            VStack{
+                HStack {
+                    SFImageComponentView(symbolName: .chevronBack, color: .white)
                     Spacer()
-                        .frame(height: 30)
+                        .frame(width: 20)
+                    TextField("위치를 검색해보세요", text: $textInput)
+                        .padding()
+                        .background(Color.custom(.secondaryDark))
+                        .foregroundColor(Color.custom(.white))
+                        .colorScheme(.dark)
+                        .accentColor(Color.custom(.white))
+                        .frame(width: 390)
+                        .frame(height: 48)
+                        .cornerRadius(10)
                 }
-            }
-            VStack(alignment: .leading) {
-                Text("\(selectedPositionDescription)")
-                    .headline(color: .white)
-                Spacer()
-                NavigationLink {
-                    EditDateView()
-                } label: {
-                    PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                .padding()
+                ZStack {
+                    EditMapUIView(
+                        userLocation: $userLocation,
+                        userRegion: $region,
+                        selectedCoordinate: $selectedCoordinate,
+                        selectedPositionDescription: $selectedPositionDescription
+                    )
+                    VStack {
+                        Image("pinLocation")
+                        Spacer()
+                            .frame(height: 30)
+                    }
                 }
+                VStack(alignment: .leading) {
+                    Text("\(selectedPositionDescription)")
+                        .headline(color: .white)
+                    Spacer()
+                    NavigationLink {
+                        EditDateView()
+                    } label: {
+                        PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                    }
+                }
+                .frame(maxHeight: 200)
+                .padding()
             }
-            .frame(maxHeight: 200)
-            .padding()
+            .background(Color.custom(.background))
+            .preferredColorScheme(.dark)
         }
-        .background(Color.custom(.background))
-        .preferredColorScheme(.dark)
 
         .onAppear {
             locationManager.getLocationAuth()

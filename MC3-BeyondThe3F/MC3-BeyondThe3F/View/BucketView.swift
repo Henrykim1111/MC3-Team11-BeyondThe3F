@@ -8,17 +8,32 @@
 import SwiftUI
 
 struct BucketView: View {
-    
     @State private var searchTerm = ""
+    @State private var showSearchView = false
+    @State private var showMusicPlayView = false
         
     var body: some View {
-        VStack {
-            MusicSearchComponentView()
-                .padding()
-            CarouselView()
-            MusicPlayerComponentView()
+        NavigationStack {
+            VStack {
+                MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
+                    .padding()
+                if showSearchView {
+                    MusicSearchView(searchTerm: $searchTerm)
+                } else {
+                    CarouselView()
+                }
+                Button {
+                    showMusicPlayView = true
+                } label: {
+                    MusicPlayerComponentView()
+                }
+            }
+            .background(Color.custom(.background))
+            .sheet(isPresented: $showMusicPlayView) {
+                MusicPlayView()
+                    .presentationDragIndicator(.visible)
+            }
         }
-        .background(Color.custom(.background))
     }
 }
 
