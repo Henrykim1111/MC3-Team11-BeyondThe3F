@@ -124,7 +124,7 @@ struct ControlButtonsView: View {
                 Button {
                     // Play Backward Button
                 } label: {
-//                    SFImageComponentView(symbolName: .backward, color: .white, width: 55, height: 55)
+                    SFImageComponentView(symbolName: .backward, color: .white, width: 55, height: 55)
                 }
 
                 Spacer().frame(width: 40)
