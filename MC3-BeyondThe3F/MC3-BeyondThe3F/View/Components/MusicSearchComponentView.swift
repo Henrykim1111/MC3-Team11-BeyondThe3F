@@ -16,22 +16,28 @@ struct MusicSearchComponentView: View {
     var body: some View {
         HStack(spacing: 0){
             HStack {
-                SFImageComponentView(
-                    symbolName: onSearching ? .chevronBack : .magnifyingGlass,
-                    color: .white,
-                    width: 18,
-                    height: 18
-                )
+                Button {
+                    showSearchView = false
+                    searchTerm = ""
+                } label: {
+                    SFImageComponentView(
+                        symbolName: showSearchView ? .chevronBack : .magnifyingGlass,
+                        color: .white,
+                        width: 18,
+                        height: 18
+                    )
+                }
+
                 Spacer()
                     .frame(width: 20)
                 TextField("\(onSearching ? "음악을 검색해보세요":"음악을 추가해보세요")", text: $searchTerm)
                     .focused($onSearching)
                     .onChange(of: onSearching) { searchingState in
-                        
+                        showSearchView = searchingState
                     }
                     
                 Spacer()
-                if onSearching {
+                if showSearchView {
                     Button {
                         searchTerm = ""
                     } label: {
