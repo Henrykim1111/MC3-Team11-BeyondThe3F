@@ -27,13 +27,9 @@ class MainDataModel{
             }
         }
         var tempArr:[[MusicItem]] = []
-        for (_,value) in dic{
-            tempArr.append(value)
-        }
         dic.forEach {
             tempArr.append($0.value)
         }
-        
         tempArr.sort{
             let left = locationManager.getDistance(latitude: $0[0].latitude, longitude: $0[0].longitude)
             let right = locationManager.getDistance(latitude: $1[0].latitude, longitude: $1[0].longitude)
