@@ -34,7 +34,7 @@ class MusicPlayer{
     
     var playlist:[MusicItem] = []{
         didSet{
-            player.setQueue(with: oldValue.map{$0.musicId ?? ""})
+            player.setQueue(with: self.playlist.map{$0.musicId ?? ""})
             self.player.play()
         }
     }

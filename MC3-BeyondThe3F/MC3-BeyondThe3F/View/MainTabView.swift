@@ -25,7 +25,7 @@ struct MainTabView: View {
             Task{
                 await AuthManger.requestMusicAuth()
             }
-            print(MainDataModel.shared.getData)
+            MusicPlayer.shared.playlist = MainDataModel.shared.getData[0].musicList
         }
     }
 }
