@@ -8,27 +8,49 @@
 import SwiftUI
 
 struct MusicSearchComponentView: View {
-    @State private var textInput: String = ""
-    @State private var onSearching = false
+    @Binding var searchTerm: String
+    @Binding var showSearchView: Bool
+    @FocusState private var onSearching : Bool
+    
     
     var body: some View {
-        HStack{
+        HStack(spacing: 0){
             HStack {
-                SFImageComponentView(
-                    symbolName: onSearching ? .chevronBack : .magnifyingGlass,
-                    color: .white)
+                Button {
+                    showSearchView = false
+                    searchTerm = ""
+                    onSearching = false
+                } label: {
+                    SFImageComponentView(
+                        symbolName: showSearchView ? .chevronBack : .magnifyingGlass,
+                        color: .white,
+                        width: 18,
+                        height: 18
+                    )
+                }
+
                 Spacer()
                     .frame(width: 20)
-                TextField("음악을 검색해보세요", text: $textInput)
-                    .onTapGesture {
-                        onSearching.toggle()
+                TextField("\(onSearching ? "음악을 검색해보세요":"음악을 추가해보세요")", text: $searchTerm)
+                    .focused($onSearching)
+                    .onChange(of: onSearching) { searchingState in
+                        showSearchView = searchingState
                     }
                     
-                    
                 Spacer()
-                SFImageComponentView(symbolName: .mic, color: .white)
+                if showSearchView {
+                    Button {
+                        searchTerm = ""
+                    } label: {
+                        SFImageComponentView(
+                            symbolName: .cancel,
+                            color: .gray500,
+                            width: 16,
+                            height: 16)
+                    }
+
+                }
             }
-            .padding()
             .foregroundColor(.white)
             .padding()
             .frame(maxWidth: 350)
@@ -40,14 +62,29 @@ struct MusicSearchComponentView: View {
             
             Spacer()
             
-            SFImageComponentView(symbolName: .gearShape, color: .white)
+            // TODO: Navigate to ShazamView
+            Image(systemName: "shazam.logo.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: CGFloat(29), height: CGFloat(29))
+                .foregroundColor(Color.custom(.gray200))
         }
     }
 }
 
+struct MusicSearchCompomponentPreview: View {
+    @State private var searchTerm = ""
+    @State private var showSearchView = false
+    var body: some View {
+        MusicSearchComponentView(
+            searchTerm: $searchTerm,
+            showSearchView: $showSearchView
+        )
+    }
+}
 
 struct MusicSearchComponentView_Previews: PreviewProvider {
     static var previews: some View {
-        MusicSearchComponentView()
+        MusicSearchCompomponentPreview()
     }
 }
