@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ScopeButtonComponentView: View {
+    
+
+    
     var body: some View {
         ZStack{
             Circle()
@@ -18,9 +21,6 @@ struct ScopeButtonComponentView: View {
         }
         .frame(width: 48, height: 48)
         //색깔 바꿔서 사용
-        
-        
-        
     }
 }
 
