@@ -31,18 +31,24 @@ struct EditMapPositionView: View {
                     .foregroundColor(Color.custom(.white))
                     .colorScheme(.dark)
                     .accentColor(Color.custom(.white))
-                    .frame(maxWidth: 350)
+                    .frame(width: .infinity)
                     .frame(height: 48)
                     .cornerRadius(10)
             }
             .padding()
-            EditMapUIView(
-                userLocation: $userLocation,
-                userRegion: $region,
-                selectedCoordinate: $selectedCoordinate,
-                currentAnnotation: MKPointAnnotation(),
-                selectedPositionDescription: $selectedPositionDescription
-            )
+            ZStack {
+                EditMapUIView(
+                    userLocation: $userLocation,
+                    userRegion: $region,
+                    selectedCoordinate: $selectedCoordinate,
+                    selectedPositionDescription: $selectedPositionDescription
+                )
+                VStack {
+                    Image("pinLocation")
+                    Spacer()
+                        .frame(height: 30)
+                }
+            }
             VStack(alignment: .leading) {
                 Text("\(selectedPositionDescription)")
                     .headline(color: .white)
@@ -57,6 +63,8 @@ struct EditMapPositionView: View {
             .padding()
         }
         .background(Color.custom(.background))
+        .preferredColorScheme(.dark)
+
         .onAppear {
             locationManager.getLocationAuth()
         }
@@ -78,7 +86,6 @@ struct EditMapUIView: UIViewRepresentable{
     @Binding var userRegion: MKCoordinateRegion
     @State private var view = MKMapView()
     @Binding var selectedCoordinate : CLLocationCoordinate2D
-    var currentAnnotation : MKAnnotation
     @Binding var selectedPositionDescription: String
     
     private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
@@ -96,45 +103,11 @@ struct EditMapUIView: UIViewRepresentable{
                 self.parent.userLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             }
         }
-        
-        func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-            
-        }
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            
-        }
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            switch annotation {
-            case is MusicAnnotation:
-                return MusicAnnotationView(annotation: annotation, reuseIdentifier: MusicAnnotationView.ReuseID)
-            case is MKClusterAnnotation:
-                return ClusteringAnnotationView(annotation: annotation, reuseIdentifier: ClusteringAnnotationView.ReuseID)
-            default:
-                return nil
-            }
-        }
-        func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
-            let clusterAnnotaion = MKClusterAnnotation(memberAnnotations: memberAnnotations)
-            clusterAnnotaion.title  = "clusted"
-            return clusterAnnotaion
+            parent.selectedCoordinate = mapView.centerCoordinate
+            getSearchPlace(coord: mapView.centerCoordinate)
         }
         
-        @objc func triggerTouchAction(sender: UITapGestureRecognizer) {
-            parent.view.removeAnnotation(parent.currentAnnotation)
-            if sender.state == .ended {
-                let point = sender.location(in: parent.view)
-                let coordinate = parent.view.convert(point, toCoordinateFrom: parent.view)
-                print(coordinate)
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
-                annotation.title = "Start"
-                parent.view.addAnnotation(annotation)
-                parent.currentAnnotation = annotation
-                parent.selectedCoordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                
-                getSearchPlace(coord: CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
-            }
-        }
         private func getSearchPlace(coord: CLLocationCoordinate2D){
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(CLLocation(latitude: coord.latitude, longitude: coord.longitude)) { placemarks, e in
@@ -142,7 +115,6 @@ struct EditMapUIView: UIViewRepresentable{
                     return
                 }
                 
-                // Most geocoding requests contain only one result.
                 if let firstPlacemark = placemarks?.first {
                     self.parent.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
                 }
@@ -160,12 +132,11 @@ struct EditMapUIView: UIViewRepresentable{
         view.mapType = .standard
         view.showsUserLocation = true
         view.setUserTrackingMode(.follow, animated: true)
-        
-        let gestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.triggerTouchAction(sender:)))
-        view.addGestureRecognizer(gestureRecognizer)
+
+
+        selectedCoordinate = view.centerCoordinate
         
         return view
-        
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
