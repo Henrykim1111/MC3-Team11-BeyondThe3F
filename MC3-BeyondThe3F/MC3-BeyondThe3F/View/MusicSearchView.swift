@@ -61,6 +61,18 @@ struct MusicSearchView: View {
     }
 }
 
+//struct DateText: View {
+//    var date: Date
+//    @State var dateString: String = "not found"
+//    var body: some View {
+//        Text("\(Date.formatToString(searchDate: date))")
+//            .onAppear {
+//                dateString = Date.formatToString(searchDate: date)
+//            }
+//    }
+//
+//}
+
 extension MusicSearchView {
     private var ResentlySearchTitle: some View {
         HStack {
@@ -83,7 +95,7 @@ extension MusicSearchView {
                     Text(musicSearchViewModel.resentlySearchList[index].songName ?? "")
                         .body1(color: .white)
                     Spacer()
-                    Text(Date.formatToString(searchDate: musicSearchViewModel.resentlySearchList[index].date ?? Date()))
+                    Text("\(Date.formatToString(searchDate: musicSearchViewModel.resentlySearchList[index].date ?? Date()))")
                         .body2(color: .gray400)
                     Spacer()
                         .frame(width: 24)
