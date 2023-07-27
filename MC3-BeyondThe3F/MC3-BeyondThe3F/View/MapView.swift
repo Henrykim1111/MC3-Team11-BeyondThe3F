@@ -19,11 +19,6 @@ struct MapView: View {
     
     @State private var musicList: [MusicItemVO] = []
     
-    @State private var draggedYOffset = 500.0
-    @State private var accumulatedYOffset = 500.0
-    private let maxHeight = 500.0
-    private let minHeight = 100.0
-    
     let locationHelper = LocationManager.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var region = startRegion
@@ -38,85 +33,11 @@ struct MapView: View {
                 MapUIKitView(
                     mapView: $mapView,
                     musicList: $musicList,
-                    locationManager: locationHelper.locationManager,
                     userLocation: $userLocation,
                     userRegion: $region,
-                    isShowUserLocation: $isShowUserLocation
+                    isShowUserLocation: $isShowUserLocation,
+                    locationManager: locationHelper.locationManager
                 )
-                VStack {
-                    Spacer()
-                    VStack{
-                        VStack{
-                            HStack {
-                                Spacer()
-                                Rectangle()
-                                    .foregroundColor(Color.custom(.white))
-                                    .frame(width: 40, height: 5)
-                                    .opacity(0.4)
-                                    .cornerRadius(3)
-                                Spacer()
-                            }
-                            HStack {
-                                if musicList.isEmpty {
-                                    ProgressView()
-                                        .frame(width: 60, height: 60)
-                                        .cornerRadius(8)
-                                        .foregroundColor(Color.custom(.white))
-                                        .padding(.trailing, 15)
-                                } else {
-                                    Image("annotaion0")
-                                        .resizable()
-                                        .frame(width: 60, height: 60)
-                                        .cornerRadius(8)
-                                        .padding(.trailing, 15)
-                                }
-
-                                VStack(alignment: .leading){
-                                    Text("장소")
-                                        .title2(color: .white)
-                                        .padding(.bottom, 2)
-                                    Text("\(musicList.count)곡 수집")
-                                        .body1(color: .white)
-                                }
-                                Spacer()
-                            }
-                            .padding(.bottom,15)
-                            
-                            HStack {
-                                MidButtonComponent()
-                                Spacer()
-                                MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
-                            }
-                        }
-                        .padding()
-                        
-                        Divider()
-                            .overlay(Color.custom(.white))
-                        ScrollView {
-                            VStack{
-                                ForEach(musicList) { musicItem in
-                                    MusicListRowView(
-                                        imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
-                                        songName: musicItem.songName,
-                                        artistName: musicItem.artistName,
-                                        musicListRowType: .saved,
-                                        buttonEllipsisAction: {
-                                            
-                                        }
-                                    )
-                                }
-                            }
-                        }
-                        .padding()
-                        .frame(minHeight: 300)
-                    }
-                    .frame(idealWidth: 390, maxWidth: 390)
-                    .frame(height: 600)
-                    .background(Color.custom(.background))
-                    .presentationDragIndicator(.visible)
-                    .offset(y: draggedYOffset)
-                    .gesture(drag)
-                }
                 VStack {
                     Spacer()
                         .frame(height: 30)
@@ -142,7 +63,8 @@ struct MapView: View {
                                 }
                             }
                         }
-                        .frame(width: 350, height: 300)
+                        .frame(minWidth: .infinity)
+                        .frame(height: 200)
                         .background(Color.custom(.background))
                         Spacer()
                     }
@@ -155,14 +77,16 @@ struct MapView: View {
                             ScopeButtonComponentView()
                         }
                     }
+                    Spacer()
+                        .frame(height: 120)
                 }
                 .padding()
                 .background(
                     withAnimation(.easeInOut(duration: 0.2)) {
                         searchText == "" ? .green.opacity(0) : Color.custom(.background)
                     }
-
                 )
+                MapMusicInfoView(musicList: $musicList)
             }
             MusicPlayerComponentView()
         }
@@ -174,40 +98,6 @@ struct MapView: View {
             getSearchPlace()
         }
         
-    }
-    
-    var drag: some Gesture {
-        DragGesture()
-            .onChanged { gesture in
-                let caculatedValue = accumulatedYOffset + gesture.translation.height
-                if caculatedValue > maxHeight {
-                    draggedYOffset = maxHeight
-                } else if caculatedValue < minHeight {
-                    draggedYOffset = minHeight
-                } else {
-                    draggedYOffset = caculatedValue
-                }
-            }
-            .onEnded { gesture in
-                let caculatedValue = accumulatedYOffset + gesture.translation.height
-                
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    if caculatedValue > maxHeight {
-                        accumulatedYOffset = maxHeight
-                    } else if caculatedValue < minHeight {
-                        accumulatedYOffset = minHeight
-                    } else {
-                        if caculatedValue > 400 {
-                            accumulatedYOffset = maxHeight
-                        } else if caculatedValue > 200 {
-                            accumulatedYOffset = 300.0
-                        } else {
-                            accumulatedYOffset = minHeight
-                        }
-                        draggedYOffset = accumulatedYOffset
-                    }
-                }
-            }
     }
         
     private func showUserLocation(){
@@ -261,13 +151,14 @@ let startRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 4
 
 struct MapUIKitView: UIViewRepresentable {
     @Binding var mapView: MKMapView
-    @State var region = startRegion
     @Binding var musicList: [MusicItemVO]
-    let locationManager: CLLocationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
     @Binding var isShowUserLocation: Bool
-
+    
+    @State var region = startRegion
+    
+    let locationManager: CLLocationManager
     private let annotaionDataList = musicItemVODummyData
 
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
