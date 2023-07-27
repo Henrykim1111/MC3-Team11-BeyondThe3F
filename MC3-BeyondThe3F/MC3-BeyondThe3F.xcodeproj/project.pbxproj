@@ -51,8 +51,10 @@
 		953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD75F2A6A6D0A0047C21C /* ClusteringAnnotationView.swift */; };
 		953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */; };
 		953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7632A6A77240047C21C /* MapSearchComponentView.swift */; };
+		959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B742A6FBEA200888942 /* ShazamManager.swift */; };
 		95D6CE142A6D084E0053AE8E /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE132A6D084E0053AE8E /* LocationHelper.swift */; };
 		95D6CE182A6D4B0C0053AE8E /* EditMapPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */; };
+		95D6CE1C2A6F9D960053AE8E /* ShazamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE1B2A6F9D960053AE8E /* ShazamView.swift */; };
 		95D6CE1A2A6E5AC30053AE8E /* MapMusicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE192A6E5AC30053AE8E /* MapMusicInfoView.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,8 +105,10 @@
 		953BD75F2A6A6D0A0047C21C /* ClusteringAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusteringAnnotationView.swift; sourceTree = "<group>"; };
 		953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAnnotationView.swift; sourceTree = "<group>"; };
 		953BD7632A6A77240047C21C /* MapSearchComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchComponentView.swift; sourceTree = "<group>"; };
+		959B5B742A6FBEA200888942 /* ShazamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamManager.swift; sourceTree = "<group>"; };
 		95D6CE132A6D084E0053AE8E /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 		95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMapPositionView.swift; sourceTree = "<group>"; };
+		95D6CE1B2A6F9D960053AE8E /* ShazamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamView.swift; sourceTree = "<group>"; };
 		95D6CE192A6E5AC30053AE8E /* MapMusicInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMusicInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -210,6 +214,7 @@
 				951691A32A663A4E0070D47C /* BucketView.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
 				95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */,
+				95D6CE1B2A6F9D960053AE8E /* ShazamView.swift */,
 				95D6CE192A6E5AC30053AE8E /* MapMusicInfoView.swift */,
 				7433A2452A6E1D9A00EFA99B /* EditDateView.swift */,
 				7433A2472A6E1E1800EFA99B /* AddMusicView.swift */,
@@ -247,6 +252,7 @@
 			children = (
 				76975F482A700DE2005FEFE2 /* AuthManger.swift */,
 				95D6CE132A6D084E0053AE8E /* LocationHelper.swift */,
+				959B5B742A6FBEA200888942 /* ShazamManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -369,6 +375,7 @@
 				951691A02A6634C00070D47C /* DefaultCoreDataView.swift in Sources */,
 				951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */,
 				953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */,
+				95D6CE1C2A6F9D960053AE8E /* ShazamView.swift in Sources */,
 				9516918C2A6629680070D47C /* Persistence.swift in Sources */,
 				95D6CE1A2A6E5AC30053AE8E /* MapMusicInfoView.swift in Sources */,
 				74EF8C742A67C198006B8DBC /* ButtonPlayComponentView.swift in Sources */,
@@ -388,6 +395,7 @@
 				76975F492A700DE2005FEFE2 /* AuthManger.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
+				959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */,
 				76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */,
 				764936AF2A6A169B001C0C54 /* MusicDataModel.swift in Sources */,
 				953BD7572A69FFDF0047C21C /* SFImageComponentView.swift in Sources */,
