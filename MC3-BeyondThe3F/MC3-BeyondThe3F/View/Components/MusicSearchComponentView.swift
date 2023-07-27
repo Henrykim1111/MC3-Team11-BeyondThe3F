@@ -19,6 +19,7 @@ struct MusicSearchComponentView: View {
                 Button {
                     showSearchView = false
                     searchTerm = ""
+                    onSearching = false
                 } label: {
                     SFImageComponentView(
                         symbolName: showSearchView ? .chevronBack : .magnifyingGlass,
@@ -44,8 +45,8 @@ struct MusicSearchComponentView: View {
                         SFImageComponentView(
                             symbolName: .cancel,
                             color: .gray500,
-                            width: 18,
-                            height: 18)
+                            width: 16,
+                            height: 16)
                     }
 
                 }
