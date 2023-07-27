@@ -68,7 +68,7 @@ extension MusicSearchView {
                 .headline(color: .white)
             Spacer()
             Button {
-                musicSearchViewModel.resentlySearchList.removeAll()
+                musicSearchViewModel.removeAllMusicHistory()
             } label: {
                 Text("모두 지우기")
                     .body2(color: .primary)
@@ -80,10 +80,10 @@ extension MusicSearchView {
         VStack {
             ForEach(0 ..< musicSearchViewModel.resentlySearchList.count, id: \.self) { index in
                 HStack {
-                    Text(musicSearchViewModel.resentlySearchList[index].searchText)
+                    Text(musicSearchViewModel.resentlySearchList[index].songName ?? "")
                         .body1(color: .white)
                     Spacer()
-                    Text(musicSearchViewModel.resentlySearchList[index].stringDate)
+                    Text(Date.formatToString(searchDate: musicSearchViewModel.resentlySearchList[index].date ?? Date()))
                         .body2(color: .gray400)
                     Spacer()
                         .frame(width: 24)
@@ -94,14 +94,13 @@ extension MusicSearchView {
                         height: 16
                     )
                     .onTapGesture {
-                        musicSearchViewModel.resentlySearchList.remove(at: index)
+                        musicSearchViewModel.removeMusicHistoryById(musicId: musicSearchViewModel.resentlySearchList[index].musicId ?? "")
                     }
                 }
                 .frame(maxWidth: 390)
                 .frame(height: 56)
                 .onTapGesture {
-                    musicSearchViewModel.searchHistoryTerm(historyTerm: musicSearchViewModel.resentlySearchList[index].searchText)
-                    searchTerm = musicSearchViewModel.resentlySearchList[index].searchText
+                    // TODO: add music to music player
                 }
             }
         }
@@ -113,26 +112,30 @@ extension MusicSearchView {
                 .frame(width: 390)
            
             ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
-                HStack {
-                    if let existingArtwork = item.artwork {
-                        ArtworkImage(existingArtwork, width: 60)
-                            .cornerRadius(8)
-                    }
-                    Spacer()
-                        .frame(width: 16)
-                    VStack(alignment: .leading){
-                        Text(item.title)
-                            .body1(color: .white)
-                            .padding(.bottom, 4)
-                        Text(item.artistName)
-                            .body2(color: .gray500)
-                    }
-                    Spacer()
-                    Button {
-                        // TODO: 음악 추가하는 페이지로 이동 기능 구현
-                    } label: {
-                        SFImageComponentView(symbolName: .ellipsis, color: .white)
-                            .rotationEffect(.degrees(90.0))
+                Button {
+                    musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
+                } label: {
+                    HStack {
+                        if let existingArtwork = item.artwork {
+                            ArtworkImage(existingArtwork, width: 60)
+                                .cornerRadius(8)
+                        }
+                        Spacer()
+                            .frame(width: 16)
+                        VStack(alignment: .leading){
+                            Text(item.title)
+                                .body1(color: .white)
+                                .padding(.bottom, 4)
+                            Text(item.artistName)
+                                .body2(color: .gray500)
+                        }
+                        Spacer()
+                        Button {
+                            // TODO: 음악 추가하는 페이지로 이동 기능 구현
+                        } label: {
+                            SFImageComponentView(symbolName: .ellipsis, color: .white)
+                                .rotationEffect(.degrees(90.0))
+                        }
                     }
                 }
             }

@@ -24,14 +24,11 @@ enum MusicSearchState {
 
 class MusicSearchViewModel: ObservableObject {
     
-    @Published var resentlySearchList: [SearchItem] = [
-        SearchItem(searchText: "hello", stringDate: Date.formatToString(searchDate: Date()), searchDate: Date()),
-        SearchItem(searchText: "love", stringDate: Date.formatToString(searchDate: Date()), searchDate: Date())
-    ]
+    private let historymodel = HistoryDataModel.shared
+    
+    @Published var resentlySearchList: [History] = HistoryDataModel.shared.readRecentHistory
     @Published var searchSongs: MusicItemCollection<Song> = []
     @Published var musicSearchState: MusicSearchState = .notSearched
-    
-    private let historymodel = HistoryDataModel.shared
     
     
     func requestUpdateSearchResults(for searchTerm: String) {
@@ -55,22 +52,29 @@ class MusicSearchViewModel: ObservableObject {
         }
     }
     
+    func addMusicHistory(musicId: String, songName: String){
+        historymodel.saveData(musicId: musicId, songName: songName)
+        readHistoryData()
+    }
+    
+    func removeMusicHistoryById(musicId: String){
+        if !musicId.isEmpty {
+            historymodel.removeByMusicId(musicId: musicId)
+            readHistoryData()
+        }
+    }
+    
+    func removeAllMusicHistory(){
+        historymodel.removeAll()
+        readHistoryData()
+    }
+    
     private func playMusic(musicId: String){
         // TODO: musicListRow를 클릭한 경우 해당 음악이 playMusic에 추가되는 기능 구현 필요
     }
     
-    private func addMusicToData(music: Song){
-        // TODO: 해당 musicListRow의 + 버튼을 누른 경우 musicVO에 추가되는 기능 구현 필요
-    }
-    
-    func searchHistoryTerm(historyTerm: String){
-        self.resentlySearchList.append(
-            SearchItem(
-                searchText: historyTerm,
-                stringDate: Date.formatToString(searchDate: Date()),
-                searchDate: Date()
-            )
-        )
+    private func readHistoryData(){
+        resentlySearchList = historymodel.readRecentHistory
     }
     
     @MainActor
