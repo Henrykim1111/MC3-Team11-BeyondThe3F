@@ -8,8 +8,17 @@
 import SwiftUI
 
 struct BucketView: View {
+    
+    @State private var searchTerm = ""
+        
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            MusicSearchComponentView()
+                .padding()
+            CarouselView()
+            MusicPlayerComponentView()
+        }
+        .background(Color.custom(.background))
     }
 }
 

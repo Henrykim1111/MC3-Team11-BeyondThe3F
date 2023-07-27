@@ -54,6 +54,7 @@
 		959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B742A6FBEA200888942 /* ShazamManager.swift */; };
 		95D6CE142A6D084E0053AE8E /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE132A6D084E0053AE8E /* LocationHelper.swift */; };
 		95D6CE182A6D4B0C0053AE8E /* EditMapPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */; };
+		FB9AEE422A6F4CC600B015C5 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9AEE412A6F4CC600B015C5 /* CarouselView.swift */; };
 		95D6CE1C2A6F9D960053AE8E /* ShazamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE1B2A6F9D960053AE8E /* ShazamView.swift */; };
 		95D6CE1A2A6E5AC30053AE8E /* MapMusicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE192A6E5AC30053AE8E /* MapMusicInfoView.swift */; };
 /* End PBXBuildFile section */
@@ -108,6 +109,7 @@
 		959B5B742A6FBEA200888942 /* ShazamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamManager.swift; sourceTree = "<group>"; };
 		95D6CE132A6D084E0053AE8E /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 		95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMapPositionView.swift; sourceTree = "<group>"; };
+		FB9AEE412A6F4CC600B015C5 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		95D6CE1B2A6F9D960053AE8E /* ShazamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamView.swift; sourceTree = "<group>"; };
 		95D6CE192A6E5AC30053AE8E /* MapMusicInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMusicInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -212,6 +214,7 @@
 				951691A12A6639320070D47C /* MainTabView.swift */,
 				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 				951691A32A663A4E0070D47C /* BucketView.swift */,
+				FB9AEE412A6F4CC600B015C5 /* CarouselView.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
 				95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */,
 				95D6CE1B2A6F9D960053AE8E /* ShazamView.swift */,
@@ -384,6 +387,7 @@
 				76975F512A7177F3005FEFE2 /* MusicPlayer.swift in Sources */,
 				76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */,
 				953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */,
+				FB9AEE422A6F4CC600B015C5 /* CarouselView.swift in Sources */,
 				74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */,
 				953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
