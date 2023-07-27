@@ -10,17 +10,17 @@ import SwiftUI
 
 struct MusicPlayView: View {
     @State private var progressRate: Double = 0.0
-    @State private var isToggledView: Bool = true
+    @State private var showCurrentPlayList: Bool = true
+    
+    @ObservedObject private var musicPlayer = MusicPlayer.shared
     
     var body: some View {
         ZStack {
-            if isToggledView {
-                NowPlayingView()
-            } else {
-                CurrentPlayListView()
-            }
+            NowPlayingView()
+            CurrentPlayListView()
+                .opacity(showCurrentPlayList ? 0 : 1)
             
-            ControlPanelView(progressRate: $progressRate, isToggledView: $isToggledView)
+            ControlPanelView(progressRate: $progressRate, showCurrentPlayList: $showCurrentPlayList)
         }
     }
 }
@@ -58,34 +58,73 @@ struct NowPlayingView: View {
 }
 
 
+struct CurrentPlayListView: View {
+
+    let musicPlayer = MusicPlayer.shared
+    
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                HStack {
+                    Text("현재 재생 목록")
+                        .headline(color: .white)
+                    Spacer()
+                }
+                .padding()
+                
+                ForEach(musicPlayer.playlist) { musicItem in
+                    MusicListRowView(
+                        imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
+                        songName: musicItem.songName ?? "",
+                        artistName: musicItem.artistName ?? "",
+                        musicListRowType: .saved,
+                        buttonEllipsisAction: {
+                            
+                        }
+                    )
+                    .padding(.horizontal, 20)
+                    .background(Color.custom(musicItem == musicPlayer.currentMusicItem ? .secondaryDark : .background))
+                }
+            }
+            Spacer()
+                .frame(height: 276)
+        }
+        .frame(width: 390)
+        .background(Color.custom(.background))
+    }
+}
+
+
 struct ControlPanelView: View {
     @Binding var progressRate: Double
-    @Binding var isToggledView: Bool
+    @Binding var showCurrentPlayList: Bool
     
+    @ObservedObject private var musicPlayer = MusicPlayer.shared
+
     var body: some View {
         VStack {
             Spacer()
             
             VStack {
                 HStack {
-                    VStack {
-                        Text("Big Wave")    // 음악 ID 값에 따른 title 업데이트
+                    VStack(alignment:.leading) {
+                        Text("\(MusicPlayer.shared.currentMusicItem?.songName ?? "")")
                             .headline(color: .white)
                         Spacer().frame(height: 8)
-                        Text("293 studio")      // 음악 ID 값에 따른 artistName 업데이트
+                        Text("\(MusicPlayer.shared.currentMusicItem?.artistName ?? "")")
                             .body1(color: .gray300)
                     }
                     Spacer()
                     
                     Button {
-                        isToggledView.toggle()
+                        withAnimation(.easeIn(duration: 0.3)) {
+                            self.showCurrentPlayList.toggle()
+                        }
                     } label: {
                         SFImageComponentView(symbolName: .list, color: .white, width: 28, height: 28)
                     }
                 }
-                
                 Spacer().frame(height: 34)
-                
                 ControlButtonsView(progressRate: $progressRate)
             }
             .padding(.horizontal, 20)
@@ -102,6 +141,8 @@ struct ControlPanelView: View {
 
 
 struct ControlButtonsView: View {
+    
+    let musicPlayer = MusicPlayer.shared
     @Binding var progressRate: Double
     
     var body: some View {
@@ -122,23 +163,23 @@ struct ControlButtonsView: View {
             
             HStack {
                 Button {
-                    // Play Backward Button
+                    MusicPlayer.shared.previousButtonTapped()
                 } label: {
-                    SFImageComponentView(symbolName: .backward, color: .white, width: 55, height: 55)
+                    SFImageComponentView(symbolName: .backward, color: .white, width: 45, height: 45)
                 }
 
-                Spacer().frame(width: 40)
-                // Play/Pause Button
+                Spacer().frame(width: 48)
+                
                 PlayPauseButton()
-                Spacer().frame(width: 40)
+                
+                Spacer().frame(width: 48)
+                
                 Button {
-                    // Play Forward Button
+                    MusicPlayer.shared.nextButtonTapped()
                 } label: {
-                    SFImageComponentView(symbolName: .forward, color: .white, width: 55, height: 55)
-                    // 리스트의 마지막 노래일 경우 비활성화
-                    // .disabled(isFinalList)
-                    // @State private var isFinalList = true
+                    SFImageComponentView(symbolName: .forward, color: .white, width: 45, height: 45)
                 }
+                .disabled(MusicPlayer.shared.isLast)
             }
             Spacer()
         }
@@ -149,58 +190,13 @@ struct ControlButtonsView: View {
 struct PlayPauseButton: View {
     var body: some View {
         Button {
-//            playerViewModel.playbackState == .playing ? playerViewModel.player.pause() : playerViewModel.player.play()
+            MusicPlayer.shared.playButtonTapped()
         } label: {
-//            (playerViewModel.playbackState == .playing ? Image(systemName: "pause.fill") : Image(systemName: "play.fill"))
             Image(systemName: "play.fill")
                 .resizable()
                 .scaledToFit()
-                .frame(width: CGFloat(55), height: CGFloat(55))
+                .frame(width: CGFloat(45), height: CGFloat(45))
                 .foregroundColor(Color.custom(.white))
         }
-    }
-}
-
-
-struct CurrentPlayListView: View {
-    @State var playListItem : [MusicItemVO] = [
-        MusicItemVO(musicId: "1004836383", latitude: 43.70564024126748,longitude: 142.37968945214223,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotationTest"),
-        MusicItemVO(musicId: "1004836383", latitude: 43.81257464206404,longitude: 142.82112322464369,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion1"),
-        MusicItemVO(musicId: "1004836383", latitude: 43.38416585162576,longitude: 141.7252598737476,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion2"),
-        MusicItemVO(musicId: "1004836383", latitude: 45.29168643283501,longitude: 141.95286751470724,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion3")
-    ]
-    
-    var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Text("재생 대기")
-                        .headline(color: .white)
-                    Spacer()
-                }
-                
-                ForEach(playListItem) { musicItem in
-                    MusicListRowView(
-                        imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
-                        songName: musicItem.songName,
-                        artistName: musicItem.artistName,
-                        musicListRowType: .saved,
-                        buttonEllipsisAction: {
-                            
-                        }
-                    )
-                    
-                    // 현재 재생되고 있는 노래라면 백그라운드 컬러 다르게 처리
-                }
-                
-                
-            }
-            
-            Spacer()
-                .frame(height: 276)
-        }
-        .padding()
-        .background(Color.custom(.background))
-        
     }
 }

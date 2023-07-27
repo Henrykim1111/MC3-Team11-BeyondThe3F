@@ -13,11 +13,13 @@ protocol MusicPlayerProtocol{
     func musicPlayer(index:Int)
 }
 
-class MusicPlayer{
+class MusicPlayer: ObservableObject{
     static let shared = MusicPlayer()
     
     var delegate:MusicPlayerProtocol?
     
+    private let player = MPMusicPlayerController.applicationMusicPlayer
+
     private init(){
         self.player.prepareToPlay {error in
             if let error = error {
@@ -28,11 +30,10 @@ class MusicPlayer{
        }
     }
     
-    private let player = MPMusicPlayerController.applicationMusicPlayer
     
     var indexOfNowPlayingItem:Int{ player.indexOfNowPlayingItem }
     
-    var playlist:[MusicItem] = []{
+    @Published var playlist:[MusicItem] = []{
         didSet{
             player.setQueue(with: self.playlist.map{$0.musicId ?? ""})
             self.player.play()
@@ -43,8 +44,9 @@ class MusicPlayer{
         self.player.indexOfNowPlayingItem == playlist.count - 1 ? true : false
     }
     
-    var currentMusicItem:MusicItem{
-        self.playlist[self.player.indexOfNowPlayingItem]
+
+    var currentMusicItem:MusicItem?{
+        self.playlist.isEmpty ? nil : self.playlist[self.player.indexOfNowPlayingItem]
     }
     
     var currentPlayHead:Double{
