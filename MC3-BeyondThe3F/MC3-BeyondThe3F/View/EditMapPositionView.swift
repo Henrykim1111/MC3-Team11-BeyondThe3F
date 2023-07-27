@@ -32,7 +32,7 @@ struct EditMapPositionView: View {
                         .foregroundColor(Color.custom(.white))
                         .colorScheme(.dark)
                         .accentColor(Color.custom(.white))
-                        .frame(width: .infinity)
+                        .frame(width: 390)
                         .frame(height: 48)
                         .cornerRadius(10)
                 }

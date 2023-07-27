@@ -26,78 +26,88 @@ struct MapView: View {
     
     @State private var searchText = ""
     @State private var searchPlaces : [Place] = []
+    @State private var showMusicPlayView = false
     
     var body: some View {
-        VStack(spacing: 0) {
-            ZStack {
-                MapUIKitView(
-                    mapView: $mapView,
-                    musicList: $musicList,
-                    userLocation: $userLocation,
-                    userRegion: $region,
-                    isShowUserLocation: $isShowUserLocation,
-                    locationManager: locationHelper.locationManager
-                )
-                VStack {
-                    Spacer()
-                        .frame(height: 30)
-                    MapSearchComponentView(textInput: $searchText)
-                    if searchText == "" {
+        NavigationStack {
+            VStack(spacing: 0) {
+                ZStack {
+                    MapUIKitView(
+                        mapView: $mapView,
+                        musicList: $musicList,
+                        userLocation: $userLocation,
+                        userRegion: $region,
+                        isShowUserLocation: $isShowUserLocation,
+                        locationManager: locationHelper.locationManager
+                    )
+                    VStack {
                         Spacer()
-                    } else {
-                        ScrollView {
-                            VStack {
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    ForEach(searchPlaces, id: \.self) { place in
-                                        Button{
-                                            moveToSelectedPlaced(place: place)
-                                        } label: {
-                                            HStack {
-                                                Text("\(place.place.name ?? "no name")")
-                                                    .body1(color: .white)
-                                                Spacer()
+                            .frame(height: 30)
+                        MapSearchComponentView(textInput: $searchText)
+                        if searchText == "" {
+                            Spacer()
+                        } else {
+                            ScrollView {
+                                VStack {
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        ForEach(searchPlaces, id: \.self) { place in
+                                            Button{
+                                                moveToSelectedPlaced(place: place)
+                                            } label: {
+                                                HStack {
+                                                    Text("\(place.place.name ?? "no name")")
+                                                        .body1(color: .white)
+                                                    Spacer()
+                                                }
+                                                .frame(height: 56)
                                             }
-                                            .frame(height: 56)
                                         }
                                     }
                                 }
                             }
+                            .frame(minWidth: .infinity)
+                            .frame(height: 200)
+                            .background(Color.custom(.background))
+                            Spacer()
                         }
-                        .frame(minWidth: .infinity)
-                        .frame(height: 200)
-                        .background(Color.custom(.background))
-                        Spacer()
-                    }
-                    HStack {
-                        Spacer()
-                        Button {
-                            isShowUserLocation = true
-                            showUserLocation()
-                        } label: {
-                            ScopeButtonComponentView()
+                        HStack {
+                            Spacer()
+                            Button {
+                                isShowUserLocation = true
+                                showUserLocation()
+                            } label: {
+                                ScopeButtonComponentView()
+                            }
                         }
+                        Spacer()
+                            .frame(height: 120)
                     }
-                    Spacer()
-                        .frame(height: 120)
+                    .padding()
+                    .background(
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            searchText == "" ? .green.opacity(0) : Color.custom(.background)
+                        }
+                    )
+                    MapMusicInfoView(musicList: $musicList)
                 }
-                .padding()
-                .background(
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        searchText == "" ? .green.opacity(0) : Color.custom(.background)
-                    }
-                )
-                MapMusicInfoView(musicList: $musicList)
+                Button {
+                    showMusicPlayView = true
+                } label: {
+                    MusicPlayerComponentView()
+                }
             }
-            MusicPlayerComponentView()
+            .ignoresSafeArea(.all, edges: .top)
+            .onAppear {
+                locationHelper.getLocationAuth()
+            }
+            .onChange(of: searchText) { newValue in
+                getSearchPlace()
+            }
+            .sheet(isPresented: $showMusicPlayView) {
+                MusicPlayView()
+                    .presentationDragIndicator(.visible)
+            }
         }
-        .ignoresSafeArea(.all, edges: .top)
-        .onAppear {
-            locationHelper.getLocationAuth()
-        }
-        .onChange(of: searchText) { newValue in
-            getSearchPlace()
-        }
-        
     }
         
     private func showUserLocation(){
