@@ -125,7 +125,7 @@ struct EditMapPositionView: View {
                                 Spacer()
                             }
                         }
-                        .frame(width: .infinity)
+                        
                         .background(Color.custom(.background))
                         Spacer()
                     }
