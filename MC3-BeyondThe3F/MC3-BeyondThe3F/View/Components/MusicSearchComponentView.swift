@@ -25,8 +25,8 @@ struct MusicSearchComponentView: View {
                     SFImageComponentView(
                         symbolName: showSearchView ? .chevronBack : .magnifyingGlass,
                         color: .white,
-                        width: 18,
-                        height: 18
+                        width: 22,
+                        height: 22
                     )
                 }
 
@@ -46,8 +46,8 @@ struct MusicSearchComponentView: View {
                         SFImageComponentView(
                             symbolName: .cancel,
                             color: .gray500,
-                            width: 16,
-                            height: 16)
+                            width: 22,
+                            height: 22)
                     }
 
                 }
@@ -57,11 +57,9 @@ struct MusicSearchComponentView: View {
             .frame(maxWidth: 350)
             .frame(height: 48)
             .background(Color.custom(.secondaryDark))
-            .cornerRadius(4)
+            .cornerRadius(8)
             .colorScheme(.dark)
             .accentColor(.white)
-            
-            Spacer()
             
             // TODO: Navigate to ShazamView
             Button {
@@ -72,6 +70,7 @@ struct MusicSearchComponentView: View {
                     .scaledToFit()
                     .frame(width: CGFloat(29), height: CGFloat(29))
                     .foregroundColor(Color.custom(.gray200))
+                    .padding(.leading, 15)
             }
         }
         .sheet(isPresented: $showShazamView) {
