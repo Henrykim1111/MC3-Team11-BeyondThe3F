@@ -52,7 +52,7 @@ struct EditMapPositionView: View {
                             region: $region,
                             userLocation: $userLocation,
                             userRegion: $region,
-                            view: $mapView,
+                            mapView: $mapView,
                             selectedCoordinate: $selectedCoordinate,
                             selectedPositionDescription: $selectedPositionDescription,
                             isShowUserLocation: $isShowUserLocation,
@@ -93,7 +93,6 @@ struct EditMapPositionView: View {
                                         showDeniedLocationStatus = false
                                         isShowUserLocation = true
                                         showUserLocation()
-                                        isShowUserLocation = false
                                     }
                                     
                                 } label: {
@@ -199,7 +198,7 @@ struct EditMapUIView: UIViewRepresentable{
     private let locationManager = LocationManager.shared.locationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
-    @Binding var view: MKMapView
+    @Binding var mapView: MKMapView
     @Binding var selectedCoordinate : CLLocationCoordinate2D
     @Binding var selectedPositionDescription: String
     @Binding var isShowUserLocation: Bool
@@ -244,16 +243,14 @@ struct EditMapUIView: UIViewRepresentable{
     }
 
     func makeUIView(context: Context) -> MKMapView {
-        view.delegate = context.coordinator
-        view.setRegion(region, animated: false)
-        view.mapType = .standard
-        view.showsUserLocation = true
-        view.setUserTrackingMode(.follow, animated: true)
-
-
-        selectedCoordinate = view.centerCoordinate
+        mapView.delegate = context.coordinator
+        mapView.setRegion(region, animated: false)
+        mapView.mapType = .standard
+        mapView.showsUserLocation = true
+        mapView.setUserTrackingMode(.follow, animated: true)
+        selectedCoordinate = mapView.centerCoordinate
         
-        return view
+        return mapView
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
@@ -263,7 +260,6 @@ struct EditMapUIView: UIViewRepresentable{
         } else if isRegionSetted {
             uiView.setRegion(region, animated: true)
             isRegionSetted = false
-//            uiView.setVisibleMapRect(uiView.visibleMapRect, animated: true)
         }
     }
 }
