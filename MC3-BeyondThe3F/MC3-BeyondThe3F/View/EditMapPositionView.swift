@@ -50,18 +50,24 @@ struct EditMapPositionView: View {
                             .frame(height: 30)
                     }
                 }
-                VStack(alignment: .leading) {
-                    Text("\(selectedPositionDescription)")
-                        .headline(color: .white)
-                    Spacer()
-                    NavigationLink {
-                        EditDateView()
-                    } label: {
-                        PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                VStack {
+                    HStack{
+                        Spacer()
+                        
                     }
+                    VStack(alignment: .leading) {
+                        Text("\(selectedPositionDescription)")
+                            .headline(color: .white)
+                        Spacer()
+                        NavigationLink {
+                            EditDateView()
+                        } label: {
+                            PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                        }
+                    }
+                    .frame(maxHeight: 200)
+                    .padding()
                 }
-                .frame(maxHeight: 200)
-                .padding()
             }
             .background(Color.custom(.background))
             .preferredColorScheme(.dark)
