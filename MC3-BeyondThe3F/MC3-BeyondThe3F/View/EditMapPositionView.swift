@@ -15,11 +15,12 @@ struct EditMapPositionView: View {
     @State private var isMoving = true
     @State private var locationManager = LocationManager.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+    @State private var region: MKCoordinateRegion = startRegion
     @State private var searchTerm = ""
     @State private var selectedCoordinate = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State private var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
     @State private var isShowUserLocation = false
+    @State private var isRegionSetted = false
     @State private var showDeniedLocationStatus = false
     @State private var searchPlaces : [Place] = []
     
@@ -48,12 +49,14 @@ struct EditMapPositionView: View {
                 ZStack {
                     if searchTerm == "" {
                         EditMapUIView(
+                            region: $region,
                             userLocation: $userLocation,
                             userRegion: $region,
                             view: $mapView,
                             selectedCoordinate: $selectedCoordinate,
                             selectedPositionDescription: $selectedPositionDescription,
-                            isShowUserLocation: $isShowUserLocation
+                            isShowUserLocation: $isShowUserLocation,
+                            isRegionSetted: $isRegionSetted
                         )
                         VStack {
                             Image("pinLocation")
@@ -90,6 +93,7 @@ struct EditMapPositionView: View {
                                         showDeniedLocationStatus = false
                                         isShowUserLocation = true
                                         showUserLocation()
+                                        isShowUserLocation = false
                                     }
                                     
                                 } label: {
@@ -172,13 +176,14 @@ struct EditMapPositionView: View {
     
     private func moveToSelectedPlaced(place: Place){
         searchTerm = ""
-        print(place.place.name)
+        
         guard let coordinate = place.place.location?.coordinate else { return }
 
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         
         mapView.setRegion(coordinateRegion, animated: true)
-        mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
+        isRegionSetted = true
+        region = coordinateRegion
     }
 }
 
@@ -190,7 +195,7 @@ struct EditMapPositionView_Previews: PreviewProvider {
 
 
 struct EditMapUIView: UIViewRepresentable{
-    @State private var region = startRegion
+    @Binding var region: MKCoordinateRegion
     private let locationManager = LocationManager.shared.locationManager
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var userRegion: MKCoordinateRegion
@@ -198,6 +203,7 @@ struct EditMapUIView: UIViewRepresentable{
     @Binding var selectedCoordinate : CLLocationCoordinate2D
     @Binding var selectedPositionDescription: String
     @Binding var isShowUserLocation: Bool
+    @Binding var isRegionSetted: Bool
     
     private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
     
@@ -251,9 +257,13 @@ struct EditMapUIView: UIViewRepresentable{
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        if isShowUserLocation  {
+        if isShowUserLocation {
             uiView.setRegion(userRegion, animated: true)
             isShowUserLocation = false
+        } else if isRegionSetted {
+            uiView.setRegion(region, animated: true)
+            isRegionSetted = false
+//            uiView.setVisibleMapRect(uiView.visibleMapRect, animated: true)
         }
     }
 }
