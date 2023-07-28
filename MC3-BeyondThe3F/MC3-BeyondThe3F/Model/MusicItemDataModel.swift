@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import MusicKit
 
 protocol MusicItemDataModelDelegate:AnyObject{
     func musicItemDataModel()->Void
@@ -47,6 +48,17 @@ class MusicItemDataModel {
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    func getInfoByMusicId(_ musicId: String) async -> MusicCatalogResourceResponse<Song>? {
+        do {
+            var searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(musicId))
+            let searchResponse = try await searchRequest.response()
+            return searchResponse
+        } catch {
+            print("search request failed")
+            return nil
         }
     }
 }
