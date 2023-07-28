@@ -11,11 +11,10 @@ import CoreLocation
 
 struct EditMapPositionView: View {
     @State private var isMoving = true
-    @State private var isPresented = true
     @State private var locationManager = LocationManager.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.70564024126748, longitude: 142.37968945214223), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
-    @State private var textInput = ""
+    @State private var searchTerm = ""
     @State private var selectedCoordinate = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State private var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
     @State private var isShowUserLocation = false
@@ -25,10 +24,14 @@ struct EditMapPositionView: View {
         NavigationStack {
             VStack(spacing: 0){
                 HStack {
-                    SFImageComponentView(symbolName: .chevronBack, color: .white)
+                    Button {
+                        // TODO: dismiss 구현
+                    } label: {
+                        SFImageComponentView(symbolName: .chevronBack, color: .white)
+                    }
                     Spacer()
                         .frame(width: 20)
-                    TextField("위치를 검색해보세요", text: $textInput)
+                    TextField("위치를 검색해보세요", text: $searchTerm)
                         .padding()
                         .background(Color.custom(.secondaryDark))
                         .foregroundColor(Color.custom(.white))
@@ -37,6 +40,7 @@ struct EditMapPositionView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 48)
                         .cornerRadius(10)
+
                 }
                 .padding()
                 ZStack {
@@ -88,7 +92,7 @@ struct EditMapPositionView: View {
                                 ScopeButtonComponentView(
                                     foregroundColor: Color.custom(.white),
                                     backgroundColor: Color.custom(.background))
-                                .shadow(color: Color.custom(.gray600), radius: 4, x:3, y: 3)
+                                .shadow(color: Color.custom(.background), radius: 4, x:3, y: 3)
                             }
                         }
                     }
