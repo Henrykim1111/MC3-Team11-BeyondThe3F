@@ -27,6 +27,9 @@ struct MusicPlayView: View {
 
 
 struct NowPlayingView: View {
+    
+    let musicPlayer = MusicPlayer.shared
+    
     var body: some View {
         VStack {
             ZStack {
@@ -41,7 +44,7 @@ struct NowPlayingView: View {
                         .frame(width: 451, height: 451)
                         .shadow(color: .black.opacity(0.25), radius: 2, x: -10, y: -10)
                     
-                    Image("musicPlayImage")     // 음악 ID 값에 따른 artworkImage 업데이트
+                    Image(musicPlayer.currentMusicItem?.savedImage ?? "musicPlayImageEmpty")     // 음악 ID 값에 따른 artworkImage 업데이트
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 320, height: 320)
@@ -65,6 +68,9 @@ struct CurrentPlayListView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
+                Spacer()
+                    .frame(height: 16)
+                
                 HStack {
                     Text("현재 재생 목록")
                         .headline(color: .white)
@@ -72,18 +78,23 @@ struct CurrentPlayListView: View {
                 }
                 .padding()
                 
-                ForEach(musicPlayer.playlist) { musicItem in
-                    MusicListRowView(
-                        imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
-                        songName: musicItem.songName ?? "",
-                        artistName: musicItem.artistName ?? "",
-                        musicListRowType: .saved,
-                        buttonEllipsisAction: {
-                            
-                        }
-                    )
-                    .padding(.horizontal, 20)
-                    .background(Color.custom(musicItem == musicPlayer.currentMusicItem ? .secondaryDark : .background))
+                if musicPlayer.playlist.isEmpty {
+                    Text("현재 재생 목록이 없습니다.")
+                        .padding()
+                } else {
+                    ForEach(musicPlayer.playlist) { musicItem in
+                        MusicListRowView(
+                            imageName: (musicItem.savedImage != nil) ? musicItem.savedImage! :  "annotation0",
+                            songName: musicItem.songName ?? "",
+                            artistName: musicItem.artistName ?? "",
+                            musicListRowType: .saved,
+                            buttonEllipsisAction: {
+                                
+                            }
+                        )
+                        .padding(.horizontal, 20)
+                        .background(Color.custom(musicItem == musicPlayer.currentMusicItem ? .secondaryDark : .background))
+                    }
                 }
             }
             Spacer()
@@ -108,10 +119,10 @@ struct ControlPanelView: View {
             VStack {
                 HStack {
                     VStack(alignment:.leading) {
-                        Text("\(MusicPlayer.shared.currentMusicItem?.songName ?? "")")
+                        Text("\(musicPlayer.currentMusicItem?.songName ?? "")")
                             .headline(color: .white)
                         Spacer().frame(height: 8)
-                        Text("\(MusicPlayer.shared.currentMusicItem?.artistName ?? "")")
+                        Text("\(musicPlayer.currentMusicItem?.artistName ?? "")")
                             .body1(color: .gray300)
                     }
                     Spacer()
@@ -163,7 +174,7 @@ struct ControlButtonsView: View {
             
             HStack {
                 Button {
-                    MusicPlayer.shared.previousButtonTapped()
+                    musicPlayer.previousButtonTapped()
                 } label: {
                     SFImageComponentView(symbolName: .backward, color: .white, width: 45, height: 45)
                 }
@@ -175,11 +186,11 @@ struct ControlButtonsView: View {
                 Spacer().frame(width: 48)
                 
                 Button {
-                    MusicPlayer.shared.nextButtonTapped()
+                    musicPlayer.nextButtonTapped()
                 } label: {
                     SFImageComponentView(symbolName: .forward, color: .white, width: 45, height: 45)
                 }
-                .disabled(MusicPlayer.shared.isLast)
+                .disabled(musicPlayer.isLast)
             }
             Spacer()
         }
@@ -188,9 +199,12 @@ struct ControlButtonsView: View {
 
 
 struct PlayPauseButton: View {
+    
+    let musicPlayer = MusicPlayer.shared
+    
     var body: some View {
         Button {
-            MusicPlayer.shared.playButtonTapped()
+            musicPlayer.playButtonTapped()
         } label: {
             Image(systemName: "play.fill")
                 .resizable()
