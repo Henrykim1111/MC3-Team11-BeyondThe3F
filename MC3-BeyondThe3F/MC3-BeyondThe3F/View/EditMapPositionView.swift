@@ -10,6 +10,7 @@ import MapKit
 import CoreLocation
 
 struct EditMapPositionView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var isMoving = true
     @State private var locationManager = LocationManager.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
@@ -25,7 +26,7 @@ struct EditMapPositionView: View {
             VStack(spacing: 0){
                 HStack {
                     Button {
-                        // TODO: dismiss 구현
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         SFImageComponentView(symbolName: .chevronBack, color: .white)
                     }
