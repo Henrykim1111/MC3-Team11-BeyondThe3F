@@ -24,8 +24,7 @@ struct MainTabView: View {
             insertDummy()
             Task{
                 await AuthManger.requestMusicAuth()
-            }
-            MusicPlayer.shared.playlist = MainDataModel.shared.getData[0].musicList
+            }           
         }
     }
 }
