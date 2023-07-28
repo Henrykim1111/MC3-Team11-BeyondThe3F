@@ -18,6 +18,8 @@ struct EditMapPositionView: View {
     @State private var textInput = ""
     @State private var selectedCoordinate = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State private var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
+    @State private var isShowUserLocation = false
+    @State private var showDeniedLocationStatus = false
     
     var body: some View {
         NavigationStack {
@@ -32,17 +34,18 @@ struct EditMapPositionView: View {
                         .foregroundColor(Color.custom(.white))
                         .colorScheme(.dark)
                         .accentColor(Color.custom(.white))
-                        .frame(width: .infinity)
+                        .frame(maxWidth: .infinity)
                         .frame(height: 48)
                         .cornerRadius(10)
                 }
-                .padding(.bottom, 10)
+                .padding()
                 ZStack {
                     EditMapUIView(
                         userLocation: $userLocation,
                         userRegion: $region,
                         selectedCoordinate: $selectedCoordinate,
-                        selectedPositionDescription: $selectedPositionDescription
+                        selectedPositionDescription: $selectedPositionDescription,
+                        isShowUserLocation: $isShowUserLocation
                     )
                     VStack {
                         Image("pinLocation")
@@ -52,8 +55,34 @@ struct EditMapPositionView: View {
                     VStack {
                         Spacer()
                         HStack{
+                            if showDeniedLocationStatus {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 0) {
+                                        Text("위치 정보가 거절되었습니다.")
+                                            .caption(color: .white)
+                                            .padding(.bottom, 5)
+                                        Text("설정 - TuneSpot에서 위치 권한을 허용해주세요.")
+                                            .caption(color: .white)
+                                    }
+                                }
+                                .padding(10)
+                                .background(Color.custom(.background))
+                                .cornerRadius(10)
+                            }
+                            
                             Spacer()
                             Button {
+                                switch locationManager.locationManager.authorizationStatus {
+                                case .notDetermined:
+                                    showDeniedLocationStatus = false
+                                    locationManager.getLocationAuth()
+                                case .denied, .restricted:
+                                    showDeniedLocationStatus = true
+                                default:
+                                    showDeniedLocationStatus = false
+                                    isShowUserLocation = true
+                                    showUserLocation()
+                                }
                                 
                             } label: {
                                 ScopeButtonComponentView(
@@ -81,11 +110,15 @@ struct EditMapPositionView: View {
             .background(Color.custom(.background))
             .preferredColorScheme(.dark)
         }
-        .onAppear {
-            locationManager.getLocationAuth()
-        }
     }
     
+    private func showUserLocation(){
+        locationManager.locationManager.startUpdatingLocation()
+        if let userCurrentLocation = locationManager.locationManager.location?.coordinate {
+            userLocation = userCurrentLocation
+        }
+        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+    }
 }
 
 struct EditMapPositionView_Previews: PreviewProvider {
@@ -103,6 +136,7 @@ struct EditMapUIView: UIViewRepresentable{
     @State private var view = MKMapView()
     @Binding var selectedCoordinate : CLLocationCoordinate2D
     @Binding var selectedPositionDescription: String
+    @Binding var isShowUserLocation: Bool
     
     private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
     
@@ -156,5 +190,9 @@ struct EditMapUIView: UIViewRepresentable{
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
+        if isShowUserLocation  {
+            uiView.setRegion(userRegion, animated: true)
+            isShowUserLocation = false
+        }
     }
 }
