@@ -156,16 +156,41 @@ struct ControlButtonsView: View {
     let musicPlayer = MusicPlayer.shared
     @Binding var progressRate: Double
     
+    @State private var currentTime = MusicPlayer.shared.player.currentPlaybackTime
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+
+    @State private var currentDuration: Double = 0.0
+    @State private var totalDuration: Double = (MusicPlayer.shared.player.nowPlayingItem?.playbackDuration ?? 0.0)
+    @State private var isDragging = false
+
+    
+    func sliderChanged(editingStarted: Bool) {
+      if editingStarted {
+          self.musicPlayer.player.pause()
+          isDragging = true
+      } else {
+          self.musicPlayer.player.currentPlaybackTime = currentTime
+          self.musicPlayer.player.play()
+          isDragging = false
+
+      }
+    }
     var body: some View {
         VStack {
             HStack {
                 // 재생한 시간
-                Text("00:00")
+                Text("\(currentTime.timeToString)")
                     .frame(width: 45, alignment: .leading)
                     .caption(color: .white)
-                ProgressView(value: progressRate)
+                    .onReceive(timer) { _ in
+                        guard !isDragging else { return }
+                        currentTime = MusicPlayer.shared.player.currentPlaybackTime
+                        
+                        totalDuration = (MusicPlayer.shared.player.nowPlayingItem?.playbackDuration ?? 0.0)
+                    }
+                Slider(value: $currentTime, in: 0...totalDuration, onEditingChanged: sliderChanged)
                 // 남은 시간
-                Text("- 00:00")
+                Text("-\(((musicPlayer.player.nowPlayingItem?.playbackDuration ?? 0.0) - MusicPlayer.shared.player.currentPlaybackTime).timeToString)")
                     .frame(width: 50, alignment: .trailing)
                     .caption(color: .white)
             }
@@ -175,6 +200,7 @@ struct ControlButtonsView: View {
             HStack {
                 Button {
                     musicPlayer.previousButtonTapped()
+                    musicPlayer.playlist = MainDataModel.shared.getData[0].musicList
                 } label: {
                     SFImageComponentView(symbolName: .backward, color: .white, width: 45, height: 45)
                 }
