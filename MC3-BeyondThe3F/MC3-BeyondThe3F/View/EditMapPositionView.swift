@@ -21,7 +21,7 @@ struct EditMapPositionView: View {
     
     var body: some View {
         NavigationStack {
-            VStack{
+            VStack(spacing: 0){
                 HStack {
                     SFImageComponentView(symbolName: .chevronBack, color: .white)
                     Spacer()
@@ -32,11 +32,11 @@ struct EditMapPositionView: View {
                         .foregroundColor(Color.custom(.white))
                         .colorScheme(.dark)
                         .accentColor(Color.custom(.white))
-                        .frame(width: 390)
+                        .frame(width: .infinity)
                         .frame(height: 48)
                         .cornerRadius(10)
                 }
-                .padding()
+                .padding(.bottom, 10)
                 ZStack {
                     EditMapUIView(
                         userLocation: $userLocation,
@@ -49,30 +49,38 @@ struct EditMapPositionView: View {
                         Spacer()
                             .frame(height: 30)
                     }
-                }
-                VStack {
-                    HStack{
+                    VStack {
                         Spacer()
-                        
-                    }
-                    VStack(alignment: .leading) {
-                        Text("\(selectedPositionDescription)")
-                            .headline(color: .white)
-                        Spacer()
-                        NavigationLink {
-                            EditDateView()
-                        } label: {
-                            PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                        HStack{
+                            Spacer()
+                            Button {
+                                
+                            } label: {
+                                ScopeButtonComponentView(
+                                    foregroundColor: Color.custom(.white),
+                                    backgroundColor: Color.custom(.background))
+                                .shadow(color: Color.custom(.gray600), radius: 4, x:3, y: 3)
+                            }
                         }
                     }
-                    .frame(maxHeight: 200)
                     .padding()
                 }
+                VStack(alignment: .leading) {
+                    Text("\(selectedPositionDescription)")
+                        .headline(color: .white)
+                    Spacer()
+                    NavigationLink {
+                        EditDateView()
+                    } label: {
+                        PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                    }
+                }
+                .frame(maxHeight: 200)
+                .padding()
             }
             .background(Color.custom(.background))
             .preferredColorScheme(.dark)
         }
-
         .onAppear {
             locationManager.getLocationAuth()
         }
