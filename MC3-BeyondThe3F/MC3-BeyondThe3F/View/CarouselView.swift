@@ -25,8 +25,8 @@ struct CarouselView: View {
             let baseOffset: CGFloat = spacing + visibleEdgeSpace
             let pageWidth: CGFloat = proxy.size.width - (visibleEdgeSpace + spacing) * 2
             let offsetX: CGFloat = baseOffset + CGFloat(currentIndex) * -pageWidth + CGFloat(currentIndex) * -spacing + dragOffset
-// VStack {
-            HStack(spacing: spacing) {
+
+            HStack(alignment: .top, spacing: spacing) {
                 ForEach(0..<carouselList.count, id: \.self) { pageIndex in
                     CarouselCardItem(
                         carouselItemData: carouselList[pageIndex],
@@ -49,7 +49,6 @@ struct CarouselView: View {
                         currentIndex = max(min(currentIndex + increment, pageCount - 1), 0)
                     }
             )
-// }
             .onAppear{
                 carouselList = mainDataModel.getData
             }
@@ -58,11 +57,11 @@ struct CarouselView: View {
 }
 
 struct CarouselCardItem: View {
+    
     var carouselItemData: MainVO
     var pageWidth: CGFloat
     
     var body: some View {
-        
         VStack(spacing: 0) {
             HStack {
                 VStack (alignment: .leading, spacing: 0) {
@@ -80,7 +79,7 @@ struct CarouselCardItem: View {
             Divider()
                 .background(Color.custom(.gray500))
             
-            ScrollView {
+            List{
                 ForEach(carouselItemData.musicList, id: \.self) { item in
                     HStack(spacing: 0) {
                         Image(item.savedImage ?? "annotaion0")
@@ -97,34 +96,15 @@ struct CarouselCardItem: View {
                         .padding(.horizontal)
                         Spacer()
                     }
-                    .padding(.bottom, 10)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                 }
-
-                
-/*
-// 곡 리스트 개수에 따라 카드뷰 크기 조절 테스트용..
-                HStack(spacing: 0) {
-                        Image(carouselItemData.musicList[0].savedImage ?? "annotaion0")
-                            .resizable()
-                            .frame(width:60, height: 60)
-                            .cornerRadius(8)
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text("\(carouselItemData.musicList[0].songName ?? "")")
-                                .body1(color: .white)
-                                .padding(.bottom, 5)
-                            Text("\(carouselItemData.musicList[0].artistName ?? "")")
-                                .body2(color: .gray500)
-                        }
-                        .padding(.horizontal)
-                        Spacer()
-                    }
-                    .padding(.bottom, 10)
-*/ 
-                
+                .listRowBackground(Color.custom(.secondaryDark))
+                .listRowInsets(EdgeInsets())
             }
-// fixedSize 적용 시 카드 뷰 높이가 달라지는 현상 발생.. 대체 와이..
-//            .fixedSize(horizontal: false, vertical: true)
-            .padding(16)
+            .listStyle(.plain)
+            .frame(maxHeight: CGFloat(carouselItemData.musicList.count) * 84)
+            .scrollContentBackground(.hidden)
         }
         .background(Color.custom(.secondaryDark))
         .cornerRadius(8)
@@ -134,12 +114,8 @@ struct CarouselCardItem: View {
     }
 }
 
-
-
-
 struct CarouselView_Previews: PreviewProvider {
     static var previews: some View {
         CarouselView()
     }
 }
-
