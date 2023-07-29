@@ -11,9 +11,13 @@ struct WTMusicSearchView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Hello. Music searchView")
+                Text("music searh")
                 
-
+                NavigationLink {
+                    WTMapSearchView()
+                } label: {
+                    Text("+")
+                }
             }
         }
     }
