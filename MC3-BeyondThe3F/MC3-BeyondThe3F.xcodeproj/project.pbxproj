@@ -55,6 +55,7 @@
 		95713F962A74FD1C00548545 /* WTMusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F952A74FD1C00548545 /* WTMusicSearchView.swift */; };
 		95713F982A74FF3800548545 /* NavigationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F972A74FF3800548545 /* NavigationHelper.swift */; };
 		95713F9A2A75023900548545 /* WTMapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F992A75023900548545 /* WTMapSearchView.swift */; };
+		95713F9C2A75031100548545 /* WTEditMapPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F9B2A75031100548545 /* WTEditMapPositionView.swift */; };
 		959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B742A6FBEA200888942 /* ShazamManager.swift */; };
 		959B5B772A714B1500888942 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B762A714B1500888942 /* DateExtension.swift */; };
 		959B5B7B2A71539F00888942 /* MusicSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */; };
@@ -116,6 +117,7 @@
 		95713F952A74FD1C00548545 /* WTMusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTMusicSearchView.swift; sourceTree = "<group>"; };
 		95713F972A74FF3800548545 /* NavigationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHelper.swift; sourceTree = "<group>"; };
 		95713F992A75023900548545 /* WTMapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTMapSearchView.swift; sourceTree = "<group>"; };
+		95713F9B2A75031100548545 /* WTEditMapPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTEditMapPositionView.swift; sourceTree = "<group>"; };
 		959B5B742A6FBEA200888942 /* ShazamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamManager.swift; sourceTree = "<group>"; };
 		959B5B762A714B1500888942 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchViewModel.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 			children = (
 				95713F952A74FD1C00548545 /* WTMusicSearchView.swift */,
 				95713F992A75023900548545 /* WTMapSearchView.swift */,
+				95713F9B2A75031100548545 /* WTEditMapPositionView.swift */,
 			);
 			path = WorkThrough;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				76975F492A700DE2005FEFE2 /* AuthManger.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
+				95713F9C2A75031100548545 /* WTEditMapPositionView.swift in Sources */,
 				959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */,
 				76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */,
 				764936AF2A6A169B001C0C54 /* MusicItemDataModel.swift in Sources */,
