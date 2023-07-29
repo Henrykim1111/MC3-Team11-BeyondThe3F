@@ -16,19 +16,17 @@ struct Place: Identifiable, Hashable {
 
 struct MapView: View {
     @State private var mapView = MKMapView()
-    
     @State private var musicList: [MusicItemVO] = []
-    
-    let locationHelper = LocationManager.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
-    @State var region = startRegion
+    @State var currentRegion = startRegion
     @State var isShowUserLocation = false
-    
     @State private var searchText = ""
     @State private var searchPlaces : [Place] = []
-    @State private var showMusicPlayView = false
     @State private var annotationDataList: [MusicItemVO] = []
     
+    @State private var showMusicPlayView = false
+    
+    let locationHelper = LocationManager.shared
     let mainDataModel = MainDataModel.shared
     
     var body: some View {
@@ -39,7 +37,7 @@ struct MapView: View {
                         mapView: $mapView,
                         musicList: $musicList,
                         userLocation: $userLocation,
-                        userRegion: $region,
+                        currentRegion: $currentRegion,
                         isShowUserLocation: $isShowUserLocation,
                         locationManager: locationHelper.locationManager
                     )
@@ -51,19 +49,17 @@ struct MapView: View {
                             Spacer()
                         } else {
                             ScrollView {
-                                VStack {
-                                    withAnimation(.easeInOut(duration: 0.2)) {
-                                        ForEach(searchPlaces, id: \.self) { place in
-                                            Button{
-                                                moveToSelectedPlaced(place: place)
-                                            } label: {
-                                                HStack {
-                                                    Text("\(place.place.name ?? "no name")")
-                                                        .body1(color: .white)
-                                                    Spacer()
-                                                }
-                                                .frame(height: 56)
+                                LazyVStack {
+                                    ForEach(searchPlaces, id: \.self) { place in
+                                        Button{
+                                            moveToSelectedPlaced(place: place)
+                                        } label: {
+                                            HStack {
+                                                Text("\(place.place.name ?? "no name")")
+                                                    .body1(color: .white)
+                                                Spacer()
                                             }
+                                            .frame(height: 56)
                                         }
                                     }
                                 }
@@ -87,7 +83,7 @@ struct MapView: View {
                     .padding()
                     .background(
                         withAnimation(.easeInOut(duration: 0.2)) {
-                            searchText == "" ? .green.opacity(0) : Color.custom(.background)
+                            searchText == "" ? .white.opacity(0) : Color.custom(.background)
                         }
                     )
                     MapMusicInfoView(musicList: $musicList)
@@ -104,10 +100,10 @@ struct MapView: View {
                 annotationDataList = getSavedMusicData()
             }
             .onChange(of: searchText) { newValue in
+                
                 getSearchPlace()
             }
             .onChange(of: annotationDataList, perform: { newValue in
-                
                 for annotaionData in annotationDataList {
                     let annotation = MusicAnnotation(annotaionData)
                     mapView.addAnnotation(annotation)
@@ -125,8 +121,9 @@ struct MapView: View {
         if let userCurrentLocation = locationHelper.locationManager.location?.coordinate {
             userLocation = userCurrentLocation
         }
-        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+        currentRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
     }
+    
     private func getSearchPlace(){
         searchPlaces.removeAll()
                 
@@ -145,7 +142,6 @@ struct MapView: View {
     
     private func moveToSelectedPlaced(place: Place){
         searchText = ""
-        
         guard let coordinate = place.place.location?.coordinate else { return }
 
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
@@ -153,6 +149,7 @@ struct MapView: View {
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
     }
+    
     private func getSavedMusicData() -> [MusicItemVO]{
         var tempMusicVOList: [MusicItemVO] = []
         MainDataModel.shared.getData.forEach { mainVO in
@@ -166,32 +163,14 @@ struct MapView: View {
     }
 }
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
-}
-
-let musicItemVODummyData:[MusicItemVO] = [
-    MusicItemVO(musicId: "1004836383", latitude: 43.70564024126748,longitude: 142.37968945214223,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotationTest"),
-    MusicItemVO(musicId: "1004836383", latitude: 43.81257464206404,longitude: 142.82112322464369,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion1"),
-    MusicItemVO(musicId: "1004836383", latitude: 43.38416585162576,longitude: 141.7252598737476,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion2"),
-    MusicItemVO(musicId: "1004836383", latitude: 45.29168643283501,longitude: 141.95286751470724,playedCount: 0, songName: "BIG WAVE",artistName: "artist0",  generatedDate: Date(), savedImage: "annotaion3")
-]
-let startRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64422936785126, longitude: 142.39329541313924), span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 2))
-
 struct MapUIKitView: UIViewRepresentable {
     @Binding var mapView: MKMapView
     @Binding var musicList: [MusicItemVO]
     @Binding var userLocation: CLLocationCoordinate2D
-    @Binding var userRegion: MKCoordinateRegion
+    @Binding var currentRegion: MKCoordinateRegion
     @Binding var isShowUserLocation: Bool
     
-    @State var region = startRegion
-    
-    
     let locationManager: CLLocationManager
-    
 
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: MapUIKitView
@@ -237,6 +216,7 @@ struct MapUIKitView: UIViewRepresentable {
             clusterAnnotaion.title  = "clusted"
             return clusterAnnotaion
         }
+        
         private func setMusicList(_ newMusicList: [MusicItemVO]) {
             parent.musicList = newMusicList
         }
@@ -246,10 +226,9 @@ struct MapUIKitView: UIViewRepresentable {
         MapUIKitView.Coordinator(self)
     }
 
-
     func makeUIView(context: Context) -> MKMapView {
         mapView.delegate = context.coordinator
-        mapView.setRegion(region, animated: false)
+        mapView.setRegion(currentRegion, animated: false)
         mapView.mapType = .standard
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.follow, animated: true)
@@ -259,7 +238,7 @@ struct MapUIKitView: UIViewRepresentable {
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
         if isShowUserLocation  {
-            uiView.setRegion(userRegion, animated: true)
+            uiView.setRegion(currentRegion, animated: true)
             isShowUserLocation = false
         }
     }
@@ -271,3 +250,8 @@ extension MKMapView {
     }
 }
 
+struct MapView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapView()
+    }
+}
