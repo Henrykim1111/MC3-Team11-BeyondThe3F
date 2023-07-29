@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import MapKit
+
 func insertDummy() async{
     
     var musicItemDataModel = MusicItemDataModel.shared
@@ -40,3 +42,5 @@ func insertHistory(){
     }
     
 }
+
+let startRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.5, longitude: 127), span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 2))
