@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var showWelcomeSheet = false
-    @AppStorage("isFirst") private var isFirst = true
+    @AppStorage("isFirst") private var isFirst = false
     
     var body: some View {
         TabView {
