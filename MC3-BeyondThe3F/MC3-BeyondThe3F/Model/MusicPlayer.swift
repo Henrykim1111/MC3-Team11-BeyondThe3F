@@ -40,6 +40,8 @@ class MusicPlayer: ObservableObject{
         }
     }
     
+
+    
     var isLast:Bool{
         self.player.indexOfNowPlayingItem == playlist.count - 1 ? true : false
     }

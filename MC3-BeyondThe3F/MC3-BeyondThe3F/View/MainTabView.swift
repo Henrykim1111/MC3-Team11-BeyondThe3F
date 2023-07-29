@@ -28,8 +28,8 @@ struct MainTabView: View {
             if isFirst {
                 showWelcomeSheet = true
             }
-            insertDummy()
             Task{
+                await insertDummy()
                 await AuthManger.requestMusicAuth()
             }           
         }
