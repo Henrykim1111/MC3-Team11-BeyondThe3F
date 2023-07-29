@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @State private var showWelcomeSheet = true
+    @State private var showWelcomeSheet = false
+    @AppStorage("isFirst") private var isFirst = true
+    
     var body: some View {
         TabView {
             BucketView()
@@ -23,12 +25,17 @@ struct MainTabView: View {
                 }
         }
         .onAppear{
+            if isFirst {
+                showWelcomeSheet = true
+            }
             insertDummy()
             Task{
                 await AuthManger.requestMusicAuth()
             }           
         }
-        .sheet(isPresented: $showWelcomeSheet, content: {
+        .sheet(isPresented: $showWelcomeSheet, onDismiss: {
+            isFirst = false
+        },content: {
             WelcomeSheetComponentView()
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
