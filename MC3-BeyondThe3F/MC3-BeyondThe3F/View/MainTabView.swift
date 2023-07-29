@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @State private var showWelcomeSheet = false
     var body: some View {
         TabView {
             BucketView()
@@ -20,12 +21,16 @@ struct MainTabView: View {
                     Image(systemName: "map.fill")
                     Text("지도")
                 }
-        }.onAppear{
+        }
+        .onAppear{
             insertDummy()
             Task{
                 await AuthManger.requestMusicAuth()
             }           
         }
+        .sheet(isPresented: $showWelcomeSheet, content: {
+            WelcomeSheetComponentView()
+        })
     }
 }
 

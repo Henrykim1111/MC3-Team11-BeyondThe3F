@@ -58,6 +58,8 @@
 		95713F9C2A75031100548545 /* WTEditMapPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F9B2A75031100548545 /* WTEditMapPositionView.swift */; };
 		95713F9E2A7503B700548545 /* WTEditDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F9D2A7503B700548545 /* WTEditDateView.swift */; };
 		95713FA02A75043E00548545 /* WTEditMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F9F2A75043E00548545 /* WTEditMusicView.swift */; };
+		95713FA22A75059900548545 /* WelcomeSheetComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */; };
+		95713FA42A75068400548545 /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713FA32A75068400548545 /* SVGImage.swift */; };
 		959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B742A6FBEA200888942 /* ShazamManager.swift */; };
 		959B5B772A714B1500888942 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B762A714B1500888942 /* DateExtension.swift */; };
 		959B5B7B2A71539F00888942 /* MusicSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */; };
@@ -122,6 +124,8 @@
 		95713F9B2A75031100548545 /* WTEditMapPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTEditMapPositionView.swift; sourceTree = "<group>"; };
 		95713F9D2A7503B700548545 /* WTEditDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTEditDateView.swift; sourceTree = "<group>"; };
 		95713F9F2A75043E00548545 /* WTEditMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTEditMusicView.swift; sourceTree = "<group>"; };
+		95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSheetComponentView.swift; sourceTree = "<group>"; };
+		95713FA32A75068400548545 /* SVGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImage.swift; sourceTree = "<group>"; };
 		959B5B742A6FBEA200888942 /* ShazamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamManager.swift; sourceTree = "<group>"; };
 		959B5B762A714B1500888942 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchViewModel.swift; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 				74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */,
 				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
 				953BD7632A6A77240047C21C /* MapSearchComponentView.swift */,
+				95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */,
+				95713FA32A75068400548545 /* SVGImage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -452,6 +458,7 @@
 				95D6CE182A6D4B0C0053AE8E /* EditMapPositionView.swift in Sources */,
 				953BD7592A69FFE70047C21C /* ScopeButtonComponentView.swift in Sources */,
 				951691AE2A663F9A0070D47C /* ViewExtension.swift in Sources */,
+				95713FA22A75059900548545 /* WelcomeSheetComponentView.swift in Sources */,
 				95713F982A74FF3800548545 /* NavigationHelper.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
 				95713FA02A75043E00548545 /* WTEditMusicView.swift in Sources */,
@@ -466,6 +473,7 @@
 				951691852A6629670070D47C /* ContentView.swift in Sources */,
 				953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */,
 				951691832A6629670070D47C /* MC3_BeyondThe3FApp.swift in Sources */,
+				95713FA42A75068400548545 /* SVGImage.swift in Sources */,
 				76975F4B2A70124E005FEFE2 /* HistoryDataModel.swift in Sources */,
 				627E3F442A6E6D6300979803 /* MusicSearchView.swift in Sources */,
 				74EF8CA22A68B7CC006B8DBC /* ContentsLargeComponentView.swift in Sources */,
