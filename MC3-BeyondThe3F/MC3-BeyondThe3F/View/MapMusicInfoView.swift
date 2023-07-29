@@ -16,7 +16,11 @@ struct MapMusicInfoView: View {
     @State private var maxHeight: CGFloat = 500.0
     @State private var minHeight: CGFloat = 100.0
     @State private var showActionSheet = false
+    @State private var showAddMusicView = false
     
+    let musicPlayer = MusicPlayer.shared
+    var persistentContainer = PersistenceController.shared.container
+
     var body: some View {
         GeometryReader { geo in
             VStack{
@@ -68,7 +72,7 @@ struct MapMusicInfoView: View {
                 Divider()
                     .overlay(Color.custom(.white))
                 ScrollView {
-                    VStack{
+                    LazyVStack{
                         ForEach(musicList) { musicItem in
                             MusicListRowView(
                                 imageName: musicItem.savedImage ?? "annotation0",
@@ -79,6 +83,21 @@ struct MapMusicInfoView: View {
                                     showActionSheet = true
                                 }
                             )
+                            .background(Color.custom(.background))
+                            .onTapGesture {
+                                let newItem = MusicItem(context: persistentContainer.viewContext)
+                                
+                                newItem.musicId = musicItem.musicId
+                                newItem.latitude = musicItem.latitude
+                                newItem.longitude = musicItem.longitude
+                                newItem.locationInfo = musicItem.locationInfo
+                                newItem.savedImage = musicItem.savedImage
+                                newItem.generatedDate = musicItem.generatedDate
+                                newItem.songName = musicItem.songName
+                                newItem.artistName = musicItem.artistName
+                                
+                                musicPlayer.playlist.append(newItem)
+                            }
                         }
                     }
                 }
@@ -98,14 +117,19 @@ struct MapMusicInfoView: View {
                 accumulatedYOffset = geo.size.height - 120
             }
             .confirmationDialog("타이틀", isPresented: $showActionSheet) {
-                    Button("편집", role: .none) {
-                        // TODO: NavigationTo EditPage
-                    }
-                    Button("제거", role: .destructive) {
-                        // TODO: Delete Item in CoreData
-                    }
-                    Button("취소", role: .cancel) {}
+                Button("편집", role: .none) {
+                    showActionSheet = false
+                    showAddMusicView = true
                 }
+                Button("제거", role: .destructive) {
+                    // TODO: Delete Item in CoreData
+                }
+                Button("취소", role: .cancel) {}
+            }
+            .sheet(isPresented: $showAddMusicView) {
+                AddMusicView()
+                // TODO: send default MusicData to AddMusicView for Editing
+            }
         }
     }
     var drag: some Gesture {
