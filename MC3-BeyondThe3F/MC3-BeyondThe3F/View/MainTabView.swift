@@ -21,8 +21,8 @@ struct MainTabView: View {
                     Text("지도")
                 }
         }.onAppear{
-            insertDummy()
             Task{
+                await insertDummy()
                 await AuthManger.requestMusicAuth()
             }           
         }
