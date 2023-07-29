@@ -16,8 +16,8 @@ private enum ShazamResultType {
 
 struct ShazamView: View {
     @StateObject private var shazamViewModel = ShazamViewModel()
-    @State private var musicName = "Big Wave"
-    @State private var artistName = "293 studio"
+    @State private var musicName = ""
+    @State private var artistName = ""
     @State private var musicImageUrl : URL?
     @State private var currentState : ShazamResultType = .listening
     @State private var musicId: String?
@@ -65,7 +65,7 @@ struct ShazamView: View {
         .background(Color.custom(.background))
         .onAppear {
             shazamViewModel.startRecognition()
-            startListeningAnimation()
+            startAnimation()
         }
         .onChange(of: shazamViewModel.currentItem) { _ in
             if let shazamResult = shazamViewModel.currentItem, shazamViewModel.shazaming {
@@ -81,15 +81,26 @@ struct ShazamView: View {
                 shazamViewModel.stopRecognition()
             }
         }
+        .onChange(of: currentState) { state in
+            startAnimation()
+        }
     }
     
-    func startListeningAnimation(){
-        withAnimation(self.circleAnimationSmall) {
-            circleScaleSmall = 1.4
+    private func startAnimation(){
+        switch currentState {
+        case .listening:
+            circleScaleSmall = 1
+            circleScaleBig = 1
+            withAnimation(self.circleAnimationSmall) {
+                circleScaleSmall = 1.4
+            }
+            withAnimation(self.circleAnimationBig) {
+                circleScaleBig = 1.2
+            }
+        default:
+            break
         }
-        withAnimation(self.circleAnimationBig) {
-            circleScaleBig = 1.2
-        }
+        
     }
 }
 
@@ -178,8 +189,8 @@ extension ShazamView {
             .padding(.bottom, 170)
     }
     var ShazamBottomErrorView: some View {
-        Text("노래가 무엇인지 파악하지 못했어요")
-            .title2(color: .primary)
+        Text("노래를 찾지 못했어요")
+            .body2(color: .primary)
             .padding(.bottom, 170)
     }
     var ShazamBottomSuccessView : some View {
@@ -222,7 +233,6 @@ extension ShazamView {
                 Spacer()
                     .frame(height: 200)
                 Button {
-                    startListeningAnimation()
                     self.currentState = .listening
                     shazamViewModel.startRecognition()
                     
