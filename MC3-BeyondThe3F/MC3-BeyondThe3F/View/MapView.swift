@@ -68,7 +68,6 @@ struct MapView: View {
                                     }
                                 }
                             }
-                            .frame(minWidth: .infinity)
                             .frame(height: 200)
                             .background(Color.custom(.background))
                             Spacer()
