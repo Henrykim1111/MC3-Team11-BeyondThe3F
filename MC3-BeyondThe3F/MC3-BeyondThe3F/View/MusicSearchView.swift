@@ -12,8 +12,8 @@ import MusicKit
 struct MusicSearchView: View {
     @StateObject private var musicSearchViewModel = MusicSearchViewModel()
     @State private var isPresentedDeleteAll = false
-    @State private var showAddMusicView = false
     @Binding var searchTerm: String
+    @Binding var showAddMusicView: Bool
     
     var body: some View {
         ZStack {
@@ -59,9 +59,6 @@ struct MusicSearchView: View {
             .padding()
             .background(Color.custom(.background))
             .onChange(of: searchTerm, perform: musicSearchViewModel.requestUpdateSearchResults)
-            .sheet(isPresented: $showAddMusicView) {
-                EditMapPositionView()
-            }
         }
         .alert("정말로 검색 기록을 모두 지우시겠어요?", isPresented: $isPresentedDeleteAll) {
             Button("삭제", role: .destructive) {
@@ -164,10 +161,14 @@ extension MusicSearchView {
 
 struct MusicSearchPreview: View {
     @State var searchTerm: String = ""
+    @State var showAddMusicView = false
     var body: some View {
         VStack {
             TextField("음악을 검색하세요", text: $searchTerm)
-            MusicSearchView(searchTerm: $searchTerm)
+            MusicSearchView(
+                searchTerm: $searchTerm,
+                showAddMusicView: $showAddMusicView
+            )
         }
     }
 }

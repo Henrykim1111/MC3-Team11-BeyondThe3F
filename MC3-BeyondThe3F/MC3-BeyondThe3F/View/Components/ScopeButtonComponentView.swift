@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct ScopeButtonComponentView: View {
+    var foregroundColor = Color.custom(.white)
+    var backgroundColor = Color.custom(.primary)
     
-
     
     var body: some View {
         ZStack{
             Circle()
-                .fill(Color.custom(.primary))
+                .fill(backgroundColor)
             Image(systemName: "scope")
                 .frame(width: 24, height: 24)
-                .foregroundColor(Color.custom(.white))
+                .foregroundColor(foregroundColor)
         }
         .frame(width: 48, height: 48)
-        //색깔 바꿔서 사용
     }
 }
 
