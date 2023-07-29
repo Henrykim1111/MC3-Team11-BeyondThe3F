@@ -23,6 +23,7 @@ struct MapView: View {
     @State private var searchText = ""
     @State private var searchPlaces : [Place] = []
     @State private var annotationDataList: [MusicItemVO] = []
+    @State private var centerPlaceDescription = "장소"
     
     @State private var showMusicPlayView = false
     
@@ -39,6 +40,7 @@ struct MapView: View {
                         userLocation: $userLocation,
                         currentRegion: $currentRegion,
                         isShowUserLocation: $isShowUserLocation,
+                        centerPlaceDescription: $centerPlaceDescription,
                         locationManager: locationHelper.locationManager
                     )
                     VStack {
@@ -86,7 +88,10 @@ struct MapView: View {
                             searchText == "" ? .white.opacity(0) : Color.custom(.background)
                         }
                     )
-                    MapMusicInfoView(musicList: $musicList)
+                    MapMusicInfoView(
+                        musicList: $musicList,
+                        centerPlaceDescription: $centerPlaceDescription
+                    )
                 }
                 Button {
                     showMusicPlayView = true
@@ -169,6 +174,7 @@ struct MapUIKitView: UIViewRepresentable {
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var currentRegion: MKCoordinateRegion
     @Binding var isShowUserLocation: Bool
+    @Binding var centerPlaceDescription: String
     
     let locationManager: CLLocationManager
 
@@ -198,6 +204,7 @@ struct MapUIKitView: UIViewRepresentable {
                 }
             }
             setMusicList(newAnnotaionList)
+            getSearchPlace(coord: mapView.centerCoordinate)
         }
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -219,6 +226,19 @@ struct MapUIKitView: UIViewRepresentable {
         
         private func setMusicList(_ newMusicList: [MusicItemVO]) {
             parent.musicList = newMusicList
+        }
+        
+        private func getSearchPlace(coord: CLLocationCoordinate2D){
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(CLLocation(latitude: coord.latitude, longitude: coord.longitude)) { placemarks, e in
+                guard e == nil else {
+                    return
+                }
+                
+                if let firstPlacemark = placemarks?.first {
+                    self.parent.centerPlaceDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "")"
+                }
+            }
         }
     }
 

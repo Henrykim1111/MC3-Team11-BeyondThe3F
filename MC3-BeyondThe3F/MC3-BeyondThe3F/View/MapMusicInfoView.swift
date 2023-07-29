@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MapMusicInfoView: View {
     @Binding var musicList: [MusicItemVO]
+    @Binding var centerPlaceDescription: String
     
     @State private var draggedYOffset: CGFloat = 500.0
     @State private var accumulatedYOffset: CGFloat = 500.0
@@ -44,9 +45,10 @@ struct MapMusicInfoView: View {
                         }
 
                         VStack(alignment: .leading){
-                            Text("장소")
+                            Text(centerPlaceDescription)
                                 .title2(color: .white)
                                 .padding(.bottom, 2)
+                                .lineLimit(1)
                             Text("\(musicList.count)곡 수집")
                                 .body1(color: .white)
                         }
