@@ -9,8 +9,14 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @AppStorage("isFirst") private var isFirst = false
+    
     var body: some View {
-        MainTabView()
+        if isFirst {
+            WTMusicSearchView()
+        } else {
+            MainTabView()
+        }
     }
 }
 
