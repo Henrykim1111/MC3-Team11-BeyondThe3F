@@ -21,7 +21,7 @@ class MusicAnnotationView: MKAnnotationView {
         clusteringIdentifier = clusterID
         
         guard let landmark = annotation as? MusicAnnotation else {
-            image = UIImage(named: "annotationImage")
+            image = UIImage(named: "annotaion0")
             return
         }
         image = resizeImage(imageName: landmark.savedImage)
@@ -38,7 +38,7 @@ class MusicAnnotationView: MKAnnotationView {
     
     private func resizeImage(imageName: String?) -> UIImage{
         guard let imageNameString = imageName else {
-            return UIImage(named: "annotationImage")!
+            return UIImage(named: "annotaion0")!
         }
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
         return renderer.image { ctx in

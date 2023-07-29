@@ -27,6 +27,9 @@ struct MapView: View {
     @State private var searchText = ""
     @State private var searchPlaces : [Place] = []
     @State private var showMusicPlayView = false
+    @State private var annotationDataList: [MusicItemVO] = []
+    
+    let mainDataModel = MainDataModel.shared
     
     var body: some View {
         NavigationStack {
@@ -99,10 +102,18 @@ struct MapView: View {
             .ignoresSafeArea(.all, edges: .top)
             .onAppear {
                 locationHelper.getLocationAuth()
+                annotationDataList = getSavedMusicData()
             }
             .onChange(of: searchText) { newValue in
                 getSearchPlace()
             }
+            .onChange(of: annotationDataList, perform: { newValue in
+                
+                for annotaionData in annotationDataList {
+                    let annotation = MusicAnnotation(annotaionData)
+                    mapView.addAnnotation(annotation)
+                }
+            })
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
@@ -143,6 +154,17 @@ struct MapView: View {
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
     }
+    private func getSavedMusicData() -> [MusicItemVO]{
+        var tempMusicVOList: [MusicItemVO] = []
+        MainDataModel.shared.getData.forEach { mainVO in
+            for music in mainVO.musicList {
+                tempMusicVOList.append(
+                    MusicItemVO(musicId: music.musicId ?? "", latitude: music.latitude, longitude: music.longitude, playedCount: 0, songName: music.songName ?? "undefined", artistName: music.artistName ?? "undefined", generatedDate: music.generatedDate ?? Date())
+                )
+            }
+        }
+        return tempMusicVOList
+    }
 }
 
 struct MapView_Previews: PreviewProvider {
@@ -168,8 +190,9 @@ struct MapUIKitView: UIViewRepresentable {
     
     @State var region = startRegion
     
+    
     let locationManager: CLLocationManager
-    private let annotaionDataList = musicItemVODummyData
+    
 
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: MapUIKitView
@@ -229,12 +252,6 @@ struct MapUIKitView: UIViewRepresentable {
         mapView.delegate = context.coordinator
         mapView.setRegion(region, animated: false)
         mapView.mapType = .standard
-        
-        for annotaionData in annotaionDataList {
-            let annotation = MusicAnnotation(annotaionData)
-            mapView.addAnnotation(annotation)
-        }
-        
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.follow, animated: true)
         
@@ -247,7 +264,6 @@ struct MapUIKitView: UIViewRepresentable {
             isShowUserLocation = false
         }
     }
-    
 }
 
 extension MKMapView {
