@@ -11,6 +11,7 @@ struct BucketView: View {
     @State private var searchTerm = ""
     @State private var showSearchView = false
     @State private var showMusicPlayView = false
+    @State private var showAddMusicView = false
         
     var body: some View {
         NavigationStack {
@@ -18,7 +19,10 @@ struct BucketView: View {
                 MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
                     .padding()
                 if showSearchView {
-                    MusicSearchView(searchTerm: $searchTerm)
+                    MusicSearchView(
+                        searchTerm: $searchTerm,
+                        showAddMusicView: $showAddMusicView
+                    )
                 } else {
                     CarouselView()
                 }
@@ -32,6 +36,9 @@ struct BucketView: View {
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
+            }
+            .sheet(isPresented: $showAddMusicView) {
+                EditMapPositionView()
             }
         }
     }
