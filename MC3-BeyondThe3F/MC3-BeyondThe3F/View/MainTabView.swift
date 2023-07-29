@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @State private var showWelcomeSheet = false
+    @State private var showWelcomeSheet = true
     var body: some View {
         TabView {
             BucketView()
@@ -30,6 +30,8 @@ struct MainTabView: View {
         }
         .sheet(isPresented: $showWelcomeSheet, content: {
             WelcomeSheetComponentView()
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
         })
     }
 }
