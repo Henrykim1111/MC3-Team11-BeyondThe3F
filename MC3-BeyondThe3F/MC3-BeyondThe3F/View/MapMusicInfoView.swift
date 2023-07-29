@@ -15,6 +15,7 @@ struct MapMusicInfoView: View {
     @State private var accumulatedYOffset: CGFloat = 500.0
     @State private var maxHeight: CGFloat = 500.0
     @State private var minHeight: CGFloat = 100.0
+    @State private var showActionSheet = false
     
     var body: some View {
         GeometryReader { geo in
@@ -75,7 +76,7 @@ struct MapMusicInfoView: View {
                                 artistName: musicItem.artistName,
                                 musicListRowType: .saved,
                                 buttonEllipsisAction: {
-                                    
+                                    showActionSheet = true
                                 }
                             )
                         }
@@ -96,6 +97,15 @@ struct MapMusicInfoView: View {
                 draggedYOffset = geo.size.height - 120
                 accumulatedYOffset = geo.size.height - 120
             }
+            .confirmationDialog("타이틀", isPresented: $showActionSheet) {
+                    Button("편집", role: .none) {
+                        // TODO: NavigationTo EditPage
+                    }
+                    Button("제거", role: .destructive) {
+                        // TODO: Delete Item in CoreData
+                    }
+                    Button("취소", role: .cancel) {}
+                }
         }
     }
     var drag: some Gesture {
