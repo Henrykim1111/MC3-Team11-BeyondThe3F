@@ -184,13 +184,13 @@ extension ShazamView {
     
     // MARK: Bottom View
     var ShazamBottomListeningView: some View {
-        Text("Listening...")
+        Text("노래를 찾고 있어요")
             .title2(color: .primary)
             .padding(.bottom, 170)
     }
     var ShazamBottomErrorView: some View {
         Text("노래를 찾지 못했어요")
-            .body2(color: .primary)
+            .title2(color: .primary)
             .padding(.bottom, 170)
     }
     var ShazamBottomSuccessView : some View {
