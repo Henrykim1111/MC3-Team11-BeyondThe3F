@@ -11,7 +11,6 @@ import MusicKit
 struct MusicPlayerComponentView: View {
     
     @ObservedObject private var musicPlayer = MusicPlayer.shared
-    @State private var isPlaying = false
     @State private var showMusicPlayListView = false
     
     
@@ -67,9 +66,8 @@ struct MusicPlayerComponentView: View {
             HStack(spacing: 24) {
                 Button {
                     musicPlayer.playButtonTapped()
-                    isPlaying.toggle()
                 } label: {
-                    SFImageComponentView(symbolName: isPlaying ? .play : .pause, color: .white, width: 20)
+                    SFImageComponentView(symbolName: musicPlayer.isPlaying ? .play : .pause, color: .white, width: 20)
                 }
                 
                 Button {
