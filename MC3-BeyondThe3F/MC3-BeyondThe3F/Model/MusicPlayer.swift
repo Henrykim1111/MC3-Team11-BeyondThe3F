@@ -18,7 +18,7 @@ class MusicPlayer: ObservableObject{
     
     var delegate:MusicPlayerProtocol?
     
-    private let player = MPMusicPlayerController.applicationMusicPlayer
+    let player = MPMusicPlayerController.applicationMusicPlayer
 
     private init(){
         self.player.prepareToPlay {error in
@@ -39,6 +39,8 @@ class MusicPlayer: ObservableObject{
             self.player.play()
         }
     }
+    
+
     
     var isLast:Bool{
         self.player.indexOfNowPlayingItem == playlist.count - 1 ? true : false
