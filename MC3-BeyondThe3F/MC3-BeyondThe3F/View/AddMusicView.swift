@@ -36,7 +36,7 @@ enum AddMusicItemData: CaseIterable {
         Group {
             switch self {
             case .music:
-                MainTabView()
+                EditMusicView()
             case .location:
                 EditMapPositionView(nextProcess: .backward)
             case .date:
