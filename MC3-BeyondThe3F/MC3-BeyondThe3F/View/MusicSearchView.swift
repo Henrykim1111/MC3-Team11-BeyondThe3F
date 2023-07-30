@@ -13,7 +13,11 @@ struct MusicSearchView: View {
     @StateObject private var musicSearchViewModel = MusicSearchViewModel()
     @State private var isPresentedDeleteAll = false
     @Binding var searchTerm: String
-    @Binding var showAddMusicView: Bool
+    @Binding var isUpdate: Bool
+    let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    let musicItemDataModel = MusicItemDataModel.shared
+    let musicPlayer = MusicPlayer.shared
+    var persistentContainer = PersistenceController.shared.container
     
     var body: some View {
         ZStack {
@@ -122,12 +126,25 @@ extension MusicSearchView {
     }
 
     private var MusicSearchResultsList: some View {
-        VStack {
-            Spacer()
-                .frame(width: 390)
+        LazyVStack {
+            HStack {
+                Spacer()
+            }
            
             ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
                 Button {
+                    let newItem = MusicItem(context: persistentContainer.viewContext)
+                    
+                    newItem.musicId = item.id.rawValue
+                    newItem.latitude = 0
+                    newItem.longitude = 0
+                    newItem.locationInfo = ""
+                    newItem.savedImage = ""
+                    newItem.generatedDate = Date()
+                    newItem.songName = item.title
+                    newItem.artistName = item.artistName
+                    
+                    musicPlayer.playlist.append(newItem)
                     musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
                 } label: {
                     HStack {
@@ -146,14 +163,30 @@ extension MusicSearchView {
                         }
                         Spacer()
                         Button {
-                            self.showAddMusicView = true
+                            Task {
+                                musicItemUpdateViewModel.resetInitialMusicItem()
+                                guard let musicItems = await musicItemDataModel.getInfoByMusicId(item.id.rawValue) else {
+                                    return
+                                }
+                                guard let musicItem = musicItems.items.first else {
+                                    return
+                                }
+                                musicItemUpdateViewModel.musicItemshared.musicId = musicItem.id.rawValue
+                                musicItemUpdateViewModel.musicItemshared.songName = musicItem.title
+                                musicItemUpdateViewModel.musicItemshared.artistName = musicItem.artistName
+                                if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
+                                    musicItemUpdateViewModel.musicItemshared.savedImage = "\(imageURL)"
+                                } else {
+                                    musicItemUpdateViewModel.musicItemshared.savedImage = nil
+                                }
+                            }
+                            self.isUpdate = true
                         } label: {
                             SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
                         }
                     }
                 }
             }
-        
         }
     }
 }
@@ -167,7 +200,7 @@ struct MusicSearchPreview: View {
             TextField("음악을 검색하세요", text: $searchTerm)
             MusicSearchView(
                 searchTerm: $searchTerm,
-                showAddMusicView: $showAddMusicView
+                isUpdate: $showAddMusicView
             )
         }
     }
