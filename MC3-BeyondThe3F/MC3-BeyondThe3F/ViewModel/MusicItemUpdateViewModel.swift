@@ -7,12 +7,32 @@
 
 import SwiftUI
 
+private let initialMusicItemVO = MusicItemVO(
+    musicId: "",
+    latitude: 37,
+    longitude: 126,
+    playedCount: 0,
+    songName: "defaultSongName",
+    artistName: "defaultArtistName",
+    generatedDate: Date())
+
 final class MusicItemUpdateViewModel: ObservableObject {
-    @Published var musicItemshared = MusicItemVO(musicId: "", latitude: 37, longitude: 126, playedCount: 0, songName: "defaultSongName", artistName: "defaultArtistName", generatedDate: Date())
-    let shared = MusicUpdateViewModel()
+    @Published var musicItemshared = initialMusicItemVO
+    static let shared = MusicItemUpdateViewModel()
     private init(){}
     
+    private let musicItemDataModel = MusicItemDataModel.shared
+    
     func updateCoreDate(){
-        // TODO: CoreData update
+        musicItemDataModel.saveMusicItem(musicItemVO: musicItemshared)
+    }
+    
+    func updateMusicItem(musicItem: MusicItemVO) {
+        self.musicItemshared = musicItem
+    }
+    
+    func startCreateMusicItem(){
+        self.musicItemshared = initialMusicItemVO
     }
 }
+
