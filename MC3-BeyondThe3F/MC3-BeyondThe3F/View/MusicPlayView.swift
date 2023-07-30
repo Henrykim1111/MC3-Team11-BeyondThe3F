@@ -10,9 +10,9 @@ import SwiftUI
 import MediaPlayer
 
 struct MusicPlayView: View {
+    
     @State private var progressRate: Double = 0.0
     @State private var showCurrentPlayList: Bool = false
-    
     @ObservedObject private var musicPlayer = MusicPlayer.shared
     
     var body: some View {
@@ -31,6 +31,7 @@ struct NowPlayingView: View {
     
     let musicPlayer = MusicPlayer.shared
     @State private var isRotating = false
+    @State private var imageUrl:URL? = nil
     
     var body: some View {
         VStack {
@@ -46,7 +47,7 @@ struct NowPlayingView: View {
                         .frame(width: 451, height: 451)
                         .shadow(color: .black.opacity(0.25), radius: 2, x: -10, y: -10)
                     
-                    if let url = URL(string: musicPlayer.currentMusicItem?.savedImage ?? "") {
+                    if let url = imageUrl {
                         AsyncImage(url: url) { image in
                             image
                                 .resizable()
@@ -55,7 +56,6 @@ struct NowPlayingView: View {
                                 .cornerRadius(451)
                                 .clipped()
                                 .rotationEffect(Angle(degrees: isRotating ? 360 : 0))
-                                .animation(Animation.linear(duration: 10).repeatForever(autoreverses: false), value: isRotating)
                         } placeholder: {
                             Image("musicPlayImageEmpty")
                                 .resizable()
@@ -64,7 +64,6 @@ struct NowPlayingView: View {
                                 .cornerRadius(451)
                                 .clipped()
                                 .rotationEffect(Angle(degrees: isRotating ? 360 : 0))
-                                .animation(Animation.linear(duration: 10).repeatForever(autoreverses: false), value: isRotating)
                         }
                     } else {
                         Image("musicPlayImageEmpty")
@@ -74,20 +73,27 @@ struct NowPlayingView: View {
                             .cornerRadius(451)
                             .clipped()
                             .rotationEffect(Angle(degrees: isRotating ? 360 : 0))
-                            .animation(Animation.linear(duration: 10).repeatForever(autoreverses: false), value: isRotating)
                     }
                 }
                 .offset(x: 64, y: 40)
+                .task {
+                    if let musicId = musicPlayer.currentMusicItem?.musicId{
+                        imageUrl = await MusicItemDataModel.shared.getURL(musicId)
+                    }
+                }
             }
             Spacer()
         }
         .padding()
         .background(Color.custom(.secondaryDark))
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
-            if musicPlayer.player.playbackState == .playing {
-                isRotating = true
-            } else {
-                isRotating = false
+            withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
+                // isRotating = musicPlayer.player.playbackState == .playing
+                if musicPlayer.player.playbackState == .playing {
+                    isRotating = true
+                } else {
+                    isRotating = false
+                }
             }
         }
     }
@@ -97,6 +103,8 @@ struct NowPlayingView: View {
 struct CurrentPlayListView: View {
 
     let musicPlayer = MusicPlayer.shared
+    
+    @State private var imageUrl:URL? = nil
     
     var body: some View {
         ScrollView {
@@ -121,11 +129,24 @@ struct CurrentPlayListView: View {
 //                            musicPlayer.playSong(musicItem)     // 탭하면 해당 노래를 재생
                         } label: {
                             HStack{
-                                Image("musicPlayImageEmpty")
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                    .cornerRadius(8)
-                                    .foregroundColor(.white)
+                                if let url = imageUrl {
+                                    AsyncImage(url: url) { image in
+                                        image
+                                            .resizable()
+                                            .frame(width: 60, height: 60)
+                                            .cornerRadius(8)
+                                    } placeholder: {
+                                        Image("musicPlayImageEmpty")
+                                            .resizable()
+                                            .frame(width: 60, height: 60)
+                                            .cornerRadius(8)
+                                    }
+                                } else {
+                                    Image("musicPlayImageEmpty")
+                                        .resizable()
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(8)
+                                }
                                 Spacer()
                                     .frame(width: 16)
                                 VStack(alignment: .leading){
@@ -147,6 +168,11 @@ struct CurrentPlayListView: View {
                             .frame(height: 88)
                             .padding(.horizontal, 20)
                             .background(Color.custom(musicItem == musicPlayer.currentMusicItem ? .secondaryDark : .background))
+                            .task {
+                                if let musicId = musicPlayer.currentMusicItem?.musicId{
+                                    imageUrl = await MusicItemDataModel.shared.getURL(musicId)
+                                }
+                            }
                         }
                     }
                 }
@@ -223,6 +249,7 @@ struct ControlButtonsView: View {
     @State private var totalDuration: Double = (MusicPlayer.shared.player.nowPlayingItem?.playbackDuration ?? 0.0)
     @State private var isDragging = false
 
+
     
     func sliderChanged(editingStarted: Bool) {
       if editingStarted {
@@ -232,9 +259,9 @@ struct ControlButtonsView: View {
           self.musicPlayer.player.currentPlaybackTime = currentTime
           self.musicPlayer.player.play()
           isDragging = false
-
       }
     }
+    
     var body: some View {
         VStack {
             HStack {
@@ -245,11 +272,13 @@ struct ControlButtonsView: View {
                     .onReceive(timer) { _ in
                         guard !isDragging else { return }
                         currentTime = MusicPlayer.shared.player.currentPlaybackTime
-                        
                         totalDuration = (MusicPlayer.shared.player.nowPlayingItem?.playbackDuration ?? 0.0)
                     }
+                
                 Slider(value: $currentTime, in: 0...totalDuration, onEditingChanged: sliderChanged)
                     .accentColor(Color.custom(.white))
+                
+                
                 // 남은 시간
                 Text("-\(((musicPlayer.player.nowPlayingItem?.playbackDuration ?? 0.0) - MusicPlayer.shared.player.currentPlaybackTime).timeToString)")
                     .frame(width: 50, alignment: .trailing)
@@ -268,11 +297,11 @@ struct ControlButtonsView: View {
 
                 Spacer().frame(width: 48)
                 
-//                Button {
-//                    musicPlayer.playButtonTapped()
-//                } label: {
-//                    SFImageComponentView(symbolName: musicPlayer.isPlaying ? .play : .pause, color: .white, width: 45)
-//                }
+                Button {
+                    musicPlayer.playButtonTapped()
+                } label: {
+                    SFImageComponentView(symbolName: musicPlayer.isPlaying ? .pause : .play, color: .white, width: 45, height: 45)
+                }
                 
                 Spacer().frame(width: 48)
                 
