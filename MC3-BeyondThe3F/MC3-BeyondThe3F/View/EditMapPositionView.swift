@@ -279,7 +279,11 @@ struct EditMapUIView: UIViewRepresentable{
                         self.parent.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
                     }
                     if firstPlacemark.locality == nil {
-                        self.parent.locationInfo = "\(firstPlacemark.country ?? "")"
+                        if firstPlacemark.country == nil {
+                            self.parent.selectedPositionDescription = "설정할 수 없는 위치입니다."
+                        } else {
+                            self.parent.selectedPositionDescription = "원하는 위치를 조금 더 자세히 표시해주세요."
+                        }
                     } else {
                         self.parent.locationInfo = "\(firstPlacemark.locality ?? "")"
                     }
