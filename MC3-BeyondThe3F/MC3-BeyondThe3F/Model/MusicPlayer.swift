@@ -18,6 +18,8 @@ class MusicPlayer: ObservableObject{
     
     var delegate:MusicPlayerProtocol?
     
+    var isPlaying: Bool = false
+    
     let player = MPMusicPlayerController.applicationMusicPlayer
 
     private init(){
@@ -75,8 +77,10 @@ extension MusicPlayer{
     func playButtonTapped(){
         if self.player.currentPlaybackRate == 0{
             self.player.play()
+            self.isPlaying = true
         }else{
             self.player.pause()
+            self.isPlaying = false
         }
     }
 
