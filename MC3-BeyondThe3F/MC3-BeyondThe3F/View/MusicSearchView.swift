@@ -11,7 +11,6 @@ import MusicKit
 
 struct MusicSearchView: View {
     @StateObject private var musicSearchViewModel = MusicSearchViewModel()
-    @State private var isPresentedDeleteAll = false
     @Binding var searchTerm: String
     @Binding var isUpdate: Bool
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
@@ -62,14 +61,6 @@ struct MusicSearchView: View {
             .background(Color.custom(.background))
             .onChange(of: searchTerm, perform: musicSearchViewModel.requestUpdateSearchResults)
         }
-        .alert("정말로 검색 기록을 모두 지우시겠어요?", isPresented: $isPresentedDeleteAll) {
-            Button("삭제", role: .destructive) {
-                musicSearchViewModel.removeAllMusicHistory()
-            }
-            Button("취소", role: .cancel) {
-                isPresentedDeleteAll = false
-            }
-        }
         
 
     }
@@ -83,7 +74,7 @@ extension MusicSearchView {
             Spacer()
             Button {
                 if !musicSearchViewModel.resentlySearchList.isEmpty {
-                    self.isPresentedDeleteAll = true
+                    musicSearchViewModel.removeAllMusicHistory()
                 }
             } label: {
                 Text("모두 지우기")
