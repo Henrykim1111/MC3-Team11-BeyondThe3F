@@ -24,14 +24,16 @@ final class MusicItemUpdateViewModel: ObservableObject {
     private let musicItemDataModel = MusicItemDataModel.shared
     
     func updateCoreDate(){
-        musicItemDataModel.saveMusicItem(musicItemVO: musicItemshared)
+        Task {
+            await musicItemDataModel.saveMusicItem(musicItemVO: musicItemshared)
+        }
     }
     
     func updateMusicItem(musicItem: MusicItemVO) {
         self.musicItemshared = musicItem
     }
     
-    func startCreateMusicItem(){
+    func resetInitialMusicItem(){
         self.musicItemshared = initialMusicItemVO
     }
 }

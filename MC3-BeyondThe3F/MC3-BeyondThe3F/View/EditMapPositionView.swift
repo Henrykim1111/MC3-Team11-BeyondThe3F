@@ -9,9 +9,16 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
+enum NextProcess {
+    case backward
+    case forward
+}
+
 struct EditMapPositionView: View {
+    var nextProcess: NextProcess = .forward
+    @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
+    @Environment(\.dismiss) private var dismiss
     @State private var mapView = MKMapView()
-    @Environment(\.presentationMode) var presentationMode
     @State private var isMoving = true
     @State private var locationManager = LocationManager.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
@@ -29,7 +36,7 @@ struct EditMapPositionView: View {
             VStack(spacing: 0){
                 HStack {
                     Button {
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     } label: {
                         SFImageComponentView(symbolName: .chevronBack, color: .white)
                     }
@@ -133,10 +140,26 @@ struct EditMapPositionView: View {
                     Text("\(selectedPositionDescription)")
                         .headline(color: .white)
                     Spacer()
-                    NavigationLink {
-                        EditDateView()
-                    } label: {
-                        PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                    switch nextProcess {
+                    case .forward:
+                        NavigationLink {
+                            EditDateView()
+                                .onAppear {
+                                    musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
+                                    musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
+                                    dismiss()
+                                }
+                        } label: {
+                            PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                        }
+                    case .backward:
+                        Button {
+                            musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
+                            musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
+                            dismiss()
+                        } label: {
+                            PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                        }
                     }
                 }
                 .frame(maxHeight: 200)

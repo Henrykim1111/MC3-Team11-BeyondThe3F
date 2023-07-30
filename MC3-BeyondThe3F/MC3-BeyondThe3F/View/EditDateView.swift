@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EditDateView: View {
+    var nextProcess: NextProcess = .forward
+    @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
     @State private var selectedDate = Date()
     
     var body: some View {
@@ -16,14 +18,30 @@ struct EditDateView: View {
             DatePicker("", selection: $selectedDate,  displayedComponents: .date)
                         .datePickerStyle(WheelDatePickerStyle()).labelsHidden()
             Spacer()
-            NavigationLink {
-                AddMusicView()
-                    .toolbarRole(.editor)
-            } label: {
-                PrimaryButtonComponentView(buttonType: .recordTheDate, backgroundColor: .primary)
+            switch nextProcess {
+            case .forward:
+                NavigationLink {
+                    AddMusicView()
+                        .toolbarRole(.editor)
+                        .onAppear {
+                            musicUpdateViewModel.musicItemshared.generatedDate = selectedDate
+                        }
+                } label: {
+                    PrimaryButtonComponentView(buttonType: .recordTheDate, backgroundColor: .primary)
+                }
+            case .backward:
+                NavigationLink {
+                    AddMusicView()
+                        .toolbarRole(.editor)
+                } label: {
+                    Button {
+                        musicUpdateViewModel.musicItemshared.generatedDate = selectedDate
+                        dismiss()
+                    } label: {
+                        PrimaryButtonComponentView(buttonType: .recordTheDate, backgroundColor: .primary)
+                    }
+                }
             }
-
-            
         }
         .frame(maxWidth: .infinity)
         .background(Color.custom(.background))
