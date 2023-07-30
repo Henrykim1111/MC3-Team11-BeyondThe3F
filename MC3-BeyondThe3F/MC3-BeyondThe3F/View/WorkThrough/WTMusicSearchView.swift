@@ -11,6 +11,7 @@ struct WTMusicSearchView: View {
     @AppStorage("isFirst") private var isFirst = false
     @State private var searchTerm = ""
     @State private var showSearchView = true
+    @StateObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     
     var body: some View {
         
@@ -29,7 +30,7 @@ struct WTMusicSearchView: View {
                 MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
                 MusicSearchView(
                     searchTerm: $searchTerm,
-                    showAddMusicView: $showSearchView
+                    isUpdate: $musicItemUpdateViewModel.isUpdate
                 )
                 Spacer()
                 NavigationLink {

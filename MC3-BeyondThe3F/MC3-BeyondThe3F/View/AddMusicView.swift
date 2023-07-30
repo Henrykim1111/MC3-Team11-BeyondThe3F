@@ -113,6 +113,7 @@ struct AddMusicView: View {
                 
                 Button {
                     musicItemUpdateViewModel.updateCoreDate()
+                    musicItemUpdateViewModel.isUpdate = false
                 } label: {
                     PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
                 }

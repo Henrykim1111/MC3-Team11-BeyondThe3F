@@ -13,7 +13,7 @@ struct MusicSearchView: View {
     @StateObject private var musicSearchViewModel = MusicSearchViewModel()
     @State private var isPresentedDeleteAll = false
     @Binding var searchTerm: String
-    @Binding var showAddMusicView: Bool
+    @Binding var isUpdate: Bool
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     let musicItemDataModel = MusicItemDataModel.shared
     let musicPlayer = MusicPlayer.shared
@@ -180,7 +180,7 @@ extension MusicSearchView {
                                     musicItemUpdateViewModel.musicItemshared.savedImage = nil
                                 }
                             }
-                            self.showAddMusicView = true
+                            self.isUpdate = true
                         } label: {
                             SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
                         }
@@ -200,7 +200,7 @@ struct MusicSearchPreview: View {
             TextField("음악을 검색하세요", text: $searchTerm)
             MusicSearchView(
                 searchTerm: $searchTerm,
-                showAddMusicView: $showAddMusicView
+                isUpdate: $showAddMusicView
             )
         }
     }
