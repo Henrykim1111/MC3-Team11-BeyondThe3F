@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var showWelcomeSheet = false
-    @AppStorage("isFirst") private var isFirst = true
+    @AppStorage("isFirst") private var isFirst = false
     
     var body: some View {
         TabView {
@@ -27,11 +27,6 @@ struct MainTabView: View {
         .onAppear{
             if isFirst {
                 showWelcomeSheet = true
-            }
-            Task{
-                await insertDummy()
-                await AuthManger.requestMusicAuth()
-                let url = await MusicItemDataModel.shared.getURL("1037732952")
             }           
         }
         .sheet(isPresented: $showWelcomeSheet, onDismiss: {
