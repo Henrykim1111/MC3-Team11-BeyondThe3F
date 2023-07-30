@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CarouselView: View {
-    typealias PageIndex = Int
     
     let pageCount = 5
     let visibleEdgeSpace: CGFloat = 20
@@ -30,7 +29,8 @@ struct CarouselView: View {
                 ForEach(0..<carouselList.count, id: \.self) { pageIndex in
                     CarouselCardItem(
                         carouselItemData: carouselList[pageIndex],
-                        pageWidth: pageWidth
+                        pageWidth: pageWidth,
+                        pageIndex: pageIndex
                     )
                 }
                 .contentShape(Rectangle())
@@ -60,6 +60,7 @@ struct CarouselCardItem: View {
     
     var carouselItemData: MainVO
     var pageWidth: CGFloat
+    var pageIndex: Int
     
     var body: some View {
         VStack(spacing: 0) {
@@ -73,6 +74,9 @@ struct CarouselCardItem: View {
                 }
                 Spacer()
                 ButtonPlayComponentView()
+                    .onTapGesture {
+                        MusicPlayer.shared.playlist = MainDataModel.shared.getData[pageIndex].musicList
+                    }
             }
             .padding(16)
             
@@ -95,6 +99,9 @@ struct CarouselCardItem: View {
                         }
                         .padding(.horizontal)
                         Spacer()
+                    }
+                    .onTapGesture {
+                        print("play \(item.songName ?? "failed")")
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
