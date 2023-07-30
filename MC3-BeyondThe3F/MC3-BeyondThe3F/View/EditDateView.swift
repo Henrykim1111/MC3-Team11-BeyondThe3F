@@ -10,6 +10,7 @@ import SwiftUI
 struct EditDateView: View {
     var nextProcess: NextProcess = .forward
     @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
+    @Environment(\.dismiss) private var dismiss
     @State private var selectedDate = Date()
     
     var body: some View {
@@ -23,23 +24,18 @@ struct EditDateView: View {
                 NavigationLink {
                     AddMusicView()
                         .toolbarRole(.editor)
-                        .onAppear {
-                            musicUpdateViewModel.musicItemshared.generatedDate = selectedDate
-                        }
                 } label: {
                     PrimaryButtonComponentView(buttonType: .recordTheDate, backgroundColor: .primary)
                 }
+                .simultaneousGesture(TapGesture().onEnded {
+                    musicUpdateViewModel.musicItemshared.generatedDate = selectedDate
+                })
             case .backward:
-                NavigationLink {
-                    AddMusicView()
-                        .toolbarRole(.editor)
+                Button {
+                    musicUpdateViewModel.musicItemshared.generatedDate = selectedDate
+                    dismiss()
                 } label: {
-                    Button {
-                        musicUpdateViewModel.musicItemshared.generatedDate = selectedDate
-                        dismiss()
-                    } label: {
-                        PrimaryButtonComponentView(buttonType: .recordTheDate, backgroundColor: .primary)
-                    }
+                    PrimaryButtonComponentView(buttonType: .recordTheDate, backgroundColor: .primary)
                 }
             }
         }
@@ -47,6 +43,9 @@ struct EditDateView: View {
         .background(Color.custom(.background))
         .navigationTitle("날짜 선택")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            print(musicUpdateViewModel.musicItemshared)
+        }
     }
         
 }

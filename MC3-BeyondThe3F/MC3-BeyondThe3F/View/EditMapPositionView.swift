@@ -144,18 +144,19 @@ struct EditMapPositionView: View {
                     case .forward:
                         NavigationLink {
                             EditDateView()
-                                .onAppear {
-                                    musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
-                                    musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
-                                    dismiss()
-                                }
                         } label: {
                             PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
                         }
+                        .simultaneousGesture(TapGesture().onEnded {
+                            musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
+                            musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
+                            musicUpdateViewModel.musicItemshared.locationInfo = selectedPositionDescription
+                        })
                     case .backward:
                         Button {
                             musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
                             musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
+                            musicUpdateViewModel.musicItemshared.locationInfo = selectedPositionDescription
                             dismiss()
                         } label: {
                             PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
@@ -169,6 +170,9 @@ struct EditMapPositionView: View {
             .preferredColorScheme(.dark)
             .onChange(of: searchTerm) { newValue in
                 getSearchPlace()
+            }
+            .onAppear {
+                print(musicUpdateViewModel.musicItemshared)
             }
         }
     }

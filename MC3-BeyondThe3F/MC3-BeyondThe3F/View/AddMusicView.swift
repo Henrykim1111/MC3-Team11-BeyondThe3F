@@ -25,11 +25,11 @@ enum AddMusicItemData: CaseIterable {
     var additionalInfo: String {
             switch self {
             case .music:
-                return "음악 정보"
+                return "\(MusicItemUpdateViewModel.shared.musicItemshared.songName)"
             case .location:
-                return "위치 정보"
+                return "\(MusicItemUpdateViewModel.shared.musicItemshared.locationInfo)"
             case .date:
-                return "날짜 정보"
+                return "\(MusicItemUpdateViewModel.shared.musicItemshared.generatedDate)"
             }
         }
     var destination : some View {
@@ -38,17 +38,17 @@ enum AddMusicItemData: CaseIterable {
             case .music:
                 MainTabView()
             case .location:
-                EditMapPositionView()
+                EditMapPositionView(nextProcess: .backward)
             case .date:
-                EditDateView()
+                EditDateView(nextProcess: .backward)
             }
         }
     }
 }
 
 struct MusicNameRow: View {
+    @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     @State var itemData: AddMusicItemData
-    
     
     var body: some View {
         HStack (spacing: 16){
@@ -60,14 +60,17 @@ struct MusicNameRow: View {
                 .frame(width: 180)
                 
             NavigationLink(destination: itemData.destination) {
-                    Text(itemData.additionalInfo)
-                        .body1(color: .gray500)
+                Text(itemData.additionalInfo)
+                    .body1(color: .gray500)
             }
         }
     }
 }
 
 struct AddMusicView: View {
+    var nextProcess: NextProcess = .forward
+    @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    
     var body: some View {
         NavigationStack{
             VStack{
@@ -79,11 +82,9 @@ struct AddMusicView: View {
                     }
                     .frame(width: 350, height: 350)
                     // TODO: frame 크기 조절
-                                        
                 }
                 .background(Color.custom(.background))
                 .padding(16)
-              
                 
                 List{
                     ForEach(AddMusicItemData.allCases, id: \.self) { addCase in
@@ -94,18 +95,24 @@ struct AddMusicView: View {
                 }
                 .listStyle(PlainListStyle())
                 .scrollContentBackground(.hidden)
+                
                 Spacer()
                 
-                NavigationLink {
-                    MainTabView()
+                Button {
+                    musicItemUpdateViewModel.updateCoreDate()
                 } label: {
                     PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
                 }
-                .navigationTitle("음악 편집")
-                .navigationBarTitleDisplayMode(.inline)
             }
+            .navigationTitle("음악 편집")
+            .navigationBarTitleDisplayMode(.inline)
             .background(Color.custom(.background))
+            .onAppear {
+                print(musicItemUpdateViewModel.musicItemshared)
+            }
+            
         }
+        
     }
     struct AddMusicView_Previews: PreviewProvider {
         static var previews: some View {
