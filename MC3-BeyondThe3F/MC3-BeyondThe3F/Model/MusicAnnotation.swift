@@ -50,7 +50,7 @@ class MusicAnnotation: NSObject, MKAnnotation {
         super.init()
     }
     func getMusicItemFromAnnotation() -> MusicItem{
-        var persistentContainer = PersistenceController.shared.container
+        let persistentContainer = PersistenceController.shared.container
         let newItem = MusicItem(context: persistentContainer.viewContext)
         newItem.musicId = musicId
         newItem.latitude = latitude

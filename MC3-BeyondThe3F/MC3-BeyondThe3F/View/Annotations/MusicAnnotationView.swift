@@ -24,7 +24,9 @@ class MusicAnnotationView: MKAnnotationView {
             image = UIImage(named: "annotaion0")
             return
         }
-        image = resizeImage(imageName: landmark.savedImage)
+        Task {
+            image = await resizeImage(imageName: landmark.savedImage)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,10 +38,7 @@ class MusicAnnotationView: MKAnnotationView {
         displayPriority = .defaultLow
     }
     
-    private func resizeImage(imageName: String?) -> UIImage{
-        guard let imageNameString = imageName else {
-            return UIImage(named: "annotaion0")!
-        }
+    private func resizeImage(imageName: String?) async -> UIImage{
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
         return renderer.image { ctx in
             UIColor.white.setFill()
@@ -51,9 +50,25 @@ class MusicAnnotationView: MKAnnotationView {
             let rect = CGRect(x: 5, y: 15, width: 54, height: 54)
             let rounded = UIBezierPath(roundedRect: rect, cornerRadius: 7)
             rounded.addClip()
-            let img = UIImage(named: imageNameString)
-            img?.draw(in: rect)
+            Task {
+                guard let url = URL(string: imageName ?? "") else {
+                    return
+                }
+                let img = try await fetchImage(url: url)
+                img.draw(in: rect)
+            }
         }
+    }
+    private func fetchImage(url: URL) async throws -> UIImage {
+        let request = URLRequest(url: url)
+        let (data, response) = try await URLSession.shared.data(for: request)
+            
+        guard let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                  (200...299).contains(statusCode) else { throw NSError(domain: "fetch error", code: 1004) }
+        guard let image = UIImage(data: data) else {
+            return UIImage(named: "annotaion0")!
+        }
+        return image
     }
 }
 

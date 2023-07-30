@@ -104,17 +104,14 @@ struct MapView: View {
             .onAppear {
                 locationHelper.getLocationAuth()
                 annotationDataList = getSavedMusicData()
-            }
-            .onChange(of: searchText) { newValue in
-                
-                getSearchPlace()
-            }
-            .onChange(of: annotationDataList, perform: { newValue in
                 for annotaionData in annotationDataList {
                     let annotation = MusicAnnotation(annotaionData)
                     mapView.addAnnotation(annotation)
                 }
-            })
+            }
+            .onChange(of: searchText) { newValue in
+                getSearchPlace()
+            }
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
