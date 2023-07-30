@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @State private var showWelcomeSheet = false
+    @AppStorage("isFirst") private var isFirst = true
+    
     var body: some View {
         TabView {
             BucketView()
@@ -20,13 +23,24 @@ struct MainTabView: View {
                     Image(systemName: "map.fill")
                     Text("지도")
                 }
-        }.onAppear{
-            insertDummy()
-            Task{
-                await AuthManger.requestMusicAuth()
-            }
-            MusicPlayer.shared.playlist = MainDataModel.shared.getData[0].musicList
         }
+        .onAppear{
+            if isFirst {
+                showWelcomeSheet = true
+            }
+            Task{
+                await insertDummy()
+                await AuthManger.requestMusicAuth()
+                let url = await MusicItemDataModel.shared.getURL("1037732952")
+            }           
+        }
+        .sheet(isPresented: $showWelcomeSheet, onDismiss: {
+            isFirst = false
+        },content: {
+            WelcomeSheetComponentView()
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
+        })
     }
 }
 

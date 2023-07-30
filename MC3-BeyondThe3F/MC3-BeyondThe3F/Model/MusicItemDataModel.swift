@@ -7,6 +7,8 @@
 
 import Foundation
 import CoreData
+import MusicKit
+import SwiftUI
 
 protocol MusicItemDataModelDelegate:AnyObject{
     func musicItemDataModel()->Void
@@ -29,24 +31,50 @@ class MusicItemDataModel {
         }
     }
     
-    func saveMusicItem(musicItemVO:MusicItemVO){
-
+    func saveMusicItem(musicItemVO:MusicItemVO) {
         let newItem = MusicItem(context: persistentContainer.viewContext)
-        
+
         newItem.musicId = musicItemVO.musicId
         newItem.latitude = musicItemVO.latitude
         newItem.longitude = musicItemVO.longitude
         newItem.locationInfo = musicItemVO.locationInfo
-        newItem.savedImage = musicItemVO.savedImage
+        newItem.savedImage = nil
         newItem.generatedDate = musicItemVO.generatedDate
         newItem.songName = musicItemVO.songName
         newItem.artistName = musicItemVO.artistName
-        
+    
         do {
             try persistentContainer.viewContext.save()
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    func getURL(_ musicId: String) async -> URL? {
+        do {
+            var searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(musicId))
+            let searchResponse = try await searchRequest.response()
+    
+            guard let imageURL = searchResponse.items.first?.artwork?.url(width: 700, height: 700) else{
+                return nil
+            }
+            return imageURL
+        } catch {
+            print("search request failed")
+            return nil
+        }
+    }
+    
+    func getInfoByMusicId(_ musicId: String) async -> MusicCatalogResourceResponse<Song>? {
+        do {
+            var searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(musicId))
+            let searchResponse = try await searchRequest.response()
+            
+            return searchResponse
+        } catch {
+            print("search request failed")
+            return nil
         }
     }
 }

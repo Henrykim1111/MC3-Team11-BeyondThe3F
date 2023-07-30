@@ -32,8 +32,15 @@ struct MapSearchComponentView: View {
     }
 }
 
-//struct MapSearchComponentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapSearchComponentView()
-//    }
-//}
+struct MapSearchComponentPreview: View {
+    @State private var textInput = ""
+    var body: some View {
+        MapSearchComponentView(textInput: $textInput)
+    }
+}
+
+struct MapSearchComponentPreview_Previews: PreviewProvider {
+    static var previews: some View {
+        MapSearchComponentPreview()
+    }
+}

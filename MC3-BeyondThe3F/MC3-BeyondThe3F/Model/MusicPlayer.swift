@@ -18,7 +18,9 @@ class MusicPlayer: ObservableObject{
     
     var delegate:MusicPlayerProtocol?
     
-    private let player = MPMusicPlayerController.applicationMusicPlayer
+    var isPlaying: Bool = false
+    
+    let player = MPMusicPlayerController.applicationMusicPlayer
 
     private init(){
         self.player.prepareToPlay {error in
@@ -39,6 +41,8 @@ class MusicPlayer: ObservableObject{
             self.player.play()
         }
     }
+    
+
     
     var isLast:Bool{
         self.player.indexOfNowPlayingItem == playlist.count - 1 ? true : false
@@ -73,8 +77,10 @@ extension MusicPlayer{
     func playButtonTapped(){
         if self.player.currentPlaybackRate == 0{
             self.player.play()
+            self.isPlaying = true
         }else{
             self.player.pause()
+            self.isPlaying = false
         }
     }
 
