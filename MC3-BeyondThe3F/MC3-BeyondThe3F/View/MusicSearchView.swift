@@ -145,7 +145,6 @@ extension MusicSearchView {
                     newItem.artistName = item.artistName
                     
                     musicPlayer.playlist.append(newItem)
-                    
                     musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
                 } label: {
                     HStack {
