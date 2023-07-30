@@ -29,7 +29,7 @@ enum AddMusicItemData: CaseIterable {
             case .location:
                 return "\(MusicItemUpdateViewModel.shared.musicItemshared.locationInfo)"
             case .date:
-                return "\(MusicItemUpdateViewModel.shared.musicItemshared.generatedDate)"
+                return "\(Date.formatToString(searchDate: MusicItemUpdateViewModel.shared.musicItemshared.generatedDate))"
             }
         }
     var destination : some View {
