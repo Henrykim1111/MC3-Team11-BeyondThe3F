@@ -16,6 +16,8 @@ struct MusicSearchView: View {
     @Binding var showAddMusicView: Bool
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     let musicItemDataModel = MusicItemDataModel.shared
+    let musicPlayer = MusicPlayer.shared
+    var persistentContainer = PersistenceController.shared.container
     
     var body: some View {
         ZStack {
@@ -131,6 +133,19 @@ extension MusicSearchView {
            
             ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
                 Button {
+                    let newItem = MusicItem(context: persistentContainer.viewContext)
+                    
+                    newItem.musicId = item.id.rawValue
+                    newItem.latitude = 0
+                    newItem.longitude = 0
+                    newItem.locationInfo = ""
+                    newItem.savedImage = ""
+                    newItem.generatedDate = Date()
+                    newItem.songName = item.title
+                    newItem.artistName = item.artistName
+                    
+                    musicPlayer.playlist.append(newItem)
+                    
                     musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
                 } label: {
                     HStack {
