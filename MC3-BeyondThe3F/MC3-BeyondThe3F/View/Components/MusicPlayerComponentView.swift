@@ -17,11 +17,27 @@ struct MusicPlayerComponentView: View {
     
     var body: some View {
         HStack {
-            Image("musicPlayImageEmpty")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 60, height: 60)
-                .cornerRadius(8)
+            if let url = URL(string: musicPlayer.currentMusicItem?.savedImage ?? "") {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(8)
+                } placeholder: {
+                    Image("musicPlayImageEmpty")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(8)
+                }
+            } else {
+                Image("musicPlayImageEmpty")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 60, height: 60)
+                    .cornerRadius(8)
+            }
             
             Spacer()
                 .frame(width: 16)
@@ -77,12 +93,8 @@ struct MusicPlayerComponentView: View {
         .sheet(isPresented: $showMusicPlayListView) {
             MusicPlayView()
                 .presentationDragIndicator(.visible)
+            
         }
     }
 }
 
-//struct MusicPlayerComponentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MusicPlayerComponentView()
-//    }
-//}
