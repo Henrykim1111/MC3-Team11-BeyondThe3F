@@ -53,10 +53,6 @@
 		953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7632A6A77240047C21C /* MapSearchComponentView.swift */; };
 		95713F962A74FD1C00548545 /* WTMusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F952A74FD1C00548545 /* WTMusicSearchView.swift */; };
 		95713F982A74FF3800548545 /* NavigationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F972A74FF3800548545 /* NavigationHelper.swift */; };
-		95713F9A2A75023900548545 /* WTMapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F992A75023900548545 /* WTMapSearchView.swift */; };
-		95713F9C2A75031100548545 /* WTEditMapPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F9B2A75031100548545 /* WTEditMapPositionView.swift */; };
-		95713F9E2A7503B700548545 /* WTEditDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F9D2A7503B700548545 /* WTEditDateView.swift */; };
-		95713FA02A75043E00548545 /* WTEditMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F9F2A75043E00548545 /* WTEditMusicView.swift */; };
 		95713FA22A75059900548545 /* WelcomeSheetComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */; };
 		959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B742A6FBEA200888942 /* ShazamManager.swift */; };
 		959B5B772A714B1500888942 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B762A714B1500888942 /* DateExtension.swift */; };
@@ -118,10 +114,6 @@
 		953BD7632A6A77240047C21C /* MapSearchComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchComponentView.swift; sourceTree = "<group>"; };
 		95713F952A74FD1C00548545 /* WTMusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTMusicSearchView.swift; sourceTree = "<group>"; };
 		95713F972A74FF3800548545 /* NavigationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHelper.swift; sourceTree = "<group>"; };
-		95713F992A75023900548545 /* WTMapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTMapSearchView.swift; sourceTree = "<group>"; };
-		95713F9B2A75031100548545 /* WTEditMapPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTEditMapPositionView.swift; sourceTree = "<group>"; };
-		95713F9D2A7503B700548545 /* WTEditDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTEditDateView.swift; sourceTree = "<group>"; };
-		95713F9F2A75043E00548545 /* WTEditMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTEditMusicView.swift; sourceTree = "<group>"; };
 		95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSheetComponentView.swift; sourceTree = "<group>"; };
 		959B5B742A6FBEA200888942 /* ShazamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamManager.swift; sourceTree = "<group>"; };
 		959B5B762A714B1500888942 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
@@ -325,10 +317,6 @@
 			isa = PBXGroup;
 			children = (
 				95713F952A74FD1C00548545 /* WTMusicSearchView.swift */,
-				95713F992A75023900548545 /* WTMapSearchView.swift */,
-				95713F9B2A75031100548545 /* WTEditMapPositionView.swift */,
-				95713F9D2A7503B700548545 /* WTEditDateView.swift */,
-				95713F9F2A75043E00548545 /* WTEditMusicView.swift */,
 			);
 			path = WorkThrough;
 			sourceTree = "<group>";
@@ -428,10 +416,8 @@
 				953BD74D2A68DE6C0047C21C /* MusicItemVO.swift in Sources */,
 				951691A42A663A4E0070D47C /* BucketView.swift in Sources */,
 				951691A62A663AE00070D47C /* MapView.swift in Sources */,
-				95713F9E2A7503B700548545 /* WTEditDateView.swift in Sources */,
 				953BD75B2A69FFFE0047C21C /* MusicPlayerComponentView.swift in Sources */,
 				951691A02A6634C00070D47C /* DefaultCoreDataView.swift in Sources */,
-				95713F9A2A75023900548545 /* WTMapSearchView.swift in Sources */,
 				951691AA2A663C6E0070D47C /* ColorExtension.swift in Sources */,
 				953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */,
 				959B5B7B2A71539F00888942 /* MusicSearchViewModel.swift in Sources */,
@@ -457,11 +443,9 @@
 				95713FA22A75059900548545 /* WelcomeSheetComponentView.swift in Sources */,
 				95713F982A74FF3800548545 /* NavigationHelper.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
-				95713FA02A75043E00548545 /* WTEditMusicView.swift in Sources */,
 				76975F492A700DE2005FEFE2 /* AuthManger.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
-				95713F9C2A75031100548545 /* WTEditMapPositionView.swift in Sources */,
 				959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */,
 				76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */,
 				764936AF2A6A169B001C0C54 /* MusicItemDataModel.swift in Sources */,

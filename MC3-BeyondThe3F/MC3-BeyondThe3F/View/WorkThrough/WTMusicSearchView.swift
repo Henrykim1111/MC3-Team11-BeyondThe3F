@@ -26,7 +26,7 @@ struct WTMusicSearchView: View {
                     .body2(color: .gray400)
                     .multilineTextAlignment(.leading)
                 NavigationLink {
-                    WTMapSearchView()
+                    EditMapPositionView()
                 } label: {
                     Text("")
                 }
@@ -39,7 +39,7 @@ struct WTMusicSearchView: View {
                 )
                 Spacer()
                 NavigationLink {
-                    WTMapSearchView()
+                    EditMapPositionView()
                 } label: {
                     PrimaryButtonComponentView(buttonType: .forSave)
                 }
