@@ -70,6 +70,7 @@ struct MusicNameRow: View {
 struct AddMusicView: View {
     var nextProcess: NextProcess = .forward
     @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    @ObservedObject private var navigationHelper = BucketNavigationHelper.shared
     
     var body: some View {
         NavigationStack{

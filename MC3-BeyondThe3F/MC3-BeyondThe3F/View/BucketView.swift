@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct BucketView: View {
+    @StateObject private var navigationHelper = BucketNavigationHelper.shared
     @State private var searchTerm = ""
     @State private var showSearchView = false
     @State private var showMusicPlayView = false
     @State private var showAddMusicView = false
         
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationHelper.path) {
             VStack {
                 MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
                     .padding()
