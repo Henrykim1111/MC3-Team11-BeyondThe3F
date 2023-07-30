@@ -51,17 +51,19 @@ struct MusicNameRow: View {
     @State var itemData: AddMusicItemData
     
     var body: some View {
-        HStack (spacing: 16){
+        HStack (spacing: 0){
             Text("\(itemData.description)")
                 .headline(color: .white)
                 .foregroundColor(.white)
+                .lineLimit(1)
             
             Spacer()
-                .frame(width: 180)
+                .frame(width: 160)
                 
             NavigationLink(destination: itemData.destination) {
                 Text(itemData.additionalInfo)
                     .body1(color: .gray500)
+                    .lineLimit(1)
             }
         }
     }
@@ -77,9 +79,19 @@ struct AddMusicView: View {
             VStack{
                 VStack{
                     VStack(spacing:0){
-                        Rectangle()
-                            .foregroundColor(.black)
-                            .cornerRadius(6)
+                        AsyncImage(url: URL(string: musicItemUpdateViewModel.musicItemshared.savedImage ?? "")) { image in
+                            image
+                                .resizable()
+                                .frame(width: 350, height: 350)
+                                .cornerRadius(8)
+                        } placeholder: {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(Color.custom(.secondaryDark))
+                                    .cornerRadius(6)
+                                ProgressView()
+                            }
+                        }
                     }
                     .frame(width: 350, height: 350)
                     // TODO: frame 크기 조절
