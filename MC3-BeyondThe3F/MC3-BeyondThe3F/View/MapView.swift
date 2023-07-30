@@ -16,13 +16,13 @@ struct Place: Identifiable, Hashable {
 
 struct MapView: View {
     @State private var mapView = MKMapView()
-    @State private var musicList: [MusicItemVO] = []
+    @State private var musicList: [MusicItem] = []
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var currentRegion = startRegion
     @State var isShowUserLocation = false
     @State private var searchText = ""
     @State private var searchPlaces : [Place] = []
-    @State private var annotationDataList: [MusicItemVO] = []
+    @State private var annotationDataList: [MusicItem] = []
     @State private var centerPlaceDescription = "장소"
     
     @State private var showMusicPlayView = false
@@ -156,22 +156,20 @@ struct MapView: View {
         mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
     }
     
-    private func getSavedMusicData() -> [MusicItemVO]{
-        var tempMusicVOList: [MusicItemVO] = []
+    private func getSavedMusicData() -> [MusicItem]{
+        var tempMusicList: [MusicItem] = []
         MainDataModel.shared.getData.forEach { mainVO in
             for music in mainVO.musicList {
-                tempMusicVOList.append(
-                    MusicItemVO(musicId: music.musicId ?? "", latitude: music.latitude, longitude: music.longitude, playedCount: 0, songName: music.songName ?? "undefined", artistName: music.artistName ?? "undefined", generatedDate: music.generatedDate ?? Date())
-                )
+                tempMusicList.append(music)
             }
         }
-        return tempMusicVOList
+        return tempMusicList
     }
 }
 
 struct MapUIKitView: UIViewRepresentable {
     @Binding var mapView: MKMapView
-    @Binding var musicList: [MusicItemVO]
+    @Binding var musicList: [MusicItem]
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var currentRegion: MKCoordinateRegion
     @Binding var isShowUserLocation: Bool
@@ -198,7 +196,7 @@ struct MapUIKitView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            var newAnnotaionList: [MusicItemVO] = []
+            var newAnnotaionList: [MusicItem] = []
             for annotation in mapView.visibleAnnotations() {
                 if let defaultAnnotation = annotation as? MusicAnnotation {
                     newAnnotaionList.append(defaultAnnotation.getMusicItemFromAnnotation())
@@ -225,7 +223,7 @@ struct MapUIKitView: UIViewRepresentable {
             return clusterAnnotaion
         }
         
-        private func setMusicList(_ newMusicList: [MusicItemVO]) {
+        private func setMusicList(_ newMusicList: [MusicItem]) {
             parent.musicList = newMusicList
         }
         

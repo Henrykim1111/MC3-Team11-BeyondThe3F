@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MapMusicInfoView: View {
-    @Binding var musicList: [MusicItemVO]
+    @Binding var musicList: [MusicItem]
     @Binding var centerPlaceDescription: String
     
     @State private var draggedYOffset: CGFloat = 500.0
@@ -42,9 +42,20 @@ struct MapMusicInfoView: View {
                                 .foregroundColor(Color.custom(.white))
                                 .padding(.trailing, 15)
                         } else {
-                            Image("annotaion0")
-                                .resizable()
-                                .frame(width: 60, height: 60)
+                            AsyncImage(url: URL(string: musicList.first?.savedImage ?? "")) { image in
+                                image
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                    .cornerRadius(8)
+                            } placeholder: {
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(Color.custom(.secondaryDark))
+                                        .cornerRadius(6)
+                                    ProgressView()
+                                }
+                            }
+                            .frame(width: 60, height: 60)
                                 .cornerRadius(8)
                                 .padding(.trailing, 15)
                         }
@@ -76,8 +87,8 @@ struct MapMusicInfoView: View {
                         ForEach(musicList) { musicItem in
                             MusicListRowView(
                                 imageName: musicItem.savedImage ?? "annotation0",
-                                songName: musicItem.songName,
-                                artistName: musicItem.artistName,
+                                songName: musicItem.songName ?? "",
+                                artistName: musicItem.artistName ?? "",
                                 musicListRowType: .saved,
                                 buttonEllipsisAction: {
                                     showActionSheet = true
@@ -129,6 +140,9 @@ struct MapMusicInfoView: View {
             .sheet(isPresented: $showAddMusicView) {
                 AddMusicView()
                 // TODO: send default MusicData to AddMusicView for Editing
+            }
+            .onChange(of: musicList) { newValue in
+                print(newValue)
             }
         }
     }

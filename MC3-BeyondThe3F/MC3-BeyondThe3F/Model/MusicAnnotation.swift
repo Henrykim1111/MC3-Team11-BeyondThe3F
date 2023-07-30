@@ -13,7 +13,6 @@ class MusicAnnotation: NSObject, MKAnnotation {
     var musicId: String
     var latitude: Double
     var longitude: Double
-    var playedCount: Int
     var songName: String
     var artistName: String
     var generatedDate: Date
@@ -26,12 +25,11 @@ class MusicAnnotation: NSObject, MKAnnotation {
             longitude: longitude)
     }
 
-    init(id: UUID = UUID(), musicId: String, latitude: Double, longitude: Double, playedCount: Int, songName: String, artistName: String, generatedDate: Date, savedImage: String? = nil, locationInfo: String? = nil, desc: String? = nil) {
+    init(id: UUID = UUID(), musicId: String, latitude: Double, longitude: Double, songName: String, artistName: String, generatedDate: Date, savedImage: String? = nil, locationInfo: String? = nil, desc: String? = nil) {
         self.id = id
         self.musicId = musicId
         self.latitude = latitude
         self.longitude = longitude
-        self.playedCount = playedCount
         self.songName = songName
         self.artistName = artistName
         self.generatedDate = generatedDate
@@ -39,21 +37,30 @@ class MusicAnnotation: NSObject, MKAnnotation {
         self.locationInfo = locationInfo
         self.desc = desc
     }
-    init(_ musicItemVO: MusicItemVO) {
-        self.id = musicItemVO.id
-        self.musicId = musicItemVO.musicId
-        self.latitude = musicItemVO.latitude
-        self.longitude = musicItemVO.longitude
-        self.playedCount = musicItemVO.playedCount
-        self.songName = musicItemVO.songName
-        self.artistName = musicItemVO.artistName
-        self.generatedDate = musicItemVO.generatedDate
-        self.savedImage = musicItemVO.savedImage
-        self.locationInfo = musicItemVO.locationInfo
-        self.desc = musicItemVO.desc
+    init(_ musicItem: MusicItem) {
+        self.musicId = musicItem.musicId ?? ""
+        self.latitude = musicItem.latitude
+        self.longitude = musicItem.longitude
+        self.songName = musicItem.songName ?? ""
+        self.artistName = musicItem.artistName ?? ""
+        self.generatedDate = musicItem.generatedDate ?? Date()
+        self.savedImage = musicItem.savedImage
+        self.locationInfo = musicItem.locationInfo ?? ""
+        self.desc = musicItem.description
         super.init()
     }
-    func getMusicItemFromAnnotation() -> MusicItemVO{
-        return MusicItemVO(musicId: musicId, latitude: latitude, longitude: longitude, playedCount: playedCount, songName: songName, artistName: artistName, generatedDate: generatedDate, savedImage: savedImage, desc: desc)
+    func getMusicItemFromAnnotation() -> MusicItem{
+        var persistentContainer = PersistenceController.shared.container
+        let newItem = MusicItem(context: persistentContainer.viewContext)
+        newItem.musicId = musicId
+        newItem.latitude = latitude
+        newItem.longitude = longitude
+        newItem.locationInfo = locationInfo
+        newItem.savedImage = savedImage
+        newItem.generatedDate = generatedDate
+        newItem.songName = songName
+        newItem.artistName = artistName
+        
+        return newItem
     }
 }
