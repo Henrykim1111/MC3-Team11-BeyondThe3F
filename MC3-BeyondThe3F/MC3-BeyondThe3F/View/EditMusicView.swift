@@ -58,11 +58,7 @@ struct EditMusicView: View {
                                         musicUpdateViewModel.musicItemshared.songName = musicItem.title
                                         musicUpdateViewModel.musicItemshared.artistName = musicItem.artistName
                                         if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
-                                            do {
-                                                musicUpdateViewModel.musicItemshared.savedImage = try String(contentsOf: imageURL)
-                                            } catch {
-                                                
-                                            }
+                                            musicUpdateViewModel.musicItemshared.savedImage = "\(imageURL)"
                                         } else {
                                             musicUpdateViewModel.musicItemshared.savedImage = nil
                                         }

@@ -14,6 +14,8 @@ struct MusicSearchView: View {
     @State private var isPresentedDeleteAll = false
     @Binding var searchTerm: String
     @Binding var showAddMusicView: Bool
+    let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    let musicItemDataModel = MusicItemDataModel.shared
     
     var body: some View {
         ZStack {
@@ -122,9 +124,10 @@ extension MusicSearchView {
     }
 
     private var MusicSearchResultsList: some View {
-        VStack {
-            Spacer()
-                .frame(width: 390)
+        LazyVStack {
+            HStack {
+                Spacer()
+            }
            
             ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
                 Button {
@@ -146,6 +149,23 @@ extension MusicSearchView {
                         }
                         Spacer()
                         Button {
+                            Task {
+                                musicItemUpdateViewModel.resetInitialMusicItem()
+                                guard let musicItems = await musicItemDataModel.getInfoByMusicId(item.id.rawValue) else {
+                                    return
+                                }
+                                guard let musicItem = musicItems.items.first else {
+                                    return
+                                }
+                                musicItemUpdateViewModel.musicItemshared.musicId = musicItem.id.rawValue
+                                musicItemUpdateViewModel.musicItemshared.songName = musicItem.title
+                                musicItemUpdateViewModel.musicItemshared.artistName = musicItem.artistName
+                                if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
+                                    musicItemUpdateViewModel.musicItemshared.savedImage = "\(imageURL)"
+                                } else {
+                                    musicItemUpdateViewModel.musicItemshared.savedImage = nil
+                                }
+                            }
                             self.showAddMusicView = true
                         } label: {
                             SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
@@ -153,7 +173,6 @@ extension MusicSearchView {
                     }
                 }
             }
-        
         }
     }
 }
