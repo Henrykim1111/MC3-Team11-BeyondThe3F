@@ -12,11 +12,11 @@ struct MusicPlayerComponentView: View {
     
     @ObservedObject private var musicPlayer = MusicPlayer.shared
     @State private var showMusicPlayListView = false
-    
+    @State private var imageUrl:URL? = nil
     
     var body: some View {
         HStack {
-            if let url = URL(string: musicPlayer.currentMusicItem?.savedImage ?? "") {
+            if let url = imageUrl {
                 AsyncImage(url: url) { image in
                     image
                         .resizable()
@@ -67,7 +67,7 @@ struct MusicPlayerComponentView: View {
                 Button {
                     musicPlayer.playButtonTapped()
                 } label: {
-                    SFImageComponentView(symbolName: musicPlayer.isPlaying ? .play : .pause, color: .white, width: 20)
+                    SFImageComponentView(symbolName: musicPlayer.isPlaying ? .pause : .play, color: .white, width: 20)
                 }
                 
                 Button {
@@ -92,6 +92,11 @@ struct MusicPlayerComponentView: View {
             MusicPlayView()
                 .presentationDragIndicator(.visible)
             
+        }
+        .task {
+            if let musicId = musicPlayer.currentMusicItem?.musicId{
+                imageUrl = await MusicItemDataModel.shared.getURL(musicId)
+            }
         }
     }
 }
