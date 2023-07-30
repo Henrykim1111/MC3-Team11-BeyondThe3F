@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MusicSearchComponentView: View {
+    @Environment(\.dismiss) private var dismiss
     @Binding var searchTerm: String
     @Binding var showSearchView: Bool
     @FocusState private var onSearching : Bool
@@ -21,6 +22,7 @@ struct MusicSearchComponentView: View {
                     showSearchView = false
                     searchTerm = ""
                     onSearching = false
+                    dismiss()
                 } label: {
                     SFImageComponentView(
                         symbolName: showSearchView ? .chevronBack : .magnifyingGlass,

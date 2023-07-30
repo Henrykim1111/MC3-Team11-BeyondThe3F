@@ -79,6 +79,7 @@ struct EditMusicView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.custom(.background))
         .onChange(of: searchTerm, perform: musicSearchViewModel.requestUpdateSearchResults)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
