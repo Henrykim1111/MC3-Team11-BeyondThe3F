@@ -44,7 +44,7 @@ extension ContentView {
             LinearGradient(gradient: Gradient(colors: [Color.custom(.background), Color("SubPrimaryColor")]),
                             startPoint: .top, endPoint: .bottom)
             .edgesIgnoringSafeArea(.all)
-            VStack{
+            VStack {
                 Image("launchScreenImage1")
                 Spacer()
                     .frame(height: 43)
