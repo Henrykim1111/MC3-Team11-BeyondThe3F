@@ -41,24 +41,26 @@ struct MusicPlayerComponentView: View {
             Spacer()
                 .frame(width: 16)
             
-            VStack(alignment: .leading) {
+            VStack {
                 if let currentMusicItem = musicPlayer.currentMusicItem {
-                    Text("\(currentMusicItem.songName ?? "")")
+                    Text("currentMusicItem.songName ??")
                         .body1(color: .white)
                         .truncationMode(.tail)
+                        .lineLimit(1)
                     Spacer()
                         .frame(height: 6)
                     Text("\(currentMusicItem.artistName ?? "")")
                         .body2(color: .gray500)
                         .truncationMode(.tail)
+                        .lineLimit(1)
                 } else {
                     Text("재생 중이 아님")
                         .body1(color: .white)
                         .truncationMode(.tail)
+                        .lineLimit(1)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 48)
             
             Spacer()
                 .frame(width: 16)
