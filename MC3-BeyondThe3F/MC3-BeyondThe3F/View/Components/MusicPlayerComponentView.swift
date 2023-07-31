@@ -43,7 +43,7 @@ struct MusicPlayerComponentView: View {
             
             VStack {
                 if let currentMusicItem = musicPlayer.currentMusicItem {
-                    Text("currentMusicItem.songName ??")
+                    Text("\(currentMusicItem.songName ?? "")")
                         .body1(color: .white)
                         .truncationMode(.tail)
                         .lineLimit(1)
