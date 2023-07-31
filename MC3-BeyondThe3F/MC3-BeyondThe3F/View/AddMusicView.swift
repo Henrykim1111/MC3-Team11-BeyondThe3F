@@ -39,6 +39,7 @@ enum AddMusicItemData: CaseIterable {
                 EditMusicView()
             case .location:
                 EditMapPositionView(nextProcess: .backward)
+                    .navigationBarBackButtonHidden(true)
             case .date:
                 EditDateView(nextProcess: .backward)
             }
@@ -111,11 +112,25 @@ struct AddMusicView: View {
                 
                 Spacer()
                 
-                Button {
-                    musicItemUpdateViewModel.updateCoreDate()
-                    musicItemUpdateViewModel.isUpdate = false
-                } label: {
-                    PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                switch nextProcess {
+                case .backward:
+                    Button {
+                        musicItemUpdateViewModel.updateCoreDate()
+                        musicItemUpdateViewModel.isUpdate = false
+                    } label: {
+                        PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                    }
+                case .forward:
+                    NavigationLink {
+                        MainTabView()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                    }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        musicItemUpdateViewModel.updateCoreDate()
+                        musicItemUpdateViewModel.isUpdate = false
+                    })
                 }
             }
             .navigationTitle("음악 편집")

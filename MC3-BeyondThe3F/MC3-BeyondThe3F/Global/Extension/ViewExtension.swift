@@ -26,11 +26,10 @@ extension View {
     func caption(color: CustomColor = .gray700) -> some View {
         modifier(CaptionModifier(color: color))
     }
+    
+    func endTextEditing(){
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
 
-// MARK: - 사용방법
-//Text("title text")
-//    .title()
-//Text("title text")
-//    .title(color: .secondary)
 

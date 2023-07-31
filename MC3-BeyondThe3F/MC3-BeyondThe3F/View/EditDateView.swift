@@ -22,7 +22,7 @@ struct EditDateView: View {
             switch nextProcess {
             case .forward:
                 NavigationLink {
-                    AddMusicView()
+                    AddMusicView(nextProcess: .forward)
                         .toolbarRole(.editor)
                 } label: {
                     PrimaryButtonComponentView(buttonType: .recordTheDate, backgroundColor: .primary)

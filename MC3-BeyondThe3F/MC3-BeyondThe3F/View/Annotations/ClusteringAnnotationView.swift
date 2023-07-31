@@ -24,12 +24,25 @@ final class ClusteringAnnotationView: MKAnnotationView {
         super.prepareForDisplay()
         guard let cluster = annotation as? MKClusterAnnotation else { return }
         
-        self.image = self.addClusterCount(drawRatio(cluster), cluster)
+        Task {
+            let drawedImage = await drawRatio(cluster)
+            self.image = await addClusterCount(drawedImage, cluster)
+        }
     }
     
-    private func drawRatio(_ cluster: MKClusterAnnotation) -> UIImage {
-        
+    private func drawRatio(_ cluster: MKClusterAnnotation) async -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
+        var convertedImage: UIImage?
+        if let landmark = cluster.memberAnnotations.first as? MusicAnnotation {
+            do {
+                convertedImage = try await fetchImage(urlString: landmark.musicData.savedImage ?? "")
+            } catch {
+                
+            }
+        } else {
+            convertedImage = UIImage(named: "annotaion0")
+        }
+        
         return renderer.image { ctx in
             UIColor.white.setFill()
             let rectWhite = CGRect(x: 0, y: 10, width: 64, height: 64)
@@ -40,17 +53,26 @@ final class ClusteringAnnotationView: MKAnnotationView {
             let rect = CGRect(x: 5, y: 15, width: 54, height: 54)
             let rounded = UIBezierPath(roundedRect: rect, cornerRadius: 7)
             rounded.addClip()
-            if let landmark = cluster.memberAnnotations.first as? MusicAnnotation {
-                let img = UIImage(named: "\(landmark.savedImage ?? "annotaion0")")
-                img?.draw(in: rect)
-            } else {
-                let img = UIImage(named: "annotaion0")
-                img?.draw(in: rect)
-            }
+            convertedImage?.draw(in: rect)
         }
     }
     
-    private func addClusterCount(_ image:UIImage,_ cluster: MKClusterAnnotation) -> UIImage {
+    private func fetchImage(urlString: String) async throws -> UIImage {
+        guard let url = URL(string: urlString) else {
+            return UIImage(named: "annotaion0")!
+        }
+        let request = URLRequest(url: url)
+        let (data, response) = try await URLSession.shared.data(for: request)
+    
+        guard let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                  (200...299).contains(statusCode) else { throw NSError(domain: "fetch error", code: 1004) }
+        guard let image = UIImage(data: data) else {
+            return UIImage(named: "annotaion0")!
+        }
+        return image
+    }
+    
+    private func addClusterCount(_ image:UIImage,_ cluster: MKClusterAnnotation) async -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
         return renderer.image { ctx in
             

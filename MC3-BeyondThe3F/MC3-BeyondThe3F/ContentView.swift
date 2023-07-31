@@ -55,18 +55,9 @@ extension ContentView {
                     .body2(color: .white)
                     .lineSpacing(7)
                     .multilineTextAlignment(.center)
-              
-                
-                    
             }
-            
-            
-                
-            
-                            }
+        }
         .background(Color.custom(.background))
-        
-        
     }
     
 }

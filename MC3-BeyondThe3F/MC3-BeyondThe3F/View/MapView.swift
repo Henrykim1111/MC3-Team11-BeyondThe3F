@@ -16,19 +16,18 @@ struct Place: Identifiable, Hashable {
 
 struct MapView: View {
     @State private var mapView = MKMapView()
-    @State private var musicList: [MusicItemVO] = []
+    @State private var musicList: [MusicItem] = []
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var currentRegion = startRegion
     @State var isShowUserLocation = false
     @State private var searchText = ""
     @State private var searchPlaces : [Place] = []
-    @State private var annotationDataList: [MusicItemVO] = []
+    @State private var annotationDataList: [MusicItem] = []
     @State private var centerPlaceDescription = "장소"
     
     @State private var showMusicPlayView = false
     
     let locationHelper = LocationManager.shared
-    let mainDataModel = MainDataModel.shared
     
     var body: some View {
         NavigationStack {
@@ -55,6 +54,7 @@ struct MapView: View {
                                     ForEach(searchPlaces, id: \.self) { place in
                                         Button{
                                             moveToSelectedPlaced(place: place)
+                                            self.endTextEditing()
                                         } label: {
                                             HStack {
                                                 Text("\(place.place.name ?? "no name")")
@@ -71,6 +71,7 @@ struct MapView: View {
                             .background(Color.custom(.background))
                             Spacer()
                         }
+                        
                         HStack {
                             Spacer()
                             Button {
@@ -79,9 +80,10 @@ struct MapView: View {
                             } label: {
                                 ScopeButtonComponentView()
                             }
+                            
                         }
-                        Spacer()
-                            .frame(height: 120)
+                        .offset(y: -120)
+                        
                     }
                     .padding()
                     .background(
@@ -103,18 +105,16 @@ struct MapView: View {
             .ignoresSafeArea(.all, edges: .top)
             .onAppear {
                 locationHelper.getLocationAuth()
-                annotationDataList = getSavedMusicData()
+                switch locationHelper.locationManager.authorizationStatus {
+                case .authorizedWhenInUse, .authorizedAlways:
+                    isShowUserLocation = true
+                    showUserLocation()
+                default: break
+                }
             }
             .onChange(of: searchText) { newValue in
-                
                 getSearchPlace()
             }
-            .onChange(of: annotationDataList, perform: { newValue in
-                for annotaionData in annotationDataList {
-                    let annotation = MusicAnnotation(annotaionData)
-                    mapView.addAnnotation(annotation)
-                }
-            })
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
@@ -155,23 +155,11 @@ struct MapView: View {
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
     }
-    
-    private func getSavedMusicData() -> [MusicItemVO]{
-        var tempMusicVOList: [MusicItemVO] = []
-        MainDataModel.shared.getData.forEach { mainVO in
-            for music in mainVO.musicList {
-                tempMusicVOList.append(
-                    MusicItemVO(musicId: music.musicId ?? "", latitude: music.latitude, longitude: music.longitude, playedCount: 0, songName: music.songName ?? "undefined", artistName: music.artistName ?? "undefined", generatedDate: music.generatedDate ?? Date())
-                )
-            }
-        }
-        return tempMusicVOList
-    }
 }
 
 struct MapUIKitView: UIViewRepresentable {
     @Binding var mapView: MKMapView
-    @Binding var musicList: [MusicItemVO]
+    @Binding var musicList: [MusicItem]
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var currentRegion: MKCoordinateRegion
     @Binding var isShowUserLocation: Bool
@@ -198,10 +186,10 @@ struct MapUIKitView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            var newAnnotaionList: [MusicItemVO] = []
+            var newAnnotaionList: [MusicItem] = []
             for annotation in mapView.visibleAnnotations() {
                 if let defaultAnnotation = annotation as? MusicAnnotation {
-                    newAnnotaionList.append(defaultAnnotation.getMusicItemFromAnnotation())
+                    newAnnotaionList.append(defaultAnnotation.musicData)
                 }
             }
             setMusicList(newAnnotaionList)
@@ -211,21 +199,24 @@ struct MapUIKitView: UIViewRepresentable {
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             switch annotation {
             case is MusicAnnotation:
-                return MusicAnnotationView(annotation: annotation, reuseIdentifier: MusicAnnotationView.ReuseID)
+                let musicAnnotaionView = MusicAnnotationView(annotation: annotation, reuseIdentifier: MusicAnnotationView.ReuseID)
+                
+                return musicAnnotaionView
             case is MKClusterAnnotation:
                 return ClusteringAnnotationView(annotation: annotation, reuseIdentifier: ClusteringAnnotationView.ReuseID)
             default:
                 return nil
             }
         }
-        
+       
         func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
             let clusterAnnotaion = MKClusterAnnotation(memberAnnotations: memberAnnotations)
             clusterAnnotaion.title  = "clusted"
             return clusterAnnotaion
         }
         
-        private func setMusicList(_ newMusicList: [MusicItemVO]) {
+        private func setMusicList(_ newMusicList: [MusicItem]) {
+            parent.musicList = []
             parent.musicList = newMusicList
         }
         
@@ -253,6 +244,12 @@ struct MapUIKitView: UIViewRepresentable {
         mapView.mapType = .standard
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.follow, animated: true)
+        let annotationDataList = getSavedMusicData()
+        
+        for annotaionData in annotationDataList {
+            let annotation = MusicAnnotation(annotaionData)
+            mapView.addAnnotation(annotation)
+        }
         
         return mapView
     }
@@ -262,6 +259,13 @@ struct MapUIKitView: UIViewRepresentable {
             uiView.setRegion(currentRegion, animated: true)
             isShowUserLocation = false
         }
+    }
+    private func getSavedMusicData() -> [MusicItem]{
+        var tempMusicList: [MusicItem] = []
+        MusicItemDataModel.shared.musicList.forEach{ music in
+            tempMusicList.append(music)
+        }
+        return tempMusicList
     }
 }
 

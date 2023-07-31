@@ -11,7 +11,6 @@ import MusicKit
 
 struct MusicSearchView: View {
     @StateObject private var musicSearchViewModel = MusicSearchViewModel()
-    @State private var isPresentedDeleteAll = false
     @Binding var searchTerm: String
     @Binding var isUpdate: Bool
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
@@ -54,23 +53,13 @@ struct MusicSearchView: View {
                         Spacer()
                     }
                 case .success:
-                    ScrollView {
-                        MusicSearchResultsList
-                    }
+                    MusicSearchResultsList
                 }
                 Spacer()
             }
             .padding()
             .background(Color.custom(.background))
             .onChange(of: searchTerm, perform: musicSearchViewModel.requestUpdateSearchResults)
-        }
-        .alert("정말로 검색 기록을 모두 지우시겠어요?", isPresented: $isPresentedDeleteAll) {
-            Button("삭제", role: .destructive) {
-                musicSearchViewModel.removeAllMusicHistory()
-            }
-            Button("취소", role: .cancel) {
-                isPresentedDeleteAll = false
-            }
         }
         
 
@@ -85,7 +74,7 @@ extension MusicSearchView {
             Spacer()
             Button {
                 if !musicSearchViewModel.resentlySearchList.isEmpty {
-                    self.isPresentedDeleteAll = true
+                    musicSearchViewModel.removeAllMusicHistory()
                 }
             } label: {
                 Text("모두 지우기")
@@ -96,93 +85,97 @@ extension MusicSearchView {
     }
     
     private var ResentlySearchList: some View {
-        VStack {
-            ForEach(0 ..< musicSearchViewModel.resentlySearchList.count, id: \.self) { index in
-                HStack {
-                    Text(musicSearchViewModel.resentlySearchList[index].songName ?? "")
-                        .body1(color: .white)
-                    Spacer()
-                    Text("\(Date.formatToString(searchDate: musicSearchViewModel.resentlySearchList[index].date ?? Date()))")
-                        .body2(color: .gray400)
-                    Spacer()
-                        .frame(width: 24)
-                    SFImageComponentView(
-                        symbolName: .cancel,
-                        color: .white,
-                        width: 16,
-                        height: 16
-                    )
-                    .onTapGesture {
-                        musicSearchViewModel.removeMusicHistoryById(musicId: musicSearchViewModel.resentlySearchList[index].musicId ?? "")
+        ScrollView {
+            LazyVStack {
+                ForEach(0 ..< musicSearchViewModel.resentlySearchList.count, id: \.self) { index in
+                    HStack {
+                        Text(musicSearchViewModel.resentlySearchList[index].songName ?? "")
+                            .body1(color: .white)
+                        Spacer()
+                        Text("\(Date.formatToString(searchDate: musicSearchViewModel.resentlySearchList[index].date ?? Date()))")
+                            .body2(color: .gray400)
+                        Spacer()
+                            .frame(width: 24)
+                        SFImageComponentView(
+                            symbolName: .cancel,
+                            color: .white,
+                            width: 16,
+                            height: 16
+                        )
+                        .onTapGesture {
+                            musicSearchViewModel.removeMusicHistoryById(musicId: musicSearchViewModel.resentlySearchList[index].musicId ?? "")
+                        }
                     }
-                }
-                .frame(maxWidth: 390)
-                .frame(height: 56)
-                .onTapGesture {
-                    // TODO: add music to music player
+                    .frame(maxWidth: 390)
+                    .frame(height: 56)
+                    .onTapGesture {
+                        // TODO: add music to music player
+                    }
                 }
             }
         }
     }
 
     private var MusicSearchResultsList: some View {
-        LazyVStack {
-            HStack {
-                Spacer()
-            }
-           
-            ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
-                Button {
-                    let newItem = MusicItem(context: persistentContainer.viewContext)
-                    
-                    newItem.musicId = item.id.rawValue
-                    newItem.latitude = 0
-                    newItem.longitude = 0
-                    newItem.locationInfo = ""
-                    newItem.savedImage = ""
-                    newItem.generatedDate = Date()
-                    newItem.songName = item.title
-                    newItem.artistName = item.artistName
-                    
-                    musicPlayer.playlist.append(newItem)
-                    musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
-                } label: {
-                    HStack {
-                        if let existingArtwork = item.artwork {
-                            ArtworkImage(existingArtwork, width: 60)
-                                .cornerRadius(8)
-                        }
-                        Spacer()
-                            .frame(width: 16)
-                        VStack(alignment: .leading){
-                            Text(item.title)
-                                .body1(color: .white)
-                                .padding(.bottom, 4)
-                            Text(item.artistName)
-                                .body2(color: .gray500)
-                        }
-                        Spacer()
-                        Button {
-                            Task {
-                                musicItemUpdateViewModel.resetInitialMusicItem()
-                                guard let musicItems = await musicItemDataModel.getInfoByMusicId(item.id.rawValue) else {
-                                    return
-                                }
-                                guard let musicItem = musicItems.items.first else {
-                                    return
-                                }
-                                musicItemUpdateViewModel.musicItemshared.musicId = musicItem.id.rawValue
-                                musicItemUpdateViewModel.musicItemshared.songName = musicItem.title
-                                musicItemUpdateViewModel.musicItemshared.artistName = musicItem.artistName
-                                if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
-                                    musicItemUpdateViewModel.musicItemshared.savedImage = "\(imageURL)"
-                                } else {
-                                    musicItemUpdateViewModel.musicItemshared.savedImage = nil
-                                }
+        ScrollView {
+            LazyVStack {
+                HStack {
+                    Spacer()
+                }
+                ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
+                    Button {
+                        let newItem = MusicItem(context: persistentContainer.viewContext)
+                        
+                        newItem.musicId = item.id.rawValue
+                        newItem.latitude = 0
+                        newItem.longitude = 0
+                        newItem.locationInfo = ""
+                        newItem.savedImage = ""
+                        newItem.generatedDate = Date()
+                        newItem.songName = item.title
+                        newItem.artistName = item.artistName
+                        
+                        musicPlayer.playlist.append(newItem)
+                        musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
+                    } label: {
+                        HStack {
+                            if let existingArtwork = item.artwork {
+                                ArtworkImage(existingArtwork, width: 60)
+                                    .cornerRadius(8)
                             }
-                            self.isUpdate = true
-                        } label: {
-                            SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
+                            Spacer()
+                                .frame(width: 16)
+                            VStack(alignment: .leading){
+                                Text(item.title)
+                                    .body1(color: .white)
+                                    .padding(.bottom, 4)
+                                    .lineLimit(1)
+                                Text(item.artistName)
+                                    .body2(color: .gray500)
+                            }
+                            Spacer()
+                            Button {
+                                Task {
+                                    musicItemUpdateViewModel.resetInitialMusicItem()
+                                    guard let musicItems = await musicItemDataModel.getInfoByMusicId(item.id.rawValue) else {
+                                        return
+                                    }
+                                    guard let musicItem = musicItems.items.first else {
+                                        return
+                                    }
+                                    musicItemUpdateViewModel.musicItemshared.musicId = musicItem.id.rawValue
+                                    musicItemUpdateViewModel.musicItemshared.songName = musicItem.title
+                                    musicItemUpdateViewModel.musicItemshared.artistName = musicItem.artistName
+                                    if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
+                                        musicItemUpdateViewModel.musicItemshared.savedImage = "\(imageURL)"
+                                    } else {
+                                        musicItemUpdateViewModel.musicItemshared.savedImage = nil
+                                    }
+                                }
+                                self.isUpdate = true
+                            } label: {
+                                SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
+                            }
                         }
                     }
                 }
