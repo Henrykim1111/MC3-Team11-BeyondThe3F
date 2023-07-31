@@ -16,10 +16,10 @@ private enum ShazamResultType {
 
 struct ShazamView: View {
     @StateObject private var shazamViewModel = ShazamViewModel()
-    @State private var musicName = ""
-    @State private var artistName = ""
+    @State private var musicName = "music name"
+    @State private var artistName = "artist name"
     @State private var musicImageUrl : URL?
-    @State private var currentState : ShazamResultType = .listening
+    @State private var currentState : ShazamResultType = .success
     @State private var musicId: String?
     
     @State private var circleScaleSmall: CGFloat = 1
@@ -189,15 +189,32 @@ extension ShazamView {
             .padding(.bottom, 170)
     }
     var ShazamBottomErrorView: some View {
-        Text("노래를 찾지 못했어요")
-            .title2(color: .primary)
-            .padding(.bottom, 170)
+        VStack{
+            Text("음악을 찾지 못했어요")
+                .frame(width: 350, height: 90)
+                .headline(color: .primary)
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top)
+                       )
+                .opacity(0.8)
+                .title2(color: .primary)
+                .cornerRadius(10)
+            Spacer()
+                .frame( height: 10)
+            HStack{
+                SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 24)
+                Text("다시 검색")
+                    .body2(color: .white)
+            }
+            .frame(width: 248, height: 35)
+            .background(
+                LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
+            .cornerRadius(100)
+                    }
     }
     var ShazamBottomSuccessView : some View {
         ZStack {
             VStack(spacing: 0) {
-                Spacer()
-                    .frame(height: 24)
                 Rectangle()
                     .fill( LinearGradient(
                         gradient: Gradient(
@@ -208,7 +225,16 @@ extension ShazamView {
                     .cornerRadius(10)
             }
             .padding()
-            VStack(spacing: 0) {
+            HStack{
+                VStack(alignment: .leading){
+                    Text(musicName)
+                        .headline(color: .white)
+                        .padding(.bottom, 5)
+                        
+                    Text(artistName)
+                        .body2(color: .white)
+                }      
+                Spacer()
                 Button {
                     // TODO: add to music play list the music Id
                     guard let appleMusicId = self.musicId else {
@@ -218,27 +244,39 @@ extension ShazamView {
                 } label: {
                     ButtonPlayComponentView()
                         .padding(2)
-                        .background(Color.custom(.background))
+                        
                         .cornerRadius(25)
                 }
-                Spacer()
-                    .frame(height: 10)
-                Text(musicName)
-                    .headline(color: .white)
-                    .padding(.bottom, 5)
-                Text(artistName)
-                    .body2(color: .white)
             }
+            .padding(.horizontal,30)
+            
             VStack {
                 Spacer()
                     .frame(height: 200)
                 Button {
                     self.currentState = .listening
                     shazamViewModel.startRecognition()
-                    
                 } label: {
-                    Text("다시 듣기")
-                        .body2(color: .white)
+                    ZStack{
+                        HStack(spacing: 12){
+                            SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 20)
+                            Text("다시 검색")
+                                .body2(color: .white)
+                            Divider()
+                                .frame(height: 20)
+                                .background(Color.white)
+                            SFImageComponentView(symbolName: .plus, color: .white, width: 21, height: 20)
+                            Text("추가 하기")
+                            .body2(color: .white)
+                        }
+                        .frame(width: 248, height: 35)
+                        .padding(.horizontal,5)
+                        .background(
+                            LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
+                        .cornerRadius(100)
+                        
+                    }
+                    
                 }
             }
         }

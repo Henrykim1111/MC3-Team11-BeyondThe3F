@@ -28,7 +28,7 @@ enum SFImageType: String {
     case photo
     case pause
     case shazam
-    
+    case arrowCounterClockwise
     var name: String {
         switch self {
         case .play:
@@ -73,6 +73,9 @@ enum SFImageType: String {
             return "pause.fill"
         case .shazam:
             return "shazam.logo.fill"
+        case .arrowCounterClockwise:
+            return "arrow.counterclockwise"
+            
         }
     }
 }

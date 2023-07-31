@@ -90,7 +90,7 @@ struct EditMapPositionView: View {
                                     .background(Color.custom(.background))
                                     .cornerRadius(10)
                                 }
-                                
+
                                 Spacer()
                                 Button {
                                     switch locationManager.locationManager.authorizationStatus {
