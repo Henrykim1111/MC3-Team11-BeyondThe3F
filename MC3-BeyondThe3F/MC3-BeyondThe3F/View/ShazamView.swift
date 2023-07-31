@@ -233,9 +233,7 @@ extension ShazamView {
                         
                     Text(artistName)
                         .body2(color: .white)
-                }
-                
-                
+                }      
                 Spacer()
                 Button {
                     // TODO: add to music play list the music Id
