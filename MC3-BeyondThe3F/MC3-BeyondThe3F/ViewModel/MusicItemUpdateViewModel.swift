@@ -18,6 +18,7 @@ private let initialMusicItemVO = MusicItemVO(
 
 final class MusicItemUpdateViewModel: ObservableObject {
     @Published var musicItemshared = initialMusicItemVO
+    @Published var isUpdate = false
     static let shared = MusicItemUpdateViewModel()
     private init(){}
     
@@ -31,7 +32,7 @@ final class MusicItemUpdateViewModel: ObservableObject {
         self.musicItemshared = musicItem
     }
     
-    func startCreateMusicItem(){
+    func resetInitialMusicItem(){
         self.musicItemshared = initialMusicItemVO
     }
 }

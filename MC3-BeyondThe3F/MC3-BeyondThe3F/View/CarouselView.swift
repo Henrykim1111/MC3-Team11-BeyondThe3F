@@ -82,16 +82,29 @@ struct CarouselCardItem: View {
             List{
                 ForEach(carouselItemData.musicList, id: \.self) { item in
                     HStack(spacing: 0) {
-                        Image(item.savedImage ?? "annotaion0")
-                            .resizable()
-                            .frame(width:60, height: 60)
-                            .cornerRadius(8)
+                        AsyncImage(url: URL(string: item.savedImage ?? "")) { image in
+                            image
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(8)
+                        } placeholder: {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(Color.custom(.secondaryDark))
+                                    .cornerRadius(6)
+                                ProgressView()
+                            }
+                        }
+                        .frame(width: 60, height: 60)
+                        
                         VStack(alignment: .leading, spacing: 0) {
                             Text("\(item.songName ?? "")")
                                 .body1(color: .white)
                                 .padding(.bottom, 5)
+                                .lineLimit(2)
                             Text("\(item.artistName ?? "")")
                                 .body2(color: .gray500)
+                                .lineLimit(1)
                         }
                         .padding(.horizontal)
                         Spacer()
