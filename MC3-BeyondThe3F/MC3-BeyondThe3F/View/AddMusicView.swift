@@ -39,6 +39,7 @@ enum AddMusicItemData: CaseIterable {
                 EditMusicView()
             case .location:
                 EditMapPositionView(nextProcess: .backward)
+                    .navigationBarBackButtonHidden(true)
             case .date:
                 EditDateView(nextProcess: .backward)
             }

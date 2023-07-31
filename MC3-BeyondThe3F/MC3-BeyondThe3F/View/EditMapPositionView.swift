@@ -186,6 +186,9 @@ struct EditMapPositionView: View {
                     isLocationEnabled = true
                 }
             })
+            .onAppear {
+                print(musicUpdateViewModel.musicItemshared)
+            }
         }
     }
     
