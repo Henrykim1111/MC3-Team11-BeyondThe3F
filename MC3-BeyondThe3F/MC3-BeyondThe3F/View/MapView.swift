@@ -120,6 +120,7 @@ struct MapView: View {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
             }
+            .ignoresSafeArea(.keyboard)
         }
     }
         

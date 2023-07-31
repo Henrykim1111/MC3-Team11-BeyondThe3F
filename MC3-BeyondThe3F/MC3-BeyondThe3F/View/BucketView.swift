@@ -35,6 +35,7 @@ struct BucketView: View {
                 }
             }
             .background(Color.custom(.background))
+            .ignoresSafeArea(.keyboard)
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
@@ -47,6 +48,7 @@ struct BucketView: View {
                 }
             }
         }
+
     }
 }
 
