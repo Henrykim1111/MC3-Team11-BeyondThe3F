@@ -197,7 +197,6 @@ struct MapUIKitView: UIViewRepresentable {
                 return nil
             }
         }
-        
         func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
             let clusterAnnotaion = MKClusterAnnotation(memberAnnotations: memberAnnotations)
             clusterAnnotaion.title  = "clusted"

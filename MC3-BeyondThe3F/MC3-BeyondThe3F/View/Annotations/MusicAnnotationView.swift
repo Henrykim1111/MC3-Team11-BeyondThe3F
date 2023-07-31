@@ -14,19 +14,13 @@ let clusterID = "clustering"
 class MusicAnnotationView: MKAnnotationView {
 
     static let ReuseID = "cultureAnnotation"
+    private var imageLoaded = false
 
     /// setting the key for clustering annotations
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         clusteringIdentifier = clusterID
         
-        guard let landmark = annotation as? MusicAnnotation else {
-            image = UIImage(named: "annotaion0")
-            return
-        }
-        Task {
-            image = await resizeImage(imageName: landmark.musicData.savedImage)
-        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,9 +30,23 @@ class MusicAnnotationView: MKAnnotationView {
     override func prepareForDisplay() {
         super.prepareForDisplay()
         displayPriority = .defaultLow
+        
+        guard let musicAnnotation = annotation as? MusicAnnotation else {
+            image = UIImage(named: "annotaion0")
+            return
+        }
+        Task {
+            do {
+                let convertedImage = try await fetchImage(urlString: musicAnnotation.musicData.savedImage ?? "")
+                let resizedImage = await resizeImage(img: convertedImage)
+                image = resizedImage
+            } catch {
+                
+            }
+        }
     }
     
-    private func resizeImage(imageName: String?) async -> UIImage{
+    private func resizeImage(img: UIImage) async -> UIImage{
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 80))
         return renderer.image { ctx in
             UIColor.white.setFill()
@@ -50,16 +58,14 @@ class MusicAnnotationView: MKAnnotationView {
             let rect = CGRect(x: 5, y: 15, width: 54, height: 54)
             let rounded = UIBezierPath(roundedRect: rect, cornerRadius: 7)
             rounded.addClip()
-            Task {
-                guard let url = URL(string: imageName ?? "") else {
-                    return
-                }
-                let img = try await fetchImage(url: url)
-                img.draw(in: rect)
-            }
+            img.draw(in: rect)
         }
     }
-    private func fetchImage(url: URL) async throws -> UIImage {
+    
+    private func fetchImage(urlString: String) async throws -> UIImage {
+        guard let url = URL(string: urlString) else {
+            return UIImage(named: "annotaion0")!
+        }
         let request = URLRequest(url: url)
         let (data, response) = try await URLSession.shared.data(for: request)
             
