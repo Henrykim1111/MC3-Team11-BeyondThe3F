@@ -88,7 +88,11 @@ struct MapMusicInfoView: View {
                         Button {
                             // TODO: reset shuffle playlist
                             if !musicList.isEmpty {
-                                musicPlayer.playlist = musicList
+                                var tempMusicList = musicList
+                                tempMusicList.shuffle()
+                                for musicItem in tempMusicList {
+                                    musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
+                                }
                             }
                         } label: {
                             MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
