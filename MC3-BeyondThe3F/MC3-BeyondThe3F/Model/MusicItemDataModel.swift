@@ -30,8 +30,24 @@ class MusicItemDataModel {
             return []
         }
     }
-    
+    func deleteMusicItemWith(musicId: String, locationInfo: String) {
+        let fetchRequest: NSFetchRequest<MusicItem> = MusicItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "musicId == %@ AND locationInfo == %@", musicId, locationInfo)
+
+        do {
+            let items = try persistentContainer.viewContext.fetch(fetchRequest)
+            for item in items {
+                persistentContainer.viewContext.delete(item)
+            }
+            try persistentContainer.viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+
     func saveMusicItem(musicItemVO:MusicItemVO) {
+        self.deleteMusicItemWith(musicId: musicItemVO.musicId, locationInfo: musicItemVO.locationInfo)
         let newItem = MusicItem(context: persistentContainer.viewContext)
 
         newItem.musicId = musicItemVO.musicId
