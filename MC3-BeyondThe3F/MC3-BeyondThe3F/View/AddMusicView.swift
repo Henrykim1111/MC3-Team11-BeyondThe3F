@@ -141,6 +141,7 @@ struct AddMusicView: View {
             }
             
         }
+        .accentColor(Color.custom(.white))
         
     }
     struct AddMusicView_Previews: PreviewProvider {

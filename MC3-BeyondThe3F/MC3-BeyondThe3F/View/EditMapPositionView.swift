@@ -198,6 +198,7 @@ struct EditMapPositionView: View {
                 }
             }
         }
+        .accentColor(Color.custom(.white))
     }
     
     private func showUserLocation(){

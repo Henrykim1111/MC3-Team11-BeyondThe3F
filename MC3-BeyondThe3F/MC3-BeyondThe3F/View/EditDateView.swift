@@ -46,6 +46,7 @@ struct EditDateView: View {
         .onAppear {
             print(musicUpdateViewModel.musicItemshared)
         }
+        
     }
         
 }

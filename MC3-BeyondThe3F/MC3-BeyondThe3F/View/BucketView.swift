@@ -48,6 +48,7 @@ struct BucketView: View {
                 }
             }
         }
+        .accentColor(Color.custom(.white))
 
     }
 }

@@ -60,6 +60,7 @@ struct WTMusicSearchView: View {
             }
             .background(Color.custom(.background))
         }
+        .accentColor(Color.custom(.white))
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.custom(.background))

@@ -122,6 +122,7 @@ struct MapView: View {
             }
             .ignoresSafeArea(.keyboard)
         }
+        .accentColor(Color.custom(.white))
     }
         
     private func showUserLocation(){
