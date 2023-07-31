@@ -149,6 +149,7 @@ extension MusicSearchView {
                                 Text(item.title)
                                     .body1(color: .white)
                                     .padding(.bottom, 4)
+                                    .lineLimit(1)
                                 Text(item.artistName)
                                     .body2(color: .gray500)
                             }

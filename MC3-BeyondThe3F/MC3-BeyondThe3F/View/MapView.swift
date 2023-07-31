@@ -71,6 +71,7 @@ struct MapView: View {
                             .background(Color.custom(.background))
                             Spacer()
                         }
+                        
                         HStack {
                             Spacer()
                             Button {
@@ -79,9 +80,10 @@ struct MapView: View {
                             } label: {
                                 ScopeButtonComponentView()
                             }
+                            
                         }
-                        Spacer()
-                            .frame(height: 120)
+                        .offset(y: -120)
+                        
                     }
                     .padding()
                     .background(
