@@ -11,9 +11,9 @@ import MediaPlayer
 
 struct MusicPlayView: View {
     
+    @ObservedObject private var musicPlayer = MusicPlayer.shared
     @State private var progressRate: Double = 0.0
     @State private var showCurrentPlayList: Bool = false
-    @ObservedObject private var musicPlayer = MusicPlayer.shared
     
     var body: some View {
         ZStack {
@@ -56,6 +56,7 @@ struct NowPlayingView: View {
                                 .cornerRadius(451)
                                 .clipped()
                                 .rotationEffect(Angle(degrees: isRotating ? 360 : 0))
+                                .animation(Animation.easeInOut(duration: 10).repeatForever(autoreverses: false), value: isRotating)
                         } placeholder: {
                             Image("musicPlayImageEmpty")
                                 .resizable()
@@ -64,6 +65,7 @@ struct NowPlayingView: View {
                                 .cornerRadius(451)
                                 .clipped()
                                 .rotationEffect(Angle(degrees: isRotating ? 360 : 0))
+                                .animation(Animation.easeInOut(duration: 10).repeatForever(autoreverses: false), value: isRotating)
                         }
                     } else {
                         Image("musicPlayImageEmpty")
@@ -72,7 +74,6 @@ struct NowPlayingView: View {
                             .frame(width: 320, height: 320)
                             .cornerRadius(451)
                             .clipped()
-                            .rotationEffect(Angle(degrees: isRotating ? 360 : 0))
                     }
                 }
                 .offset(x: 64, y: 40)
@@ -87,13 +88,11 @@ struct NowPlayingView: View {
         .padding()
         .background(Color.custom(.secondaryDark))
         .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
-            withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
-                // isRotating = musicPlayer.player.playbackState == .playing
-                if musicPlayer.player.playbackState == .playing {
-                    isRotating = true
-                } else {
-                    isRotating = false
-                }
+            // isRotating = musicPlayer.player.playbackState == .playing
+            if musicPlayer.player.playbackState == .playing {
+                isRotating = true
+            } else {
+                isRotating = false
             }
         }
     }
@@ -103,7 +102,6 @@ struct NowPlayingView: View {
 struct CurrentPlayListView: View {
 
     let musicPlayer = MusicPlayer.shared
-    
     @State private var imageUrl:URL? = nil
     
     var body: some View {
@@ -152,10 +150,16 @@ struct CurrentPlayListView: View {
                                 VStack(alignment: .leading){
                                     Text("\(musicItem.songName ?? "")")
                                         .body1(color: .white)
-                                        .padding(.bottom, 4)
+                                        .truncationMode(.tail)
+                                        .lineLimit(1)
+                                    Spacer()
+                                        .frame(height: 6)
                                     Text("\(musicItem.artistName ?? "")")
                                         .body2(color: .gray500)
+                                        .truncationMode(.tail)
+                                        .lineLimit(1)
                                 }
+                                .frame(maxWidth: .infinity)
                                 Spacer()
                                 Button {
                                     
@@ -187,10 +191,10 @@ struct CurrentPlayListView: View {
 
 
 struct ControlPanelView: View {
-    @Binding var progressRate: Double
-    @Binding var showCurrentPlayList: Bool
     
     @ObservedObject private var musicPlayer = MusicPlayer.shared
+    @Binding var progressRate: Double
+    @Binding var showCurrentPlayList: Bool
 
     var body: some View {
         VStack {
@@ -198,19 +202,27 @@ struct ControlPanelView: View {
             
             VStack {
                 HStack {
-                    VStack(alignment:.leading) {
+                    VStack {
                         if let currentMusicItem = musicPlayer.currentMusicItem {
                             Text("\(currentMusicItem.songName ?? "")")
                                 .headline(color: .white)
+                                .truncationMode(.tail)
+                                .lineLimit(1)
                             Spacer()
                                 .frame(height: 8)
                             Text("\(currentMusicItem.artistName ?? "")")
                                 .body1(color: .gray300)
+                                .truncationMode(.tail)
+                                .lineLimit(1)
                         } else {
                             Text("재생 중이 아님")
                                 .headline(color: .white)
+                                .truncationMode(.tail)
+                                .lineLimit(1)
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     Spacer()
                     
                     Button {
@@ -241,16 +253,14 @@ struct ControlButtonsView: View {
     
     @ObservedObject private var musicPlayer = MusicPlayer.shared
     @Binding var progressRate: Double
-    
+        
     @State private var currentTime = MusicPlayer.shared.player.currentPlaybackTime
-    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-
     @State private var currentDuration: Double = 0.0
     @State private var totalDuration: Double = (MusicPlayer.shared.player.nowPlayingItem?.playbackDuration ?? 0.0)
     @State private var isDragging = false
-
-
     
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+
     func sliderChanged(editingStarted: Bool) {
       if editingStarted {
           self.musicPlayer.player.pause()
