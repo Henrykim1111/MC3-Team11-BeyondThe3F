@@ -96,18 +96,7 @@ struct MapMusicInfoView: View {
                             )
                             .background(Color.custom(.background))
                             .onTapGesture {
-                                let newItem = MusicItem(context: persistentContainer.viewContext)
-                                
-                                newItem.musicId = musicItem.musicId
-                                newItem.latitude = musicItem.latitude
-                                newItem.longitude = musicItem.longitude
-                                newItem.locationInfo = musicItem.locationInfo
-                                newItem.savedImage = musicItem.savedImage
-                                newItem.generatedDate = musicItem.generatedDate
-                                newItem.songName = musicItem.songName
-                                newItem.artistName = musicItem.artistName
-                                
-                                musicPlayer.playlist.append(newItem)
+                                musicPlayer.playlist.append(musicItem)
                             }
                         }
                     }
