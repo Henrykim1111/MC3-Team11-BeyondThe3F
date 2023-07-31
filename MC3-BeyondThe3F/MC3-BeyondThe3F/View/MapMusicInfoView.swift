@@ -73,9 +73,26 @@ struct MapMusicInfoView: View {
                     .padding(.bottom,15)
                     
                     HStack {
-                        MidButtonComponent()
+                        Button {
+                            // TODO: reset PlayList
+                            if !musicList.isEmpty {
+                                for musicItem in musicList {
+                                    musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
+                                }
+                                
+                            }
+                        } label: {
+                            MidButtonComponent()
+                        }
                         Spacer()
-                        MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
+                        Button {
+                            // TODO: reset shuffle playlist
+                            if !musicList.isEmpty {
+                                musicPlayer.playlist = musicList
+                            }
+                        } label: {
+                            MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
+                        }
                     }
                 }
                 .padding()

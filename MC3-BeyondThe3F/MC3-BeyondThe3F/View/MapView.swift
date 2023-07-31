@@ -28,6 +28,7 @@ struct MapView: View {
     @State private var showMusicPlayView = false
     
     let locationHelper = LocationManager.shared
+    let musicItemDataModel = MusicItemDataModel.shared
     
     var body: some View {
         NavigationStack {
