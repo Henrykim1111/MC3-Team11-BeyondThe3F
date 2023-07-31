@@ -12,9 +12,19 @@ struct MapSearchComponentView: View {
     
     var body: some View {
             HStack {
-                SFImageComponentView(
-                    symbolName: .magnifyingGlass,
-                    color: .white)
+                if textInput == "" {
+                    SFImageComponentView(
+                        symbolName: .magnifyingGlass,
+                        color: .white)
+                } else {
+                    Button {
+                        textInput = ""
+                    } label: {
+                        SFImageComponentView(
+                            symbolName: .chevronBack,
+                            color: .white)
+                    }
+                }
                 Spacer()
                     .frame(width: 20)
                 TextField("장소를 검색해보세요", text: $textInput)

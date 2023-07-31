@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @AppStorage("isFirst") private var isFirst = true
+    @AppStorage("isFirst") private var isFirst = false
     @State var isLoading: Bool = true
     
     
@@ -55,18 +55,9 @@ extension ContentView {
                     .body2(color: .white)
                     .lineSpacing(7)
                     .multilineTextAlignment(.center)
-              
-                
-                    
             }
-            
-            
-                
-            
-                            }
+        }
         .background(Color.custom(.background))
-        
-        
     }
     
 }

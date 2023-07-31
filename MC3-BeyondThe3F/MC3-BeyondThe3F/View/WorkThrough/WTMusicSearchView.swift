@@ -118,7 +118,7 @@ extension WTMusicSearchView {
             }
         }
     }
-
+    
     private var MusicSearchResultsList: some View {
         ScrollView {
             LazyVStack {
@@ -183,7 +183,7 @@ extension WTMusicSearchView {
                             } label: {
                                 SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
                             }
-                           
+                            
                         }
                     }
                 }

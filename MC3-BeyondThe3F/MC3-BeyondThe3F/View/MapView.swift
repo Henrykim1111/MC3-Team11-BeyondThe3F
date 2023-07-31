@@ -190,13 +190,16 @@ struct MapUIKitView: UIViewRepresentable {
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             switch annotation {
             case is MusicAnnotation:
-                return MusicAnnotationView(annotation: annotation, reuseIdentifier: MusicAnnotationView.ReuseID)
+                let musicAnnotaionView = MusicAnnotationView(annotation: annotation, reuseIdentifier: MusicAnnotationView.ReuseID)
+                
+                return musicAnnotaionView
             case is MKClusterAnnotation:
                 return ClusteringAnnotationView(annotation: annotation, reuseIdentifier: ClusteringAnnotationView.ReuseID)
             default:
                 return nil
             }
         }
+       
         func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
             let clusterAnnotaion = MKClusterAnnotation(memberAnnotations: memberAnnotations)
             clusterAnnotaion.title  = "clusted"
