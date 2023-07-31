@@ -103,10 +103,24 @@ struct MapView: View {
             .ignoresSafeArea(.all, edges: .top)
             .onAppear {
                 locationHelper.getLocationAuth()
+                switch locationHelper.locationManager.authorizationStatus {
+                case .authorizedWhenInUse, .authorizedAlways:
+                    isShowUserLocation = true
+                    showUserLocation()
+                default: break
+                }
             }
             .onChange(of: searchText) { newValue in
                 getSearchPlace()
             }
+            .onChange(of: locationHelper.locationManager.authorizationStatus, perform: { state in
+                switch state {
+                case .authorizedWhenInUse, .authorizedAlways:
+                    isShowUserLocation = true
+                    showUserLocation()
+                default: break
+                }
+            })
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
