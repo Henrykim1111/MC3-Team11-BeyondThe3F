@@ -82,6 +82,7 @@ struct MapMusicInfoView: View {
                         Button {
                             // TODO: reset PlayList
                             if !musicList.isEmpty {
+                                musicPlayer.playlist = []
                                 for musicItem in musicList {
                                     musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
                                 }
@@ -92,10 +93,10 @@ struct MapMusicInfoView: View {
                         }
                         Spacer()
                         Button {
-                            // TODO: reset shuffle playlist
                             if !musicList.isEmpty {
                                 var tempMusicList = musicList
                                 tempMusicList.shuffle()
+                                musicPlayer.playlist = []
                                 for musicItem in tempMusicList {
                                     musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
                                 }
@@ -163,8 +164,6 @@ struct MapMusicInfoView: View {
                     musicItemUpdateViewModel.musicItemshared.playedCount = 0
                     musicItemUpdateViewModel.isEditing = true
                     musicItemUpdateViewModel.isUpdate = true
-                    
-                    musicList.map{ $0.musicId != musicItem.musicId }
                 }
                 Button("제거", role: .destructive) {
                     guard let musicItem = selectedMusic else {

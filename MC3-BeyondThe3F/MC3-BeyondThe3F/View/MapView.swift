@@ -113,9 +113,12 @@ struct MapView: View {
                 default: break
                 }
             }
-            .onChange(of: searchText) { newValue in
+            .onChange(of: searchText) { _ in
                 getSearchPlace()
             }
+            .onChange(of: musicList, perform: { _ in
+                resetAnnotations()
+            })
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
@@ -124,7 +127,23 @@ struct MapView: View {
         }
         .accentColor(Color.custom(.white))
     }
+    
+    private func resetAnnotations(){
+        mapView.removeAnnotations(mapView.annotations)
+        let annotationDataList = getSavedMusicData()
         
+        for annotaionData in annotationDataList {
+            let annotation = MusicAnnotation(annotaionData)
+            mapView.addAnnotation(annotation)
+        }
+    }
+    private func getSavedMusicData() -> [MusicItem]{
+        var tempMusicList: [MusicItem] = []
+        MusicItemDataModel.shared.musicList.forEach{ music in
+            tempMusicList.append(music)
+        }
+        return tempMusicList
+    }
     private func showUserLocation(){
         locationHelper.locationManager.startUpdatingLocation()
         if let userCurrentLocation = locationHelper.locationManager.location?.coordinate {
@@ -155,8 +174,8 @@ struct MapView: View {
 
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         
-        mapView.setRegion(coordinateRegion, animated: true)
-        mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
+        mapView.setRegion(coordinateRegion, animated: false)
+        mapView.setVisibleMapRect(mapView.visibleMapRect, animated: false)
     }
 }
 
@@ -246,7 +265,7 @@ struct MapUIKitView: UIViewRepresentable {
         mapView.setRegion(currentRegion, animated: false)
         mapView.mapType = .standard
         mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.follow, animated: true)
+        mapView.setUserTrackingMode(.follow, animated: false)
         let annotationDataList = getSavedMusicData()
         
         for annotaionData in annotationDataList {
