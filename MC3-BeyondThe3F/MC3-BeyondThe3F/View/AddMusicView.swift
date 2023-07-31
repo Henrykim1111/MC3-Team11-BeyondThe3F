@@ -111,11 +111,24 @@ struct AddMusicView: View {
                 
                 Spacer()
                 
-                Button {
-                    musicItemUpdateViewModel.updateCoreDate()
-                    musicItemUpdateViewModel.isUpdate = false
-                } label: {
-                    PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                switch nextProcess {
+                case .backward:
+                    Button {
+                        musicItemUpdateViewModel.updateCoreDate()
+                        musicItemUpdateViewModel.isUpdate = false
+                    } label: {
+                        PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                    }
+                case .forward:
+                    NavigationLink {
+                        MainTabView()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                    }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        musicItemUpdateViewModel.updateCoreDate()
+                    })
                 }
             }
             .navigationTitle("음악 편집")

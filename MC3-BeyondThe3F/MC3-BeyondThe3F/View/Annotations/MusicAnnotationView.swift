@@ -25,7 +25,7 @@ class MusicAnnotationView: MKAnnotationView {
             return
         }
         Task {
-            image = await resizeImage(imageName: landmark.savedImage)
+            image = await resizeImage(imageName: landmark.musicData.savedImage)
         }
     }
 

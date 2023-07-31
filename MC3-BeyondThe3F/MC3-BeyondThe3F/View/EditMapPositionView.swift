@@ -147,7 +147,7 @@ struct EditMapPositionView: View {
                         switch nextProcess {
                         case .forward:
                             NavigationLink {
-                                EditDateView()
+                                EditDateView(nextProcess: .forward)
                             } label: {
                                 PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
                             }
@@ -186,9 +186,6 @@ struct EditMapPositionView: View {
                     isLocationEnabled = true
                 }
             })
-            .onAppear {
-                print(musicUpdateViewModel.musicItemshared)
-            }
         }
     }
     

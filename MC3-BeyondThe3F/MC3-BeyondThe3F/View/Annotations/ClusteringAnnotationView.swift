@@ -41,7 +41,7 @@ final class ClusteringAnnotationView: MKAnnotationView {
             let rounded = UIBezierPath(roundedRect: rect, cornerRadius: 7)
             rounded.addClip()
             if let landmark = cluster.memberAnnotations.first as? MusicAnnotation {
-                let img = UIImage(named: "\(landmark.savedImage ?? "annotaion0")")
+                let img = UIImage(named: "\(landmark.musicData.savedImage ?? "annotaion0")")
                 img?.draw(in: rect)
             } else {
                 let img = UIImage(named: "annotaion0")
