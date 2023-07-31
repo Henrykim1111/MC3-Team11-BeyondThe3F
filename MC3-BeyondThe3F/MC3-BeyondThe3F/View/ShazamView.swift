@@ -19,7 +19,7 @@ struct ShazamView: View {
     @State private var musicName = ""
     @State private var artistName = ""
     @State private var musicImageUrl : URL?
-    @State private var currentState : ShazamResultType = .listening
+    @State private var currentState : ShazamResultType = .notFound
     @State private var musicId: String?
     
     @State private var circleScaleSmall: CGFloat = 1
@@ -189,9 +189,28 @@ extension ShazamView {
             .padding(.bottom, 170)
     }
     var ShazamBottomErrorView: some View {
-        Text("노래를 찾지 못했어요")
-            .title2(color: .primary)
-            .padding(.bottom, 170)
+        VStack{
+            Text("음악을 찾지 못했어요")
+                .frame(width: 350, height: 90)
+                .headline(color: .primary)
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top)
+                       )
+                .opacity(0.8)
+                .title2(color: .primary)
+                .cornerRadius(10)
+            Spacer()
+                .frame( height: 10)
+            HStack{
+                SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 24)
+                Text("다시 검색")
+                    .body2(color: .white)
+            }
+            .frame(width: 248, height: 35)
+            .background(
+                LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
+            .cornerRadius(100)
+                    }
     }
     var ShazamBottomSuccessView : some View {
         ZStack {

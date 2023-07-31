@@ -16,6 +16,7 @@ struct ButtonPlayComponentView: View {
                 width: 16,
                 height: 20)
                 .offset(x: 1, y: 0)
+            
         }
         .frame(width: 48, height: 48)
         .background(Color.custom(.primary))
