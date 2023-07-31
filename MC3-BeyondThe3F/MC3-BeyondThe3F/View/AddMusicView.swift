@@ -129,6 +129,7 @@ struct AddMusicView: View {
                     }
                     .simultaneousGesture(TapGesture().onEnded {
                         musicItemUpdateViewModel.updateCoreDate()
+                        musicItemUpdateViewModel.isUpdate = false
                     })
                 }
             }
