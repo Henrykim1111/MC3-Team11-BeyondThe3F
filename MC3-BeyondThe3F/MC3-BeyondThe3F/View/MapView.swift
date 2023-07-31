@@ -50,26 +50,31 @@ struct MapView: View {
                         if searchText == "" {
                             Spacer()
                         } else {
-                            ScrollView {
-                                LazyVStack {
-                                    ForEach(searchPlaces, id: \.self) { place in
-                                        Button{
-                                            moveToSelectedPlaced(place: place)
-                                            self.endTextEditing()
-                                        } label: {
-                                            HStack {
-                                                Text("\(place.place.name ?? "no name")")
-                                                    .body1(color: .white)
-                                                Spacer()
+                            if searchPlaces.isEmpty {
+                                Spacer()
+                                SearchFailureComponentView(failure: .locationSearchFailure)
+                            } else {
+                                ScrollView {
+                                    LazyVStack {
+                                        ForEach(searchPlaces, id: \.self) { place in
+                                            Button{
+                                                moveToSelectedPlaced(place: place)
+                                                self.endTextEditing()
+                                            } label: {
+                                                HStack {
+                                                    Text("\(place.place.name ?? "no name")")
+                                                        .body1(color: .white)
+                                                    Spacer()
+                                                }
+                                                .frame(height: 56)
                                             }
-                                            .frame(height: 56)
                                         }
                                     }
                                 }
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 200)
+                                .background(Color.custom(.background))
                             }
-                            .frame(width: .infinity)
-                            .frame(height: 200)
-                            .background(Color.custom(.background))
                             Spacer()
                         }
                         
