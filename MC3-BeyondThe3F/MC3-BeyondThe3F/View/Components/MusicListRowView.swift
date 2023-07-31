@@ -21,19 +21,32 @@ struct MusicListRowView: View {
     
     var body: some View {
         HStack{
-            Image(imageName)
-                .resizable()
-                .frame(width: 60, height: 60)
+            AsyncImage(url: URL(string: imageName)) { image in
+                image
+                    .resizable()
+                    .frame(width: 60, height: 60)
+                    .cornerRadius(8)
+            } placeholder: {
+                ZStack {
+                    Rectangle()
+                        .foregroundColor(Color.custom(.secondaryDark))
+                        .cornerRadius(6)
+                    ProgressView()
+                }
+            }
+            .frame(width: 60, height: 60)
                 .cornerRadius(8)
-                .foregroundColor(.white)
+                .padding(.trailing, 15)
             Spacer()
                 .frame(width: 16)
             VStack(alignment: .leading){
-                Text("\(imageName)")
+                Text("\(songName)")
                     .body1(color: .white)
                     .padding(.bottom, 4)
+                    .lineLimit(1)
                 Text("\(artistName)")
                     .body2(color: .gray500)
+                    .lineLimit(1)
             }
             Spacer()
             switch musicListRowType {

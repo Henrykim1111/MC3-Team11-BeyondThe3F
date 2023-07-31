@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MapMusicInfoView: View {
-    @Binding var musicList: [MusicItemVO]
+    @Binding var musicList: [MusicItem]
     @Binding var centerPlaceDescription: String
     
     @State private var draggedYOffset: CGFloat = 500.0
@@ -42,9 +42,20 @@ struct MapMusicInfoView: View {
                                 .foregroundColor(Color.custom(.white))
                                 .padding(.trailing, 15)
                         } else {
-                            Image("annotaion0")
-                                .resizable()
-                                .frame(width: 60, height: 60)
+                            AsyncImage(url: URL(string: musicList.first?.savedImage ?? "")) { image in
+                                image
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                    .cornerRadius(8)
+                            } placeholder: {
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(Color.custom(.secondaryDark))
+                                        .cornerRadius(6)
+                                    ProgressView()
+                                }
+                            }
+                            .frame(width: 60, height: 60)
                                 .cornerRadius(8)
                                 .padding(.trailing, 15)
                         }
@@ -76,8 +87,8 @@ struct MapMusicInfoView: View {
                         ForEach(musicList) { musicItem in
                             MusicListRowView(
                                 imageName: musicItem.savedImage ?? "annotation0",
-                                songName: musicItem.songName,
-                                artistName: musicItem.artistName,
+                                songName: musicItem.songName ?? "",
+                                artistName: musicItem.artistName ?? "",
                                 musicListRowType: .saved,
                                 buttonEllipsisAction: {
                                     showActionSheet = true
@@ -85,18 +96,7 @@ struct MapMusicInfoView: View {
                             )
                             .background(Color.custom(.background))
                             .onTapGesture {
-                                let newItem = MusicItem(context: persistentContainer.viewContext)
-                                
-                                newItem.musicId = musicItem.musicId
-                                newItem.latitude = musicItem.latitude
-                                newItem.longitude = musicItem.longitude
-                                newItem.locationInfo = musicItem.locationInfo
-                                newItem.savedImage = musicItem.savedImage
-                                newItem.generatedDate = musicItem.generatedDate
-                                newItem.songName = musicItem.songName
-                                newItem.artistName = musicItem.artistName
-                                
-                                musicPlayer.playlist.append(newItem)
+                                musicPlayer.playlist.append(musicItem)
                             }
                         }
                     }
