@@ -40,7 +40,11 @@ struct BucketView: View {
                     .presentationDragIndicator(.visible)
             }
             .sheet(isPresented: $musicItemUpdateViewModel.isUpdate) {
-                EditMapPositionView()
+                if musicItemUpdateViewModel.isEditing {
+                    AddMusicView()
+                } else {
+                    EditMapPositionView()
+                }
             }
         }
     }

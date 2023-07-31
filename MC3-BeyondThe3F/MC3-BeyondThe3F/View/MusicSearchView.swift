@@ -172,6 +172,7 @@ extension MusicSearchView {
                                         musicItemUpdateViewModel.musicItemshared.savedImage = nil
                                     }
                                 }
+                                musicItemUpdateViewModel.isEditing = false
                                 self.isUpdate = true
                             } label: {
                                 SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)

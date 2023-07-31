@@ -19,7 +19,9 @@ struct MapMusicInfoView: View {
     @State private var showAddMusicView = false
     
     let musicPlayer = MusicPlayer.shared
+    let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     var persistentContainer = PersistenceController.shared.container
+    
 
     var body: some View {
         GeometryReader { geo in
@@ -117,7 +119,7 @@ struct MapMusicInfoView: View {
                             )
                             .background(Color.custom(.background))
                             .onTapGesture {
-                                musicPlayer.playlist.append(musicItem)
+                                musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
                             }
                         }
                     }
@@ -140,7 +142,8 @@ struct MapMusicInfoView: View {
             .confirmationDialog("타이틀", isPresented: $showActionSheet) {
                 Button("편집", role: .none) {
                     showActionSheet = false
-                    showAddMusicView = true
+                    musicItemUpdateViewModel.isEditing = true
+                    musicItemUpdateViewModel.isUpdate = true
                 }
                 Button("제거", role: .destructive) {
                     // TODO: Delete Item in CoreData
