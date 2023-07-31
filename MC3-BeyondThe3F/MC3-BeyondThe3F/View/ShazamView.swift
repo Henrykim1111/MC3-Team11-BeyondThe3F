@@ -16,8 +16,8 @@ private enum ShazamResultType {
 
 struct ShazamView: View {
     @StateObject private var shazamViewModel = ShazamViewModel()
-    @State private var musicName = ""
-    @State private var artistName = ""
+    @State private var musicName = "music name"
+    @State private var artistName = "artist name"
     @State private var musicImageUrl : URL?
     @State private var currentState : ShazamResultType = .success
     @State private var musicId: String?
@@ -215,8 +215,6 @@ extension ShazamView {
     var ShazamBottomSuccessView : some View {
         ZStack {
             VStack(spacing: 0) {
-                Spacer()
-                    .frame(height: 24)
                 Rectangle()
                     .fill( LinearGradient(
                         gradient: Gradient(
@@ -227,7 +225,18 @@ extension ShazamView {
                     .cornerRadius(10)
             }
             .padding()
-            VStack(spacing: 0) {
+            HStack{
+                VStack(alignment: .leading){
+                    Text(musicName)
+                        .headline(color: .white)
+                        .padding(.bottom, 5)
+                        
+                    Text(artistName)
+                        .body2(color: .white)
+                }
+                
+                
+                Spacer()
                 Button {
                     // TODO: add to music play list the music Id
                     guard let appleMusicId = self.musicId else {
@@ -237,24 +246,18 @@ extension ShazamView {
                 } label: {
                     ButtonPlayComponentView()
                         .padding(2)
-                        .background(Color.custom(.background))
+                        
                         .cornerRadius(25)
                 }
-                Spacer()
-                    .frame(height: 10)
-                Text(musicName)
-                    .headline(color: .white)
-                    .padding(.bottom, 5)
-                Text(artistName)
-                    .body2(color: .white)
             }
+            .padding(.horizontal,30)
+            
             VStack {
                 Spacer()
                     .frame(height: 200)
                 Button {
                     self.currentState = .listening
                     shazamViewModel.startRecognition()
-                    
                 } label: {
                     ZStack{
                         HStack(spacing: 12){
