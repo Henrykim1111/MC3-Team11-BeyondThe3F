@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct WTMusicSearchView: View {
+    @AppStorage("isFirst") private var isFirst = false
     @State private var searchTerm = ""
     @State private var showSearchView = true
-    
-    
+    @StateObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     
     var body: some View {
         
@@ -25,17 +25,12 @@ struct WTMusicSearchView: View {
                 Text("음악명으로 검색해주세요.")
                     .body2(color: .gray400)
                     .multilineTextAlignment(.leading)
-                NavigationLink {
-                    EditMapPositionView()
-                } label: {
-                    Text("")
-                }
                 Spacer()
                     .frame(height: 32)
                 MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
                 MusicSearchView(
                     searchTerm: $searchTerm,
-                    showAddMusicView: $showSearchView
+                    isUpdate: $musicItemUpdateViewModel.isUpdate
                 )
                 Spacer()
                 NavigationLink {

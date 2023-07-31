@@ -9,9 +9,16 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
+enum NextProcess {
+    case backward
+    case forward
+}
+
 struct EditMapPositionView: View {
+    var nextProcess: NextProcess = .forward
+    @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
+    @Environment(\.dismiss) private var dismiss
     @State private var mapView = MKMapView()
-    @Environment(\.presentationMode) var presentationMode
     @State private var isMoving = true
     @State private var locationManager = LocationManager.shared
     @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
@@ -19,17 +26,19 @@ struct EditMapPositionView: View {
     @State private var searchTerm = ""
     @State private var selectedCoordinate = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State private var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
+    @State private var locationInfo = ""
     @State private var isShowUserLocation = false
     @State private var isRegionSetted = false
     @State private var showDeniedLocationStatus = false
     @State private var searchPlaces : [Place] = []
+    @State private var isLocationEnabled = false
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 0){
                 HStack {
                     Button {
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     } label: {
                         SFImageComponentView(symbolName: .chevronBack, color: .white)
                     }
@@ -56,7 +65,8 @@ struct EditMapPositionView: View {
                             selectedCoordinate: $selectedCoordinate,
                             selectedPositionDescription: $selectedPositionDescription,
                             isShowUserLocation: $isShowUserLocation,
-                            isRegionSetted: $isRegionSetted
+                            isRegionSetted: $isRegionSetted,
+                            locationInfo: $locationInfo
                         )
                         VStack {
                             Image("pinLocation")
@@ -133,10 +143,31 @@ struct EditMapPositionView: View {
                     Text("\(selectedPositionDescription)")
                         .headline(color: .white)
                     Spacer()
-                    NavigationLink {
-                        EditDateView()
-                    } label: {
-                        PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                    if isLocationEnabled {
+                        switch nextProcess {
+                        case .forward:
+                            NavigationLink {
+                                EditDateView()
+                            } label: {
+                                PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                            }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
+                                musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
+                                musicUpdateViewModel.musicItemshared.locationInfo = locationInfo
+                            })
+                        case .backward:
+                            Button {
+                                musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
+                                musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
+                                musicUpdateViewModel.musicItemshared.locationInfo = locationInfo
+                                dismiss()
+                            } label: {
+                                PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                            }
+                        }
+                    } else {
+                        PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .secondaryDark)
                     }
                 }
                 .frame(maxHeight: 200)
@@ -146,6 +177,17 @@ struct EditMapPositionView: View {
             .preferredColorScheme(.dark)
             .onChange(of: searchTerm) { newValue in
                 getSearchPlace()
+            }
+            .onChange(of: locationInfo, perform: { locationChanged in
+                if locationChanged == "" {
+                    isLocationEnabled = false
+                    selectedPositionDescription = "설정할 수 없는 위치입니다."
+                } else {
+                    isLocationEnabled = true
+                }
+            })
+            .onAppear {
+                print(musicUpdateViewModel.musicItemshared)
             }
         }
     }
@@ -203,6 +245,7 @@ struct EditMapUIView: UIViewRepresentable{
     @Binding var selectedPositionDescription: String
     @Binding var isShowUserLocation: Bool
     @Binding var isRegionSetted: Bool
+    @Binding var locationInfo: String
     
     private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
     
@@ -232,7 +275,18 @@ struct EditMapUIView: UIViewRepresentable{
                 }
                 
                 if let firstPlacemark = placemarks?.first {
-                    self.parent.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
+                    if firstPlacemark.country != nil {
+                        self.parent.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
+                    }
+                    if firstPlacemark.locality == nil {
+                        if firstPlacemark.country == nil {
+                            self.parent.selectedPositionDescription = "설정할 수 없는 위치입니다."
+                        } else {
+                            self.parent.selectedPositionDescription = "원하는 위치를 조금 더 자세히 표시해주세요."
+                        }
+                    } else {
+                        self.parent.locationInfo = "\(firstPlacemark.locality ?? "")"
+                    }
                 }
             }
         }

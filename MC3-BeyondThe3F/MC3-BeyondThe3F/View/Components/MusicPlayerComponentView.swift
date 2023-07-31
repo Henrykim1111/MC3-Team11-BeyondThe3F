@@ -11,17 +11,32 @@ import MusicKit
 struct MusicPlayerComponentView: View {
     
     @ObservedObject private var musicPlayer = MusicPlayer.shared
-    @State private var isPlaying = false
     @State private var showMusicPlayListView = false
-    
+    @State private var imageUrl:URL? = nil
     
     var body: some View {
         HStack {
-            Image("musicPlayImageEmpty")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 60, height: 60)
-                .cornerRadius(8)
+            if let url = imageUrl {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(8)
+                } placeholder: {
+                    Image("musicPlayImageEmpty")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(8)
+                }
+            } else {
+                Image("musicPlayImageEmpty")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 60, height: 60)
+                    .cornerRadius(8)
+            }
             
             Spacer()
                 .frame(width: 16)
@@ -31,19 +46,21 @@ struct MusicPlayerComponentView: View {
                     Text("\(currentMusicItem.songName ?? "")")
                         .body1(color: .white)
                         .truncationMode(.tail)
+                        .lineLimit(1)
                     Spacer()
                         .frame(height: 6)
                     Text("\(currentMusicItem.artistName ?? "")")
                         .body2(color: .gray500)
                         .truncationMode(.tail)
+                        .lineLimit(1)
                 } else {
                     Text("재생 중이 아님")
                         .body1(color: .white)
                         .truncationMode(.tail)
+                        .lineLimit(1)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 48)
             
             Spacer()
                 .frame(width: 16)
@@ -51,9 +68,8 @@ struct MusicPlayerComponentView: View {
             HStack(spacing: 24) {
                 Button {
                     musicPlayer.playButtonTapped()
-                    isPlaying.toggle()
                 } label: {
-                    SFImageComponentView(symbolName: isPlaying ? .play : .pause, color: .white, width: 20)
+                    SFImageComponentView(symbolName: musicPlayer.isPlaying ? .pause : .play, color: .white, width: 20)
                 }
                 
                 Button {
@@ -75,14 +91,15 @@ struct MusicPlayerComponentView: View {
         .frame(width: 390, height: 88)
         .background(Color.custom(.secondaryDark))
         .sheet(isPresented: $showMusicPlayListView) {
-            MusicPlayView()
+            MusicPlayView(showCurrentPlayList: true)
                 .presentationDragIndicator(.visible)
+            
+        }
+        .task {
+            if let musicId = musicPlayer.currentMusicItem?.musicId{
+                imageUrl = await MusicItemDataModel.shared.getURL(musicId)
+            }
         }
     }
 }
 
-//struct MusicPlayerComponentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MusicPlayerComponentView()
-//    }
-//}

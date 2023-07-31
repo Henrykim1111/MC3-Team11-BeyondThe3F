@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct BucketView: View {
+    @StateObject private var navigationHelper = BucketNavigationHelper.shared
+    @StateObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     @State private var searchTerm = ""
     @State private var showSearchView = false
     @State private var showMusicPlayView = false
     @State private var showAddMusicView = false
         
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationHelper.path) {
             VStack {
                 MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
                     .padding()
                 if showSearchView {
                     MusicSearchView(
                         searchTerm: $searchTerm,
-                        showAddMusicView: $showAddMusicView
+                        isUpdate: $musicItemUpdateViewModel.isUpdate
                     )
                 } else {
                     CarouselView()
@@ -37,7 +39,7 @@ struct BucketView: View {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
             }
-            .sheet(isPresented: $showAddMusicView) {
+            .sheet(isPresented: $musicItemUpdateViewModel.isUpdate) {
                 EditMapPositionView()
             }
         }
