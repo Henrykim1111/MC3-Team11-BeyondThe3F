@@ -105,6 +105,7 @@ struct EditMapPositionView: View {
                                         showDeniedLocationStatus = false
                                         isShowUserLocation = true
                                         showUserLocation()
+                                        isShowUserLocation = false
                                     }
                                     
                                 } label: {
@@ -190,10 +191,13 @@ struct EditMapPositionView: View {
             })
             .onAppear {
                 locationHelper.getLocationAuth()
+                selectedCoordinate = mapView.centerCoordinate
+                
                 switch locationHelper.locationManager.authorizationStatus {
                 case .authorizedWhenInUse, .authorizedAlways:
                     isShowUserLocation = true
                     showUserLocation()
+                    isShowUserLocation = false
                 default: break
                 }
             }
@@ -311,7 +315,6 @@ struct EditMapUIView: UIViewRepresentable{
         mapView.mapType = .standard
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.follow, animated: true)
-        selectedCoordinate = mapView.centerCoordinate
         
         return mapView
     }
@@ -319,7 +322,6 @@ struct EditMapUIView: UIViewRepresentable{
     func updateUIView(_ uiView: MKMapView, context: Context) {
         if isShowUserLocation {
             uiView.setRegion(userRegion, animated: true)
-            isShowUserLocation = false
         } else if isRegionSetted {
             uiView.setRegion(region, animated: true)
             isRegionSetted = false

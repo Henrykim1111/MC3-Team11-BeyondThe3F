@@ -9,8 +9,7 @@ import SwiftUI
 import MusicKit
 
 struct MusicPlayerComponentView: View {
-    
-    @ObservedObject private var musicPlayer = MusicPlayer.shared
+    @StateObject private var musicPlayer = MusicPlayer.shared
     @State private var showMusicPlayListView = false
     @State private var imageUrl:URL? = nil
     

@@ -178,6 +178,7 @@ struct MapMusicInfoView: View {
                 AddMusicView()
                 // TODO: send default MusicData to AddMusicView for Editing
             }
+            
         }
     }
     var drag: some Gesture {
