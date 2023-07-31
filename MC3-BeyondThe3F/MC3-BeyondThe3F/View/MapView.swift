@@ -54,6 +54,7 @@ struct MapView: View {
                                     ForEach(searchPlaces, id: \.self) { place in
                                         Button{
                                             moveToSelectedPlaced(place: place)
+                                            self.endTextEditing()
                                         } label: {
                                             HStack {
                                                 Text("\(place.place.name ?? "no name")")
