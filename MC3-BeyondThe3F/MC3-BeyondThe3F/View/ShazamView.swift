@@ -19,7 +19,7 @@ struct ShazamView: View {
     @State private var musicName = ""
     @State private var artistName = ""
     @State private var musicImageUrl : URL?
-    @State private var currentState : ShazamResultType = .notFound
+    @State private var currentState : ShazamResultType = .success
     @State private var musicId: String?
     
     @State private var circleScaleSmall: CGFloat = 1
@@ -256,8 +256,26 @@ extension ShazamView {
                     shazamViewModel.startRecognition()
                     
                 } label: {
-                    Text("다시 듣기")
-                        .body2(color: .white)
+                    ZStack{
+                        HStack(spacing: 12){
+                            SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 20)
+                            Text("다시 검색")
+                                .body2(color: .white)
+                            Divider()
+                                .frame(height: 20)
+                                .background(Color.white)
+                            SFImageComponentView(symbolName: .plus, color: .white, width: 21, height: 20)
+                            Text("추가 하기")
+                            .body2(color: .white)
+                        }
+                        .frame(width: 248, height: 35)
+                        .padding(.horizontal,5)
+                        .background(
+                            LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
+                        .cornerRadius(100)
+                        
+                    }
+                    
                 }
             }
         }
