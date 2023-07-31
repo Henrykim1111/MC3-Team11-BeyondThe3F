@@ -43,8 +43,9 @@ struct MapMusicInfoView: View {
                         if musicList.isEmpty {
                             ProgressView()
                                 .frame(width: 60, height: 60)
-                                .cornerRadius(8)
                                 .foregroundColor(Color.custom(.white))
+                                .background(Color.custom(.secondaryDark))
+                                .cornerRadius(8)
                                 .padding(.trailing, 15)
                         } else {
                             AsyncImage(url: URL(string: musicList.first?.savedImage ?? "")) { image in
@@ -53,12 +54,12 @@ struct MapMusicInfoView: View {
                                     .frame(width: 60, height: 60)
                                     .cornerRadius(8)
                             } placeholder: {
-                                ZStack {
-                                    Rectangle()
-                                        .foregroundColor(Color.custom(.secondaryDark))
-                                        .cornerRadius(6)
-                                    ProgressView()
-                                }
+                                ProgressView()
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(Color.custom(.white))
+                                    .background(Color.custom(.secondaryDark))
+                                    .cornerRadius(8)
+                                    .padding(.trailing, 15)
                             }
                             .frame(width: 60, height: 60)
                                 .cornerRadius(8)
