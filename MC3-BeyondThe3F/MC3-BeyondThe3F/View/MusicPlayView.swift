@@ -122,7 +122,7 @@ struct CurrentPlayListView: View {
                         .body1(color: .gray500)
                         .padding()
                 } else {
-                    ForEach(musicPlayer.playlist) { musicItem in
+                    ForEach(0 ..< musicPlayer.playlist.count, id: \.self) { index in
                         Button {
 //                            musicPlayer.playSong(musicItem)     // 탭하면 해당 노래를 재생
                         } label: {
@@ -147,19 +147,19 @@ struct CurrentPlayListView: View {
                                 }
                                 Spacer()
                                     .frame(width: 16)
-                                VStack(alignment: .leading){
-                                    Text("\(musicItem.songName ?? "")")
+                                VStack(alignment: .leading) {
+                                    Text("\(musicPlayer.playlist[index].songName ?? "")")
                                         .body1(color: .white)
                                         .truncationMode(.tail)
                                         .lineLimit(1)
                                     Spacer()
                                         .frame(height: 6)
-                                    Text("\(musicItem.artistName ?? "")")
+                                    Text("\(musicPlayer.playlist[index].artistName ?? "")")
                                         .body2(color: .gray500)
                                         .truncationMode(.tail)
                                         .lineLimit(1)
                                 }
-                                .frame(maxWidth: .infinity)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 Spacer()
                                 Button {
                                     
@@ -171,7 +171,7 @@ struct CurrentPlayListView: View {
                             .frame(maxWidth: 390)
                             .frame(height: 88)
                             .padding(.horizontal, 20)
-                            .background(Color.custom(musicItem == musicPlayer.currentMusicItem ? .secondaryDark : .background))
+                            .background(Color.custom(musicPlayer.playlist[index] == musicPlayer.currentMusicItem ? .secondaryDark : .background))
                             .task {
                                 if let musicId = musicPlayer.currentMusicItem?.musicId{
                                     imageUrl = await MusicItemDataModel.shared.getURL(musicId)
@@ -202,7 +202,7 @@ struct ControlPanelView: View {
             
             VStack {
                 HStack {
-                    VStack {
+                    VStack(alignment: .leading) {
                         if let currentMusicItem = musicPlayer.currentMusicItem {
                             Text("\(currentMusicItem.songName ?? "")")
                                 .headline(color: .white)
@@ -233,7 +233,9 @@ struct ControlPanelView: View {
                         SFImageComponentView(symbolName: .list, color: .white, width: 28, height: 28)
                     }
                 }
-                Spacer().frame(height: 34)
+                Spacer()
+                    .frame(height: 32)
+                
                 ControlButtonsView(progressRate: $progressRate)
             }
             .padding(.horizontal, 20)
@@ -295,12 +297,11 @@ struct ControlButtonsView: View {
                     .caption(color: .white)
             }
             
-            Spacer().frame(height: 36)
+            Spacer().frame(height: 32)
             
             HStack {
                 Button {
                     musicPlayer.previousButtonTapped()
-                    musicPlayer.playlist = MainDataModel.shared.getData[0].musicList
                 } label: {
                     SFImageComponentView(symbolName: .backward, color: .white, width: 45, height: 45)
                 }

@@ -41,7 +41,7 @@ struct MusicPlayerComponentView: View {
             Spacer()
                 .frame(width: 16)
             
-            VStack {
+            VStack(alignment: .leading) {
                 if let currentMusicItem = musicPlayer.currentMusicItem {
                     Text("\(currentMusicItem.songName ?? "")")
                         .body1(color: .white)
