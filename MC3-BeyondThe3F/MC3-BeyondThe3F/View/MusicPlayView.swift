@@ -300,7 +300,6 @@ struct ControlButtonsView: View {
             HStack {
                 Button {
                     musicPlayer.previousButtonTapped()
-                    musicPlayer.playlist = MainDataModel.shared.getData[0].musicList
                 } label: {
                     SFImageComponentView(symbolName: .backward, color: .white, width: 45, height: 45)
                 }

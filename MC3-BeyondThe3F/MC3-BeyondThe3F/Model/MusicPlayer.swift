@@ -23,6 +23,7 @@ class MusicPlayer: ObservableObject{
     var seek = 0
     
     let player = MPMusicPlayerController.applicationMusicPlayer
+    var persistentContainer = PersistenceController.shared.container
 
     private init(){}
     
@@ -31,6 +32,7 @@ class MusicPlayer: ObservableObject{
     
     @Published var playlist:[MusicItem] = []{
         didSet{
+            print("playlist didSet")
             self.player.setQueue(with: self.playlist.map{$0.musicId ?? ""})
             self.player.prepareToPlay {error in
                 if let error = error {
@@ -40,6 +42,7 @@ class MusicPlayer: ObservableObject{
                     for _ in 0..<self.seek{
                         self.player.skipToNextItem()
                     }
+                    self.seek = 0
                 }
            }
 
@@ -54,7 +57,8 @@ class MusicPlayer: ObservableObject{
     
 
     var currentMusicItem:MusicItem?{
-        (self.playlist.isEmpty || self.player.indexOfNowPlayingItem > self.playlist.count) ? nil : self.playlist[self.player.indexOfNowPlayingItem]
+        let current_index = self.player.indexOfNowPlayingItem
+        return (self.playlist.isEmpty || current_index > self.playlist.count) ? nil : self.playlist[current_index]
     }
     
     var currentPlayHead:Double{
@@ -107,5 +111,19 @@ extension MusicPlayer{
 
             }
         }
-    }    
+    }
+    func insertMusicAndPlay(musicId:String,songName:String,artistName:String) {
+        let musicItem = MusicItem(context: persistentContainer.viewContext)
+        musicItem.musicId = musicId
+        musicItem.artistName = artistName
+        musicItem.songName = songName
+        
+        let currentIndex = self.player.indexOfNowPlayingItem
+        if self.playlist.isEmpty{
+            self.playlist = [musicItem]
+        }else{
+            self.seek = currentIndex + 1
+            self.playlist.insert(musicItem, at: currentIndex + 1)
+        }
+    }
 }
