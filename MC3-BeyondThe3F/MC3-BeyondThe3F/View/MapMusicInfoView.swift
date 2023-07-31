@@ -112,19 +112,21 @@ struct MapMusicInfoView: View {
                 ScrollView {
                     LazyVStack{
                         ForEach(musicList) { musicItem in
-                            MusicListRowView(
-                                imageName: musicItem.savedImage ?? "annotation0",
-                                songName: musicItem.songName ?? "",
-                                artistName: musicItem.artistName ?? "",
-                                musicListRowType: .saved,
-                                buttonEllipsisAction: {
-                                    showActionSheet = true
-                                    selectedMusic = musicItem
+                            if let validMusicItem = musicItem, musicItem.songName != ""{
+                                MusicListRowView(
+                                    imageName: validMusicItem.savedImage ?? "annotation0",
+                                    songName: validMusicItem.songName ?? "",
+                                    artistName: validMusicItem.artistName ?? "",
+                                    musicListRowType: .saved,
+                                    buttonEllipsisAction: {
+                                        showActionSheet = true
+                                        selectedMusic = validMusicItem
+                                    }
+                                )
+                                .background(Color.custom(.background))
+                                .onTapGesture {
+                                    musicPlayer.insertMusicAndPlay(musicId: validMusicItem.musicId ?? "", songName: validMusicItem.songName ?? "", artistName: validMusicItem.artistName ?? "")
                                 }
-                            )
-                            .background(Color.custom(.background))
-                            .onTapGesture {
-                                musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
                             }
                         }
                     }
