@@ -33,6 +33,8 @@ struct EditMapPositionView: View {
     @State private var searchPlaces : [Place] = []
     @State private var isLocationEnabled = false
     
+    let locationHelper = LocationManager.shared
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0){
@@ -187,7 +189,13 @@ struct EditMapPositionView: View {
                 }
             })
             .onAppear {
-                print(musicUpdateViewModel.musicItemshared)
+                locationHelper.getLocationAuth()
+                switch locationHelper.locationManager.authorizationStatus {
+                case .authorizedWhenInUse, .authorizedAlways:
+                    isShowUserLocation = true
+                    showUserLocation()
+                default: break
+                }
             }
         }
     }
