@@ -20,29 +20,33 @@ class MusicPlayer: ObservableObject{
     
     var isPlaying: Bool = false
     
+    var seek = 0
+    
     let player = MPMusicPlayerController.applicationMusicPlayer
 
-    private init(){
-        self.player.prepareToPlay {error in
-            if let error = error {
-                print(error)
-            } else {
-                print("prePareToPlay success")
-            }
-       }
-    }
+    private init(){}
     
     
     var indexOfNowPlayingItem:Int{ player.indexOfNowPlayingItem }
     
     @Published var playlist:[MusicItem] = []{
         didSet{
-            player.setQueue(with: self.playlist.map{$0.musicId ?? ""})
-            self.player.play()
+            self.player.setQueue(with: self.playlist.map{$0.musicId ?? ""})
+            self.player.prepareToPlay {error in
+                if let error = error {
+                    print(error)
+                } else {
+                    self.player.play()
+                    for _ in 0..<self.seek{
+                        self.player.skipToNextItem()
+                    }
+                }
+           }
+
         }
     }
     
-
+    
     
     var isLast:Bool{
         self.player.indexOfNowPlayingItem == playlist.count - 1 ? true : false
@@ -50,7 +54,7 @@ class MusicPlayer: ObservableObject{
     
 
     var currentMusicItem:MusicItem?{
-        self.playlist.isEmpty ? nil : self.playlist[self.player.indexOfNowPlayingItem]
+        (self.playlist.isEmpty || self.player.indexOfNowPlayingItem > self.playlist.count) ? nil : self.playlist[self.player.indexOfNowPlayingItem]
     }
     
     var currentPlayHead:Double{
@@ -89,9 +93,19 @@ extension MusicPlayer{
             self.player.skipToNextItem()
         }
     }
-    
-//    var currentPlaybackTime: TimeInterval{
-//        self.player.currentPlaybackTime
-//    }
-    
+    func playMusicInPlaylist(_ musicId:String){
+        guard let index = self.playlist.firstIndex(where: {$0.musicId == musicId}) else { return }
+        let currentIndex = self.player.indexOfNowPlayingItem
+        
+        if index > currentIndex{
+            for _ in 0..<(index - currentIndex){
+                self.player.skipToNextItem()
+            }
+        }else{
+            for _ in 0..<(currentIndex - index){
+                self.player.skipToPreviousItem()
+
+            }
+        }
+    }    
 }
