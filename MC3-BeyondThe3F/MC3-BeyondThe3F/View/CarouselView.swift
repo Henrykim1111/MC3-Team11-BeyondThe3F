@@ -52,6 +52,9 @@ struct CarouselView: View {
             .onAppear{
                 carouselList = mainDataModel.getData
             }
+            .onChange(of: MusicItemDataModel.shared.musicList) { _ in
+                carouselList = mainDataModel.getData
+            }
         }
     }
 }
