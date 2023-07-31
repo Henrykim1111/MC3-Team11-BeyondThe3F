@@ -19,7 +19,7 @@ struct ShazamView: View {
     @State private var musicName = "music name"
     @State private var artistName = "artist name"
     @State private var musicImageUrl : URL?
-    @State private var currentState : ShazamResultType = .success
+    @State private var currentState : ShazamResultType = .listening
     @State private var musicId: String?
     
     @State private var circleScaleSmall: CGFloat = 1
@@ -201,16 +201,20 @@ extension ShazamView {
                 .cornerRadius(10)
             Spacer()
                 .frame( height: 10)
-            HStack{
-                SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 24)
-                Text("다시 검색")
-                    .body2(color: .white)
+            Button {
+                // TODO: restart
+            } label: {
+                HStack{
+                    SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 24)
+                    Text("다시 검색")
+                        .body2(color: .white)
+                }
+                .frame(width: 248, height: 35)
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
+                .cornerRadius(100)
             }
-            .frame(width: 248, height: 35)
-            .background(
-                LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
-            .cornerRadius(100)
-                    }
+        }
     }
     var ShazamBottomSuccessView : some View {
         ZStack {
@@ -240,11 +244,10 @@ extension ShazamView {
                     guard let appleMusicId = self.musicId else {
                         return
                     }
-                    print(appleMusicId)
+                    
                 } label: {
                     ButtonPlayComponentView()
                         .padding(2)
-                        
                         .cornerRadius(25)
                 }
             }
@@ -259,15 +262,27 @@ extension ShazamView {
                 } label: {
                     ZStack{
                         HStack(spacing: 12){
-                            SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 20)
-                            Text("다시 검색")
-                                .body2(color: .white)
+                            Button {
+                                // TODO: restart
+                            } label: {
+                                HStack(spacing: 0) {
+                                    SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 20)
+                                    Text("다시 검색")
+                                        .body2(color: .white)
+                                }
+                            }
                             Divider()
                                 .frame(height: 20)
                                 .background(Color.white)
-                            SFImageComponentView(symbolName: .plus, color: .white, width: 21, height: 20)
-                            Text("추가 하기")
-                            .body2(color: .white)
+                            Button {
+                                // TODO: to editmap position
+                            } label: {
+                                HStack(spacing: 0) {
+                                    SFImageComponentView(symbolName: .plus, color: .white, width: 21, height: 20)
+                                    Text("추가 하기")
+                                    .body2(color: .white)
+                                }
+                            }
                         }
                         .frame(width: 248, height: 35)
                         .padding(.horizontal,5)
