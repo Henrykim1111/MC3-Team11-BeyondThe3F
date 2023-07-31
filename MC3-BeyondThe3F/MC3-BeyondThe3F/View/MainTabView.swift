@@ -31,7 +31,7 @@ struct MainTabView: View {
             Task{
                 await insertDummy()
                 await AuthManger.requestMusicAuth()
-            }           
+            }
         }
         .sheet(isPresented: $showWelcomeSheet, onDismiss: {
             isFirst = false
