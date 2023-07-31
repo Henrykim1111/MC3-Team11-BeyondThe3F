@@ -31,7 +31,6 @@ struct MainTabView: View {
             Task{
                 await insertDummy()
                 await AuthManger.requestMusicAuth()
-                let url = await MusicItemDataModel.shared.getURL("1037732952")
             }           
         }
         .sheet(isPresented: $showWelcomeSheet, onDismiss: {

@@ -51,7 +51,6 @@
 		953BD7602A6A6D0A0047C21C /* ClusteringAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD75F2A6A6D0A0047C21C /* ClusteringAnnotationView.swift */; };
 		953BD7622A6A6D5D0047C21C /* MusicAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */; };
 		953BD7642A6A77240047C21C /* MapSearchComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953BD7632A6A77240047C21C /* MapSearchComponentView.swift */; };
-		95713FA62A75285800548545 /* MusicItemUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713FA52A75285800548545 /* MusicItemUpdateViewModel.swift */; };
 		95713F962A74FD1C00548545 /* WTMusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F952A74FD1C00548545 /* WTMusicSearchView.swift */; };
 		95713F982A74FF3800548545 /* NavigationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F972A74FF3800548545 /* NavigationHelper.swift */; };
 		95713F9A2A75023900548545 /* WTMapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F992A75023900548545 /* WTMapSearchView.swift */; };
@@ -59,6 +58,7 @@
 		95713F9E2A7503B700548545 /* WTEditDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F9D2A7503B700548545 /* WTEditDateView.swift */; };
 		95713FA02A75043E00548545 /* WTEditMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F9F2A75043E00548545 /* WTEditMusicView.swift */; };
 		95713FA22A75059900548545 /* WelcomeSheetComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */; };
+		95713FA62A75285800548545 /* MusicItemUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713FA52A75285800548545 /* MusicItemUpdateViewModel.swift */; };
 		959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B742A6FBEA200888942 /* ShazamManager.swift */; };
 		959B5B772A714B1500888942 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B762A714B1500888942 /* DateExtension.swift */; };
 		959B5B7B2A71539F00888942 /* MusicSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */; };
@@ -117,7 +117,6 @@
 		953BD75F2A6A6D0A0047C21C /* ClusteringAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusteringAnnotationView.swift; sourceTree = "<group>"; };
 		953BD7612A6A6D5D0047C21C /* MusicAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAnnotationView.swift; sourceTree = "<group>"; };
 		953BD7632A6A77240047C21C /* MapSearchComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchComponentView.swift; sourceTree = "<group>"; };
-		95713FA52A75285800548545 /* MusicItemUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemUpdateViewModel.swift; sourceTree = "<group>"; };
 		95713F952A74FD1C00548545 /* WTMusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTMusicSearchView.swift; sourceTree = "<group>"; };
 		95713F972A74FF3800548545 /* NavigationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHelper.swift; sourceTree = "<group>"; };
 		95713F992A75023900548545 /* WTMapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTMapSearchView.swift; sourceTree = "<group>"; };
@@ -125,6 +124,7 @@
 		95713F9D2A7503B700548545 /* WTEditDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTEditDateView.swift; sourceTree = "<group>"; };
 		95713F9F2A75043E00548545 /* WTEditMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTEditMusicView.swift; sourceTree = "<group>"; };
 		95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSheetComponentView.swift; sourceTree = "<group>"; };
+		95713FA52A75285800548545 /* MusicItemUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemUpdateViewModel.swift; sourceTree = "<group>"; };
 		959B5B742A6FBEA200888942 /* ShazamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamManager.swift; sourceTree = "<group>"; };
 		959B5B762A714B1500888942 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchViewModel.swift; sourceTree = "<group>"; };
@@ -608,7 +608,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = TAP4M2PF77;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
@@ -642,7 +642,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = TAP4M2PF77;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
