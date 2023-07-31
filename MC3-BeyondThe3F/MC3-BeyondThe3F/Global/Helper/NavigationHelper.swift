@@ -7,14 +7,18 @@
 
 import SwiftUI
 
-class NavigationHelper: ObservableObject {
-    static let shared = NavigationHelper()
+class BucketNavigationHelper: ObservableObject {
+    static let shared = BucketNavigationHelper()
     private init(){ }
     
     @Published var path = NavigationPath()
     
     func goToMainView(){
         path = .init()
+    }
+    
+    func goPrevView(count: Int = 1){
+        path.removeLast()
     }
     
     func dismiss(){

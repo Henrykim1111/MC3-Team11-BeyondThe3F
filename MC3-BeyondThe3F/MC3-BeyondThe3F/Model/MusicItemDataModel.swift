@@ -38,7 +38,7 @@ class MusicItemDataModel {
         newItem.latitude = musicItemVO.latitude
         newItem.longitude = musicItemVO.longitude
         newItem.locationInfo = musicItemVO.locationInfo
-        newItem.savedImage = nil
+        newItem.savedImage = musicItemVO.savedImage
         newItem.generatedDate = musicItemVO.generatedDate
         newItem.songName = musicItemVO.songName
         newItem.artistName = musicItemVO.artistName
