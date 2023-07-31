@@ -163,13 +163,15 @@ struct MapMusicInfoView: View {
                     musicItemUpdateViewModel.musicItemshared.playedCount = 0
                     musicItemUpdateViewModel.isEditing = true
                     musicItemUpdateViewModel.isUpdate = true
+                    
+                    musicList.map{ $0.musicId != musicItem.musicId }
                 }
                 Button("제거", role: .destructive) {
-                    // TODO: Delete Item in CoreData
                     guard let musicItem = selectedMusic else {
                         return
                     }
                     musicItemDataModel.deleteMusicItemWith(musicId: musicItem.musicId ?? "", locationInfo: musicItem.locationInfo ?? "")
+                    musicList = musicItemDataModel.musicList
                 }
                 Button("취소", role: .cancel) {}
             }

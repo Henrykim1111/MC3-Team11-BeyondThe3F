@@ -253,7 +253,8 @@ struct MapUIKitView: UIViewRepresentable {
             let annotation = MusicAnnotation(annotaionData)
             mapView.addAnnotation(annotation)
         }
-        
+    
+//        mapView.removeAnnotations(<#T##annotations: [MKAnnotation]##[MKAnnotation]#>)
         return mapView
     }
 
