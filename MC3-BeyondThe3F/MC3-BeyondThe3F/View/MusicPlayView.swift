@@ -13,7 +13,7 @@ struct MusicPlayView: View {
     
     @ObservedObject private var musicPlayer = MusicPlayer.shared
     @State private var progressRate: Double = 0.0
-    @State private var showCurrentPlayList: Bool = false
+    @State var showCurrentPlayList: Bool = false
     
     var body: some View {
         ZStack {
@@ -107,8 +107,7 @@ struct CurrentPlayListView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                Spacer()
-                    .frame(height: 16)
+                Spacer().frame(height: 16)
                 
                 HStack {
                     Text("현재 재생 목록")
@@ -124,7 +123,7 @@ struct CurrentPlayListView: View {
                 } else {
                     ForEach(0 ..< musicPlayer.playlist.count, id: \.self) { index in
                         Button {
-//                            musicPlayer.playSong(musicItem)     // 탭하면 해당 노래를 재생
+                            MusicPlayer.shared.playMusicInPlaylist(musicPlayer.playlist[index].musicId ?? "")
                         } label: {
                             HStack{
                                 if let url = imageUrl {
@@ -145,8 +144,9 @@ struct CurrentPlayListView: View {
                                         .frame(width: 60, height: 60)
                                         .cornerRadius(8)
                                 }
-                                Spacer()
-                                    .frame(width: 16)
+                                
+                                Spacer().frame(width: 16)
+                                
                                 VStack(alignment: .leading) {
                                     Text("\(musicPlayer.playlist[index].songName ?? "")")
                                         .body1(color: .white)
@@ -160,7 +160,9 @@ struct CurrentPlayListView: View {
                                         .lineLimit(1)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                
                                 Spacer()
+                                
                                 Button {
                                     
                                 } label: {
@@ -208,8 +210,9 @@ struct ControlPanelView: View {
                                 .headline(color: .white)
                                 .truncationMode(.tail)
                                 .lineLimit(1)
-                            Spacer()
-                                .frame(height: 8)
+                            
+                            Spacer().frame(height: 8)
+                            
                             Text("\(currentMusicItem.artistName ?? "")")
                                 .body1(color: .gray300)
                                 .truncationMode(.tail)
@@ -233,8 +236,7 @@ struct ControlPanelView: View {
                         SFImageComponentView(symbolName: .list, color: .white, width: 28, height: 28)
                     }
                 }
-                Spacer()
-                    .frame(height: 32)
+                Spacer().frame(height: 32)
                 
                 ControlButtonsView(progressRate: $progressRate)
             }

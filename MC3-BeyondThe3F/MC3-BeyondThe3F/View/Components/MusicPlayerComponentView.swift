@@ -91,7 +91,7 @@ struct MusicPlayerComponentView: View {
         .frame(width: 390, height: 88)
         .background(Color.custom(.secondaryDark))
         .sheet(isPresented: $showMusicPlayListView) {
-            MusicPlayView()
+            MusicPlayView(showCurrentPlayList: true)
                 .presentationDragIndicator(.visible)
             
         }
