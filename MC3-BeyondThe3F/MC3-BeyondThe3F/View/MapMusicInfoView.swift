@@ -113,7 +113,8 @@ struct MapMusicInfoView: View {
                 ScrollView {
                     LazyVStack{
                         ForEach(musicList) { musicItem in
-                            if let validMusicItem = musicItem, musicItem.songName != ""{
+                            let validMusicItem = musicItem
+                            if musicItem.songName != ""{
                                 MusicListRowView(
                                     imageName: validMusicItem.savedImage ?? "annotation0",
                                     songName: validMusicItem.songName ?? "",
@@ -142,10 +143,10 @@ struct MapMusicInfoView: View {
             .offset(y: draggedYOffset)
             .gesture(drag)
             .onAppear {
-                maxHeight = geo.size.height - 120
+                maxHeight = geo.size.height - 125
                 minHeight = 30
-                draggedYOffset = geo.size.height - 120
-                accumulatedYOffset = geo.size.height - 120
+                draggedYOffset = geo.size.height - 125
+                accumulatedYOffset = geo.size.height - 125
             }
             .confirmationDialog("타이틀", isPresented: $showActionSheet) {
                 Button("편집", role: .none) {

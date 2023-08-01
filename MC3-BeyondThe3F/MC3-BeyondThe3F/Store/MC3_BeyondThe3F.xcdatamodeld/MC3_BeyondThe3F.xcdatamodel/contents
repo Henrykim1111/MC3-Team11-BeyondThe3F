@@ -17,5 +17,6 @@
         <attribute name="musicId" attributeType="String" defaultValueString=""/>
         <attribute name="savedImage" optional="YES" attributeType="String"/>
         <attribute name="songName" attributeType="String" defaultValueString=""/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
 </model>
