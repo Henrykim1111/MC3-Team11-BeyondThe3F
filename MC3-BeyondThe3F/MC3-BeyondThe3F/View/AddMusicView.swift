@@ -136,10 +136,6 @@ struct AddMusicView: View {
             .navigationTitle("음악 편집")
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.custom(.background))
-            .onAppear {
-                
-            }
-            
         }
         .accentColor(Color.custom(.white))
         
