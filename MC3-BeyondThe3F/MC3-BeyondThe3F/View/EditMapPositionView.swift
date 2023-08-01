@@ -150,14 +150,15 @@ struct EditMapPositionView: View {
                         case .forward:
                             NavigationLink {
                                 EditDateView(nextProcess: .forward)
+                                    .simultaneousGesture(TapGesture().onEnded {
+                                        musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
+                                        musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
+                                        musicUpdateViewModel.musicItemshared.locationInfo = locationInfo
+                                    })
                             } label: {
                                 PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
                             }
-                            .simultaneousGesture(TapGesture().onEnded {
-                                musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
-                                musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
-                                musicUpdateViewModel.musicItemshared.locationInfo = locationInfo
-                            })
+                            
                         case .backward:
                             Button {
                                 musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
