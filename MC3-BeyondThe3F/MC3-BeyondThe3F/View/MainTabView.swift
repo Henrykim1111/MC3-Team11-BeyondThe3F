@@ -11,19 +11,25 @@ struct MainTabView: View {
     @State private var showWelcomeSheet = false
     @AppStorage("isFirst") private var isFirst = false
     
+    init() {
+        UITabBar.appearance().unselectedItemTintColor = UIColor(Color.custom(.gray200))
+        UITabBar.appearance().backgroundColor = UIColor(Color.custom(.background))
+    }
+    
     var body: some View {
-        TabView {
-            BucketView()
-                .tabItem {
-                    Image(systemName: "tray.full.fill")
-                    Text("보관함")
-                }
-            MapView()
-                .tabItem {
-                    Image(systemName: "map.fill")
-                    Text("지도")
-                }
+        TabView() {
+                BucketView()
+                    .tabItem {
+                        Image(systemName: "tray.full.fill")
+                        Text("보관함")
+                    }
+                MapView()
+                    .tabItem {
+                        Image(systemName: "map.fill")
+                        Text("지도")
+                    }
         }
+        .tint(.custom(.primary))
         .onAppear{
             if isFirst {
                 showWelcomeSheet = true
