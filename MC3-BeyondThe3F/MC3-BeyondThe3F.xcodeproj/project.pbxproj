@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6221EA2C2A701553003BD47F /* MusicPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6221EA2B2A701553003BD47F /* MusicPlayView.swift */; };
+		624E4BCD2A78D56000FCAA16 /* ToastComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624E4BCC2A78D56000FCAA16 /* ToastComponentView.swift */; };
 		627E3F442A6E6D6300979803 /* MusicSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627E3F432A6E6D6300979803 /* MusicSearchView.swift */; };
 		74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74167D142A678D3B00F5C691 /* TestComponentView.swift */; };
 		7433A2462A6E1D9A00EFA99B /* EditDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7433A2452A6E1D9A00EFA99B /* EditDateView.swift */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		6221EA2B2A701553003BD47F /* MusicPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayView.swift; sourceTree = "<group>"; };
+		624E4BCC2A78D56000FCAA16 /* ToastComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastComponentView.swift; sourceTree = "<group>"; };
 		627E3F432A6E6D6300979803 /* MusicSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchView.swift; sourceTree = "<group>"; };
 		74167D142A678D3B00F5C691 /* TestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComponentView.swift; sourceTree = "<group>"; };
 		7433A2452A6E1D9A00EFA99B /* EditDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDateView.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				953BD7632A6A77240047C21C /* MapSearchComponentView.swift */,
 				95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */,
 				74F025C22A77F5AB00DF39C3 /* SearchFailureComponentView.swift */,
+				624E4BCC2A78D56000FCAA16 /* ToastComponentView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				FB9AEE422A6F4CC600B015C5 /* CarouselView.swift in Sources */,
 				74EF8C862A67D338006B8DBC /* PinLocationComponentView.swift in Sources */,
 				95713F962A74FD1C00548545 /* WTMusicSearchView.swift in Sources */,
+				624E4BCD2A78D56000FCAA16 /* ToastComponentView.swift in Sources */,
 				76975F532A73EA15005FEFE2 /* Double.swift in Sources */,
 				953BD7512A6919370047C21C /* SmallButtonComponentView.swift in Sources */,
 				9516918F2A6629680070D47C /* MC3_BeyondThe3F.xcdatamodeld in Sources */,
