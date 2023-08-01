@@ -35,14 +35,21 @@ struct BucketView: View {
                 }
             }
             .background(Color.custom(.background))
+            .ignoresSafeArea(.keyboard)
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()
                     .presentationDragIndicator(.visible)
             }
             .sheet(isPresented: $musicItemUpdateViewModel.isUpdate) {
-                EditMapPositionView()
+                if musicItemUpdateViewModel.isEditing {
+                    AddMusicView()
+                } else {
+                    EditMapPositionView()
+                }
             }
         }
+        .accentColor(Color.custom(.white))
+
     }
 }
 

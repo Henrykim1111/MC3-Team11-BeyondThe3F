@@ -18,8 +18,13 @@ struct MapMusicInfoView: View {
     @State private var showActionSheet = false
     @State private var showAddMusicView = false
     
+    @State private var selectedMusic: MusicItem?
+    
     let musicPlayer = MusicPlayer.shared
+    let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    let musicItemDataModel = MusicItemDataModel.shared
     var persistentContainer = PersistenceController.shared.container
+    
 
     var body: some View {
         GeometryReader { geo in
@@ -38,8 +43,9 @@ struct MapMusicInfoView: View {
                         if musicList.isEmpty {
                             ProgressView()
                                 .frame(width: 60, height: 60)
-                                .cornerRadius(8)
                                 .foregroundColor(Color.custom(.white))
+                                .background(Color.custom(.secondaryDark))
+                                .cornerRadius(8)
                                 .padding(.trailing, 15)
                         } else {
                             AsyncImage(url: URL(string: musicList.first?.savedImage ?? "")) { image in
@@ -48,12 +54,12 @@ struct MapMusicInfoView: View {
                                     .frame(width: 60, height: 60)
                                     .cornerRadius(8)
                             } placeholder: {
-                                ZStack {
-                                    Rectangle()
-                                        .foregroundColor(Color.custom(.secondaryDark))
-                                        .cornerRadius(6)
-                                    ProgressView()
-                                }
+                                ProgressView()
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(Color.custom(.white))
+                                    .background(Color.custom(.secondaryDark))
+                                    .cornerRadius(8)
+                                    .padding(.trailing, 15)
                             }
                             .frame(width: 60, height: 60)
                                 .cornerRadius(8)
@@ -73,9 +79,31 @@ struct MapMusicInfoView: View {
                     .padding(.bottom,15)
                     
                     HStack {
-                        MidButtonComponent()
+                        Button {
+                            // TODO: reset PlayList
+                            if !musicList.isEmpty {
+                                musicPlayer.playlist = []
+                                for musicItem in musicList {
+                                    musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
+                                }
+                                
+                            }
+                        } label: {
+                            MidButtonComponent()
+                        }
                         Spacer()
-                        MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
+                        Button {
+                            if !musicList.isEmpty {
+                                var tempMusicList = musicList
+                                tempMusicList.shuffle()
+                                musicPlayer.playlist = []
+                                for musicItem in tempMusicList {
+                                    musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
+                                }
+                            }
+                        } label: {
+                            MidButtonComponent(sfImageName: .shuffle, name: .임의재생)
+                        }
                     }
                 }
                 .padding()
@@ -85,18 +113,21 @@ struct MapMusicInfoView: View {
                 ScrollView {
                     LazyVStack{
                         ForEach(musicList) { musicItem in
-                            MusicListRowView(
-                                imageName: musicItem.savedImage ?? "annotation0",
-                                songName: musicItem.songName ?? "",
-                                artistName: musicItem.artistName ?? "",
-                                musicListRowType: .saved,
-                                buttonEllipsisAction: {
-                                    showActionSheet = true
+                            if let validMusicItem = musicItem, musicItem.songName != ""{
+                                MusicListRowView(
+                                    imageName: validMusicItem.savedImage ?? "annotation0",
+                                    songName: validMusicItem.songName ?? "",
+                                    artistName: validMusicItem.artistName ?? "",
+                                    musicListRowType: .saved,
+                                    buttonEllipsisAction: {
+                                        showActionSheet = true
+                                        selectedMusic = validMusicItem
+                                    }
+                                )
+                                .background(Color.custom(.background))
+                                .onTapGesture {
+                                    musicPlayer.insertMusicAndPlay(musicId: validMusicItem.musicId ?? "", songName: validMusicItem.songName ?? "", artistName: validMusicItem.artistName ?? "")
                                 }
-                            )
-                            .background(Color.custom(.background))
-                            .onTapGesture {
-                                musicPlayer.playlist.append(musicItem)
                             }
                         }
                     }
@@ -119,10 +150,27 @@ struct MapMusicInfoView: View {
             .confirmationDialog("타이틀", isPresented: $showActionSheet) {
                 Button("편집", role: .none) {
                     showActionSheet = false
-                    showAddMusicView = true
+                    guard let musicItem = selectedMusic else {
+                        return
+                    }
+                    musicItemUpdateViewModel.musicItemshared.savedImage = musicItem.savedImage ?? ""
+                    musicItemUpdateViewModel.musicItemshared.songName = musicItem.songName ?? ""
+                    musicItemUpdateViewModel.musicItemshared.musicId = musicItem.musicId ?? ""
+                    musicItemUpdateViewModel.musicItemshared.artistName = musicItem.artistName ?? ""
+                    musicItemUpdateViewModel.musicItemshared.locationInfo = musicItem.locationInfo ?? ""
+                    musicItemUpdateViewModel.musicItemshared.longitude = musicItem.longitude
+                    musicItemUpdateViewModel.musicItemshared.latitude = musicItem.latitude
+                    musicItemUpdateViewModel.musicItemshared.generatedDate = musicItem.generatedDate ?? Date()
+                    musicItemUpdateViewModel.musicItemshared.playedCount = 0
+                    musicItemUpdateViewModel.isEditing = true
+                    musicItemUpdateViewModel.isUpdate = true
                 }
                 Button("제거", role: .destructive) {
-                    // TODO: Delete Item in CoreData
+                    guard let musicItem = selectedMusic else {
+                        return
+                    }
+                    musicItemDataModel.deleteMusicItemWith(musicId: musicItem.musicId ?? "", locationInfo: musicItem.locationInfo ?? "")
+                    musicList = musicItemDataModel.musicList
                 }
                 Button("취소", role: .cancel) {}
             }
@@ -130,6 +178,7 @@ struct MapMusicInfoView: View {
                 AddMusicView()
                 // TODO: send default MusicData to AddMusicView for Editing
             }
+            
         }
     }
     var drag: some Gesture {

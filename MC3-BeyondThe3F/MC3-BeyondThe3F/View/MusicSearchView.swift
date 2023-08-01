@@ -48,8 +48,7 @@ struct MusicSearchView: View {
                 case .notFound:
                     HStack {
                         Spacer()
-                        Text("해당하는 노래를 찾지 못했습니다")
-                            .body2(color: .gray400)
+                        SearchFailureComponentView(failure: .musicSearchFailure)
                         Spacer()
                     }
                 case .success:
@@ -172,6 +171,7 @@ extension MusicSearchView {
                                         musicItemUpdateViewModel.musicItemshared.savedImage = nil
                                     }
                                 }
+                                musicItemUpdateViewModel.isEditing = false
                                 self.isUpdate = true
                             } label: {
                                 SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)

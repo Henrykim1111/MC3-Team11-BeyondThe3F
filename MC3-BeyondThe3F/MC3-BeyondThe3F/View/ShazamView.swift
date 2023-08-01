@@ -15,17 +15,21 @@ private enum ShazamResultType {
 }
 
 struct ShazamView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var shazamViewModel = ShazamViewModel()
     @State private var musicName = "music name"
     @State private var artistName = "artist name"
     @State private var musicImageUrl : URL?
-    @State private var currentState : ShazamResultType = .success
+    @State private var currentState : ShazamResultType = .listening
     @State private var musicId: String?
     
     @State private var circleScaleSmall: CGFloat = 1
     @State private var circleScaleBig: CGFloat = 1
     private let circleAnimationSmall = Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
     private let circleAnimationBig = Animation.easeInOut(duration: 1).repeatForever(autoreverses: true).delay(0.1)
+    
+    let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    let musicPlayer = MusicPlayer.shared
     
     var body: some View {
         VStack {
@@ -201,16 +205,21 @@ extension ShazamView {
                 .cornerRadius(10)
             Spacer()
                 .frame( height: 10)
-            HStack{
-                SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 24)
-                Text("다시 검색")
-                    .body2(color: .white)
+            Button {
+                self.currentState = .listening
+                shazamViewModel.startRecognition()
+            } label: {
+                HStack{
+                    SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 24)
+                    Text("다시 검색")
+                        .body2(color: .white)
+                }
+                .frame(width: 248, height: 35)
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
+                .cornerRadius(100)
             }
-            .frame(width: 248, height: 35)
-            .background(
-                LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
-            .cornerRadius(100)
-                    }
+        }
     }
     var ShazamBottomSuccessView : some View {
         ZStack {
@@ -236,15 +245,15 @@ extension ShazamView {
                 }      
                 Spacer()
                 Button {
-                    // TODO: add to music play list the music Id
-                    guard let appleMusicId = self.musicId else {
-                        return
-                    }
-                    print(appleMusicId)
+                    // TODO: musicPlay에 음악을 추가할 때 이미지를 전달해주지 않아서 플레이리스트에 나오지 않는 것으로 추측
+                    // insertMusicAndPlay 점검 필요
+//                    guard let appleMusicId = self.musicId else {
+//                        return
+//                    }
+//
                 } label: {
                     ButtonPlayComponentView()
                         .padding(2)
-                        
                         .cornerRadius(25)
                 }
             }
@@ -253,30 +262,57 @@ extension ShazamView {
             VStack {
                 Spacer()
                     .frame(height: 200)
-                Button {
-                    self.currentState = .listening
-                    shazamViewModel.startRecognition()
-                } label: {
-                    ZStack{
-                        HStack(spacing: 12){
-                            SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 20)
-                            Text("다시 검색")
-                                .body2(color: .white)
-                            Divider()
-                                .frame(height: 20)
-                                .background(Color.white)
-                            SFImageComponentView(symbolName: .plus, color: .white, width: 21, height: 20)
-                            Text("추가 하기")
-                            .body2(color: .white)
+                
+                ZStack{
+                    HStack(spacing: 12){
+                        Button {
+                            self.currentState = .listening
+                            shazamViewModel.startRecognition()
+                        } label: {
+                            HStack {
+                                SFImageComponentView(symbolName: .arrowCounterClockwise, color: .white, width: 21, height: 20)
+                                Text("다시 검색")
+                                    .body2(color: .white)
+                            }
                         }
-                        .frame(width: 248, height: 35)
-                        .padding(.horizontal,5)
-                        .background(
-                            LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
-                        .cornerRadius(100)
-                        
+                        Divider()
+                            .frame(height: 20)
+                            .background(Color.white)
+                        Button {
+                            guard let id = musicId else {
+                                return
+                            }
+                            Task {
+                                guard let musicItems = await MusicItemDataModel.shared.getInfoByMusicId(id) else {
+                                    return
+                                }
+                                guard let musicItem = musicItems.items.first else {
+                                    return
+                                }
+                                MusicItemUpdateViewModel.shared.musicItemshared.musicId = musicItem.id.rawValue
+                                MusicItemUpdateViewModel.shared.musicItemshared.songName = musicItem.title
+                                MusicItemUpdateViewModel.shared.musicItemshared.artistName = musicItem.artistName
+                                if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
+                                    MusicItemUpdateViewModel.shared.musicItemshared.savedImage = "\(imageURL)"
+                                } else {
+                                    MusicItemUpdateViewModel.shared.musicItemshared.savedImage = nil
+                                }
+                                musicItemUpdateViewModel.isUpdate = true
+                                dismiss()
+                            }
+                        } label: {
+                            HStack {
+                                SFImageComponentView(symbolName: .plus, color: .white, width: 21, height: 20)
+                                Text("추가 하기")
+                                .body2(color: .white)
+                            }
+                        }
                     }
-                    
+                    .frame(width: 248, height: 35)
+                    .padding(.horizontal,5)
+                    .background(
+                        LinearGradient(gradient: Gradient(colors: [Color.custom(.primary).opacity(0), Color.custom(.secondary).opacity(1)]), startPoint: .bottom, endPoint: .top))
+                    .cornerRadius(100)
                 }
             }
         }

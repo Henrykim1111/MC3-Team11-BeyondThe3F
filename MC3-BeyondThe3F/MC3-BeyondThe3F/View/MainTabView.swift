@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var showWelcomeSheet = false
-    @AppStorage("isFirst") private var isFirst = true
+    @AppStorage("isFirst") private var isFirst = false
     
     var body: some View {
         TabView {
@@ -29,7 +29,7 @@ struct MainTabView: View {
                 showWelcomeSheet = true
             }
             Task{
-                await insertDummy()
+//                await insertDummy()
                 await AuthManger.requestMusicAuth()
                 print(MusicItemDataModel.shared.musicList.count)
                 try? await Task.sleep(nanoseconds: 5 * 1_000_000_000)
