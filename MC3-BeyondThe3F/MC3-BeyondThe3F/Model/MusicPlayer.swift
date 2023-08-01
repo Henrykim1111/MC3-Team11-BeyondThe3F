@@ -18,7 +18,7 @@ class MusicPlayer: ObservableObject{
     
     var delegate:MusicPlayerProtocol?
     
-    var isPlaying: Bool = false
+    @Published var isPlaying: Bool = false
     
     var seek = 0
     
