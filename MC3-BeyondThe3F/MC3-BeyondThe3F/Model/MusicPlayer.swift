@@ -112,12 +112,7 @@ extension MusicPlayer{
             }
         }
     }
-    func insertMusicAndPlay(musicId:String,songName:String,artistName:String) {
-        let musicItem = MusicItem(context: persistentContainer.viewContext)
-        musicItem.musicId = musicId
-        musicItem.artistName = artistName
-        musicItem.songName = songName
-        
+    func insertMusicAndPlay(musicItem:MusicItem) {
         let currentIndex = self.player.indexOfNowPlayingItem
         if self.playlist.isEmpty{
             self.playlist = [musicItem]
