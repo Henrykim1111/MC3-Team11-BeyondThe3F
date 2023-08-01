@@ -173,7 +173,7 @@ struct MapMusicInfoView: View {
                         return
                     }
                     musicItemDataModel.deleteMusicItemWith(uuid: musicItem.uuid ?? UUID())
-                    musicList = musicItemDataModel.musicList
+                    musicList = musicItemDataModel.musicList.filter { $0.uuid != musicItem.uuid }
                 }
                 Button("취소", role: .cancel) {}
             }
