@@ -71,6 +71,7 @@ struct MusicNameRow: View {
 }
 
 struct AddMusicView: View {
+    @AppStorage("isFirst") private var isFirst = true
     var nextProcess: NextProcess = .forward
     @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     @ObservedObject private var navigationHelper = BucketNavigationHelper.shared
@@ -112,36 +113,45 @@ struct AddMusicView: View {
                 
                 Spacer()
                 
-                switch nextProcess {
-                case .backward:
+                if isFirst {
                     Button {
-                        musicItemUpdateViewModel.updateCoreDate()
-                        musicItemUpdateViewModel.isUpdate = false
-                    } label: {
-                        PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
-                    }
-                case .forward:
-                    NavigationLink {
-                        MainTabView()
-                            .navigationBarBackButtonHidden(true)
-                    } label: {
-                        PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
-                    }
-                    .simultaneousGesture(TapGesture().onEnded {
                         musicItemUpdateViewModel.updateCoreDate()
                         musicItemUpdateViewModel.isUpdate = false
                         musicItemUpdateViewModel.showToastView()
                         musicItemUpdateViewModel.showToast = true
-                    })
+                        isFirst = false
+                    } label: {
+                        PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                    }
+                } else {
+                    switch nextProcess {
+                    case .backward:
+                        Button {
+                            musicItemUpdateViewModel.isEditing = false
+                            musicItemUpdateViewModel.isUpdate = false
+                            musicItemUpdateViewModel.updateCoreDate()
+                        } label: {
+                            PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                        }
+                    case .forward:
+                        NavigationLink {
+                            MainTabView()
+                                .navigationBarBackButtonHidden(true)
+                        } label: {
+                            PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
+                        }
+                        .simultaneousGesture(TapGesture().onEnded {
+                            musicItemUpdateViewModel.updateCoreDate()
+                            musicItemUpdateViewModel.isUpdate = false
+                            musicItemUpdateViewModel.showToastView()
+                            musicItemUpdateViewModel.showToast = true
+                        })
+                    }
                 }
             }
             .navigationTitle("음악 편집")
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.custom(.background))
-            .onAppear {
-                
-            }
-            
         }
         .accentColor(Color.custom(.white))
         

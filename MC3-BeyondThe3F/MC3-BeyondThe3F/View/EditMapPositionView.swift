@@ -105,9 +105,8 @@ struct EditMapPositionView: View {
                                         showDeniedLocationStatus = false
                                         isShowUserLocation = true
                                         showUserLocation()
-                                        isShowUserLocation = false
                                     }
-                                    
+
                                 } label: {
                                     ScopeButtonComponentView(
                                         foregroundColor: Color.custom(.white),
@@ -151,14 +150,15 @@ struct EditMapPositionView: View {
                         case .forward:
                             NavigationLink {
                                 EditDateView(nextProcess: .forward)
+                                    .simultaneousGesture(TapGesture().onEnded {
+                                        musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
+                                        musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
+                                        musicUpdateViewModel.musicItemshared.locationInfo = locationInfo
+                                    })
                             } label: {
                                 PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
                             }
-                            .simultaneousGesture(TapGesture().onEnded {
-                                musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
-                                musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
-                                musicUpdateViewModel.musicItemshared.locationInfo = locationInfo
-                            })
+                            
                         case .backward:
                             Button {
                                 musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
@@ -321,10 +321,11 @@ struct EditMapUIView: UIViewRepresentable{
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
         if isShowUserLocation {
-            uiView.setRegion(userRegion, animated: true)
+            uiView.setRegion(userRegion, animated: false)
         } else if isRegionSetted {
-            uiView.setRegion(region, animated: true)
+            uiView.setRegion(region, animated: false)
             isRegionSetted = false
         }
+        isShowUserLocation = false
     }
 }

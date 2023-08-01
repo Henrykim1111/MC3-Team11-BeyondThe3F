@@ -164,6 +164,7 @@ struct MapMusicInfoView: View {
                     musicItemUpdateViewModel.musicItemshared.latitude = musicItem.latitude
                     musicItemUpdateViewModel.musicItemshared.generatedDate = musicItem.generatedDate ?? Date()
                     musicItemUpdateViewModel.musicItemshared.playedCount = 0
+                    musicItemUpdateViewModel.musicItemshared.id = musicItem.uuid
                     musicItemUpdateViewModel.isEditing = true
                     musicItemUpdateViewModel.isUpdate = true
                 }
@@ -171,14 +172,13 @@ struct MapMusicInfoView: View {
                     guard let musicItem = selectedMusic else {
                         return
                     }
-                    musicItemDataModel.deleteMusicItemWith(musicId: musicItem.musicId ?? "", locationInfo: musicItem.locationInfo ?? "")
-                    musicList = musicItemDataModel.musicList
+                    musicItemDataModel.deleteMusicItemWith(uuid: musicItem.uuid ?? UUID())
+                    musicList = musicItemDataModel.musicList.filter { $0.uuid != musicItem.uuid }
                 }
                 Button("취소", role: .cancel) {}
             }
             .sheet(isPresented: $showAddMusicView) {
                 AddMusicView()
-                // TODO: send default MusicData to AddMusicView for Editing
             }
             
         }
