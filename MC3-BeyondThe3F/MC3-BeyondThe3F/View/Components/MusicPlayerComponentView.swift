@@ -11,7 +11,7 @@ import MusicKit
 struct MusicPlayerComponentView: View {
     @StateObject private var musicPlayer = MusicPlayer.shared
     @State private var showMusicPlayListView = false
-    @State private var currentPlayingMusicItem: MusicItem? = nil
+    @State private var currentPlayingMusicItem: MusicItemVO? = nil
     
     var body: some View {
         HStack {

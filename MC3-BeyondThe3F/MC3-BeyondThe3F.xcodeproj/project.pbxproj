@@ -20,6 +20,7 @@
 		76104ABC2A6D7991000B8E65 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104ABB2A6D7991000B8E65 /* MainDataModel.swift */; };
 		76104ABE2A6D7EF7000B8E65 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104ABD2A6D7EF7000B8E65 /* dummy.swift */; };
 		76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104AC42A6DF978000B8E65 /* MainVO.swift */; };
+		763D01DE2A792F1600B1CF0D /* MusicItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763D01DD2A792F1600B1CF0D /* MusicItemExtension.swift */; };
 		764936AF2A6A169B001C0C54 /* MusicItemDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764936AE2A6A169B001C0C54 /* MusicItemDataModel.swift */; };
 		76975F3D2A700298005FEFE2 /* SearchDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F3C2A700298005FEFE2 /* SearchDataModel.swift */; };
 		76975F492A700DE2005FEFE2 /* AuthManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F482A700DE2005FEFE2 /* AuthManger.swift */; };
@@ -81,6 +82,7 @@
 		76104ABB2A6D7991000B8E65 /* MainDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDataModel.swift; sourceTree = "<group>"; };
 		76104ABD2A6D7EF7000B8E65 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		76104AC42A6DF978000B8E65 /* MainVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVO.swift; sourceTree = "<group>"; };
+		763D01DD2A792F1600B1CF0D /* MusicItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemExtension.swift; sourceTree = "<group>"; };
 		764936AE2A6A169B001C0C54 /* MusicItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemDataModel.swift; sourceTree = "<group>"; };
 		76975F3C2A700298005FEFE2 /* SearchDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchDataModel.swift; path = ../../SearchDataModel.swift; sourceTree = "<group>"; };
 		76975F482A700DE2005FEFE2 /* AuthManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthManger.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				76975F3C2A700298005FEFE2 /* SearchDataModel.swift */,
 				76975F4A2A70124E005FEFE2 /* HistoryDataModel.swift */,
 				76975F502A7177F3005FEFE2 /* MusicPlayer.swift */,
+				763D01DD2A792F1600B1CF0D /* MusicItemExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */,
 				951691AC2A663E7C0070D47C /* TypoModifier.swift in Sources */,
 				76104ABC2A6D7991000B8E65 /* MainDataModel.swift in Sources */,
+				763D01DE2A792F1600B1CF0D /* MusicItemExtension.swift in Sources */,
 				951691A22A6639320070D47C /* MainTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,7 +604,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = TAP4M2PF77;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
@@ -617,7 +621,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mc3.HYG.beyond3F;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mc3.peterpyun.beyond3F;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -633,7 +637,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = TAP4M2PF77;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
@@ -650,7 +654,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mc3.HYG.beyond3F;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mc3.peterpyun.beyond3F;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

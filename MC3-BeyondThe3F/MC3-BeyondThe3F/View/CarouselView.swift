@@ -78,7 +78,7 @@ struct CarouselCardItem: View {
                 Spacer()
                 ButtonPlayComponentView()
                     .onTapGesture {
-                        MusicPlayer.shared.playlist = MainDataModel.shared.getData[pageIndex].musicList
+                        MusicPlayer.shared.playlist = MainDataModel.shared.getData[pageIndex].musicList.map{$0.musicItemVO}
                     }
             }
             .padding(16)

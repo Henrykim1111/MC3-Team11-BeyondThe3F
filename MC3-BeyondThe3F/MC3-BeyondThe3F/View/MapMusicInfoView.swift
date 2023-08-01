@@ -84,7 +84,7 @@ struct MapMusicInfoView: View {
                             if !musicList.isEmpty {
                                 musicPlayer.playlist = []
                                 for musicItem in musicList {
-                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem)
+                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem.musicItemVO)
                                 }
                                 
                             }
@@ -98,7 +98,7 @@ struct MapMusicInfoView: View {
                                 tempMusicList.shuffle()
                                 musicPlayer.playlist = []
                                 for musicItem in tempMusicList {
-                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem)
+                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem.musicItemVO)
                                 }
                             }
                         } label: {
@@ -126,7 +126,7 @@ struct MapMusicInfoView: View {
                                 )
                                 .background(Color.custom(.background))
                                 .onTapGesture {
-                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem)
+                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem.musicItemVO)
                                 }
                             }
                         }
