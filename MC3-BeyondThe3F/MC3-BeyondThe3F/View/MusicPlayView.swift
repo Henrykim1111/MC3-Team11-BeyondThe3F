@@ -101,9 +101,12 @@ struct NowPlayingView: View {
 
 
 struct CurrentPlayListView: View {
-
+    @Environment(\.dismiss) private var dismiss
+    let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    let musicItemDataModel = MusicItemDataModel.shared
     let musicPlayer = MusicPlayer.shared
-    @State private var imageUrl:URL? = nil
+    @State var selectedMusic: MusicItemVO?
+    @State var showActionSheet = false
     
     var body: some View {
         ScrollView {
@@ -124,15 +127,26 @@ struct CurrentPlayListView: View {
                 } else {
                     ForEach(0 ..< musicPlayer.playlist.count, id: \.self) { index in
                         Button {
-                            musicPlayer.playMusicInPlaylist(musicPlayer.playlist[index].musicId ?? "")
+                            musicPlayer.playMusicInPlaylist(musicPlayer.playlist[index].musicId)
                         } label: {
                             MusicListRowView(
                                 imageName: musicPlayer.playlist[index].savedImage ?? "annotation0",
-                                songName: musicPlayer.playlist[index].songName ?? "",
-                                artistName: musicPlayer.playlist[index].artistName ?? "",
+                                songName: musicPlayer.playlist[index].songName ,
+                                artistName: musicPlayer.playlist[index].artistName ,
                                 musicListRowType: .saved,
                                 buttonEllipsisAction: {
-
+                                    let currentMusic = musicPlayer.playlist[index]
+                                    selectedMusic = MusicItemVO(
+                                        musicId: currentMusic.musicId,
+                                        latitude: currentMusic.latitude,
+                                        longitude: currentMusic.longitude,
+                                        playedCount: currentMusic.playedCount,
+                                        songName: currentMusic.songName,
+                                        artistName: currentMusic.artistName,
+                                        generatedDate: currentMusic.generatedDate,
+                                        savedImage: currentMusic.savedImage
+                                    )
+                                    showActionSheet = true
                                 }
                             )
                         }
@@ -144,6 +158,21 @@ struct CurrentPlayListView: View {
         }
         .frame(maxWidth: 390)
         .background(Color.custom(.background))
+        .confirmationDialog("타이틀", isPresented: $showActionSheet) {
+            Button("지도에 저장", role: .none) {
+                musicItemUpdateViewModel.resetInitialMusicItem()
+                musicItemUpdateViewModel.musicItemshared.musicId = selectedMusic?.musicId ?? ""
+                musicItemUpdateViewModel.musicItemshared.songName = selectedMusic?.songName ?? ""
+                musicItemUpdateViewModel.musicItemshared.artistName = selectedMusic?.artistName ?? ""
+                musicItemUpdateViewModel.musicItemshared.savedImage = selectedMusic?.savedImage
+                musicItemUpdateViewModel.isEditing = false
+                musicItemUpdateViewModel.isUpdate = true
+                dismiss()
+            }
+            Button("삭제", role: .destructive) {
+            }
+            Button("취소", role: .cancel) {}
+        }
     }
 }
 
@@ -163,14 +192,14 @@ struct ControlPanelView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         if let currentMusicItem = musicPlayer.currentMusicItem {
-                            Text("\(currentMusicItem.songName ?? "")")
+                            Text("\(currentMusicItem.songName )")
                                 .headline(color: .white)
                                 .truncationMode(.tail)
                                 .lineLimit(1)
                             
                             Spacer().frame(height: 8)
                             
-                            Text("\(currentMusicItem.artistName ?? "")")
+                            Text("\(currentMusicItem.artistName )")
                                 .body1(color: .gray300)
                                 .truncationMode(.tail)
                                 .lineLimit(1)
