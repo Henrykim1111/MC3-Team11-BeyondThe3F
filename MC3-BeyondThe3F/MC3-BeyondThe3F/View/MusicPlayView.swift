@@ -101,13 +101,6 @@ struct NowPlayingView: View {
             default: break
             }
         }
-//        .onChange(of: musicPlayer.isPlaying) { playState in
-//            if playState {
-//                startAnimation()
-//            } else {
-//                stopAnimation()
-//            }
-//        }
     }
     
     func startAnimation(){
@@ -158,53 +151,6 @@ struct CurrentPlayListView: View {
 
                                 }
                             )
-                            
-//                            HStack{
-//                                AsyncImage(url: URL(string: musicPlayer.playlist[index].savedImage ?? "")) { image in
-//                                    image
-//                                        .resizable()
-//                                        .frame(width: 60, height: 60)
-//                                        .cornerRadius(8)
-//                                } placeholder: {
-//                                    Image("musicPlayImageEmpty")
-//                                        .resizable()
-//                                        .frame(width: 60, height: 60)
-//                                        .cornerRadius(8)
-//                                }
-//                                Spacer().frame(width: 16)
-//
-//                                VStack(alignment: .leading) {
-//                                    Text("\(musicPlayer.playlist[index].songName ?? "")")
-//                                        .body1(color: .white)
-//                                        .truncationMode(.tail)
-//                                        .lineLimit(1)
-//                                    Spacer()
-//                                        .frame(height: 6)
-//                                    Text("\(musicPlayer.playlist[index].artistName ?? "")")
-//                                        .body2(color: .gray500)
-//                                        .truncationMode(.tail)
-//                                        .lineLimit(1)
-//                                }
-//                                .frame(maxWidth: .infinity, alignment: .leading)
-//
-//                                Spacer()
-//
-//                                Button {
-//
-//                                } label: {
-//                                    SFImageComponentView(symbolName: .ellipsis, color: .white)
-//                                        .rotationEffect(.degrees(90.0))
-//                                }
-//                            }
-//                            .frame(maxWidth: 390)
-//                            .frame(height: 88)
-//                            .padding(.horizontal, 20)
-//                            .background(Color.custom(musicPlayer.playlist[index] == musicPlayer.currentMusicItem ? .secondaryDark : .background))
-//                            .task {
-//                                if let musicId = musicPlayer.currentMusicItem?.musicId{
-//                                    imageUrl = await MusicItemDataModel.shared.getURL(musicId)
-//                                }
-//                            }
                         }
                     }
                 }
