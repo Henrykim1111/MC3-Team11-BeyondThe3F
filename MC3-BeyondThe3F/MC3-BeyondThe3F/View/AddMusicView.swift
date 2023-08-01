@@ -137,7 +137,7 @@ struct AddMusicView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.custom(.background))
             .onAppear {
-                print(musicItemUpdateViewModel.musicItemshared)
+                
             }
             
         }

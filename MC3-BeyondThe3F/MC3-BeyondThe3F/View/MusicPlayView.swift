@@ -93,10 +93,12 @@ struct NowPlayingView: View {
         .padding()
         .background(Color.custom(.secondaryDark))
         .onAppear {
-            if musicPlayer.isPlaying {
+            switch musicPlayer.playState {
+            case .playing:
                 startAnimation()
-            } else {
+            case .paused:
                 stopAnimation()
+            default: break
             }
         }
 //        .onChange(of: musicPlayer.isPlaying) { playState in
@@ -343,7 +345,7 @@ struct ControlButtonsView: View {
                 Button {
                     musicPlayer.playButtonTapped()
                 } label: {
-                    SFImageComponentView(symbolName: musicPlayer.isPlaying ? .pause : .play, color: .white, width: 45, height: 45)
+                    SFImageComponentView(symbolName: musicPlayer.playState == .paused ? .pause : .play, color: .white, width: 45, height: 45)
                 }
                 
                 Spacer().frame(width: 48)
