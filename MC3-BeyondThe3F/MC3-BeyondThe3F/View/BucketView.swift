@@ -17,23 +17,37 @@ struct BucketView: View {
         
     var body: some View {
         NavigationStack(path: $navigationHelper.path) {
-            VStack {
-                MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
-                    .padding()
-                if showSearchView {
-                    MusicSearchView(
-                        searchTerm: $searchTerm,
-                        isUpdate: $musicItemUpdateViewModel.isUpdate
-                    )
-                } else {
-                    CarouselView()
+            ZStack {
+                VStack {
+                    MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
+                        .padding()
+                    if showSearchView {
+                        MusicSearchView(
+                            searchTerm: $searchTerm,
+                            isUpdate: $musicItemUpdateViewModel.isUpdate
+                        )
+                    } else {
+                        CarouselView()
+                    }
+                    
+                    Spacer()
                 }
-                Button {
-                    showMusicPlayView = true
-                } label: {
-                    MusicPlayerComponentView()
+                
+                VStack {
+                    Spacer()
+                    
+                    if musicItemUpdateViewModel.showToast {
+                        ToastComponentView()
+                    }
+                    
+                    Button {
+                        showMusicPlayView = true
+                    } label: {
+                        MusicPlayerComponentView()
+                    }
                 }
             }
+            
             .background(Color.custom(.background))
             .ignoresSafeArea(.keyboard)
             .sheet(isPresented: $showMusicPlayView) {

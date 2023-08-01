@@ -19,6 +19,9 @@ private let initialMusicItemVO = MusicItemVO(
 final class MusicItemUpdateViewModel: ObservableObject {
     @Published var musicItemshared = initialMusicItemVO
     @Published var isUpdate = false
+    
+    @Published var showToast = false
+    
     var isEditing = false
     static let shared = MusicItemUpdateViewModel()
     private init(){}
@@ -35,6 +38,14 @@ final class MusicItemUpdateViewModel: ObservableObject {
     
     func resetInitialMusicItem(){
         self.musicItemshared = initialMusicItemVO
+    }
+    
+    func showToastView() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            withAnimation {
+                self.showToast = false
+            }
+        }
     }
 }
 

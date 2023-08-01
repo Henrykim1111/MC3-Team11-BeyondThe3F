@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ToastComponentView: View {
+    
+    @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 4)
