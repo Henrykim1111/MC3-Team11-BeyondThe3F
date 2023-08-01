@@ -136,7 +136,6 @@ struct CurrentPlayListView: View {
                 if musicPlayer.playlist.isEmpty {
                     Text("현재 재생 목록이 없습니다.")
                         .body1(color: .gray500)
-                        .padding()
                 } else {
                     ForEach(0 ..< musicPlayer.playlist.count, id: \.self) { index in
                         Button {
@@ -151,6 +150,8 @@ struct CurrentPlayListView: View {
 
                                 }
                             )
+                            .padding(.horizontal, 20)
+                            .background(Color.custom(musicPlayer.playlist[index] == musicPlayer.currentMusicItem ? .secondaryDark : .background))
                         }
                     }
                 }
