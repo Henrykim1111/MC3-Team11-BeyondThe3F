@@ -170,6 +170,7 @@ struct CurrentPlayListView: View {
                 dismiss()
             }
             Button("삭제", role: .destructive) {
+                // TODO: 삭제 기능 구현 필요
             }
             Button("취소", role: .cancel) {}
         }
