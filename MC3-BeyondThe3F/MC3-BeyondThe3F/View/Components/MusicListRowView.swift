@@ -29,14 +29,13 @@ struct MusicListRowView: View {
             } placeholder: {
                 ZStack {
                     Rectangle()
-                        .foregroundColor(Color.custom(.secondaryDark))
+                        .foregroundColor(Color.custom(.gray400))
                         .cornerRadius(6)
                     ProgressView()
                 }
             }
             .frame(width: 60, height: 60)
                 .cornerRadius(8)
-                .padding(.trailing, 15)
             Spacer()
                 .frame(width: 16)
             VStack(alignment: .leading){
