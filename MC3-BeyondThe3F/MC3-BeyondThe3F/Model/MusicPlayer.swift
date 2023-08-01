@@ -19,6 +19,7 @@ class MusicPlayer: ObservableObject{
     var delegate:MusicPlayerProtocol?
     
     @Published var isPlaying: Bool = false
+    @Published var playState: MPMusicPlaybackState = MPMusicPlayerController.applicationMusicPlayer.playbackState
     
     var seek = 0
     
@@ -43,6 +44,7 @@ class MusicPlayer: ObservableObject{
                         self.player.skipToNextItem()
                     }
                     self.seek = 0
+                    self.playState = .playing
                 }
            }
 
@@ -69,9 +71,6 @@ class MusicPlayer: ObservableObject{
             self.player.currentPlaybackTime = newValue
         }
     }
-    
-
-
 }
 extension MusicPlayer{
     func previousButtonTapped(){
@@ -80,15 +79,19 @@ extension MusicPlayer{
         }else{
             self.player.currentPlaybackTime = 0
         }
+        player.play()
+        self.playState = .playing
     }
     
     func playButtonTapped(){
         if self.player.currentPlaybackRate == 0{
             self.player.play()
             self.isPlaying = true
+            self.playState = .playing
         }else{
             self.player.pause()
             self.isPlaying = false
+            self.playState = .paused
         }
     }
 
@@ -96,6 +99,8 @@ extension MusicPlayer{
         if !isLast{
             self.player.skipToNextItem()
         }
+        self.player.play()
+        self.playState = .playing
     }
     func playMusicInPlaylist(_ musicId:String){
         guard let index = self.playlist.firstIndex(where: {$0.musicId == musicId}) else { return }
@@ -111,6 +116,8 @@ extension MusicPlayer{
 
             }
         }
+        self.playState = .playing
+        player.play()
     }
     func insertMusicAndPlay(musicItem:MusicItem) {
         let currentIndex = self.player.indexOfNowPlayingItem
@@ -120,5 +127,7 @@ extension MusicPlayer{
             self.seek = currentIndex + 1
             self.playlist.insert(musicItem, at: currentIndex + 1)
         }
+        self.playState = .playing
+        player.play()
     }
 }

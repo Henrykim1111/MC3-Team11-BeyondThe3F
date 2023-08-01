@@ -84,7 +84,7 @@ struct MapMusicInfoView: View {
                             if !musicList.isEmpty {
                                 musicPlayer.playlist = []
                                 for musicItem in musicList {
-                                    musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
+                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem)
                                 }
                                 
                             }
@@ -98,7 +98,7 @@ struct MapMusicInfoView: View {
                                 tempMusicList.shuffle()
                                 musicPlayer.playlist = []
                                 for musicItem in tempMusicList {
-                                    musicPlayer.insertMusicAndPlay(musicId: musicItem.musicId ?? "", songName: musicItem.songName ?? "", artistName: musicItem.artistName ?? "")
+                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem)
                                 }
                             }
                         } label: {
@@ -113,21 +113,20 @@ struct MapMusicInfoView: View {
                 ScrollView {
                     LazyVStack{
                         ForEach(musicList) { musicItem in
-                            let validMusicItem = musicItem
                             if musicItem.songName != ""{
                                 MusicListRowView(
-                                    imageName: validMusicItem.savedImage ?? "annotation0",
-                                    songName: validMusicItem.songName ?? "",
-                                    artistName: validMusicItem.artistName ?? "",
+                                    imageName: musicItem.savedImage ?? "annotation0",
+                                    songName: musicItem.songName ?? "",
+                                    artistName: musicItem.artistName ?? "",
                                     musicListRowType: .saved,
                                     buttonEllipsisAction: {
                                         showActionSheet = true
-                                        selectedMusic = validMusicItem
+                                        selectedMusic = musicItem
                                     }
                                 )
                                 .background(Color.custom(.background))
                                 .onTapGesture {
-                                    musicPlayer.insertMusicAndPlay(musicId: validMusicItem.musicId ?? "", songName: validMusicItem.songName ?? "", artistName: validMusicItem.artistName ?? "")
+                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem)
                                 }
                             }
                         }
