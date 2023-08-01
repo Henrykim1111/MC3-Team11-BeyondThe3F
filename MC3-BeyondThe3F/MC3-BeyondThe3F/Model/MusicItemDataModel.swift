@@ -68,7 +68,6 @@ class MusicItemDataModel {
             self.deleteMusicItemWith(uuid: uuid)
         }
         let newItem = MusicItem(context: persistentContainer.viewContext)
-
         newItem.musicId = musicItemVO.musicId
         newItem.latitude = musicItemVO.latitude
         newItem.longitude = musicItemVO.longitude
@@ -77,7 +76,7 @@ class MusicItemDataModel {
         newItem.generatedDate = musicItemVO.generatedDate
         newItem.songName = musicItemVO.songName
         newItem.artistName = musicItemVO.artistName
-        newItem.uuid = UUID()
+//        newItem.uuid = UUID()
         
         do {
             try persistentContainer.viewContext.save()

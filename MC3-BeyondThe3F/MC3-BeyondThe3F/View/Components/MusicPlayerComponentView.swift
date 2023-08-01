@@ -11,25 +11,18 @@ import MusicKit
 struct MusicPlayerComponentView: View {
     @StateObject private var musicPlayer = MusicPlayer.shared
     @State private var showMusicPlayListView = false
-    @State private var imageUrl:URL? = nil
+    @State private var currentPlayingMusicItem: MusicItem? = nil
     
     var body: some View {
         HStack {
-            if let url = imageUrl {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(8)
-                } placeholder: {
-                    Image("musicPlayImageEmpty")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(8)
-                }
-            } else {
+            
+            AsyncImage(url: URL(string: musicPlayer.currentMusicItem?.savedImage ?? "")) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 60, height: 60)
+                    .cornerRadius(8)
+            } placeholder: {
                 Image("musicPlayImageEmpty")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -68,7 +61,12 @@ struct MusicPlayerComponentView: View {
                 Button {
                     musicPlayer.playButtonTapped()
                 } label: {
-                    SFImageComponentView(symbolName: musicPlayer.isPlaying ? .pause : .play, color: .white, width: 20)
+                    switch musicPlayer.playState {
+                    case .paused, .stopped:
+                        SFImageComponentView(symbolName: .play, color: .white, width: 20)
+                    default:
+                        SFImageComponentView(symbolName: .pause, color: .white, width: 20)
+                    }
                 }
                 
                 Button {
@@ -94,11 +92,14 @@ struct MusicPlayerComponentView: View {
                 .presentationDragIndicator(.visible)
             
         }
-        .task {
-            if let musicId = musicPlayer.currentMusicItem?.musicId{
-                imageUrl = await MusicItemDataModel.shared.getURL(musicId)
-            }
+        .onAppear {
+            self.currentPlayingMusicItem = musicPlayer.currentMusicItem
+            
         }
+        .onChange(of: musicPlayer.indexOfNowPlayingItem) { nowPlayingIndex in
+            self.currentPlayingMusicItem = musicPlayer.currentMusicItem
+        }
+        
     }
 }
 

@@ -14,14 +14,18 @@ struct MusicPlayView: View {
     @ObservedObject private var musicPlayer = MusicPlayer.shared
     @State private var progressRate: Double = 0.0
     @State var showCurrentPlayList: Bool = false
-    
+    @State var currentDegrees: Double = 0
     var body: some View {
         ZStack {
-            NowPlayingView()
+            NowPlayingView(currentDegrees: $currentDegrees)
             CurrentPlayListView()
                 .opacity(showCurrentPlayList ? 1 : 0)
             
-            ControlPanelView(progressRate: $progressRate, showCurrentPlayList: $showCurrentPlayList)
+            ControlPanelView(
+                progressRate: $progressRate,
+                showCurrentPlayList: $showCurrentPlayList,
+                currentDegrees: $currentDegrees
+            )
         }
     }
 }
@@ -29,12 +33,12 @@ struct MusicPlayView: View {
 
 struct NowPlayingView: View {
     
-    let musicPlayer = MusicPlayer.shared
-//    @State private var isRotating = false
-    @State private var currentDegrees:Angle = .zero
+    @StateObject var musicPlayer = MusicPlayer.shared
+    @Binding var currentDegrees: Double
     @State private var imageUrl:URL? = nil
     
-    private var foreverAnimation = Animation.linear(duration: 10.0).repeatForever(autoreverses: false)
+    var foreverAnimation = Animation.linear(duration: 10.0).repeatForever(autoreverses: false)
+    var stopAnimationLinear = Animation.linear(duration: 10.0)
     
     var body: some View {
         VStack {
@@ -58,8 +62,7 @@ struct NowPlayingView: View {
                                 .frame(width: 320, height: 320)
                                 .cornerRadius(451)
                                 .clipped()
-                                .rotationEffect(Angle(degrees: musicPlayer.isPlaying ? 360 : 0))
-                                //.animation(musicPlayer.isPlaying ? foreverAnimation : .default)
+                                .rotationEffect(Angle(degrees: currentDegrees))
                         } placeholder: {
                             Image("musicPlayImageEmpty")
                                 .resizable()
@@ -67,8 +70,7 @@ struct NowPlayingView: View {
                                 .frame(width: 320, height: 320)
                                 .cornerRadius(451)
                                 .clipped()
-                                .rotationEffect(Angle(degrees: musicPlayer.isPlaying ? 360 : 0))
-                                //.animation(musicPlayer.isPlaying ? foreverAnimation : .default)
+                                .rotationEffect(Angle(degrees: currentDegrees))
                         }
                     } else {
                         Image("musicPlayImageEmpty")
@@ -90,18 +92,26 @@ struct NowPlayingView: View {
         }
         .padding()
         .background(Color.custom(.secondaryDark))
-        .onAppear{
-            withAnimation(musicPlayer.isPlaying ? foreverAnimation : .default) {
-                musicPlayer.isPlaying.toggle()
+        .onAppear {
+            switch musicPlayer.playState {
+            case .playing:
+                startAnimation()
+            case .paused:
+                stopAnimation()
+            default: break
             }
         }
-//        .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
-//                if musicPlayer.player.playbackState == .playing {
-//                    isRotating = true
-//                } else {
-//                    isRotating = false
-//                }
-//            }
+    }
+    
+    func startAnimation(){
+        withAnimation(foreverAnimation) {
+            currentDegrees = 360
+        }
+    }
+    func stopAnimation(){
+        withAnimation(stopAnimationLinear) {
+            currentDegrees = 0
+        }
     }
 }
 
@@ -130,62 +140,17 @@ struct CurrentPlayListView: View {
                 } else {
                     ForEach(0 ..< musicPlayer.playlist.count, id: \.self) { index in
                         Button {
-                            MusicPlayer.shared.playMusicInPlaylist(musicPlayer.playlist[index].musicId ?? "")
+                            musicPlayer.playMusicInPlaylist(musicPlayer.playlist[index].musicId ?? "")
                         } label: {
-                            HStack{
-                                if let url = imageUrl {
-                                    AsyncImage(url: url) { image in
-                                        image
-                                            .resizable()
-                                            .frame(width: 60, height: 60)
-                                            .cornerRadius(8)
-                                    } placeholder: {
-                                        Image("musicPlayImageEmpty")
-                                            .resizable()
-                                            .frame(width: 60, height: 60)
-                                            .cornerRadius(8)
-                                    }
-                                } else {
-                                    Image("musicPlayImageEmpty")
-                                        .resizable()
-                                        .frame(width: 60, height: 60)
-                                        .cornerRadius(8)
+                            MusicListRowView(
+                                imageName: musicPlayer.playlist[index].savedImage ?? "annotation0",
+                                songName: musicPlayer.playlist[index].songName ?? "",
+                                artistName: musicPlayer.playlist[index].artistName ?? "",
+                                musicListRowType: .saved,
+                                buttonEllipsisAction: {
+
                                 }
-                                
-                                Spacer().frame(width: 16)
-                                
-                                VStack(alignment: .leading) {
-                                    Text("\(musicPlayer.playlist[index].songName ?? "")")
-                                        .body1(color: .white)
-                                        .truncationMode(.tail)
-                                        .lineLimit(1)
-                                    Spacer()
-                                        .frame(height: 6)
-                                    Text("\(musicPlayer.playlist[index].artistName ?? "")")
-                                        .body2(color: .gray500)
-                                        .truncationMode(.tail)
-                                        .lineLimit(1)
-                                }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                Spacer()
-                                
-                                Button {
-                                    
-                                } label: {
-                                    SFImageComponentView(symbolName: .ellipsis, color: .white)
-                                        .rotationEffect(.degrees(90.0))
-                                }
-                            }
-                            .frame(maxWidth: 390)
-                            .frame(height: 88)
-                            .padding(.horizontal, 20)
-                            .background(Color.custom(musicPlayer.playlist[index] == musicPlayer.currentMusicItem ? .secondaryDark : .background))
-                            .task {
-                                if let musicId = musicPlayer.currentMusicItem?.musicId{
-                                    imageUrl = await MusicItemDataModel.shared.getURL(musicId)
-                                }
-                            }
+                            )
                         }
                     }
                 }
@@ -204,6 +169,7 @@ struct ControlPanelView: View {
     @ObservedObject private var musicPlayer = MusicPlayer.shared
     @Binding var progressRate: Double
     @Binding var showCurrentPlayList: Bool
+    @Binding var currentDegrees: Double
 
     var body: some View {
         VStack {
@@ -245,7 +211,10 @@ struct ControlPanelView: View {
                 }
                 Spacer().frame(height: 32)
                 
-                ControlButtonsView(progressRate: $progressRate)
+                ControlButtonsView(
+                    progressRate: $progressRate,
+                    currentDegrees: $currentDegrees
+                )
             }
             .padding(.horizontal, 20)
             .padding(.top, 36)
@@ -269,7 +238,9 @@ struct ControlButtonsView: View {
     @State private var currentDuration: Double = 0.0
     @State private var totalDuration: Double = (MusicPlayer.shared.player.nowPlayingItem?.playbackDuration ?? 0.0)
     @State private var isDragging = false
-    
+    @Binding var currentDegrees: Double
+    var foreverAnimation = Animation.linear(duration: 10.0).repeatForever(autoreverses: false)
+    var stopAnimationLinear = Animation.linear(duration: 10.0)
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
 
     func sliderChanged(editingStarted: Bool) {
@@ -320,7 +291,7 @@ struct ControlButtonsView: View {
                 Button {
                     musicPlayer.playButtonTapped()
                 } label: {
-                    SFImageComponentView(symbolName: musicPlayer.isPlaying ? .pause : .play, color: .white, width: 45, height: 45)
+                    SFImageComponentView(symbolName: musicPlayer.playState == .paused ? .pause : .play, color: .white, width: 45, height: 45)
                 }
                 
                 Spacer().frame(width: 48)
@@ -333,6 +304,27 @@ struct ControlButtonsView: View {
                 .disabled(musicPlayer.isLast)
             }
             Spacer()
+        }
+        .onChange(of: musicPlayer.isPlaying) { playState in
+            if playState {
+                startAnimation()
+            } else {
+                stopAnimation()
+            }
+        }
+        .onChange(of: currentDegrees) { state in
+            print(state)
+        }
+    }
+    
+    func startAnimation(){
+        withAnimation(foreverAnimation) {
+            currentDegrees = 360
+        }
+    }
+    func stopAnimation(){
+        withAnimation(stopAnimationLinear) {
+            currentDegrees = 0
         }
     }
 }

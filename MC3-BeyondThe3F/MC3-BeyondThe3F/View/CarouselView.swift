@@ -135,7 +135,7 @@ struct CarouselCardItem: View {
             width: pageWidth
         )
         .onAppear {
-            print(MainDataModel.shared.musicItemDataModel.musicList)
+            
         }
     }
 }

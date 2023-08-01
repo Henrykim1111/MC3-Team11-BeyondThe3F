@@ -44,7 +44,7 @@ struct EditDateView: View {
         .navigationTitle("날짜 선택")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            print(musicUpdateViewModel.musicItemshared)
+            
         }
         
     }
