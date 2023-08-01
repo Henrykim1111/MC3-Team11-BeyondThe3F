@@ -30,8 +30,11 @@ struct MusicPlayView: View {
 struct NowPlayingView: View {
     
     let musicPlayer = MusicPlayer.shared
-    @State private var isRotating = false
+//    @State private var isRotating = false
+    @State private var currentDegrees:Angle = .zero
     @State private var imageUrl:URL? = nil
+    
+    private var foreverAnimation = Animation.linear(duration: 10.0).repeatForever(autoreverses: false)
     
     var body: some View {
         VStack {
@@ -46,7 +49,7 @@ struct NowPlayingView: View {
                         .fill(Color.black)
                         .frame(width: 451, height: 451)
                         .shadow(color: .black.opacity(0.25), radius: 2, x: -10, y: -10)
-                    
+
                     if let url = imageUrl {
                         AsyncImage(url: url) { image in
                             image
@@ -55,8 +58,8 @@ struct NowPlayingView: View {
                                 .frame(width: 320, height: 320)
                                 .cornerRadius(451)
                                 .clipped()
-                                .rotationEffect(Angle(degrees: isRotating ? 360 : 0))
-                                .animation(Animation.easeInOut(duration: 10).repeatForever(autoreverses: false), value: isRotating)
+                                .rotationEffect(Angle(degrees: musicPlayer.isPlaying ? 360 : 0))
+                                //.animation(musicPlayer.isPlaying ? foreverAnimation : .default)
                         } placeholder: {
                             Image("musicPlayImageEmpty")
                                 .resizable()
@@ -64,8 +67,8 @@ struct NowPlayingView: View {
                                 .frame(width: 320, height: 320)
                                 .cornerRadius(451)
                                 .clipped()
-                                .rotationEffect(Angle(degrees: isRotating ? 360 : 0))
-                                .animation(Animation.easeInOut(duration: 10).repeatForever(autoreverses: false), value: isRotating)
+                                .rotationEffect(Angle(degrees: musicPlayer.isPlaying ? 360 : 0))
+                                //.animation(musicPlayer.isPlaying ? foreverAnimation : .default)
                         }
                     } else {
                         Image("musicPlayImageEmpty")
@@ -87,14 +90,18 @@ struct NowPlayingView: View {
         }
         .padding()
         .background(Color.custom(.secondaryDark))
-        .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
-            // isRotating = musicPlayer.player.playbackState == .playing
-            if musicPlayer.player.playbackState == .playing {
-                isRotating = true
-            } else {
-                isRotating = false
+        .onAppear{
+            withAnimation(musicPlayer.isPlaying ? foreverAnimation : .default) {
+                musicPlayer.isPlaying.toggle()
             }
         }
+//        .onReceive(NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)) { _ in
+//                if musicPlayer.player.playbackState == .playing {
+//                    isRotating = true
+//                } else {
+//                    isRotating = false
+//                }
+//            }
     }
 }
 
