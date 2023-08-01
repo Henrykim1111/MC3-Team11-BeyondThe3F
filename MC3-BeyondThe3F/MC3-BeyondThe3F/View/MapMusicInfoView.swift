@@ -113,7 +113,8 @@ struct MapMusicInfoView: View {
                 ScrollView {
                     LazyVStack{
                         ForEach(musicList) { musicItem in
-                            if let validMusicItem = musicItem, musicItem.songName != ""{
+                            let validMusicItem = musicItem
+                            if musicItem.songName != ""{
                                 MusicListRowView(
                                     imageName: validMusicItem.savedImage ?? "annotation0",
                                     songName: validMusicItem.songName ?? "",

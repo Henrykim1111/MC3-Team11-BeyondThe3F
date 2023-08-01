@@ -29,11 +29,9 @@ struct MainTabView: View {
                 showWelcomeSheet = true
             }
             Task{
-//                await insertDummy()
+                await insertDummy()
                 await AuthManger.requestMusicAuth()
-                print(MusicItemDataModel.shared.musicList.count)
                 try? await Task.sleep(nanoseconds: 5 * 1_000_000_000)
-
             }
         }
         .sheet(isPresented: $showWelcomeSheet, onDismiss: {
