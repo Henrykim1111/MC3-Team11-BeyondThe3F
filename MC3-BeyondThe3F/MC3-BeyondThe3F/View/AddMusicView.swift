@@ -115,8 +115,9 @@ struct AddMusicView: View {
                 switch nextProcess {
                 case .backward:
                     Button {
-                        musicItemUpdateViewModel.updateCoreDate()
+                        musicItemUpdateViewModel.isEditing = false
                         musicItemUpdateViewModel.isUpdate = false
+                        musicItemUpdateViewModel.updateCoreDate()
                     } label: {
                         PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
                     }

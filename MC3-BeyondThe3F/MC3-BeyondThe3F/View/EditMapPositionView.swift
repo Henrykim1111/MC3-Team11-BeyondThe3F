@@ -95,7 +95,6 @@ struct EditMapPositionView: View {
 
                                 Spacer()
                                 Button {
-                                    
                                     switch locationManager.locationManager.authorizationStatus {
                                     case .notDetermined:
                                         showDeniedLocationStatus = false
@@ -107,8 +106,7 @@ struct EditMapPositionView: View {
                                         isShowUserLocation = true
                                         showUserLocation()
                                     }
-                                    
-                                    
+
                                 } label: {
                                     ScopeButtonComponentView(
                                         foregroundColor: Color.custom(.white),
@@ -198,6 +196,7 @@ struct EditMapPositionView: View {
                 case .authorizedWhenInUse, .authorizedAlways:
                     isShowUserLocation = true
                     showUserLocation()
+                    isShowUserLocation = false
                 default: break
                 }
             }
@@ -321,11 +320,11 @@ struct EditMapUIView: UIViewRepresentable{
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
         if isShowUserLocation {
-            uiView.setRegion(userRegion, animated: true)
-            isShowUserLocation = false
+            uiView.setRegion(userRegion, animated: false)
         } else if isRegionSetted {
-            uiView.setRegion(region, animated: true)
+            uiView.setRegion(region, animated: false)
             isRegionSetted = false
         }
+        isShowUserLocation = false
     }
 }
