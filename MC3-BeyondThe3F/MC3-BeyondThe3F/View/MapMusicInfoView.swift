@@ -27,6 +27,7 @@ struct MapMusicInfoView: View {
     
 
     var body: some View {
+
         GeometryReader { geo in
             VStack{
                 VStack{
@@ -110,6 +111,7 @@ struct MapMusicInfoView: View {
                 
                 Divider()
                     .overlay(Color.custom(.white))
+                
                 ScrollView {
                     LazyVStack{
                         ForEach(musicList) { musicItem in
@@ -142,10 +144,10 @@ struct MapMusicInfoView: View {
             .offset(y: draggedYOffset)
             .gesture(drag)
             .onAppear {
-                maxHeight = geo.size.height - 125
+                maxHeight = geo.size.height - 213
                 minHeight = 30
-                draggedYOffset = geo.size.height - 125
-                accumulatedYOffset = geo.size.height - 125
+                draggedYOffset = geo.size.height - 213
+                accumulatedYOffset = geo.size.height - 213
             }
             .confirmationDialog("타이틀", isPresented: $showActionSheet) {
                 Button("편집", role: .none) {

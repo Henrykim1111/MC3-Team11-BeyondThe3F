@@ -26,7 +26,7 @@ struct MapView: View {
     @State private var centerPlaceDescription = "장소"
     
     @State private var showMusicPlayView = false
-    
+    @StateObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     let locationHelper = LocationManager.shared
     let musicItemDataModel = MusicItemDataModel.shared
     
@@ -88,7 +88,7 @@ struct MapView: View {
                             }
                             
                         }
-                        .offset(y: -120)
+                        .offset(y: -208)
                         
                     }
                     .padding()
@@ -101,11 +101,18 @@ struct MapView: View {
                         musicList: $musicList,
                         centerPlaceDescription: $centerPlaceDescription
                     )
-                }
-                Button {
-                    showMusicPlayView = true
-                } label: {
-                    MusicPlayerComponentView()
+                    
+                    VStack {
+                        Spacer()
+                        if musicItemUpdateViewModel.showToast {
+                            ToastComponentView()
+                        }
+                        Button {
+                            showMusicPlayView = true
+                        } label: {
+                            MusicPlayerComponentView()
+                        }
+                    }
                 }
             }
             .ignoresSafeArea(.all, edges: .top)
