@@ -38,7 +38,7 @@ struct NowPlayingView: View {
     @State private var imageUrl:URL? = nil
     
     var foreverAnimation = Animation.linear(duration: 10.0).repeatForever(autoreverses: false)
-    var stopAnimationLinear = Animation.linear(duration: 2.0)
+    var stopAnimationLinear = Animation.linear(duration: 10.0)
     
     var body: some View {
         VStack {
@@ -99,13 +99,13 @@ struct NowPlayingView: View {
                 stopAnimation()
             }
         }
-        .onChange(of: musicPlayer.isPlaying) { playState in
-            if playState {
-                startAnimation()
-            } else {
-                stopAnimation()
-            }
-        }
+//        .onChange(of: musicPlayer.isPlaying) { playState in
+//            if playState {
+//                startAnimation()
+//            } else {
+//                stopAnimation()
+//            }
+//        }
     }
     
     func startAnimation(){
@@ -115,7 +115,7 @@ struct NowPlayingView: View {
     }
     func stopAnimation(){
         withAnimation(stopAnimationLinear) {
-            currentDegrees = 360
+            currentDegrees = 0
         }
     }
 }
@@ -145,62 +145,64 @@ struct CurrentPlayListView: View {
                 } else {
                     ForEach(0 ..< musicPlayer.playlist.count, id: \.self) { index in
                         Button {
-                            MusicPlayer.shared.playMusicInPlaylist(musicPlayer.playlist[index].musicId ?? "")
+                            musicPlayer.playMusicInPlaylist(musicPlayer.playlist[index].musicId ?? "")
                         } label: {
-                            HStack{
-                                if let url = imageUrl {
-                                    AsyncImage(url: url) { image in
-                                        image
-                                            .resizable()
-                                            .frame(width: 60, height: 60)
-                                            .cornerRadius(8)
-                                    } placeholder: {
-                                        Image("musicPlayImageEmpty")
-                                            .resizable()
-                                            .frame(width: 60, height: 60)
-                                            .cornerRadius(8)
-                                    }
-                                } else {
-                                    Image("musicPlayImageEmpty")
-                                        .resizable()
-                                        .frame(width: 60, height: 60)
-                                        .cornerRadius(8)
+                            MusicListRowView(
+                                imageName: musicPlayer.playlist[index].savedImage ?? "annotation0",
+                                songName: musicPlayer.playlist[index].songName ?? "",
+                                artistName: musicPlayer.playlist[index].artistName ?? "",
+                                musicListRowType: .saved,
+                                buttonEllipsisAction: {
+
                                 }
-                                
-                                Spacer().frame(width: 16)
-                                
-                                VStack(alignment: .leading) {
-                                    Text("\(musicPlayer.playlist[index].songName ?? "")")
-                                        .body1(color: .white)
-                                        .truncationMode(.tail)
-                                        .lineLimit(1)
-                                    Spacer()
-                                        .frame(height: 6)
-                                    Text("\(musicPlayer.playlist[index].artistName ?? "")")
-                                        .body2(color: .gray500)
-                                        .truncationMode(.tail)
-                                        .lineLimit(1)
-                                }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                Spacer()
-                                
-                                Button {
-                                    
-                                } label: {
-                                    SFImageComponentView(symbolName: .ellipsis, color: .white)
-                                        .rotationEffect(.degrees(90.0))
-                                }
-                            }
-                            .frame(maxWidth: 390)
-                            .frame(height: 88)
-                            .padding(.horizontal, 20)
-                            .background(Color.custom(musicPlayer.playlist[index] == musicPlayer.currentMusicItem ? .secondaryDark : .background))
-                            .task {
-                                if let musicId = musicPlayer.currentMusicItem?.musicId{
-                                    imageUrl = await MusicItemDataModel.shared.getURL(musicId)
-                                }
-                            }
+                            )
+                            
+//                            HStack{
+//                                AsyncImage(url: URL(string: musicPlayer.playlist[index].savedImage ?? "")) { image in
+//                                    image
+//                                        .resizable()
+//                                        .frame(width: 60, height: 60)
+//                                        .cornerRadius(8)
+//                                } placeholder: {
+//                                    Image("musicPlayImageEmpty")
+//                                        .resizable()
+//                                        .frame(width: 60, height: 60)
+//                                        .cornerRadius(8)
+//                                }
+//                                Spacer().frame(width: 16)
+//
+//                                VStack(alignment: .leading) {
+//                                    Text("\(musicPlayer.playlist[index].songName ?? "")")
+//                                        .body1(color: .white)
+//                                        .truncationMode(.tail)
+//                                        .lineLimit(1)
+//                                    Spacer()
+//                                        .frame(height: 6)
+//                                    Text("\(musicPlayer.playlist[index].artistName ?? "")")
+//                                        .body2(color: .gray500)
+//                                        .truncationMode(.tail)
+//                                        .lineLimit(1)
+//                                }
+//                                .frame(maxWidth: .infinity, alignment: .leading)
+//
+//                                Spacer()
+//
+//                                Button {
+//
+//                                } label: {
+//                                    SFImageComponentView(symbolName: .ellipsis, color: .white)
+//                                        .rotationEffect(.degrees(90.0))
+//                                }
+//                            }
+//                            .frame(maxWidth: 390)
+//                            .frame(height: 88)
+//                            .padding(.horizontal, 20)
+//                            .background(Color.custom(musicPlayer.playlist[index] == musicPlayer.currentMusicItem ? .secondaryDark : .background))
+//                            .task {
+//                                if let musicId = musicPlayer.currentMusicItem?.musicId{
+//                                    imageUrl = await MusicItemDataModel.shared.getURL(musicId)
+//                                }
+//                            }
                         }
                     }
                 }
@@ -374,7 +376,7 @@ struct ControlButtonsView: View {
     }
     func stopAnimation(){
         withAnimation(stopAnimationLinear) {
-            currentDegrees = 360
+            currentDegrees = 0
         }
     }
 }
