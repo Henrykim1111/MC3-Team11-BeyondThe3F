@@ -19,7 +19,7 @@ class MusicPlayer: ObservableObject{
     var delegate:MusicPlayerProtocol?
     
     @Published var isPlaying: Bool = false
-    @Published var playState: MPMusicPlaybackState = MPMusicPlayerController.applicationMusicPlayer.playbackState
+    @Published var playState: MPMusicPlaybackState = .paused
     
     var seek = 0
     

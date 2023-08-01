@@ -10,7 +10,6 @@ import SwiftUI
 import MediaPlayer
 
 struct MusicPlayView: View {
-    
     @ObservedObject private var musicPlayer = MusicPlayer.shared
     @State private var progressRate: Double = 0.0
     @State var showCurrentPlayList: Bool = false
@@ -35,7 +34,6 @@ struct NowPlayingView: View {
     
     @StateObject var musicPlayer = MusicPlayer.shared
     @Binding var currentDegrees: Double
-    @State private var imageUrl:URL? = nil
     
     var foreverAnimation = Animation.linear(duration: 10.0).repeatForever(autoreverses: false)
     var stopAnimationLinear = Animation.linear(duration: 10.0)
@@ -54,39 +52,26 @@ struct NowPlayingView: View {
                         .frame(width: 451, height: 451)
                         .shadow(color: .black.opacity(0.25), radius: 2, x: -10, y: -10)
 
-                    if let url = imageUrl {
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 320, height: 320)
-                                .cornerRadius(451)
-                                .clipped()
-                                .rotationEffect(Angle(degrees: currentDegrees))
-                        } placeholder: {
-                            Image("musicPlayImageEmpty")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 320, height: 320)
-                                .cornerRadius(451)
-                                .clipped()
-                                .rotationEffect(Angle(degrees: currentDegrees))
-                        }
-                    } else {
+                    AsyncImage(url: URL(string: musicPlayer.currentMusicItem?.savedImage ?? "")) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 320, height: 320)
+                            .cornerRadius(451)
+                            .clipped()
+                            .rotationEffect(Angle(degrees: currentDegrees))
+                    } placeholder: {
                         Image("musicPlayImageEmpty")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 320, height: 320)
                             .cornerRadius(451)
                             .clipped()
+                            .rotationEffect(Angle(degrees: currentDegrees))
                     }
+                    
                 }
                 .offset(x: 64, y: 40)
-                .task {
-                    if let musicId = musicPlayer.currentMusicItem?.musicId{
-                        imageUrl = await MusicItemDataModel.shared.getURL(musicId)
-                    }
-                }
             }
             Spacer()
         }
@@ -94,11 +79,10 @@ struct NowPlayingView: View {
         .background(Color.custom(.secondaryDark))
         .onAppear {
             switch musicPlayer.playState {
-            case .playing:
-                startAnimation()
-            case .paused:
+            case .paused, .stopped:
                 stopAnimation()
-            default: break
+            default:
+                startAnimation()
             }
         }
     }
@@ -291,7 +275,12 @@ struct ControlButtonsView: View {
                 Button {
                     musicPlayer.playButtonTapped()
                 } label: {
-                    SFImageComponentView(symbolName: musicPlayer.playState == .paused ? .pause : .play, color: .white, width: 45, height: 45)
+                    switch musicPlayer.playState {
+                    case .paused, .stopped:
+                        SFImageComponentView(symbolName: .play, color: .white, width: 45, height: 45)
+                    default:
+                        SFImageComponentView(symbolName: .pause, color: .white, width: 45, height: 45)
+                    }
                 }
                 
                 Spacer().frame(width: 48)
@@ -305,19 +294,18 @@ struct ControlButtonsView: View {
             }
             Spacer()
         }
-        .onChange(of: musicPlayer.isPlaying) { playState in
-            if playState {
-                startAnimation()
-            } else {
+        .onChange(of: musicPlayer.playState) { playState in
+            switch playState {
+            case .stopped, .paused:
                 stopAnimation()
+            default:
+                startAnimation()
             }
-        }
-        .onChange(of: currentDegrees) { state in
-            print(state)
         }
     }
     
     func startAnimation(){
+        currentDegrees = 0
         withAnimation(foreverAnimation) {
             currentDegrees = 360
         }
