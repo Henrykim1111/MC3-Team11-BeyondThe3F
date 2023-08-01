@@ -169,7 +169,8 @@ struct MapMusicInfoView: View {
                     guard let musicItem = selectedMusic else {
                         return
                     }
-                    musicItemDataModel.deleteMusicItemWith(musicId: musicItem.musicId ?? "", locationInfo: musicItem.locationInfo ?? "")
+                    print(musicItem)
+                    musicItemDataModel.deleteMusicItemWith(uuid: musicItem.uuid ?? UUID())
                     musicList = musicItemDataModel.musicList
                 }
                 Button("취소", role: .cancel) {}
