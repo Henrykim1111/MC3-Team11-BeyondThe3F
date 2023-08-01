@@ -31,7 +31,7 @@ class MusicPlayer: ObservableObject{
     
     var indexOfNowPlayingItem:Int{ player.indexOfNowPlayingItem }
     
-    @Published var playlist:[MusicItem] = []{
+    @Published var playlist:[MusicItemVO] = []{
         didSet{
             print("playlist didSet")
             self.player.setQueue(with: self.playlist.map{$0.musicId ?? ""})
@@ -58,7 +58,7 @@ class MusicPlayer: ObservableObject{
     }
     
 
-    var currentMusicItem:MusicItem?{
+    var currentMusicItem:MusicItemVO?{
         let current_index = self.player.indexOfNowPlayingItem
         return (self.playlist.isEmpty || current_index > self.playlist.count) ? nil : self.playlist[current_index]
     }
@@ -119,7 +119,7 @@ extension MusicPlayer{
         self.playState = .playing
         player.play()
     }
-    func insertMusicAndPlay(musicItem:MusicItem) {
+    func insertMusicAndPlay(musicItem:MusicItemVO) {
         let currentIndex = self.player.indexOfNowPlayingItem
         if self.playlist.isEmpty{
             self.playlist = [musicItem]

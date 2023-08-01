@@ -27,6 +27,7 @@ struct MapMusicInfoView: View {
     
 
     var body: some View {
+
         GeometryReader { geo in
             VStack{
                 VStack{
@@ -84,7 +85,7 @@ struct MapMusicInfoView: View {
                             if !musicList.isEmpty {
                                 musicPlayer.playlist = []
                                 for musicItem in musicList {
-                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem)
+                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem.musicItemVO)
                                 }
                                 
                             }
@@ -98,7 +99,7 @@ struct MapMusicInfoView: View {
                                 tempMusicList.shuffle()
                                 musicPlayer.playlist = []
                                 for musicItem in tempMusicList {
-                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem)
+                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem.musicItemVO)
                                 }
                             }
                         } label: {
@@ -110,6 +111,7 @@ struct MapMusicInfoView: View {
                 
                 Divider()
                     .overlay(Color.custom(.white))
+                
                 ScrollView {
                     LazyVStack{
                         ForEach(musicList) { musicItem in
@@ -126,7 +128,7 @@ struct MapMusicInfoView: View {
                                 )
                                 .background(Color.custom(.background))
                                 .onTapGesture {
-                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem)
+                                    musicPlayer.insertMusicAndPlay(musicItem: musicItem.musicItemVO)
                                 }
                             }
                         }
@@ -142,10 +144,10 @@ struct MapMusicInfoView: View {
             .offset(y: draggedYOffset)
             .gesture(drag)
             .onAppear {
-                maxHeight = geo.size.height - 125
+                maxHeight = geo.size.height - 213
                 minHeight = 30
-                draggedYOffset = geo.size.height - 125
-                accumulatedYOffset = geo.size.height - 125
+                draggedYOffset = geo.size.height - 213
+                accumulatedYOffset = geo.size.height - 213
             }
             .confirmationDialog("타이틀", isPresented: $showActionSheet) {
                 Button("편집", role: .none) {

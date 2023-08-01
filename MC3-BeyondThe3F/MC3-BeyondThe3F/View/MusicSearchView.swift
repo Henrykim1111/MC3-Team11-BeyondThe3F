@@ -123,18 +123,7 @@ extension MusicSearchView {
                 }
                 ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
                     Button {
-                        let newItem = MusicItem(context: persistentContainer.viewContext)
-                        
-                        newItem.musicId = item.id.rawValue
-                        newItem.latitude = 0
-                        newItem.longitude = 0
-                        newItem.locationInfo = ""
-                        newItem.savedImage = ""
-                        newItem.generatedDate = Date()
-                        newItem.songName = item.title
-                        newItem.artistName = item.artistName
-                        
-                        musicPlayer.playlist.append(newItem)
+                        musicPlayer.insertMusicAndPlay(musicItem: MusicItemVO(musicId: item.id.rawValue, latitude: 0, longitude: 0, playedCount: 0, songName: item.title, artistName: item.artistName, generatedDate: Date()))
                         musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
                     } label: {
                         HStack {

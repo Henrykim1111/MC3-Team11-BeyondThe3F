@@ -131,6 +131,8 @@ struct AddMusicView: View {
                     .simultaneousGesture(TapGesture().onEnded {
                         musicItemUpdateViewModel.updateCoreDate()
                         musicItemUpdateViewModel.isUpdate = false
+                        musicItemUpdateViewModel.showToastView()
+                        musicItemUpdateViewModel.showToast = true
                     })
                 }
             }
