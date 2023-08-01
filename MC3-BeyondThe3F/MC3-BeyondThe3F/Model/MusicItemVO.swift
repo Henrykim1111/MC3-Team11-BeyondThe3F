@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 
 struct MusicItemVO: Identifiable, Hashable {
-    var id = UUID()
+    var id:UUID?
     var musicId: String
     var latitude: Double
     var longitude: Double

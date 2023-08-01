@@ -45,9 +45,28 @@ class MusicItemDataModel {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
+    
+    func deleteMusicItemWith(uuid: UUID) {
+        let fetchRequest: NSFetchRequest<MusicItem> = MusicItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
+
+        do {
+            let items = try persistentContainer.viewContext.fetch(fetchRequest)
+            for item in items {
+                persistentContainer.viewContext.delete(item)
+            }
+            try persistentContainer.viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+
 
     func saveMusicItem(musicItemVO:MusicItemVO) {
-        self.deleteMusicItemWith(musicId: musicItemVO.musicId, locationInfo: musicItemVO.locationInfo)
+        if let uuid = musicItemVO.id{
+            self.deleteMusicItemWith(uuid: uuid)
+        }
         let newItem = MusicItem(context: persistentContainer.viewContext)
 
         newItem.musicId = musicItemVO.musicId
@@ -58,7 +77,8 @@ class MusicItemDataModel {
         newItem.generatedDate = musicItemVO.generatedDate
         newItem.songName = musicItemVO.songName
         newItem.artistName = musicItemVO.artistName
-    
+        newItem.uuid = UUID()
+        
         do {
             try persistentContainer.viewContext.save()
         } catch {
@@ -66,7 +86,6 @@ class MusicItemDataModel {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
-    
     func getURL(_ musicId: String) async -> URL? {
         do {
             var searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(musicId))
@@ -94,3 +113,4 @@ class MusicItemDataModel {
         }
     }
 }
+
