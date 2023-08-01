@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var showWelcomeSheet = false
-    @AppStorage("isFirst") private var isFirst = false
+    @AppStorage("isFirst") private var isFirst = true
     
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor(Color.custom(.gray200))

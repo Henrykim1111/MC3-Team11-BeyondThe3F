@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @AppStorage("isFirst") private var isFirst = false
+    @AppStorage("isFirst") private var isFirst = true
     @State var isLoading: Bool = true
     
     
@@ -26,7 +26,7 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
                 withAnimation(.easeInOut(duration: 1)) {
                     isLoading.toggle()
                 }

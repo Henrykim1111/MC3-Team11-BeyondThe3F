@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EditDateView: View {
+struct EditDateView: View { 
     var nextProcess: NextProcess = .forward
     @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
     @Environment(\.dismiss) private var dismiss
