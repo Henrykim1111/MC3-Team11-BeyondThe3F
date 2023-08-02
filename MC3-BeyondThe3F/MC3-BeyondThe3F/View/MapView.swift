@@ -128,8 +128,9 @@ struct MapView: View {
             .onChange(of: searchText) { _ in
                 getSearchPlace()
             }
-            .onChange(of: musicList, perform: { _ in
+            .onChange(of: musicItemDataModel.musicList, perform: { updatedMusicList in
                 resetAnnotations()
+                musicList = updatedMusicList
             })
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()
@@ -216,7 +217,6 @@ struct MapUIKitView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-            self.setMusicList([])
         }
         
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -284,8 +284,6 @@ struct MapUIKitView: UIViewRepresentable {
             let annotation = MusicAnnotation(annotaionData)
             mapView.addAnnotation(annotation)
         }
-    
-//        mapView.removeAnnotations(<#T##annotations: [MKAnnotation]##[MKAnnotation]#>)
         return mapView
     }
 

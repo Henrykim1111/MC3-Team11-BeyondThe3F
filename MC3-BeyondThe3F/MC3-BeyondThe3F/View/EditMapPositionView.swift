@@ -34,6 +34,7 @@ struct EditMapPositionView: View {
     @State private var isLocationEnabled = false
     
     let locationHelper = LocationManager.shared
+    let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     
     var body: some View {
         NavigationStack {
