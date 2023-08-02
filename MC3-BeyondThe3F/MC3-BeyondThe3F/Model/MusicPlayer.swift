@@ -20,9 +20,7 @@ class MusicPlayer: ObservableObject{
     
     @Published var isPlaying: Bool = false
     @Published var playState: MPMusicPlaybackState = .paused
-    
-    var seek = 0
-    
+        
     let player = MPMusicPlayerController.applicationMusicPlayer
     var persistentContainer = PersistenceController.shared.container
 
@@ -33,21 +31,9 @@ class MusicPlayer: ObservableObject{
     
     @Published var playlist:[MusicItemVO] = []{
         didSet{
-            print("playlist didSet")
             self.player.setQueue(with: self.playlist.map{$0.musicId})
-            self.player.prepareToPlay {error in
-                if let error = error {
-                    print(error)
-                } else {
-                    self.player.play()
-                    for _ in 0..<self.seek{
-                        self.player.skipToNextItem()
-                    }
-                    self.seek = 0
-                    self.playState = .playing
-                }
-           }
-
+            self.player.play()
+            self.playState = .playing
         }
     }
     
@@ -124,10 +110,8 @@ extension MusicPlayer{
         if self.playlist.isEmpty{
             self.playlist = [musicItem]
         }else{
-            self.seek = currentIndex + 1
-            self.playlist.insert(musicItem, at: currentIndex + 1)
+            self.playlist.insert(musicItem, at: 0)
         }
         self.playState = .playing
-        player.play()
     }
 }
