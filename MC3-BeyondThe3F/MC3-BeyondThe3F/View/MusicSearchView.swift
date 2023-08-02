@@ -140,7 +140,12 @@ extension MusicSearchView {
                 }
                 ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
                     Button {
-                        musicPlayer.insertMusicAndPlay(musicItem: MusicItemVO(musicId: item.id.rawValue, latitude: 0, longitude: 0, playedCount: 0, songName: item.title, artistName: item.artistName, generatedDate: Date()))
+                        if let imageURL = item.artwork?.url(width: 500, height: 500) {
+                            musicPlayer.insertMusicAndPlay(musicItem: MusicItemVO(musicId: item.id.rawValue, latitude: 0, longitude: 0, playedCount: 0, songName: item.title, artistName: item.artistName, generatedDate: Date(), savedImage: "\(imageURL)"))
+                        } else {
+                            musicPlayer.insertMusicAndPlay(musicItem: MusicItemVO(musicId: item.id.rawValue, latitude: 0, longitude: 0, playedCount: 0, songName: item.title, artistName: item.artistName, generatedDate: Date()))
+                        }
+                        
                         musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
                         self.endTextEditing()
                     } label: {
