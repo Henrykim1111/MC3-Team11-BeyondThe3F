@@ -10,6 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     @State private var showWelcomeSheet = false
     @AppStorage("isFirst") private var isFirst = true
+    @AppStorage("showWelcome") private var showWelcome = true
     
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor(Color.custom(.gray200))
@@ -24,6 +25,14 @@ struct MainTabView: View {
                         Image(systemName: "tray.full.fill")
                         Text("보관함")
                     }
+                    .onAppear{
+                        if showWelcome {
+                            showWelcomeSheet = true
+                        }
+                        Task{
+                            await AuthManger.requestMusicAuth()
+                        }
+                    }
                 MapView()
                     .tabItem {
                         Image(systemName: "map.fill")
@@ -34,18 +43,8 @@ struct MainTabView: View {
             .toolbarBackground(.visible, for: .tabBar)
         }
         .accentColor(.custom(.primary))
-        .onAppear{
-            if isFirst {
-                showWelcomeSheet = true
-            }
-            Task{
-//                await insertDummy()
-                await AuthManger.requestMusicAuth()
-//                try? await Task.sleep(nanoseconds: 5 * 1_000_000_000)
-            }
-        }
         .sheet(isPresented: $showWelcomeSheet, onDismiss: {
-            isFirst = false
+            showWelcome = false
         },content: {
             WelcomeSheetComponentView()
                 .presentationDetents([.medium])

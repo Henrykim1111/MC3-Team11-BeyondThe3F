@@ -20,7 +20,7 @@ struct MapMusicInfoView: View {
     
     @State private var selectedMusic: MusicItem?
     
-    let musicPlayer = MusicPlayer.shared
+    @ObservedObject var musicPlayer = MusicPlayer.shared
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     let musicItemDataModel = MusicItemDataModel.shared
     var persistentContainer = PersistenceController.shared.container
@@ -81,9 +81,8 @@ struct MapMusicInfoView: View {
                     
                     HStack {
                         Button {
-                            // TODO: reset PlayList
                             if !musicList.isEmpty {
-                                musicPlayer.playlist = []
+                                musicPlayer.resetPlaylist()
                                 for musicItem in musicList {
                                     musicPlayer.insertMusicAndPlay(musicItem: musicItem.musicItemVO)
                                 }
@@ -97,7 +96,7 @@ struct MapMusicInfoView: View {
                             if !musicList.isEmpty {
                                 var tempMusicList = musicList
                                 tempMusicList.shuffle()
-                                musicPlayer.playlist = []
+                                musicPlayer.resetPlaylist()
                                 for musicItem in tempMusicList {
                                     musicPlayer.insertMusicAndPlay(musicItem: musicItem.musicItemVO)
                                 }

@@ -90,11 +90,13 @@ struct NowPlayingView: View {
 
 struct CurrentPlayListView: View {
     @Environment(\.dismiss) private var dismiss
+    let musicPlayerViewModel = MusicPlayer.shared
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     let musicItemDataModel = MusicItemDataModel.shared
-    let musicPlayer = MusicPlayer.shared
+    @ObservedObject var musicPlayer = MusicPlayer.shared
     @State var selectedMusic: MusicItemVO?
     @State var showActionSheet = false
+    @State var currentIndex: Int = 0
     
     var body: some View {
         ScrollView {
@@ -137,7 +139,7 @@ struct CurrentPlayListView: View {
                                 }
                             )
                             .padding(.horizontal, 20)
-                            .background(Color.custom(musicPlayer.indexOfNowPlayingItem == index ? .secondaryDark : .background))
+                            .background(Color.custom(currentIndex == index ? .secondaryDark : .background))
                         }
                     }
                 }
@@ -145,6 +147,12 @@ struct CurrentPlayListView: View {
             Spacer()
                 .frame(height: 276)
         }
+        .onAppear {
+            currentIndex = musicPlayer.musicInPlayingIndex
+        }
+        .onChange(of: musicPlayer.musicInPlayingIndex, perform: { newValue in
+            currentIndex = newValue
+        })
         .frame(maxWidth: 390)
         .background(Color.custom(.background))
         .confirmationDialog("타이틀", isPresented: $showActionSheet) {
@@ -159,7 +167,15 @@ struct CurrentPlayListView: View {
                 dismiss()
             }
             Button("삭제", role: .destructive) {
-                // TODO: 삭제 기능 구현 필요
+                let deleteIndex = musicPlayerViewModel.indexOfNowPlayingItem
+                var newPlayList: [MusicItemVO] = []
+                for index in 0..<musicPlayerViewModel.playlist.count {
+                    if index != deleteIndex {
+                        newPlayList.append(musicPlayerViewModel.playlist[index])
+                    }
+                }
+                musicPlayerViewModel.playlist = newPlayList
+                
             }
             Button("취소", role: .cancel) {}
         }
@@ -260,7 +276,6 @@ struct ControlButtonsView: View {
     var body: some View {
         VStack {
             HStack {
-                // 재생한 시간
                 Text("\(currentTime.timeToString)")
                     .frame(width: 45, alignment: .leading)
                     .caption(color: .white)
@@ -273,8 +288,6 @@ struct ControlButtonsView: View {
                 Slider(value: $currentTime, in: 0...totalDuration, onEditingChanged: sliderChanged)
                     .accentColor(Color.custom(.white))
                 
-                
-                // 남은 시간
                 Text("-\(((musicPlayer.player.nowPlayingItem?.playbackDuration ?? 0.0) - MusicPlayer.shared.player.currentPlaybackTime).timeToString)")
                     .frame(width: 50, alignment: .trailing)
                     .caption(color: .white)

@@ -9,11 +9,12 @@ import MusicKit
 import SwiftUI
 
 struct WTMusicSearchView: View {
-    @AppStorage("isFirst") private var isFirst = false
+    @AppStorage("isFirst") private var isFirst = true
     @State private var searchTerm = ""
     @State private var showSearchView = true
     @StateObject private var musicSearchViewModel = MusicSearchViewModel()
     @StateObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    
     let musicItemDataModel = MusicItemDataModel.shared
     let musicPlayer = MusicPlayer.shared
     var persistentContainer = PersistenceController.shared.container
@@ -73,11 +74,12 @@ struct WTMusicSearchView: View {
         .onChange(of: searchTerm, perform: musicSearchViewModel.requestUpdateSearchResults)
         .onAppear {
             requestMusicAutthorization()
+            musicItemUpdateViewModel.isWorkThrough = true
         }
     }
     private func requestMusicAutthorization(){
         Task {
-            let authorizationStatus = await MusicAuthorization.request()
+            let _ = await MusicAuthorization.request()
             
         }
     }

@@ -14,6 +14,11 @@ private enum ShazamResultType {
     case error
 }
 
+enum ShazamViewState {
+    case workThrough
+    case musicSearch
+}
+
 struct ShazamView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var shazamViewModel = ShazamViewModel()
