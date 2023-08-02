@@ -20,20 +20,31 @@ class MusicPlayer: ObservableObject{
     
     @Published var isPlaying: Bool = false
     @Published var playState: MPMusicPlaybackState = .paused
+    @Published var musicInPlaying: MusicItemVO?
     
     var seek = 0
     
     let player = MPMusicPlayerController.applicationMusicPlayer
     var persistentContainer = PersistenceController.shared.container
 
-    private init(){}
+    private init() {
+           NotificationCenter.default.addObserver(
+            self, selector: #selector(handleNowPlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+   }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+   @objc private func handleNowPlayingItemDidChange() {
+       musicInPlaying = playlist[self.player.indexOfNowPlayingItem]
+   }
+    
     
     
     var indexOfNowPlayingItem:Int{ player.indexOfNowPlayingItem }
     
     @Published var playlist:[MusicItemVO] = []{
         didSet{
-            print("playlist didSet")
             self.player.setQueue(with: self.playlist.map{$0.musicId})
             self.player.prepareToPlay {error in
                 if let error = error {

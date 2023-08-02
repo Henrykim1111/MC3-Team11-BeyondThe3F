@@ -95,8 +95,8 @@ struct MusicPlayerComponentView: View {
             self.currentPlayingMusicItem = musicPlayer.currentMusicItem
             
         }
-        .onChange(of: musicPlayer.playState) { _ in
-            self.currentPlayingMusicItem = musicPlayer.currentMusicItem
+        .onChange(of: musicPlayer.musicInPlaying) { newValue in
+            self.currentPlayingMusicItem = newValue
         }
         
     }
