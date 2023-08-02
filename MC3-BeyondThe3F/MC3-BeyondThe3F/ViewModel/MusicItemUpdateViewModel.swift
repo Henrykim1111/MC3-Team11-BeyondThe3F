@@ -20,7 +20,7 @@ final class MusicItemUpdateViewModel: ObservableObject {
     @Published var musicItemshared = initialMusicItemVO
     @Published var isUpdate = false
     
-    @Published var showToast = false
+    @Published var showToastAddMusic = false
     
     var isEditing = false
     static let shared = MusicItemUpdateViewModel()
@@ -40,10 +40,10 @@ final class MusicItemUpdateViewModel: ObservableObject {
         self.musicItemshared = initialMusicItemVO
     }
     
-    func showToastView() {
+    func showToastAddMusicView() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             withAnimation {
-                self.showToast = false
+                self.showToastAddMusic = false
             }
         }
     }

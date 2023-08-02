@@ -22,13 +22,15 @@ struct WTMusicSearchView: View {
         
         NavigationStack {
             VStack(alignment: .leading) {
+                Spacer()
+                    .frame(height: 124)
                 Text("안녕하세요!\n요즘 가장 많이 듣는 노래를 알려주세요.")
-                    .lineSpacing(7)
+                    .lineSpacing(5)
                     .headline(color: .white)
                 Spacer()
                     .frame(height: 16)
                 Text("음악명으로 검색해주세요.")
-                    .body2(color: .gray400)
+                    .body2(color: .gray500)
                     .multilineTextAlignment(.leading)
                 Spacer()
                     .frame(height: 32)
@@ -38,7 +40,9 @@ struct WTMusicSearchView: View {
                     Spacer()
                         .frame(height: 16)
                 case .searching:
-                    HStack {
+                    Spacer()
+                        .frame(height: 56)
+                    HStack{
                         Spacer()
                         ProgressView("음악 검색 중")
                             .foregroundColor(Color.custom(.gray400))
@@ -46,9 +50,11 @@ struct WTMusicSearchView: View {
                         Spacer()
                     }
                 case .notFound:
+                    Spacer()
+                        .frame(height: 56)
                     HStack {
                         Spacer()
-                        Text("해당하는 노래를 찾지 못했습니다")
+                        Text("해당하는 노래를 찾지 못했습니다.")
                             .body2(color: .gray400)
                         Spacer()
                     }
@@ -58,12 +64,12 @@ struct WTMusicSearchView: View {
                 Spacer()
                 
             }
+            .padding(.horizontal, 20)
             .background(Color.custom(.background))
+            .edgesIgnoringSafeArea(.all)
         }
         .accentColor(Color.custom(.white))
-        .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.custom(.background))
         .onChange(of: searchTerm, perform: musicSearchViewModel.requestUpdateSearchResults)
         .onAppear {
             requestMusicAutthorization()
@@ -77,48 +83,7 @@ struct WTMusicSearchView: View {
     }
 }
 
-
-
-struct WTMusicSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        WTMusicSearchView()
-    }
-}
-
-
 extension WTMusicSearchView {
-    
-    private var ResentlySearchList: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(0 ..< musicSearchViewModel.resentlySearchList.count, id: \.self) { index in
-                    HStack {
-                        Text(musicSearchViewModel.resentlySearchList[index].songName ?? "")
-                            .body1(color: .white)
-                        Spacer()
-                        Text("\(Date.formatToString(searchDate: musicSearchViewModel.resentlySearchList[index].date ?? Date()))")
-                            .body2(color: .gray400)
-                        Spacer()
-                            .frame(width: 24)
-                        SFImageComponentView(
-                            symbolName: .cancel,
-                            color: .white,
-                            width: 16,
-                            height: 16
-                        )
-                        .onTapGesture {
-                            musicSearchViewModel.removeMusicHistoryById(musicId: musicSearchViewModel.resentlySearchList[index].musicId ?? "")
-                        }
-                    }
-                    .frame(maxWidth: 390)
-                    .frame(height: 56)
-                    .onTapGesture {
-                        // TODO: add music to music player
-                    }
-                }
-            }
-        }
-    }
     
     private var MusicSearchResultsList: some View {
         ScrollView {
@@ -128,19 +93,7 @@ extension WTMusicSearchView {
                 }
                 ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
                     Button {
-//                        let newItem = MusicItem(context: persistentContainer.viewContext)
-//                        
-//                        newItem.musicId = item.id.rawValue
-//                        newItem.latitude = 0
-//                        newItem.longitude = 0
-//                        newItem.locationInfo = ""
-//                        newItem.savedImage = ""
-//                        newItem.generatedDate = Date()
-//                        newItem.songName = item.title
-//                        newItem.artistName = item.artistName
-//                        
-//                        musicPlayer.playlist.append(newItem)
-//                        musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
+                        
                     } label: {
                         HStack {
                             if let existingArtwork = item.artwork {
@@ -152,9 +105,13 @@ extension WTMusicSearchView {
                             VStack(alignment: .leading){
                                 Text(item.title)
                                     .body1(color: .white)
+                                    .truncationMode(.tail)
+                                    .lineLimit(1)
                                     .padding(.bottom, 4)
                                 Text(item.artistName)
                                     .body2(color: .gray500)
+                                    .truncationMode(.tail)
+                                    .lineLimit(1)
                             }
                             Spacer()
                             NavigationLink {
@@ -190,5 +147,12 @@ extension WTMusicSearchView {
                 }
             }
         }
+    }
+}
+
+
+struct WTMusicSearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        WTMusicSearchView()
     }
 }

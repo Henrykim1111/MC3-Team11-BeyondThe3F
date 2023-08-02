@@ -36,8 +36,8 @@ struct BucketView: View {
                 VStack {
                     Spacer()
                     
-                    if musicItemUpdateViewModel.showToast {
-                        ToastComponentView()
+                    if musicItemUpdateViewModel.showToastAddMusic {
+                        ToastComponentView(message: "저장되었습니다!")
                     }
                     
                     Button {

@@ -113,9 +113,11 @@ struct CarouselCardItem: View {
                                 Text("\(item.songName ?? "")")
                                     .body1(color: .white)
                                     .padding(.bottom, 5)
-                                    .lineLimit(2)
+                                    .truncationMode(.tail)
+                                    .lineLimit(1)
                                 Text("\(item.artistName ?? "")")
                                     .body2(color: .gray500)
+                                    .truncationMode(.tail)
                                     .lineLimit(1)
                             }
                             .padding(.horizontal)

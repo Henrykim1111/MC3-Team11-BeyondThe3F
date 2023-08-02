@@ -42,9 +42,11 @@ struct MusicListRowView: View {
                 Text("\(songName)")
                     .body1(color: .white)
                     .padding(.bottom, 4)
+                    .truncationMode(.tail)
                     .lineLimit(1)
                 Text("\(artistName)")
                     .body2(color: .gray500)
+                    .truncationMode(.tail)
                     .lineLimit(1)
             }
             Spacer()
@@ -72,7 +74,7 @@ struct MusicListRowView: View {
             }
         }
         .frame(maxWidth: 390)
-        .frame(height: 88)
+        .frame(height: 76)
         
     }
 }

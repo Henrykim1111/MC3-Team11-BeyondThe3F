@@ -149,7 +149,7 @@ struct CurrentPlayListView: View {
                                 }
                             )
                             .padding(.horizontal, 20)
-                            .background(Color.custom(musicPlayer.playlist[index] == musicPlayer.currentMusicItem ? .secondaryDark : .background))
+                            .background(Color.custom(musicPlayer.indexOfNowPlayingItem == index ? .secondaryDark : .background))
                         }
                     }
                 }
