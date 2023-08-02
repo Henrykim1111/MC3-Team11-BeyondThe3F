@@ -239,8 +239,8 @@
 				953BD75E2A6A6CF30047C21C /* Annotations */,
 				74167D112A678A2000F5C691 /* Components */,
 				951691A12A6639320070D47C /* MainTabView.swift */,
-				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 				951691A32A663A4E0070D47C /* BucketView.swift */,
+				9516919F2A6634C00070D47C /* DefaultCoreDataView.swift */,
 				FB9AEE412A6F4CC600B015C5 /* CarouselView.swift */,
 				951691A52A663AE00070D47C /* MapView.swift */,
 				95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */,
@@ -608,7 +608,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
@@ -641,7 +641,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC3-BeyondThe3F/Preview Content\"";
-				DEVELOPMENT_TEAM = 333J2S2AQK;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";

@@ -127,6 +127,8 @@ struct EditMapPositionView: View {
                                             HStack {
                                                 Text("\(place.place.name ?? "no name")")
                                                     .body1(color: .white)
+                                                    .truncationMode(.tail)
+                                                    .lineLimit(1)
                                                 Spacer()
                                             }
                                             .frame(height: 56)
@@ -144,6 +146,8 @@ struct EditMapPositionView: View {
                 VStack(alignment: .leading) {
                     Text("\(selectedPositionDescription)")
                         .headline(color: .white)
+                        .lineLimit(2)
+                        .padding(.top, 24)
                     Spacer()
                     if isLocationEnabled {
                         switch nextProcess {
@@ -174,7 +178,6 @@ struct EditMapPositionView: View {
                     }
                 }
                 .frame(maxHeight: 200)
-                .padding()
             }
             .background(Color.custom(.background))
             .preferredColorScheme(.dark)
@@ -238,12 +241,6 @@ struct EditMapPositionView: View {
         mapView.setRegion(coordinateRegion, animated: true)
         isRegionSetted = true
         region = coordinateRegion
-    }
-}
-
-struct EditMapPositionView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditMapPositionView()
     }
 }
 
@@ -327,5 +324,13 @@ struct EditMapUIView: UIViewRepresentable{
             isRegionSetted = false
         }
         isShowUserLocation = false
+    }
+}
+
+
+
+struct EditMapPositionView_Previews: PreviewProvider {
+    static var previews: some View {
+        EditMapPositionView()
     }
 }

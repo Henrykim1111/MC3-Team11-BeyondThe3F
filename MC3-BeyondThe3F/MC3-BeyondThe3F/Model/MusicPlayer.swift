@@ -34,7 +34,7 @@ class MusicPlayer: ObservableObject{
     @Published var playlist:[MusicItemVO] = []{
         didSet{
             print("playlist didSet")
-            self.player.setQueue(with: self.playlist.map{$0.musicId ?? ""})
+            self.player.setQueue(with: self.playlist.map{$0.musicId})
             self.player.prepareToPlay {error in
                 if let error = error {
                     print(error)

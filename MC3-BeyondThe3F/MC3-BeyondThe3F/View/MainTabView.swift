@@ -18,6 +18,7 @@ struct MainTabView: View {
     
     var body: some View {
         TabView() {
+            Group {
                 BucketView()
                     .tabItem {
                         Image(systemName: "tray.full.fill")
@@ -28,8 +29,11 @@ struct MainTabView: View {
                         Image(systemName: "map.fill")
                         Text("지도")
                     }
+            }
+            .toolbarBackground(Color.custom(.background), for: .tabBar)
+            .toolbarBackground(.visible, for: .tabBar)
         }
-        .tint(.custom(.primary))
+        .accentColor(.custom(.primary))
         .onAppear{
             if isFirst {
                 showWelcomeSheet = true
