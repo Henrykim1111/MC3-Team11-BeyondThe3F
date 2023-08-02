@@ -21,16 +21,12 @@ struct MusicSearchView: View {
     var body: some View {
         ZStack {
             VStack {
-                Spacer()
-                    .frame(height: 24)
                 switch musicSearchViewModel.musicSearchState {
                 case .notSearched:
                     ResentlySearchTitle
-                    Spacer()
-                        .frame(height: 16)
                     if musicSearchViewModel.resentlySearchList.isEmpty {
                         Spacer()
-                            .frame(height: 16)
+                            .frame(height: 36)
                         Text("최근 검색어 내역이 없습니다.")
                             .body2(color: .gray400)
                     } else {
@@ -38,7 +34,9 @@ struct MusicSearchView: View {
                     }
                     Spacer()
                 case .searching:
-                    HStack {
+                    Spacer()
+                        .frame(height: 56)
+                    HStack{
                         Spacer()
                         ProgressView("음악 검색 중")
                             .foregroundColor(Color.custom(.gray400))
@@ -46,9 +44,12 @@ struct MusicSearchView: View {
                         Spacer()
                     }
                 case .notFound:
+                    Spacer()
+                        .frame(height: 56)
                     HStack {
                         Spacer()
-                        SearchFailureComponentView(failure: .musicSearchFailure)
+                        Text("해당하는 노래를 찾지 못했습니다.")
+                            .body2(color: .gray400)
                         Spacer()
                     }
                 case .success:
@@ -56,7 +57,7 @@ struct MusicSearchView: View {
                 }
                 Spacer()
             }
-            .padding()
+            .padding(.horizontal, 20)
             .background(Color.custom(.background))
             .onChange(of: searchTerm, perform: musicSearchViewModel.requestUpdateSearchResults)
         }
@@ -90,6 +91,8 @@ extension MusicSearchView {
                     HStack {
                         Text(musicSearchViewModel.resentlySearchList[index].songName ?? "")
                             .body1(color: .white)
+                            .truncationMode(.tail)
+                            .lineLimit(1)
                         Spacer()
                         Text("\(Date.formatToString(searchDate: musicSearchViewModel.resentlySearchList[index].date ?? Date()))")
                             .body2(color: .gray400)
@@ -135,9 +138,6 @@ extension MusicSearchView {
     private var MusicSearchResultsList: some View {
         ScrollView {
             LazyVStack {
-                HStack {
-                    Spacer()
-                }
                 ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
                     Button {
                         if let imageURL = item.artwork?.url(width: 500, height: 500) {
@@ -189,6 +189,7 @@ extension MusicSearchView {
                                 SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
                             }
                         }
+                        .padding(.vertical, 6)
                     }
                 }
             }

@@ -32,7 +32,7 @@ struct MapView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
+            VStack {
                 ZStack {
                     MapUIKitView(
                         mapView: $mapView,
@@ -43,9 +43,9 @@ struct MapView: View {
                         centerPlaceDescription: $centerPlaceDescription,
                         locationManager: locationHelper.locationManager
                     )
+                    .ignoresSafeArea(.all, edges: .top)
+                    
                     VStack {
-                        Spacer()
-                            .frame(height: 30)
                         MapSearchComponentView(textInput: $searchText)
                         if searchText == "" {
                             Spacer()
@@ -64,6 +64,8 @@ struct MapView: View {
                                                 HStack {
                                                     Text("\(place.place.name ?? "no name")")
                                                         .body1(color: .white)
+                                                        .truncationMode(.tail)
+                                                        .lineLimit(1)
                                                     Spacer()
                                                 }
                                                 .frame(height: 56)
@@ -104,8 +106,8 @@ struct MapView: View {
                     
                     VStack {
                         Spacer()
-                        if musicItemUpdateViewModel.showToast {
-                            ToastComponentView()
+                        if musicItemUpdateViewModel.showToastAddMusic {
+                            ToastComponentView(message: "저장되었습니다!")
                         }
                         Button {
                             showMusicPlayView = true
@@ -115,7 +117,7 @@ struct MapView: View {
                     }
                 }
             }
-            .ignoresSafeArea(.all, edges: .top)
+            
             .onAppear {
                 locationHelper.getLocationAuth()
                 switch locationHelper.locationManager.authorizationStatus {

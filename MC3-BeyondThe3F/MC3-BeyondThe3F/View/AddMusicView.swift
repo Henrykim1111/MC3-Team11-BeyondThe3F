@@ -55,7 +55,7 @@ struct MusicNameRow: View {
         HStack (spacing: 0){
             Text("\(itemData.description)")
                 .headline(color: .white)
-                .foregroundColor(.white)
+                .truncationMode(.tail)
                 .lineLimit(1)
             
             Spacer()
@@ -64,6 +64,7 @@ struct MusicNameRow: View {
             NavigationLink(destination: itemData.destination) {
                 Text(itemData.additionalInfo)
                     .body1(color: .gray500)
+                    .truncationMode(.tail)
                     .lineLimit(1)
             }
         }
@@ -117,8 +118,8 @@ struct AddMusicView: View {
                     Button {
                         musicItemUpdateViewModel.updateCoreDate()
                         musicItemUpdateViewModel.isUpdate = false
-                        musicItemUpdateViewModel.showToastView()
-                        musicItemUpdateViewModel.showToast = true
+                        musicItemUpdateViewModel.showToastAddMusicView()
+                        musicItemUpdateViewModel.showToastAddMusic = true
                         isFirst = false
                     } label: {
                         PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
@@ -143,8 +144,8 @@ struct AddMusicView: View {
                         .simultaneousGesture(TapGesture().onEnded {
                             musicItemUpdateViewModel.updateCoreDate()
                             musicItemUpdateViewModel.isUpdate = false
-                            musicItemUpdateViewModel.showToastView()
-                            musicItemUpdateViewModel.showToast = true
+                            musicItemUpdateViewModel.showToastAddMusicView()
+                            musicItemUpdateViewModel.showToastAddMusic = true
                         })
                     }
                 }
