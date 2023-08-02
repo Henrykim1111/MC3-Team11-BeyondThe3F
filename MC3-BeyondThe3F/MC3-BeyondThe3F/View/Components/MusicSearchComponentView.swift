@@ -63,7 +63,6 @@ struct MusicSearchComponentView: View {
             .colorScheme(.dark)
             .accentColor(.white)
             
-            // TODO: Navigate to ShazamView
             Button {
                 showShazamView = true
             } label: {

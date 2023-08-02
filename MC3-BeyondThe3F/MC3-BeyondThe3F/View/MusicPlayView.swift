@@ -90,6 +90,7 @@ struct NowPlayingView: View {
 
 struct CurrentPlayListView: View {
     @Environment(\.dismiss) private var dismiss
+    let musicPlayerViewModel = MusicPlayer.shared
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     let musicItemDataModel = MusicItemDataModel.shared
     let musicPlayer = MusicPlayer.shared
@@ -159,7 +160,15 @@ struct CurrentPlayListView: View {
                 dismiss()
             }
             Button("삭제", role: .destructive) {
-                // TODO: 삭제 기능 구현 필요
+                let deleteIndex = musicPlayerViewModel.indexOfNowPlayingItem
+                var newPlayList: [MusicItemVO] = []
+                for index in 0..<musicPlayerViewModel.playlist.count {
+                    if index != deleteIndex {
+                        newPlayList.append(musicPlayerViewModel.playlist[index])
+                    }
+                }
+                musicPlayerViewModel.playlist = newPlayList
+                
             }
             Button("취소", role: .cancel) {}
         }
@@ -260,7 +269,6 @@ struct ControlButtonsView: View {
     var body: some View {
         VStack {
             HStack {
-                // 재생한 시간
                 Text("\(currentTime.timeToString)")
                     .frame(width: 45, alignment: .leading)
                     .caption(color: .white)
@@ -273,8 +281,6 @@ struct ControlButtonsView: View {
                 Slider(value: $currentTime, in: 0...totalDuration, onEditingChanged: sliderChanged)
                     .accentColor(Color.custom(.white))
                 
-                
-                // 남은 시간
                 Text("-\(((musicPlayer.player.nowPlayingItem?.playbackDuration ?? 0.0) - MusicPlayer.shared.player.currentPlaybackTime).timeToString)")
                     .frame(width: 50, alignment: .trailing)
                     .caption(color: .white)

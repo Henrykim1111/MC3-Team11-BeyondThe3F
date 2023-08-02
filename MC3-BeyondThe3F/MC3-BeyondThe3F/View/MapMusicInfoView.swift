@@ -81,7 +81,6 @@ struct MapMusicInfoView: View {
                     
                     HStack {
                         Button {
-                            // TODO: reset PlayList
                             if !musicList.isEmpty {
                                 musicPlayer.playlist = []
                                 for musicItem in musicList {

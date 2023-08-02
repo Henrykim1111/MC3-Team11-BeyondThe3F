@@ -97,7 +97,6 @@ struct AddMusicView: View {
                         }
                     }
                     .frame(width: 350, height: 350)
-                    // TODO: frame 크기 조절
                 }
                 .background(Color.custom(.background))
                 .padding(16)

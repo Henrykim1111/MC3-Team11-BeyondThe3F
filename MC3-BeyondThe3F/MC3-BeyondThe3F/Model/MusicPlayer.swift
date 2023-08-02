@@ -34,10 +34,10 @@ class MusicPlayer: ObservableObject{
     }
 
    @objc private func handleNowPlayingItemDidChange() {
-       musicInPlaying = playlist[self.player.indexOfNowPlayingItem]
+       if 0 <= player.indexOfNowPlayingItem && player.indexOfNowPlayingItem <= playlist.count && !playlist.isEmpty {
+           musicInPlaying = playlist[self.player.indexOfNowPlayingItem]
+       }
    }
-    
-    
     
     var indexOfNowPlayingItem:Int{ player.indexOfNowPlayingItem }
     
