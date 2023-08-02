@@ -34,6 +34,7 @@ struct EditMapPositionView: View {
     @State private var isLocationEnabled = false
     
     let locationHelper = LocationManager.shared
+    let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     
     var body: some View {
         NavigationStack {
@@ -200,7 +201,6 @@ struct EditMapPositionView: View {
                 case .authorizedWhenInUse, .authorizedAlways:
                     isShowUserLocation = true
                     showUserLocation()
-                    isShowUserLocation = false
                 default: break
                 }
             }
@@ -215,6 +215,7 @@ struct EditMapPositionView: View {
         }
         region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
     }
+    
     private func getSearchPlace(){
         searchPlaces.removeAll()
                 
@@ -275,6 +276,11 @@ struct EditMapUIView: UIViewRepresentable{
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
             parent.selectedCoordinate = mapView.centerCoordinate
             getSearchPlace(coord: mapView.centerCoordinate)
+            if parent.isShowUserLocation {
+                parent.isShowUserLocation = false
+            } else if parent.isRegionSetted {
+                parent.isRegionSetted = false
+            }
         }
         
         private func getSearchPlace(coord: CLLocationCoordinate2D){
@@ -318,12 +324,11 @@ struct EditMapUIView: UIViewRepresentable{
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
         if isShowUserLocation {
-            uiView.setRegion(userRegion, animated: false)
+            uiView.setRegion(userRegion, animated: true)
         } else if isRegionSetted {
-            uiView.setRegion(region, animated: false)
+            uiView.setRegion(region, animated: true)
             isRegionSetted = false
         }
-        isShowUserLocation = false
     }
 }
 

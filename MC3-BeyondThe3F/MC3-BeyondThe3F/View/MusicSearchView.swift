@@ -116,8 +116,17 @@ extension MusicSearchView {
                         Task {
                             let musicInfo = await musicItemDataModel.getInfoByMusicId(selectedMusicItem.musicId ?? "")
                             if let musicItem = musicInfo?.items.first {
-                                musicPlayer.insertMusicAndPlay(musicItem: MusicItemVO(musicId: selectedMusicItem.musicId ?? "", latitude: 0, longitude: 0, playedCount: 0, songName: selectedMusicItem.songName ?? "", artistName: musicItem.artistName, generatedDate: Date()))
+                                if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
+                                    musicPlayer.insertMusicAndPlay(
+                                        musicItem: MusicItemVO(musicId: selectedMusicItem.musicId ?? "", latitude: 0, longitude: 0, playedCount: 0, songName: selectedMusicItem.songName ?? "", artistName: musicItem.artistName, generatedDate: Date(), savedImage: "\(imageURL)")
+                                    )
+                                } else {
+                                    musicPlayer.insertMusicAndPlay(
+                                        musicItem: MusicItemVO(musicId: selectedMusicItem.musicId ?? "", latitude: 0, longitude: 0, playedCount: 0, songName: selectedMusicItem.songName ?? "", artistName: musicItem.artistName, generatedDate: Date())
+                                    )
+                                }
                             }
+
                             self.endTextEditing()
                         }
                     }
@@ -131,7 +140,12 @@ extension MusicSearchView {
             LazyVStack {
                 ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
                     Button {
-                        musicPlayer.insertMusicAndPlay(musicItem: MusicItemVO(musicId: item.id.rawValue, latitude: 0, longitude: 0, playedCount: 0, songName: item.title, artistName: item.artistName, generatedDate: Date()))
+                        if let imageURL = item.artwork?.url(width: 500, height: 500) {
+                            musicPlayer.insertMusicAndPlay(musicItem: MusicItemVO(musicId: item.id.rawValue, latitude: 0, longitude: 0, playedCount: 0, songName: item.title, artistName: item.artistName, generatedDate: Date(), savedImage: "\(imageURL)"))
+                        } else {
+                            musicPlayer.insertMusicAndPlay(musicItem: MusicItemVO(musicId: item.id.rawValue, latitude: 0, longitude: 0, playedCount: 0, songName: item.title, artistName: item.artistName, generatedDate: Date()))
+                        }
+                        
                         musicSearchViewModel.addMusicHistory(musicId: item.id.rawValue, songName: item.title)
                         self.endTextEditing()
                     } label: {

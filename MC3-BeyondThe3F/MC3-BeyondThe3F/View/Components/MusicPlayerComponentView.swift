@@ -15,7 +15,6 @@ struct MusicPlayerComponentView: View {
     
     var body: some View {
         HStack {
-            
             AsyncImage(url: URL(string: musicPlayer.currentMusicItem?.savedImage ?? "")) { image in
                 image
                     .resizable()
@@ -96,8 +95,8 @@ struct MusicPlayerComponentView: View {
             self.currentPlayingMusicItem = musicPlayer.currentMusicItem
             
         }
-        .onChange(of: musicPlayer.indexOfNowPlayingItem) { nowPlayingIndex in
-            self.currentPlayingMusicItem = musicPlayer.currentMusicItem
+        .onChange(of: musicPlayer.musicInPlaying) { newValue in
+            self.currentPlayingMusicItem = newValue
         }
         
     }

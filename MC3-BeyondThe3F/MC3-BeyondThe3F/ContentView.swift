@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @AppStorage("isFirst") private var isFirst = true
+    @AppStorage("isFirst") private var isFirst = false
     @State var isLoading: Bool = true
     
     

@@ -29,6 +29,7 @@ struct ShazamView: View {
     private let circleAnimationBig = Animation.easeInOut(duration: 1).repeatForever(autoreverses: true).delay(0.1)
     
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    let musicItemDataModel = MusicItemDataModel.shared
     let musicPlayer = MusicPlayer.shared
     
     var body: some View {
@@ -245,11 +246,23 @@ extension ShazamView {
                 }      
                 Spacer()
                 Button {
-                    // TODO: musicPlay에 음악을 추가할 때 이미지를 전달해주지 않아서 플레이리스트에 나오지 않는 것으로 추측
-                    // insertMusicAndPlay 점검 필요
-//                    guard let appleMusicId = self.musicId else {
-//                        return
-//                    }
+                
+                    Task {
+                        let musicInfo = await musicItemDataModel.getInfoByMusicId(self.musicId ?? "")
+                        if let musicItem = musicInfo?.items.first {
+                            if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
+                                musicPlayer.insertMusicAndPlay(
+                                    musicItem: MusicItemVO(musicId: self.musicId ?? "", latitude: 0, longitude: 0, playedCount: 0, songName: musicItem.title, artistName: musicItem.artistName, generatedDate: Date(), savedImage: "\(imageURL)")
+                                )
+                            } else {
+                                musicPlayer.insertMusicAndPlay(
+                                    musicItem: MusicItemVO(musicId: self.musicId ?? "", latitude: 0, longitude: 0, playedCount: 0, songName: musicItem.title, artistName: musicItem.artistName, generatedDate: Date())
+                                )
+                            }
+                        }
+                        self.endTextEditing()
+                        dismiss()
+                    }
 //
                 } label: {
                     ButtonPlayComponentView()
