@@ -93,9 +93,10 @@ struct CurrentPlayListView: View {
     let musicPlayerViewModel = MusicPlayer.shared
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     let musicItemDataModel = MusicItemDataModel.shared
-    let musicPlayer = MusicPlayer.shared
+    @ObservedObject var musicPlayer = MusicPlayer.shared
     @State var selectedMusic: MusicItemVO?
     @State var showActionSheet = false
+    @State var currentIndex: Int = 0
     
     var body: some View {
         ScrollView {
@@ -138,7 +139,7 @@ struct CurrentPlayListView: View {
                                 }
                             )
                             .padding(.horizontal, 20)
-                            .background(Color.custom(musicPlayer.indexOfNowPlayingItem == index ? .secondaryDark : .background))
+                            .background(Color.custom(currentIndex == index ? .secondaryDark : .background))
                         }
                     }
                 }
@@ -146,6 +147,12 @@ struct CurrentPlayListView: View {
             Spacer()
                 .frame(height: 276)
         }
+        .onAppear {
+            currentIndex = musicPlayer.musicInPlayingIndex
+        }
+        .onChange(of: musicPlayer.musicInPlayingIndex, perform: { newValue in
+            currentIndex = newValue
+        })
         .frame(maxWidth: 390)
         .background(Color.custom(.background))
         .confirmationDialog("타이틀", isPresented: $showActionSheet) {

@@ -21,6 +21,7 @@ class MusicPlayer: ObservableObject{
     @Published var isPlaying: Bool = false
     @Published var playState: MPMusicPlaybackState = .paused
     @Published var musicInPlaying: MusicItemVO?
+    @Published var musicInPlayingIndex: Int = 0
   
     let player = MPMusicPlayerController.applicationMusicPlayer
     var persistentContainer = PersistenceController.shared.container
@@ -34,9 +35,10 @@ class MusicPlayer: ObservableObject{
     }
 
    @objc private func handleNowPlayingItemDidChange() {
-       if 0 <= player.indexOfNowPlayingItem && player.indexOfNowPlayingItem <= playlist.count && !playlist.isEmpty {
-           musicInPlaying = playlist[self.player.indexOfNowPlayingItem]
+       if !playlist.isEmpty {
+           musicInPlaying = playlist[self.musicInPlayingIndex]
        }
+       self.musicInPlayingIndex = self.player.indexOfNowPlayingItem
    }
     
     var indexOfNowPlayingItem:Int{ player.indexOfNowPlayingItem }
@@ -49,8 +51,6 @@ class MusicPlayer: ObservableObject{
 
         }
     }
-    
-    
     
     var isLast:Bool{
         self.player.indexOfNowPlayingItem == playlist.count - 1 ? true : false
@@ -120,12 +120,16 @@ extension MusicPlayer{
         player.play()
     }
     func insertMusicAndPlay(musicItem:MusicItemVO) {
-        let currentIndex = self.player.indexOfNowPlayingItem
         if self.playlist.isEmpty{
             self.playlist = [musicItem]
         }else{
             self.playlist.insert(musicItem, at: 0)
         }
         self.playState = .playing
+    }
+    
+    func resetPlaylist(){
+        playlist.removeAll()
+        self.player.setQueue(with: .init())
     }
 }
