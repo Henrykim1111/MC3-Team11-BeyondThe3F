@@ -60,6 +60,13 @@ struct NowPlayingView: View {
                             .cornerRadius(451)
                             .clipped()
                             .rotationEffect(Angle(degrees: currentDegrees))
+                            .onAppear {
+                                currentDegrees = 0
+                                withAnimation(foreverAnimation) {
+                                    currentDegrees = 360
+                                }
+                            }
+                        
                     } placeholder: {
                         Image("musicPlayImageEmpty")
                             .resizable()
@@ -77,25 +84,6 @@ struct NowPlayingView: View {
         }
         .padding()
         .background(Color.custom(.secondaryDark))
-        .onAppear {
-            switch musicPlayer.playState {
-            case .paused, .stopped:
-                stopAnimation()
-            default:
-                startAnimation()
-            }
-        }
-    }
-    
-    func startAnimation(){
-        withAnimation(foreverAnimation) {
-            currentDegrees = 360
-        }
-    }
-    func stopAnimation(){
-        withAnimation(stopAnimationLinear) {
-            currentDegrees = 0
-        }
     }
 }
 
