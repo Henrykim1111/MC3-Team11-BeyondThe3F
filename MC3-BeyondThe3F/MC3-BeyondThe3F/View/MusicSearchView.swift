@@ -111,10 +111,19 @@ extension MusicSearchView {
                         let selectedMusicItem = musicSearchViewModel.resentlySearchList[index]
                         
                         Task {
-                            var musicInfo = await musicItemDataModel.getInfoByMusicId(selectedMusicItem.musicId ?? "")
+                            let musicInfo = await musicItemDataModel.getInfoByMusicId(selectedMusicItem.musicId ?? "")
                             if let musicItem = musicInfo?.items.first {
-                                musicPlayer.insertMusicAndPlay(musicItem: MusicItemVO(musicId: selectedMusicItem.musicId ?? "", latitude: 0, longitude: 0, playedCount: 0, songName: selectedMusicItem.songName ?? "", artistName: musicItem.artistName, generatedDate: Date()))
+                                if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
+                                    musicPlayer.insertMusicAndPlay(
+                                        musicItem: MusicItemVO(musicId: selectedMusicItem.musicId ?? "", latitude: 0, longitude: 0, playedCount: 0, songName: selectedMusicItem.songName ?? "", artistName: musicItem.artistName, generatedDate: Date(), savedImage: "\(imageURL)")
+                                    )
+                                } else {
+                                    musicPlayer.insertMusicAndPlay(
+                                        musicItem: MusicItemVO(musicId: selectedMusicItem.musicId ?? "", latitude: 0, longitude: 0, playedCount: 0, songName: selectedMusicItem.songName ?? "", artistName: musicItem.artistName, generatedDate: Date())
+                                    )
+                                }
                             }
+
                             self.endTextEditing()
                         }
                     }
