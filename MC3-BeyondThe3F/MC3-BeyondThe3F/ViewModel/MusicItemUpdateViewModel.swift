@@ -22,6 +22,7 @@ final class MusicItemUpdateViewModel: ObservableObject {
     
     @Published var showToastAddMusic = false
     @Published var isWorkThrough = false
+    @Published var showWelcomeSheet = false
     
     var isEditing = false
     static let shared = MusicItemUpdateViewModel()
