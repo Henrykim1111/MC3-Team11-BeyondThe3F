@@ -119,7 +119,6 @@ struct AddMusicView: View {
                         musicItemUpdateViewModel.isUpdate = false
                         musicItemUpdateViewModel.showToastAddMusicView()
                         musicItemUpdateViewModel.showToastAddMusic = true
-                        isFirst = false
                     } label: {
                         PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
                     }
@@ -154,6 +153,9 @@ struct AddMusicView: View {
             .background(Color.custom(.background))
         }
         .accentColor(Color.custom(.white))
+        .onAppear {
+            musicItemUpdateViewModel.isWorkThrough = false
+        }
         
     }
     struct AddMusicView_Previews: PreviewProvider {

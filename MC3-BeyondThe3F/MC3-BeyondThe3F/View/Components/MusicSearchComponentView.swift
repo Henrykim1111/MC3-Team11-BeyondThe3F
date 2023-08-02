@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct MusicSearchComponentView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var searchTerm: String
@@ -63,15 +64,17 @@ struct MusicSearchComponentView: View {
             .colorScheme(.dark)
             .accentColor(.white)
             
-            Button {
-                showShazamView = true
-            } label: {
-                Image(systemName: "shazam.logo.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: CGFloat(29), height: CGFloat(29))
-                    .foregroundColor(Color.custom(.gray200))
-                    .padding(.leading, 15)
+            if !MusicItemUpdateViewModel.shared.isWorkThrough {
+                Button {
+                    showShazamView = true
+                } label: {
+                    Image(systemName: "shazam.logo.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: CGFloat(29), height: CGFloat(29))
+                        .foregroundColor(Color.custom(.gray200))
+                        .padding(.leading, 15)
+                }
             }
         }
         .sheet(isPresented: $showShazamView) {
