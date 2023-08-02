@@ -175,6 +175,7 @@ extension MusicSearchView {
                                 SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
                             }
                         }
+                        .padding(.vertical, 6)
                     }
                 }
             }

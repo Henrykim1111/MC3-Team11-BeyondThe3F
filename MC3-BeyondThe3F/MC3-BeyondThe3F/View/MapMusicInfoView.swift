@@ -110,7 +110,7 @@ struct MapMusicInfoView: View {
                 .padding()
                 
                 Divider()
-                    .overlay(Color.custom(.white))
+                    .overlay(Color.custom(.gray500))
                 
                 ScrollView {
                     LazyVStack{

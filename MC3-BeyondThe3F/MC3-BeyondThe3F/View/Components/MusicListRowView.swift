@@ -74,7 +74,7 @@ struct MusicListRowView: View {
             }
         }
         .frame(maxWidth: 390)
-        .frame(height: 88)
+        .frame(height: 76)
         
     }
 }
