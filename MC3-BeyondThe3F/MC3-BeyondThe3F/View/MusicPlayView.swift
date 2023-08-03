@@ -95,6 +95,7 @@ struct CurrentPlayListView: View {
     let musicItemDataModel = MusicItemDataModel.shared
     @ObservedObject var musicPlayer = MusicPlayer.shared
     @State var selectedMusic: MusicItemVO?
+    @State var selectedIndex: Int = 0
     @State var showActionSheet = false
     @State var currentIndex: Int = 0
     
@@ -125,6 +126,7 @@ struct CurrentPlayListView: View {
                                 musicListRowType: .saved,
                                 buttonEllipsisAction: {
                                     let currentMusic = musicPlayer.playlist[index]
+                                    selectedIndex = index
                                     selectedMusic = MusicItemVO(
                                         musicId: currentMusic.musicId,
                                         latitude: currentMusic.latitude,
@@ -167,7 +169,7 @@ struct CurrentPlayListView: View {
                 dismiss()
             }
             Button("삭제", role: .destructive) {
-                let deleteIndex = musicPlayerViewModel.indexOfNowPlayingItem
+                let deleteIndex = selectedIndex
                 var newPlayList: [MusicItemVO] = []
                 for index in 0..<musicPlayerViewModel.playlist.count {
                     if index != deleteIndex {
