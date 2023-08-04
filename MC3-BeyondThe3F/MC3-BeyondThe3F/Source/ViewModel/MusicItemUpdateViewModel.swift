@@ -21,7 +21,6 @@ final class MusicItemUpdateViewModel: ObservableObject {
     @Published var isUpdate = false
     
     @Published var showToastAddMusic = false
-    @Published var isWorkThrough = false
     @Published var showWelcomeSheet = false
     
     var isEditing = false
@@ -47,6 +46,26 @@ final class MusicItemUpdateViewModel: ObservableObject {
             withAnimation {
                 self.showToastAddMusic = false
             }
+        }
+    }
+    
+    func updateMusicItemFromMusicId(musicId: String) {
+        Task {
+            resetInitialMusicItem()
+            guard let musicItems = await musicItemDataModel.getInfoByMusicId(musicId) else {
+                return
+            }
+            guard let musicItem = musicItems.items.first else {
+                return
+            }
+            if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
+                musicItemshared.savedImage = "\(imageURL)"
+            } else {
+                musicItemshared.savedImage = nil
+            }
+            musicItemshared.musicId = musicItem.id.rawValue
+            musicItemshared.songName = musicItem.title
+            musicItemshared.artistName = musicItem.artistName
         }
     }
 }

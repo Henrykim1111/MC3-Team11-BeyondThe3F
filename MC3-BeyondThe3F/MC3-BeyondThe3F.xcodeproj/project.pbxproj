@@ -23,7 +23,7 @@
 		76104AC52A6DF978000B8E65 /* MainVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76104AC42A6DF978000B8E65 /* MainVO.swift */; };
 		763D01DE2A792F1600B1CF0D /* MusicItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763D01DD2A792F1600B1CF0D /* MusicItemExtension.swift */; };
 		764936AF2A6A169B001C0C54 /* MusicItemDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764936AE2A6A169B001C0C54 /* MusicItemDataModel.swift */; };
-		76975F492A700DE2005FEFE2 /* AuthManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F482A700DE2005FEFE2 /* AuthManger.swift */; };
+		76975F492A700DE2005FEFE2 /* MusicAuthManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F482A700DE2005FEFE2 /* MusicAuthManger.swift */; };
 		76975F4B2A70124E005FEFE2 /* HistoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F4A2A70124E005FEFE2 /* HistoryDataModel.swift */; };
 		76975F512A7177F3005FEFE2 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F502A7177F3005FEFE2 /* MusicPlayer.swift */; };
 		76975F532A73EA15005FEFE2 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76975F522A73EA15005FEFE2 /* DoubleExtension.swift */; };
@@ -84,7 +84,7 @@
 		76104AC42A6DF978000B8E65 /* MainVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVO.swift; sourceTree = "<group>"; };
 		763D01DD2A792F1600B1CF0D /* MusicItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemExtension.swift; sourceTree = "<group>"; };
 		764936AE2A6A169B001C0C54 /* MusicItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemDataModel.swift; sourceTree = "<group>"; };
-		76975F482A700DE2005FEFE2 /* AuthManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthManger.swift; sourceTree = "<group>"; };
+		76975F482A700DE2005FEFE2 /* MusicAuthManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicAuthManger.swift; sourceTree = "<group>"; };
 		76975F4A2A70124E005FEFE2 /* HistoryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataModel.swift; sourceTree = "<group>"; };
 		76975F502A7177F3005FEFE2 /* MusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
 		76975F522A73EA15005FEFE2 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 		9516919B2A6629AD0070D47C /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				76975F482A700DE2005FEFE2 /* AuthManger.swift */,
+				76975F482A700DE2005FEFE2 /* MusicAuthManger.swift */,
 				95D6CE132A6D084E0053AE8E /* LocationManager.swift */,
 				95713F972A74FF3800548545 /* BucketNavigationManager.swift */,
 			);
@@ -487,7 +487,7 @@
 				74F025C32A77F5AB00DF39C3 /* SearchFailureComponentView.swift in Sources */,
 				95713F982A74FF3800548545 /* BucketNavigationManager.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
-				76975F492A700DE2005FEFE2 /* AuthManger.swift in Sources */,
+				76975F492A700DE2005FEFE2 /* MusicAuthManger.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
 				953BD74F2A6910480047C21C /* SFImageComponentView.swift in Sources */,
 				959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */,

@@ -75,7 +75,7 @@ struct AddMusicView: View {
     @AppStorage("isFirst") private var isFirst = true
     var nextProcess: NextProcess = .forward
     @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
-    @ObservedObject private var navigationHelper = BucketNavigationHelper.shared
+    @ObservedObject private var navigationHelper = BucketNavigationManager.shared
     
     var body: some View {
         NavigationStack{
@@ -154,9 +154,6 @@ struct AddMusicView: View {
             .background(Color.custom(.background))
         }
         .accentColor(Color.custom(.white))
-        .onAppear {
-            musicItemUpdateViewModel.isWorkThrough = false
-        }
         
     }
     struct AddMusicView_Previews: PreviewProvider {

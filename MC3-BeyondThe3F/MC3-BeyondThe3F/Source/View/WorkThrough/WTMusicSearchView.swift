@@ -10,14 +10,13 @@ import SwiftUI
 
 struct WTMusicSearchView: View {
     @AppStorage("isFirst") private var isFirst = true
-    @State private var searchTerm = ""
-    @State private var showSearchView = true
     @StateObject private var musicSearchViewModel = MusicSearchViewModel()
     @StateObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     
+    @State private var searchTerm = ""
+    @State private var showSearchView = true
+    
     let musicItemDataModel = MusicItemDataModel.shared
-    let musicPlayer = MusicPlayer.shared
-    var persistentContainer = PersistenceController.shared.container
     
     var body: some View {
         
@@ -35,7 +34,11 @@ struct WTMusicSearchView: View {
                     .multilineTextAlignment(.leading)
                 Spacer()
                     .frame(height: 32)
-                MusicSearchComponentView(searchTerm: $searchTerm, showSearchView: $showSearchView)
+                MusicSearchComponentView(
+                    searchTerm: $searchTerm,
+                    showSearchView: $showSearchView,
+                    isShazamEnabled: false
+                )
                 switch musicSearchViewModel.musicSearchState {
                 case .notSearched:
                     Spacer()
@@ -73,20 +76,15 @@ struct WTMusicSearchView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onChange(of: searchTerm, perform: musicSearchViewModel.requestUpdateSearchResults)
         .onAppear {
-            requestMusicAutthorization()
-            musicItemUpdateViewModel.isWorkThrough = true
-        }
-    }
-    private func requestMusicAutthorization(){
-        Task {
-            let _ = await MusicAuthorization.request()
-            
+            Task {
+                await MusicAuthManger.requestMusicAuth()
+            }
         }
     }
 }
 
 extension WTMusicSearchView {
-    
+    // TODO: 스크롤을 더 내릴 경우 다음 페이지의 음악 list를 request해서 보여줘야함
     private var MusicSearchResultsList: some View {
         ScrollView {
             LazyVStack {
@@ -94,56 +92,33 @@ extension WTMusicSearchView {
                     Spacer()
                 }
                 ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
-                    Button {
-                        
-                    } label: {
-                        HStack {
-                            if let existingArtwork = item.artwork {
-                                ArtworkImage(existingArtwork, width: 60)
-                                    .cornerRadius(8)
-                            }
-                            Spacer()
-                                .frame(width: 16)
-                            VStack(alignment: .leading){
-                                Text(item.title)
-                                    .body1(color: .white)
-                                    .truncationMode(.tail)
-                                    .lineLimit(1)
-                                    .padding(.bottom, 4)
-                                Text(item.artistName)
-                                    .body2(color: .gray500)
-                                    .truncationMode(.tail)
-                                    .lineLimit(1)
-                            }
-                            Spacer()
-                            NavigationLink {
-                                EditMapPositionView(nextProcess: .forward)
-                                    .navigationBarBackButtonHidden(true)
-                                    .simultaneousGesture(TapGesture().onEnded {
-                                        Task {
-                                            musicItemUpdateViewModel.resetInitialMusicItem()
-                                            guard let musicItems = await musicItemDataModel.getInfoByMusicId(item.id.rawValue) else {
-                                                return
-                                            }
-                                            guard let musicItem = musicItems.items.first else {
-                                                return
-                                            }
-                                            musicItemUpdateViewModel.musicItemshared.musicId = musicItem.id.rawValue
-                                            musicItemUpdateViewModel.musicItemshared.songName = musicItem.title
-                                            musicItemUpdateViewModel.musicItemshared.artistName = musicItem.artistName
-                                            if let imageURL = musicItem.artwork?.url(width: 500, height: 500) {
-                                                musicItemUpdateViewModel.musicItemshared.savedImage = "\(imageURL)"
-                                            } else {
-                                                musicItemUpdateViewModel.musicItemshared.savedImage = nil
-                                            }
-                                        }
-                                        
-                                    })
-                                
-                            } label: {
-                                SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
-                            }
-                            
+                    HStack {
+                        if let existingArtwork = item.artwork {
+                            ArtworkImage(existingArtwork, width: 60)
+                                .cornerRadius(8)
+                        }
+                        Spacer()
+                            .frame(width: 16)
+                        VStack(alignment: .leading){
+                            Text(item.title)
+                                .body1(color: .white)
+                                .truncationMode(.tail)
+                                .lineLimit(1)
+                                .padding(.bottom, 4)
+                            Text(item.artistName)
+                                .body2(color: .gray500)
+                                .truncationMode(.tail)
+                                .lineLimit(1)
+                        }
+                        Spacer()
+                        NavigationLink {
+                            EditMapPositionView(nextProcess: .forward)
+                                .navigationBarBackButtonHidden(true)
+                                .simultaneousGesture(TapGesture().onEnded {
+                                    musicItemUpdateViewModel.updateMusicItemFromMusicId(musicId: item.id.rawValue)
+                                })
+                        } label: {
+                            SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
                         }
                     }
                 }
