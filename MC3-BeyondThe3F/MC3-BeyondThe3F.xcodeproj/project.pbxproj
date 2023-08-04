@@ -147,24 +147,24 @@
 		74167D112A678A2000F5C691 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				953BD75C2A6A001D0047C21C /* MusicListRowView.swift */,
-				953BD74E2A6910480047C21C /* SFImageComponentView.swift */,
-				953BD7502A6919370047C21C /* SmallButtonComponentView.swift */,
-				953BD7542A69260A0047C21C /* MidButtonComponent.swift */,
-				953BD7562A69FFDF0047C21C /* SFImageComponentView.swift */,
-				953BD7582A69FFE70047C21C /* ScopeButtonComponentView.swift */,
-				953BD7522A69234D0047C21C /* PrimaryButtonComponentView.swift */,
 				74EF8C732A67C198006B8DBC /* ButtonPlayComponentView.swift */,
-				953BD75A2A69FFFE0047C21C /* MusicPlayerComponentView.swift */,
-				74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */,
-				74EF8C9B2A6832BF006B8DBC /* MusicSearchComponentView.swift */,
 				74EF8CA12A68B7CC006B8DBC /* ContentsLargeComponentView.swift */,
-				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
 				953BD7632A6A77240047C21C /* MapSearchComponentView.swift */,
-				95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */,
-				74F025C22A77F5AB00DF39C3 /* SearchFailureComponentView.swift */,
-				624E4BCC2A78D56000FCAA16 /* ToastComponentView.swift */,
 				95943CB82A7D11CE0049EB50 /* MusicSeachedItemRowComponentView.swift */,
+				953BD75C2A6A001D0047C21C /* MusicListRowView.swift */,
+				953BD75A2A69FFFE0047C21C /* MusicPlayerComponentView.swift */,
+				74EF8C9B2A6832BF006B8DBC /* MusicSearchComponentView.swift */,
+				953BD7542A69260A0047C21C /* MidButtonComponent.swift */,
+				953BD7522A69234D0047C21C /* PrimaryButtonComponentView.swift */,
+				74EF8C852A67D338006B8DBC /* PinLocationComponentView.swift */,
+				74F025C22A77F5AB00DF39C3 /* SearchFailureComponentView.swift */,
+				953BD74E2A6910480047C21C /* SFImageComponentView.swift */,
+				953BD7582A69FFE70047C21C /* ScopeButtonComponentView.swift */,
+				953BD7502A6919370047C21C /* SmallButtonComponentView.swift */,
+				953BD7562A69FFDF0047C21C /* SFImageComponentView.swift */,
+				74167D142A678D3B00F5C691 /* TestComponentView.swift */,
+				624E4BCC2A78D56000FCAA16 /* ToastComponentView.swift */,
+				95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -323,8 +323,8 @@
 				951691822A6629670070D47C /* MC3_BeyondThe3FApp.swift */,
 				951691842A6629670070D47C /* ContentView.swift */,
 				951691992A66298C0070D47C /* Model */,
-				74167D112A678A2000F5C691 /* Components */,
 				959B5B792A71537F00888942 /* ViewModel */,
+				74167D112A678A2000F5C691 /* Components */,
 				951691982A6629870070D47C /* View */,
 				951691962A6629790070D47C /* Utils */,
 			);

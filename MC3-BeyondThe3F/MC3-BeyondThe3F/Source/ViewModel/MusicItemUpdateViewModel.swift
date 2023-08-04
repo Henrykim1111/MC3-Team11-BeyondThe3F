@@ -37,6 +37,7 @@ final class MusicItemUpdateViewModel: ObservableObject {
         self.musicItemshared = musicItem
     }
     
+    @MainActor
     func resetInitialMusicItem(){
         self.musicItemshared = initialMusicItemVO
     }
@@ -49,6 +50,7 @@ final class MusicItemUpdateViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func updateMusicItemFromMusicId(musicId: String) {
         Task {
             resetInitialMusicItem()

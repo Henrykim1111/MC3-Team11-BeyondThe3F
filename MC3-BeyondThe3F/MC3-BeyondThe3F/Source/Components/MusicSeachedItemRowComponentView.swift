@@ -44,9 +44,3 @@ struct MusicSeachedItemRowComponentView: View {
         }
     }
 }
-
-//struct MusicSeachedItemRowComponentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MusicSeachedItemRowComponentView()
-//    }
-//}
