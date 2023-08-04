@@ -92,34 +92,8 @@ extension WTMusicSearchView {
                     Spacer()
                 }
                 ForEach(musicSearchViewModel.searchSongs, id: \.self) { item in
-                    HStack {
-                        if let existingArtwork = item.artwork {
-                            ArtworkImage(existingArtwork, width: 60)
-                                .cornerRadius(8)
-                        }
-                        Spacer()
-                            .frame(width: 16)
-                        VStack(alignment: .leading){
-                            Text(item.title)
-                                .body1(color: .white)
-                                .truncationMode(.tail)
-                                .lineLimit(1)
-                                .padding(.bottom, 4)
-                            Text(item.artistName)
-                                .body2(color: .gray500)
-                                .truncationMode(.tail)
-                                .lineLimit(1)
-                        }
-                        Spacer()
-                        NavigationLink {
-                            EditMapPositionView(nextProcess: .forward)
-                                .navigationBarBackButtonHidden(true)
-                                .simultaneousGesture(TapGesture().onEnded {
-                                    musicItemUpdateViewModel.updateMusicItemFromMusicId(musicId: item.id.rawValue)
-                                })
-                        } label: {
-                            SFImageComponentView(symbolName: .plus, color: .white, width: 22, height: 22)
-                        }
+                    MusicSeachedItemRowComponentView(item: item) {
+                        musicItemUpdateViewModel.updateMusicItemFromMusicId(musicId: item.id.rawValue)
                     }
                 }
             }

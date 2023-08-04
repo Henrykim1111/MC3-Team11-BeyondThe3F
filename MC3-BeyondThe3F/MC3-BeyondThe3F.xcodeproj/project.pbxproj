@@ -56,6 +56,7 @@
 		95713F982A74FF3800548545 /* BucketNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713F972A74FF3800548545 /* BucketNavigationManager.swift */; };
 		95713FA22A75059900548545 /* WelcomeSheetComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */; };
 		95713FA62A75285800548545 /* MusicItemUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95713FA52A75285800548545 /* MusicItemUpdateViewModel.swift */; };
+		95943CB92A7D11CE0049EB50 /* MusicSeachedItemRowComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95943CB82A7D11CE0049EB50 /* MusicSeachedItemRowComponentView.swift */; };
 		959B5B752A6FBEA200888942 /* ShazamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B742A6FBEA200888942 /* ShazamManager.swift */; };
 		959B5B772A714B1500888942 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B762A714B1500888942 /* DateExtension.swift */; };
 		959B5B7B2A71539F00888942 /* MusicSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */; };
@@ -120,6 +121,7 @@
 		95713F972A74FF3800548545 /* BucketNavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketNavigationManager.swift; sourceTree = "<group>"; };
 		95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSheetComponentView.swift; sourceTree = "<group>"; };
 		95713FA52A75285800548545 /* MusicItemUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemUpdateViewModel.swift; sourceTree = "<group>"; };
+		95943CB82A7D11CE0049EB50 /* MusicSeachedItemRowComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSeachedItemRowComponentView.swift; sourceTree = "<group>"; };
 		959B5B742A6FBEA200888942 /* ShazamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamManager.swift; sourceTree = "<group>"; };
 		959B5B762A714B1500888942 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchViewModel.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				95713FA12A75059900548545 /* WelcomeSheetComponentView.swift */,
 				74F025C22A77F5AB00DF39C3 /* SearchFailureComponentView.swift */,
 				624E4BCC2A78D56000FCAA16 /* ToastComponentView.swift */,
+				95943CB82A7D11CE0049EB50 /* MusicSeachedItemRowComponentView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				953BD7532A69234D0047C21C /* PrimaryButtonComponentView.swift in Sources */,
 				959B5B772A714B1500888942 /* DateExtension.swift in Sources */,
 				7433A2462A6E1D9A00EFA99B /* EditDateView.swift in Sources */,
+				95943CB92A7D11CE0049EB50 /* MusicSeachedItemRowComponentView.swift in Sources */,
 				953BD75D2A6A001D0047C21C /* MusicListRowView.swift in Sources */,
 				953BD7552A69260A0047C21C /* MidButtonComponent.swift in Sources */,
 				6221EA2C2A701553003BD47F /* MusicPlayView.swift in Sources */,
