@@ -51,7 +51,8 @@ struct MusicSearchComponentView: View {
                             symbolName: .cancel,
                             color: .gray500,
                             width: 22,
-                            height: 22)
+                            height: 22,
+                            scale: 0.8)
                     }
 
                 }
