@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BucketView: View {
-    @StateObject private var navigationHelper = BucketNavigationHelper.shared
+    @StateObject private var navigationHelper = BucketNavigationManager.shared
     @StateObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     @State private var searchTerm = ""
     @State private var showSearchView = false

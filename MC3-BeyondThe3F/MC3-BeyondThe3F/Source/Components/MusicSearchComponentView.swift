@@ -14,6 +14,7 @@ struct MusicSearchComponentView: View {
     @Binding var showSearchView: Bool
     @FocusState private var onSearching : Bool
     @State private var showShazamView = false
+    var isShazamEnabled = true
     
     
     var body: some View {
@@ -50,7 +51,8 @@ struct MusicSearchComponentView: View {
                             symbolName: .cancel,
                             color: .gray500,
                             width: 22,
-                            height: 22)
+                            height: 22,
+                            scale: 0.8)
                     }
 
                 }
@@ -64,7 +66,7 @@ struct MusicSearchComponentView: View {
             .colorScheme(.dark)
             .accentColor(.white)
             
-            if !MusicItemUpdateViewModel.shared.isWorkThrough {
+            if isShazamEnabled {
                 Button {
                     showShazamView = true
                 } label: {

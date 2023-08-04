@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-class BucketNavigationHelper: ObservableObject {
-    static let shared = BucketNavigationHelper()
+class BucketNavigationManager: ObservableObject {
+    static let shared = BucketNavigationManager()
     private init(){ }
     
     @Published var path = NavigationPath()

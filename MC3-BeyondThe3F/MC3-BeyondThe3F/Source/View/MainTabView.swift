@@ -30,7 +30,7 @@ struct MainTabView: View {
                             showWelcomeSheet = true
                         }
                         Task{
-                            await AuthManger.requestMusicAuth()
+                            await MusicAuthManger.requestMusicAuth()
                         }
                     }
                 MapView()

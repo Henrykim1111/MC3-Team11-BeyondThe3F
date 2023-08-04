@@ -85,12 +85,14 @@ struct SFImageComponentView: View {
     var color: CustomColor = .gray700
     var width = 24
     var height = 24
+    var scale: CGFloat = 1.0
     
     var body: some View {
         Image(systemName: symbolName.name)
             .resizable()
             .scaledToFit()
             .frame(width: CGFloat(width), height: CGFloat(height))
+            .scaleEffect(scale)
             .foregroundColor(Color.custom(color))
     }
 }

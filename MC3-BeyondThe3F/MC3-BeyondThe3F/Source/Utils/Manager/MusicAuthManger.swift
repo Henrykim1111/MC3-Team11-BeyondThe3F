@@ -8,7 +8,7 @@
 import Foundation
 import MusicKit
 
-class AuthManger{
+class MusicAuthManger{
     static func requestMusicAuth() async {
         let status = await MusicAuthorization.request()
         switch status {

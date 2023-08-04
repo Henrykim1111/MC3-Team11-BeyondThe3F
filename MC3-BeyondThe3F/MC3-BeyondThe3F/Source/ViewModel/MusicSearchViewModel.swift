@@ -24,11 +24,16 @@ enum MusicSearchState {
 
 class MusicSearchViewModel: ObservableObject {
     
-    private let historymodel = HistoryDataModel.shared
+    private let historyModel: HistoryDataModel = HistoryDataModel()
+    @Published var resentlySearchList: [History]
+    @Published var searchSongs: MusicItemCollection<Song>
+    @Published var musicSearchState: MusicSearchState
     
-    @Published var resentlySearchList: [History] = HistoryDataModel.shared.readRecentHistory
-    @Published var searchSongs: MusicItemCollection<Song> = []
-    @Published var musicSearchState: MusicSearchState = .notSearched
+    init(resentlySearchList: [History] = [], searchSongs: MusicItemCollection<Song> = [], musicSearchState: MusicSearchState = .notSearched) {
+        self.resentlySearchList = resentlySearchList
+        self.searchSongs = searchSongs
+        self.musicSearchState = musicSearchState
+    }
     
     
     func requestUpdateSearchResults(for searchTerm: String) {
@@ -53,19 +58,19 @@ class MusicSearchViewModel: ObservableObject {
     }
     
     func addMusicHistory(musicId: String, songName: String){
-        historymodel.saveData(musicId: musicId, songName: songName)
+        historyModel.saveData(musicId: musicId, songName: songName)
         readHistoryData()
     }
     
     func removeMusicHistoryById(musicId: String){
         if !musicId.isEmpty {
-            historymodel.removeByMusicId(musicId: musicId)
+            historyModel.removeByMusicId(musicId: musicId)
             readHistoryData()
         }
     }
     
     func removeAllMusicHistory(){
-        historymodel.removeAll()
+        historyModel.removeAll()
         readHistoryData()
     }
     
@@ -74,7 +79,7 @@ class MusicSearchViewModel: ObservableObject {
     }
     
     private func readHistoryData(){
-        resentlySearchList = historymodel.readRecentHistory
+        resentlySearchList = historyModel.readRecentHistory
     }
     
     @MainActor

@@ -3,8 +3,6 @@ import CoreData
 
 
 class HistoryDataModel {
-    static let shared = HistoryDataModel()
-    private init() {}
     
     private let limit = 30
     

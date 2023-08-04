@@ -34,7 +34,7 @@ func insertDummy(){
 }
 
 func insertHistory(){
-    let historyDataModel = HistoryDataModel.shared
+    let historyDataModel = HistoryDataModel()
     guard historyDataModel.history.count == 0 else{ return }
     
     for i in 1...10{
