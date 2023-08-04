@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9516917E2A6629670070D47C"
-               BuildableName = "MC3-BeyondThe3F.app"
-               BlueprintName = "MC3-BeyondThe3F"
+               BuildableName = "Tune Spot.app"
+               BlueprintName = "Tune Spot"
                ReferencedContainer = "container:MC3-BeyondThe3F.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9516917E2A6629670070D47C"
-            BuildableName = "MC3-BeyondThe3F.app"
-            BlueprintName = "MC3-BeyondThe3F"
+            BuildableName = "Tune Spot.app"
+            BlueprintName = "Tune Spot"
             ReferencedContainer = "container:MC3-BeyondThe3F.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9516917E2A6629670070D47C"
-            BuildableName = "MC3-BeyondThe3F.app"
-            BlueprintName = "MC3-BeyondThe3F"
+            BuildableName = "Tune Spot.app"
+            BlueprintName = "Tune Spot"
             ReferencedContainer = "container:MC3-BeyondThe3F.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

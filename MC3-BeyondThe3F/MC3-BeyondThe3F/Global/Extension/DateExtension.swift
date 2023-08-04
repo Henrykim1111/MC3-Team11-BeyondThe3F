@@ -10,7 +10,7 @@ import Foundation
 extension Date {
     static func formatToString(searchDate: Date) -> String{
         let formatter = DateFormatter()
-        let dateString = formatter.string(from: searchDate)
+        let _ = formatter.string(from: searchDate)
         formatter.dateFormat = "MM-dd"
         return formatter.string(from: searchDate)
    }

@@ -10,7 +10,7 @@ import Foundation
 
 extension Double{
     var timeToString:String{
-        var time = Int(self)
+        let time = Int(self)
         return "\(time/60):\(time%60 < 10 ? "0\(time%60)" : "\(time%60)")"
     }
 }

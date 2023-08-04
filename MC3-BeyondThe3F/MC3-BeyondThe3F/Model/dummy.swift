@@ -10,7 +10,7 @@ import MapKit
 
 func insertDummy(){
     
-    var musicItemDataModel = MusicItemDataModel.shared
+    let musicItemDataModel = MusicItemDataModel.shared
     guard musicItemDataModel.musicList.count == 0 else{ return }
     
     for i in 1...10{
@@ -34,7 +34,7 @@ func insertDummy(){
 }
 
 func insertHistory(){
-    var historyDataModel = HistoryDataModel.shared
+    let historyDataModel = HistoryDataModel.shared
     guard historyDataModel.history.count == 0 else{ return }
     
     for i in 1...10{

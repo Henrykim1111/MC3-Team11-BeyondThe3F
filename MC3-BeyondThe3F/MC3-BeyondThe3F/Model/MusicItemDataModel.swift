@@ -87,7 +87,7 @@ class MusicItemDataModel {
     }
     func getURL(_ musicId: String) async -> URL? {
         do {
-            var searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(musicId))
+            let searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(musicId))
             let searchResponse = try await searchRequest.response()
     
             guard let imageURL = searchResponse.items.first?.artwork?.url(width: 700, height: 700) else{
@@ -102,7 +102,7 @@ class MusicItemDataModel {
     
     func getInfoByMusicId(_ musicId: String) async -> MusicCatalogResourceResponse<Song>? {
         do {
-            var searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(musicId))
+            let searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(musicId))
             let searchResponse = try await searchRequest.response()
             
             return searchResponse
