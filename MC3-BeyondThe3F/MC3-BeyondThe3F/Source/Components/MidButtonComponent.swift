@@ -20,7 +20,7 @@ struct MidButtonComponent: View {
     
     var body: some View {
         HStack {
-            SFImageComponentView(symbolName: sfImageName, color: foregroundColor)
+            SFImageComponentView(symbolName: sfImageName, color: foregroundColor, scale: sfImageName == .play ? 0.8 : 1.0)
             Text(name.rawValue)
                 .body1(color: foregroundColor)
         }

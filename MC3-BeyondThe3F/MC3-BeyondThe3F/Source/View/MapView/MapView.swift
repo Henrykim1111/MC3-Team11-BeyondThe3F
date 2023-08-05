@@ -19,103 +19,82 @@ struct MapView: View {
     let musicItemDataModel = MusicItemDataModel.shared
     
     @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    @ObservedObject private var mapSearchViewModel = MapSearchViewModel()
     @ObservedObject private var mapViewModel = MapViewModel()
     
     @State private var musicList: [MusicItem] = []
     @State var currentRegion = startRegion
     @State private var searchText = ""
-    @State private var searchPlaces : [Place] = []
+    
     @State private var annotationDataList: [MusicItem] = []
     @State private var showMusicPlayView = false
     
     var body: some View {
         NavigationStack {
-            VStack {
-                ZStack {
-                    MapUIKitView(
-                        mapView: $mapViewModel.mapView,
-                        musicList: $musicList,
-                        userLocation: $mapViewModel.userLocation,
-                        currentRegion: $mapViewModel.region,
-                        isRegionSetted: $mapViewModel.isRegionSetted,
-                        centerPlaceDescription: $mapViewModel.centerPlaceDescription,
-                        locationManager: locationHelper.locationManager
-                    )
-                    .ignoresSafeArea(.all, edges: .top)
-                    
-                    VStack {
-                        MapSearchComponentView(textInput: $searchText)
-                        if searchText == "" {
-                            Spacer()
+            
+            ZStack {
+                MapUIKitView(
+                    mapView: $mapViewModel.mapView,
+                    musicList: $musicList,
+                    userLocation: $mapViewModel.userLocation,
+                    currentRegion: $mapViewModel.region,
+                    isRegionSetted: $mapViewModel.isRegionSetted,
+                    centerPlaceDescription: $mapViewModel.centerPlaceDescription,
+                    locationManager: locationHelper.locationManager
+                )
+                .ignoresSafeArea(.all, edges: .top)
+                
+                VStack(spacing: 0) {
+                    Spacer()
+                        .frame(height: 0)
+                    MapSearchComponentView(textInput: $searchText)
+                    if !searchText.isEmpty {
+                        if mapSearchViewModel.searchPlaces.isEmpty {
+                            SearchFailureComponentView(failure: .locationSearchFailure)
                         } else {
-                            if searchPlaces.isEmpty {
-                                Spacer()
-                                SearchFailureComponentView(failure: .locationSearchFailure)
-                            } else {
-                                ScrollView {
-                                    LazyVStack {
-                                        ForEach(searchPlaces, id: \.self) { place in
-                                            Button{
-                                                moveToSelectedPlaced(place: place)
-                                                self.endTextEditing()
-                                            } label: {
-                                                HStack {
-                                                    Text("\(place.place.name ?? "no name")")
-                                                        .body1(color: .white)
-                                                        .truncationMode(.tail)
-                                                        .lineLimit(1)
-                                                    Spacer()
-                                                }
-                                                .frame(height: 56)
-                                            }
-                                        }
-                                    }
-                                }
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 200)
-                                .background(Color.custom(.background))
-                            }
-                            Spacer()
+                            self.MapSearchResultView
                         }
-                        
-                        HStack {
-                            Spacer()
-                            Button {
-                                mapViewModel.isRegionSetted = true
-                                mapViewModel.showUserLocation()
-                            } label: {
-                                ScopeButtonComponentView()
-                            }
-                            
+                    }
+                    
+                    Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        Button {
+                            mapViewModel.isRegionSetted = true
+                            mapViewModel.showUserLocation()
+                        } label: {
+                            ScopeButtonComponentView()
                         }
-                        .offset(y: -208)
                         
                     }
-                    .padding()
-                    .background(
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            searchText == "" ? .white.opacity(0) : Color.custom(.background)
-                        }
-                    )
-                    MapMusicInfoView(
-                        musicList: $musicList,
-                        centerPlaceDescription: $mapViewModel.centerPlaceDescription
-                    )
+                    Spacer()
+                        .frame(height: 210)
                     
-                    VStack {
-                        Spacer()
-                        if musicItemUpdateViewModel.showToastAddMusic {
-                            ToastComponentView(message: "저장되었습니다!")
-                        }
-                        Button {
-                            showMusicPlayView = true
-                        } label: {
-                            MusicPlayerComponentView()
-                        }
+                }
+                .padding()
+                .background(
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        searchText == "" ? .white.opacity(0) : Color.custom(.background)
+                    }
+                )
+                MapMusicInfoView(
+                    musicList: $musicList,
+                    centerPlaceDescription: $mapViewModel.centerPlaceDescription
+                )
+                
+                VStack {
+                    Spacer()
+                    if musicItemUpdateViewModel.showToastAddMusic {
+                        ToastComponentView(message: "저장되었습니다!")
+                    }
+                    Button {
+                        showMusicPlayView = true
+                    } label: {
+                        MusicPlayerComponentView()
                     }
                 }
             }
-            
             .onAppear {
                 locationHelper.getLocationAuth()
                 switch locationHelper.locationManager.authorizationStatus {
@@ -125,8 +104,8 @@ struct MapView: View {
                 default: break
                 }
             }
-            .onChange(of: searchText) { _ in
-                getSearchPlace()
+            .onChange(of: searchText) { newSearchTerm in
+                mapSearchViewModel.getSearchPlace(newSearchTerm)
             }
             .onChange(of: musicItemDataModel.musicList, perform: { updatedMusicList in
                 resetAnnotations()
@@ -150,35 +129,13 @@ struct MapView: View {
             mapViewModel.mapView.addAnnotation(annotation)
         }
     }
+    
     private func getSavedMusicData() -> [MusicItem]{
         var tempMusicList: [MusicItem] = []
         MusicItemDataModel.shared.musicList.forEach{ music in
             tempMusicList.append(music)
         }
         return tempMusicList
-    }
-//    private func showUserLocation(){
-//        locationHelper.locationManager.startUpdatingLocation()
-//        if let userCurrentLocation = locationHelper.locationManager.location?.coordinate {
-//            mapViewModel.userLocation = userCurrentLocation
-//        }
-//        currentRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: mapViewModel.userLocation.latitude, longitude: mapViewModel.userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
-//    }
-    
-    private func getSearchPlace(){
-        searchPlaces.removeAll()
-                
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = searchText
-        
-        MKLocalSearch(request: request).start { (response, _) in
-            
-            guard let result = response else { return }
-            
-            self.searchPlaces = result.mapItems.compactMap({ (item) -> Place? in
-                return Place(place: item.placemark)
-            })
-        }
     }
     
     private func moveToSelectedPlaced(place: Place){
@@ -189,6 +146,32 @@ struct MapView: View {
         
         mapViewModel.mapView.setRegion(coordinateRegion, animated: false)
         mapViewModel.mapView.setVisibleMapRect(mapViewModel.mapView.visibleMapRect, animated: false)
+    }
+}
+
+extension MapView {
+    private var MapSearchResultView: some View {
+        ScrollView {
+            LazyVStack {
+                ForEach(mapSearchViewModel.searchPlaces, id: \.self) { place in
+                    Button{
+                        moveToSelectedPlaced(place: place)
+                        self.endTextEditing()
+                    } label: {
+                        HStack {
+                            Text("\(place.place.name ?? "no name")")
+                                .body1(color: .white)
+                                .truncationMode(.tail)
+                                .lineLimit(1)
+                            Spacer()
+                        }
+                        .frame(height: 56)
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color.custom(.background))
     }
 }
 
