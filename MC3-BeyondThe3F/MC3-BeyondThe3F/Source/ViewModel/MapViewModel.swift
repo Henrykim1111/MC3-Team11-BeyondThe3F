@@ -11,14 +11,15 @@ import SwiftUI
 
 
 class MapViewModel: ObservableObject {
+    @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
     @Published var mapView = MKMapView()
-    @Published var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
+    @Published var userLocation = CLLocationCoordinate2D(latitude: 37.4,longitude: 127)
     @Published var region: MKCoordinateRegion = startRegion
     
-    @Published var selectedCoordinate = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
+    @Published var selectedCoordinate = CLLocationCoordinate2D(latitude: 37.4,longitude: 127)
     @Published var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
     @Published var isRegionSetted = false
-    @Published var showDeniedLocationStatus = false
+    @Published var isLocationAuthDenied = false
     @Published var isLocationEnabled = false
     @Published var locationInfo = "" {
         willSet {
@@ -30,8 +31,6 @@ class MapViewModel: ObservableObject {
             }
         }
     }
-    
-    @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
     
     let locationManager = LocationManager.shared
     

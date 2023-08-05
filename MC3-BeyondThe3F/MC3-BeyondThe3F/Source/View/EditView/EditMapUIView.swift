@@ -22,7 +22,6 @@ struct EditMapUIView: UIViewRepresentable{
     
     @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
     
-    
     private let locationManager = LocationManager.shared.locationManager
     private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
     

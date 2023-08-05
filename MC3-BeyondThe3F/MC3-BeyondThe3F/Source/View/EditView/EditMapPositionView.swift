@@ -51,7 +51,7 @@ struct EditMapPositionView: View {
                             selectedCoordinate: $mapViewModel.selectedCoordinate,
                             selectedPositionDescription: $mapViewModel.selectedPositionDescription,
                             isRegionSetted: $mapViewModel.isRegionSetted,
-                            showDeniedLocationStatus: $mapViewModel.showDeniedLocationStatus,
+                            showDeniedLocationStatus: $mapViewModel.isLocationAuthDenied,
                             isLocationEnabled: $mapViewModel.isLocationEnabled,
                             locationInfo: $mapViewModel.locationInfo)
                         VStack {
@@ -59,9 +59,9 @@ struct EditMapPositionView: View {
                             Spacer()
                                 .frame(height: 30)
                         }
-                        scopeButtonBoxView
+                        ScopeButtonBoxView
                     } else {
-                        mapSearchResultView
+                        MapSearchResultView
                         Spacer()
                     }
                 }
@@ -126,11 +126,11 @@ struct EditMapPositionView: View {
 }
 
 extension EditMapPositionView {
-    var scopeButtonBoxView: some View {
+    var ScopeButtonBoxView: some View {
         VStack {
             Spacer()
             HStack{
-                if mapViewModel.showDeniedLocationStatus {
+                if mapViewModel.isLocationAuthDenied {
                     HStack {
                         VStack(alignment: .leading, spacing: 0) {
                             Text("위치 정보가 거절되었습니다.")
@@ -149,12 +149,12 @@ extension EditMapPositionView {
                 Button {
                     switch locationManager.locationManager.authorizationStatus {
                     case .notDetermined:
-                        mapViewModel.showDeniedLocationStatus = false
+                        mapViewModel.isLocationAuthDenied = false
                         locationManager.getLocationAuth()
                     case .denied, .restricted:
-                        mapViewModel.showDeniedLocationStatus = true
+                        mapViewModel.isLocationAuthDenied = true
                     default:
-                        mapViewModel.showDeniedLocationStatus = false
+                        mapViewModel.isLocationAuthDenied = false
                         mapViewModel.isRegionSetted = true
                         mapViewModel.showUserLocation()
                     }
@@ -169,7 +169,7 @@ extension EditMapPositionView {
         .padding()
     }
     
-    private var mapSearchResultView: some View {
+    private var MapSearchResultView: some View {
         ScrollView {
             VStack {
                 withAnimation(.easeInOut(duration: 0.2)) {
