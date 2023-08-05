@@ -23,7 +23,7 @@ struct EditMapUIView: UIViewRepresentable{
     @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
     
     private let locationManager = LocationManager.shared.locationManager
-    private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+    private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.4, longitude: 127)
     
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: EditMapUIView

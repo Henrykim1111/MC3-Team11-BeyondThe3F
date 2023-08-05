@@ -43,12 +43,7 @@ struct EditDateView: View {
         .background(Color.custom(.background))
         .navigationTitle("날짜 선택")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            
-        }
-        
     }
-        
 }
    
 
