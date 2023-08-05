@@ -9,11 +9,6 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-enum NextProcess {
-    case backward
-    case forward
-}
-
 struct EditMapPositionView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
@@ -49,7 +44,16 @@ struct EditMapPositionView: View {
                 .padding()
                 ZStack {
                     if searchTerm.isEmpty {
-                        EditMapUIView()
+                        EditMapUIView(
+                            mapView: $mapViewModel.mapView,
+                            userLocation: $mapViewModel.userLocation,
+                            region: $mapViewModel.region,
+                            selectedCoordinate: $mapViewModel.selectedCoordinate,
+                            selectedPositionDescription: $mapViewModel.selectedPositionDescription,
+                            isRegionSetted: $mapViewModel.isRegionSetted,
+                            showDeniedLocationStatus: $mapViewModel.showDeniedLocationStatus,
+                            isLocationEnabled: $mapViewModel.isLocationEnabled,
+                            locationInfo: $mapViewModel.locationInfo)
                         VStack {
                             Image("pinLocation")
                             Spacer()
@@ -73,26 +77,28 @@ struct EditMapPositionView: View {
                             NavigationLink {
                                 EditDateView(nextProcess: .forward)
                                     .simultaneousGesture(TapGesture().onEnded {
-                                        musicUpdateViewModel.musicItemshared.longitude = mapViewModel.mapView.centerCoordinate.longitude
-                                        musicUpdateViewModel.musicItemshared.latitude = mapViewModel.mapView.centerCoordinate.latitude
-                                        musicUpdateViewModel.musicItemshared.locationInfo = mapViewModel.locationInfo
+                                        mapViewModel.setLocationDataToUpdateModel()
                                     })
                             } label: {
-                                PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                                PrimaryButtonComponentView(
+                                    buttonType: .recordThePosition,
+                                    backgroundColor: .primary)
                             }
                             
                         case .backward:
                             Button {
-                                musicUpdateViewModel.musicItemshared.longitude = mapViewModel.mapView.centerCoordinate.longitude
-                                musicUpdateViewModel.musicItemshared.latitude = mapViewModel.mapView.centerCoordinate.latitude
-                                musicUpdateViewModel.musicItemshared.locationInfo = mapViewModel.locationInfo
+                                mapViewModel.setLocationDataToUpdateModel()
                                 dismiss()
                             } label: {
-                                PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
+                                PrimaryButtonComponentView(
+                                    buttonType: .recordThePosition,
+                                    backgroundColor: .primary)
                             }
                         }
                     } else {
-                        PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .secondaryDark)
+                        PrimaryButtonComponentView(
+                            buttonType: .recordThePosition,
+                            backgroundColor: .secondaryDark)
                     }
                 }
                 .frame(maxHeight: 200)
@@ -109,7 +115,7 @@ struct EditMapPositionView: View {
                 
                 switch locationManager.locationManager.authorizationStatus {
                 case .authorizedWhenInUse, .authorizedAlways:
-                    mapViewModel.isShowUserLocation = true
+                    mapViewModel.isRegionSetted = true
                     mapViewModel.showUserLocation()
                 default: break
                 }
@@ -149,15 +155,14 @@ extension EditMapPositionView {
                         mapViewModel.showDeniedLocationStatus = true
                     default:
                         mapViewModel.showDeniedLocationStatus = false
-                        mapViewModel.isShowUserLocation = true
+                        mapViewModel.isRegionSetted = true
                         mapViewModel.showUserLocation()
                     }
-
                 } label: {
                     ScopeButtonComponentView(
                         foregroundColor: Color.custom(.white),
                         backgroundColor: Color.custom(.background))
-                    .shadow(color: Color.custom(.background), radius: 4, x:3, y: 3)
+                        .shadow(color: Color.custom(.background), radius: 4, x:3, y: 3)
                 }
             }
         }
@@ -190,86 +195,6 @@ extension EditMapPositionView {
         .background(Color.custom(.background))
     }
 }
-
-
-struct EditMapUIView: UIViewRepresentable{
-    @ObservedObject private var mapViewModel = MapViewModel()
-    private let locationManager = LocationManager.shared.locationManager
-    private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
-    
-    class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
-        var parent: EditMapUIView
-
-        init(_ parent: EditMapUIView) {
-            self.parent = parent
-        }
-        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            if let location = locations.first {
-                let latitude = location.coordinate.latitude
-                let longitude = location.coordinate.longitude
-                self.parent.mapViewModel.userLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            }
-        }
-        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            parent.mapViewModel.selectedCoordinate = mapView.centerCoordinate
-            getSearchPlace(coord: mapView.centerCoordinate)
-            if parent.mapViewModel.isShowUserLocation {
-                parent.mapViewModel.isShowUserLocation = false
-            } else if parent.mapViewModel.isRegionSetted {
-                parent.mapViewModel.isRegionSetted = false
-            }
-        }
-        
-        private func getSearchPlace(coord: CLLocationCoordinate2D){
-            let geocoder = CLGeocoder()
-            geocoder.reverseGeocodeLocation(CLLocation(latitude: coord.latitude, longitude: coord.longitude)) { placemarks, e in
-                guard e == nil else {
-                    return
-                }
-                
-                if let firstPlacemark = placemarks?.first {
-                    if firstPlacemark.country != nil {
-                        self.parent.mapViewModel.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
-                    }
-                    if firstPlacemark.locality == nil {
-                        if firstPlacemark.country == nil {
-                            self.parent.mapViewModel.selectedPositionDescription = "설정할 수 없는 위치입니다."
-                        } else {
-                            self.parent.mapViewModel.selectedPositionDescription = "원하는 위치를 조금 더 자세히 표시해주세요."
-                        }
-                    } else {
-                        self.parent.mapViewModel.locationInfo = "\(firstPlacemark.locality ?? "")"
-                    }
-                }
-            }
-        }
-    }
-
-    func makeCoordinator() -> Coordinator {
-        EditMapUIView.Coordinator(self)
-    }
-
-    func makeUIView(context: Context) -> MKMapView {
-        mapViewModel.mapView.delegate = context.coordinator
-        mapViewModel.mapView.setRegion(mapViewModel.region, animated: false)
-        mapViewModel.mapView.mapType = .standard
-        mapViewModel.mapView.showsUserLocation = true
-        mapViewModel.mapView.setUserTrackingMode(.follow, animated: true)
-        
-        return mapViewModel.mapView
-    }
-    
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-        if mapViewModel.isShowUserLocation {
-            uiView.setRegion(mapViewModel.region, animated: true)
-        } else if mapViewModel.isRegionSetted {
-            uiView.setRegion(mapViewModel.region, animated: true)
-            mapViewModel.isRegionSetted = false
-        }
-    }
-}
-
-
 
 struct EditMapPositionView_Previews: PreviewProvider {
     static var previews: some View {

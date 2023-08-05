@@ -17,13 +17,12 @@ class MapViewModel: ObservableObject {
     
     @Published var selectedCoordinate = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @Published var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
-    @Published var isShowUserLocation = false
     @Published var isRegionSetted = false
     @Published var showDeniedLocationStatus = false
     @Published var isLocationEnabled = false
     @Published var locationInfo = "" {
         willSet {
-            if newValue == "" {
+            if newValue.isEmpty {
                 isLocationEnabled = false
                 selectedPositionDescription = "설정할 수 없는 위치입니다."
             } else {
@@ -31,6 +30,8 @@ class MapViewModel: ObservableObject {
             }
         }
     }
+    
+    @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
     
     let locationManager = LocationManager.shared
     
@@ -50,5 +51,11 @@ class MapViewModel: ObservableObject {
         mapView.setRegion(coordinateRegion, animated: true)
         isRegionSetted = true
         region = coordinateRegion
+    }
+    
+    func setLocationDataToUpdateModel(){
+        self.musicUpdateViewModel.musicItemshared.longitude = self.mapView.centerCoordinate.longitude
+        self.musicUpdateViewModel.musicItemshared.latitude = self.mapView.centerCoordinate.latitude
+        self.musicUpdateViewModel.musicItemshared.locationInfo = self.locationInfo
     }
 }
