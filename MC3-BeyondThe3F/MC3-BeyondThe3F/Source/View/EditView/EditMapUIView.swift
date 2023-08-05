@@ -24,6 +24,7 @@ struct EditMapUIView: UIViewRepresentable{
     
     private let locationManager = LocationManager.shared.locationManager
     private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.4, longitude: 127)
+    let geocoder = CLGeocoder()
     
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: EditMapUIView
@@ -38,6 +39,7 @@ struct EditMapUIView: UIViewRepresentable{
                 self.parent.userLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             }
         }
+        
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
             parent.selectedCoordinate = mapView.centerCoordinate
             getSearchPlace(coord: mapView.centerCoordinate)
@@ -47,8 +49,8 @@ struct EditMapUIView: UIViewRepresentable{
         }
         
         private func getSearchPlace(coord: CLLocationCoordinate2D){
-            let geocoder = CLGeocoder()
-            geocoder.reverseGeocodeLocation(CLLocation(latitude: coord.latitude, longitude: coord.longitude)) { placemarks, e in
+            
+            parent.geocoder.reverseGeocodeLocation(CLLocation(latitude: coord.latitude, longitude: coord.longitude)) { placemarks, e in
                 guard e == nil else {
                     return
                 }

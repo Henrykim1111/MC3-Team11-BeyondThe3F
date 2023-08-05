@@ -46,7 +46,10 @@ struct CarouselView: View {
                         let progress = -offsetX / pageWidth
                         let increment = Int(progress.rounded())
                         
-                        currentIndex = max(min(currentIndex + increment, carouselList.count - 1), 0)
+                        withAnimation {
+                            currentIndex = max(min(currentIndex + increment, carouselList.count - 1), 0)
+                        }
+                        
                     }
             )
             .onAppear{
@@ -78,10 +81,11 @@ struct CarouselCardItem: View {
                         .body1(color: .gray500)
                 }
                 Spacer()
-                ButtonPlayComponentView()
-                    .onTapGesture {
-                        MusicPlayer.shared.playlist = MainDataModel.shared.getData[pageIndex].musicList.map{$0.musicItemVO}
-                    }
+                Button {
+                    MusicPlayer.shared.playlist = MainDataModel.shared.getData[pageIndex].musicList.map{$0.musicItemVO}
+                } label: {
+                    ButtonPlayComponentView()
+                }
             }
             .padding(16)
             
@@ -139,9 +143,6 @@ struct CarouselCardItem: View {
         .frame(
             width: pageWidth
         )
-        .onAppear {
-            
-        }
     }
 }
 
