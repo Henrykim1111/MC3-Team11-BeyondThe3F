@@ -15,26 +15,15 @@ enum NextProcess {
 }
 
 struct EditMapPositionView: View {
-    var nextProcess: NextProcess = .forward
-    @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
     @Environment(\.dismiss) private var dismiss
-    @State private var mapView = MKMapView()
-    @State private var isMoving = true
-    @State private var locationManager = LocationManager.shared
-    @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
-    @State private var region: MKCoordinateRegion = startRegion
-    @State private var searchTerm = ""
-    @State private var selectedCoordinate = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
-    @State private var selectedPositionDescription = "저장하고 싶은 위치를 선택하세요"
-    @State private var locationInfo = ""
-    @State private var isShowUserLocation = false
-    @State private var isRegionSetted = false
-    @State private var showDeniedLocationStatus = false
-    @State private var searchPlaces : [Place] = []
-    @State private var isLocationEnabled = false
+    @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
+    @ObservedObject private var mapSearchViewModel = MapSearchViewModel()
+    @ObservedObject private var mapViewModel = MapViewModel()
+    @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    let locationManager = LocationManager.shared
     
-    let locationHelper = LocationManager.shared
-    let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    @State private var searchTerm = ""
+    var nextProcess: NextProcess = .forward
     
     var body: some View {
         NavigationStack {
@@ -59,106 +48,34 @@ struct EditMapPositionView: View {
                 }
                 .padding()
                 ZStack {
-                    if searchTerm == "" {
-                        EditMapUIView(
-                            region: $region,
-                            userLocation: $userLocation,
-                            userRegion: $region,
-                            mapView: $mapView,
-                            selectedCoordinate: $selectedCoordinate,
-                            selectedPositionDescription: $selectedPositionDescription,
-                            isShowUserLocation: $isShowUserLocation,
-                            isRegionSetted: $isRegionSetted,
-                            locationInfo: $locationInfo
-                        )
+                    if searchTerm.isEmpty {
+                        EditMapUIView()
                         VStack {
                             Image("pinLocation")
                             Spacer()
                                 .frame(height: 30)
                         }
-                        VStack {
-                            Spacer()
-                            HStack{
-                                if showDeniedLocationStatus {
-                                    HStack {
-                                        VStack(alignment: .leading, spacing: 0) {
-                                            Text("위치 정보가 거절되었습니다.")
-                                                .caption(color: .white)
-                                                .padding(.bottom, 5)
-                                            Text("설정 - TuneSpot에서 위치 권한을 허용해주세요.")
-                                                .caption(color: .white)
-                                        }
-                                    }
-                                    .padding(10)
-                                    .background(Color.custom(.background))
-                                    .cornerRadius(10)
-                                }
-
-                                Spacer()
-                                Button {
-                                    switch locationManager.locationManager.authorizationStatus {
-                                    case .notDetermined:
-                                        showDeniedLocationStatus = false
-                                        locationManager.getLocationAuth()
-                                    case .denied, .restricted:
-                                        showDeniedLocationStatus = true
-                                    default:
-                                        showDeniedLocationStatus = false
-                                        isShowUserLocation = true
-                                        showUserLocation()
-                                    }
-
-                                } label: {
-                                    ScopeButtonComponentView(
-                                        foregroundColor: Color.custom(.white),
-                                        backgroundColor: Color.custom(.background))
-                                    .shadow(color: Color.custom(.background), radius: 4, x:3, y: 3)
-                                }
-                            }
-                        }
-                        .padding()
+                        scopeButtonBoxView
                     } else {
-                        ScrollView {
-                            VStack {
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    ForEach(searchPlaces, id: \.self) { place in
-                                        Button{
-                                            moveToSelectedPlaced(place: place)
-                                        } label: {
-                                            HStack {
-                                                Text("\(place.place.name ?? "no name")")
-                                                    .body1(color: .white)
-                                                    .truncationMode(.tail)
-                                                    .lineLimit(1)
-                                                Spacer()
-                                            }
-                                            .frame(height: 56)
-                                        }
-                                    }
-                                }
-                                Spacer()
-                            }
-                        }
-                        
-                        .background(Color.custom(.background))
+                        mapSearchResultView
                         Spacer()
                     }
                 }
                 VStack(alignment: .leading) {
-                    Text("\(selectedPositionDescription)")
+                    Text("\(mapViewModel.selectedPositionDescription)")
                         .headline(color: .white)
                         .lineLimit(2)
                         .padding(.top, 24)
                     Spacer()
-                    if isLocationEnabled {
+                    if mapViewModel.isLocationEnabled {
                         switch nextProcess {
                         case .forward:
                             NavigationLink {
                                 EditDateView(nextProcess: .forward)
                                     .simultaneousGesture(TapGesture().onEnded {
-                                        musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
-                                        musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
-                                        musicUpdateViewModel.musicItemshared.locationInfo = locationInfo
+                                        musicUpdateViewModel.musicItemshared.longitude = mapViewModel.mapView.centerCoordinate.longitude
+                                        musicUpdateViewModel.musicItemshared.latitude = mapViewModel.mapView.centerCoordinate.latitude
+                                        musicUpdateViewModel.musicItemshared.locationInfo = mapViewModel.locationInfo
                                     })
                             } label: {
                                 PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
@@ -166,9 +83,9 @@ struct EditMapPositionView: View {
                             
                         case .backward:
                             Button {
-                                musicUpdateViewModel.musicItemshared.longitude = mapView.centerCoordinate.longitude
-                                musicUpdateViewModel.musicItemshared.latitude = mapView.centerCoordinate.latitude
-                                musicUpdateViewModel.musicItemshared.locationInfo = locationInfo
+                                musicUpdateViewModel.musicItemshared.longitude = mapViewModel.mapView.centerCoordinate.longitude
+                                musicUpdateViewModel.musicItemshared.latitude = mapViewModel.mapView.centerCoordinate.latitude
+                                musicUpdateViewModel.musicItemshared.locationInfo = mapViewModel.locationInfo
                                 dismiss()
                             } label: {
                                 PrimaryButtonComponentView(buttonType: .recordThePosition, backgroundColor: .primary)
@@ -182,82 +99,102 @@ struct EditMapPositionView: View {
             }
             .background(Color.custom(.background))
             .preferredColorScheme(.dark)
-            .onChange(of: searchTerm) { newValue in
-                getSearchPlace()
+            .accentColor(Color.custom(.white))
+            .onChange(of: searchTerm) { searchTerm in
+                mapSearchViewModel.getSearchPlace(searchTerm)
             }
-            .onChange(of: locationInfo, perform: { locationChanged in
-                if locationChanged == "" {
-                    isLocationEnabled = false
-                    selectedPositionDescription = "설정할 수 없는 위치입니다."
-                } else {
-                    isLocationEnabled = true
-                }
-            })
             .onAppear {
-                locationHelper.getLocationAuth()
-                selectedCoordinate = mapView.centerCoordinate
+                locationManager.getLocationAuth()
+                mapViewModel.selectedCoordinate = mapViewModel.mapView.centerCoordinate
                 
-                switch locationHelper.locationManager.authorizationStatus {
+                switch locationManager.locationManager.authorizationStatus {
                 case .authorizedWhenInUse, .authorizedAlways:
-                    isShowUserLocation = true
-                    showUserLocation()
+                    mapViewModel.isShowUserLocation = true
+                    mapViewModel.showUserLocation()
                 default: break
                 }
             }
         }
-        .accentColor(Color.custom(.white))
-    }
-    
-    private func showUserLocation(){
-        locationManager.locationManager.startUpdatingLocation()
-        if let userCurrentLocation = locationManager.locationManager.location?.coordinate {
-            userLocation = userCurrentLocation
-        }
-        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
-    }
-    
-    private func getSearchPlace(){
-        searchPlaces.removeAll()
-                
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = searchTerm
         
-        MKLocalSearch(request: request).start { (response, _) in
-            
-            guard let result = response else { return }
-            
-            self.searchPlaces = result.mapItems.compactMap({ (item) -> Place? in
-                return Place(place: item.placemark)
-            })
-        }
     }
-    
-    private func moveToSelectedPlaced(place: Place){
-        searchTerm = ""
-        
-        guard let coordinate = place.place.location?.coordinate else { return }
+}
 
-        let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-        
-        mapView.setRegion(coordinateRegion, animated: true)
-        isRegionSetted = true
-        region = coordinateRegion
+extension EditMapPositionView {
+    var scopeButtonBoxView: some View {
+        VStack {
+            Spacer()
+            HStack{
+                if mapViewModel.showDeniedLocationStatus {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text("위치 정보가 거절되었습니다.")
+                                .caption(color: .white)
+                                .padding(.bottom, 5)
+                            Text("설정 - TuneSpot에서 위치 권한을 허용해주세요.")
+                                .caption(color: .white)
+                        }
+                    }
+                    .padding(10)
+                    .background(Color.custom(.background))
+                    .cornerRadius(10)
+                }
+
+                Spacer()
+                Button {
+                    switch locationManager.locationManager.authorizationStatus {
+                    case .notDetermined:
+                        mapViewModel.showDeniedLocationStatus = false
+                        locationManager.getLocationAuth()
+                    case .denied, .restricted:
+                        mapViewModel.showDeniedLocationStatus = true
+                    default:
+                        mapViewModel.showDeniedLocationStatus = false
+                        mapViewModel.isShowUserLocation = true
+                        mapViewModel.showUserLocation()
+                    }
+
+                } label: {
+                    ScopeButtonComponentView(
+                        foregroundColor: Color.custom(.white),
+                        backgroundColor: Color.custom(.background))
+                    .shadow(color: Color.custom(.background), radius: 4, x:3, y: 3)
+                }
+            }
+        }
+        .padding()
+    }
+    
+    private var mapSearchResultView: some View {
+        ScrollView {
+            VStack {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    ForEach(mapSearchViewModel.searchPlaces, id: \.self) { place in
+                        Button{
+                            searchTerm = ""
+                            mapViewModel.moveToSelectedPlaced(place: place)
+                        } label: {
+                            HStack {
+                                Text("\(place.place.name ?? "no name")")
+                                    .body1(color: .white)
+                                    .truncationMode(.tail)
+                                    .lineLimit(1)
+                                Spacer()
+                            }
+                            .frame(height: 56)
+                        }
+                    }
+                }
+                Spacer()
+            }
+        }
+        .background(Color.custom(.background))
     }
 }
 
 
 struct EditMapUIView: UIViewRepresentable{
-    @Binding var region: MKCoordinateRegion
+    @ObservedObject private var mapViewModel = MapViewModel()
     private let locationManager = LocationManager.shared.locationManager
-    @Binding var userLocation: CLLocationCoordinate2D
-    @Binding var userRegion: MKCoordinateRegion
-    @Binding var mapView: MKMapView
-    @Binding var selectedCoordinate : CLLocationCoordinate2D
-    @Binding var selectedPositionDescription: String
-    @Binding var isShowUserLocation: Bool
-    @Binding var isRegionSetted: Bool
-    @Binding var locationInfo: String
-    
     private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
     
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
@@ -270,16 +207,16 @@ struct EditMapUIView: UIViewRepresentable{
             if let location = locations.first {
                 let latitude = location.coordinate.latitude
                 let longitude = location.coordinate.longitude
-                self.parent.userLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                self.parent.mapViewModel.userLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             }
         }
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            parent.selectedCoordinate = mapView.centerCoordinate
+            parent.mapViewModel.selectedCoordinate = mapView.centerCoordinate
             getSearchPlace(coord: mapView.centerCoordinate)
-            if parent.isShowUserLocation {
-                parent.isShowUserLocation = false
-            } else if parent.isRegionSetted {
-                parent.isRegionSetted = false
+            if parent.mapViewModel.isShowUserLocation {
+                parent.mapViewModel.isShowUserLocation = false
+            } else if parent.mapViewModel.isRegionSetted {
+                parent.mapViewModel.isRegionSetted = false
             }
         }
         
@@ -292,16 +229,16 @@ struct EditMapUIView: UIViewRepresentable{
                 
                 if let firstPlacemark = placemarks?.first {
                     if firstPlacemark.country != nil {
-                        self.parent.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
+                        self.parent.mapViewModel.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
                     }
                     if firstPlacemark.locality == nil {
                         if firstPlacemark.country == nil {
-                            self.parent.selectedPositionDescription = "설정할 수 없는 위치입니다."
+                            self.parent.mapViewModel.selectedPositionDescription = "설정할 수 없는 위치입니다."
                         } else {
-                            self.parent.selectedPositionDescription = "원하는 위치를 조금 더 자세히 표시해주세요."
+                            self.parent.mapViewModel.selectedPositionDescription = "원하는 위치를 조금 더 자세히 표시해주세요."
                         }
                     } else {
-                        self.parent.locationInfo = "\(firstPlacemark.locality ?? "")"
+                        self.parent.mapViewModel.locationInfo = "\(firstPlacemark.locality ?? "")"
                     }
                 }
             }
@@ -313,21 +250,21 @@ struct EditMapUIView: UIViewRepresentable{
     }
 
     func makeUIView(context: Context) -> MKMapView {
-        mapView.delegate = context.coordinator
-        mapView.setRegion(region, animated: false)
-        mapView.mapType = .standard
-        mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.follow, animated: true)
+        mapViewModel.mapView.delegate = context.coordinator
+        mapViewModel.mapView.setRegion(mapViewModel.region, animated: false)
+        mapViewModel.mapView.mapType = .standard
+        mapViewModel.mapView.showsUserLocation = true
+        mapViewModel.mapView.setUserTrackingMode(.follow, animated: true)
         
-        return mapView
+        return mapViewModel.mapView
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        if isShowUserLocation {
-            uiView.setRegion(userRegion, animated: true)
-        } else if isRegionSetted {
-            uiView.setRegion(region, animated: true)
-            isRegionSetted = false
+        if mapViewModel.isShowUserLocation {
+            uiView.setRegion(mapViewModel.region, animated: true)
+        } else if mapViewModel.isRegionSetted {
+            uiView.setRegion(mapViewModel.region, animated: true)
+            mapViewModel.isRegionSetted = false
         }
     }
 }
