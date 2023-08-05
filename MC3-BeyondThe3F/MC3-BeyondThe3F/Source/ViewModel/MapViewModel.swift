@@ -12,6 +12,7 @@ import SwiftUI
 
 class MapViewModel: ObservableObject {
     @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
+    
     @Published var mapView = MKMapView()
     @Published var userLocation = CLLocationCoordinate2D(latitude: 37.4,longitude: 127)
     @Published var region: MKCoordinateRegion = startRegion
@@ -31,6 +32,7 @@ class MapViewModel: ObservableObject {
             }
         }
     }
+    @Published var centerPlaceDescription = "장소"
     
     let locationManager = LocationManager.shared
     
@@ -50,11 +52,5 @@ class MapViewModel: ObservableObject {
         mapView.setRegion(coordinateRegion, animated: true)
         isRegionSetted = true
         region = coordinateRegion
-    }
-    
-    func setLocationDataToUpdateModel(){
-        self.musicUpdateViewModel.musicItemshared.longitude = self.mapView.centerCoordinate.longitude
-        self.musicUpdateViewModel.musicItemshared.latitude = self.mapView.centerCoordinate.latitude
-        self.musicUpdateViewModel.musicItemshared.locationInfo = self.locationInfo
     }
 }

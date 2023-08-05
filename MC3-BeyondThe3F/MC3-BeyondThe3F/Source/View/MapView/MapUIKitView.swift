@@ -14,7 +14,7 @@ struct MapUIKitView: UIViewRepresentable {
     @Binding var musicList: [MusicItem]
     @Binding var userLocation: CLLocationCoordinate2D
     @Binding var currentRegion: MKCoordinateRegion
-    @Binding var isShowUserLocation: Bool
+    @Binding var isRegionSetted: Bool
     @Binding var centerPlaceDescription: String
     
     let locationManager: CLLocationManager
@@ -105,9 +105,9 @@ struct MapUIKitView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        if isShowUserLocation  {
+        if isRegionSetted  {
             uiView.setRegion(currentRegion, animated: true)
-            isShowUserLocation = false
+            isRegionSetted = false
         }
     }
     private func getSavedMusicData() -> [MusicItem]{

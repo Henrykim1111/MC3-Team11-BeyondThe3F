@@ -77,7 +77,7 @@ struct EditMapPositionView: View {
                             NavigationLink {
                                 EditDateView(nextProcess: .forward)
                                     .simultaneousGesture(TapGesture().onEnded {
-                                        mapViewModel.setLocationDataToUpdateModel()
+                                        setLocationDataToUpdateModel()
                                     })
                             } label: {
                                 PrimaryButtonComponentView(
@@ -87,7 +87,7 @@ struct EditMapPositionView: View {
                             
                         case .backward:
                             Button {
-                                mapViewModel.setLocationDataToUpdateModel()
+                                setLocationDataToUpdateModel()
                                 dismiss()
                             } label: {
                                 PrimaryButtonComponentView(
@@ -123,6 +123,12 @@ struct EditMapPositionView: View {
         }
         
     }
+    private func setLocationDataToUpdateModel(){
+        musicItemUpdateViewModel.musicItemshared.longitude = mapViewModel.mapView.centerCoordinate.longitude
+        musicItemUpdateViewModel.musicItemshared.latitude = mapViewModel.mapView.centerCoordinate.latitude
+        musicItemUpdateViewModel.musicItemshared.locationInfo = mapViewModel.locationInfo
+    }
+    
 }
 
 extension EditMapPositionView {

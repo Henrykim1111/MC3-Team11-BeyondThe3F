@@ -15,32 +15,30 @@ struct Place: Identifiable, Hashable {
 }
 
 struct MapView: View {
-    @State private var mapView = MKMapView()
+    let locationHelper = LocationManager.shared
+    let musicItemDataModel = MusicItemDataModel.shared
+    
+    @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
+    @ObservedObject private var mapViewModel = MapViewModel()
+    
     @State private var musicList: [MusicItem] = []
-    @State private var userLocation = CLLocationCoordinate2D(latitude: 43.70564024126748,longitude: 142.37968945214223)
     @State var currentRegion = startRegion
-    @State var isShowUserLocation = false
     @State private var searchText = ""
     @State private var searchPlaces : [Place] = []
     @State private var annotationDataList: [MusicItem] = []
-    @State private var centerPlaceDescription = "장소"
-    
     @State private var showMusicPlayView = false
-    @StateObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
-    let locationHelper = LocationManager.shared
-    let musicItemDataModel = MusicItemDataModel.shared
     
     var body: some View {
         NavigationStack {
             VStack {
                 ZStack {
                     MapUIKitView(
-                        mapView: $mapView,
+                        mapView: $mapViewModel.mapView,
                         musicList: $musicList,
-                        userLocation: $userLocation,
-                        currentRegion: $currentRegion,
-                        isShowUserLocation: $isShowUserLocation,
-                        centerPlaceDescription: $centerPlaceDescription,
+                        userLocation: $mapViewModel.userLocation,
+                        currentRegion: $mapViewModel.region,
+                        isRegionSetted: $mapViewModel.isRegionSetted,
+                        centerPlaceDescription: $mapViewModel.centerPlaceDescription,
                         locationManager: locationHelper.locationManager
                     )
                     .ignoresSafeArea(.all, edges: .top)
@@ -83,8 +81,8 @@ struct MapView: View {
                         HStack {
                             Spacer()
                             Button {
-                                isShowUserLocation = true
-                                showUserLocation()
+                                mapViewModel.isRegionSetted = true
+                                mapViewModel.showUserLocation()
                             } label: {
                                 ScopeButtonComponentView()
                             }
@@ -101,7 +99,7 @@ struct MapView: View {
                     )
                     MapMusicInfoView(
                         musicList: $musicList,
-                        centerPlaceDescription: $centerPlaceDescription
+                        centerPlaceDescription: $mapViewModel.centerPlaceDescription
                     )
                     
                     VStack {
@@ -122,8 +120,8 @@ struct MapView: View {
                 locationHelper.getLocationAuth()
                 switch locationHelper.locationManager.authorizationStatus {
                 case .authorizedWhenInUse, .authorizedAlways:
-                    isShowUserLocation = true
-                    showUserLocation()
+                    mapViewModel.isRegionSetted = true
+                    mapViewModel.showUserLocation()
                 default: break
                 }
             }
@@ -144,12 +142,12 @@ struct MapView: View {
     }
     
     private func resetAnnotations(){
-        mapView.removeAnnotations(mapView.annotations)
+        mapViewModel.mapView.removeAnnotations(mapViewModel.mapView.annotations)
         let annotationDataList = getSavedMusicData()
         
         for annotaionData in annotationDataList {
             let annotation = MusicAnnotation(annotaionData)
-            mapView.addAnnotation(annotation)
+            mapViewModel.mapView.addAnnotation(annotation)
         }
     }
     private func getSavedMusicData() -> [MusicItem]{
@@ -159,13 +157,13 @@ struct MapView: View {
         }
         return tempMusicList
     }
-    private func showUserLocation(){
-        locationHelper.locationManager.startUpdatingLocation()
-        if let userCurrentLocation = locationHelper.locationManager.location?.coordinate {
-            userLocation = userCurrentLocation
-        }
-        currentRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
-    }
+//    private func showUserLocation(){
+//        locationHelper.locationManager.startUpdatingLocation()
+//        if let userCurrentLocation = locationHelper.locationManager.location?.coordinate {
+//            mapViewModel.userLocation = userCurrentLocation
+//        }
+//        currentRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: mapViewModel.userLocation.latitude, longitude: mapViewModel.userLocation.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+//    }
     
     private func getSearchPlace(){
         searchPlaces.removeAll()
@@ -189,8 +187,8 @@ struct MapView: View {
 
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         
-        mapView.setRegion(coordinateRegion, animated: false)
-        mapView.setVisibleMapRect(mapView.visibleMapRect, animated: false)
+        mapViewModel.mapView.setRegion(coordinateRegion, animated: false)
+        mapViewModel.mapView.setVisibleMapRect(mapViewModel.mapView.visibleMapRect, animated: false)
     }
 }
 
