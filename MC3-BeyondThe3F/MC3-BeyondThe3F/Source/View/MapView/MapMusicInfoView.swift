@@ -42,10 +42,9 @@ struct MapMusicInfoView: View {
                     }
                     HStack {
                         if musicList.isEmpty {
-                            ProgressView()
+                            Rectangle()
                                 .frame(width: 60, height: 60)
-                                .foregroundColor(Color.custom(.white))
-                                .background(Color.custom(.secondaryDark))
+                                .foregroundColor(Color.custom(.secondaryDark))
                                 .cornerRadius(8)
                                 .padding(.trailing, 15)
                         } else {
@@ -86,7 +85,6 @@ struct MapMusicInfoView: View {
                                 for musicItem in musicList {
                                     musicPlayer.insertMusicAndPlay(musicItem: musicItem.musicItemVO)
                                 }
-                                
                             }
                         } label: {
                             MidButtonComponent()
@@ -216,9 +214,3 @@ struct MapMusicInfoView: View {
             }
     }
 }
-
-//struct MapMusicInfoView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapMusicInfoView()
-//    }
-//}

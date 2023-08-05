@@ -48,7 +48,6 @@ struct BucketView: View {
                 }
                 .ignoresSafeArea(.keyboard)
             }
-            
             .background(Color.custom(.background))
             .sheet(isPresented: $showMusicPlayView) {
                 MusicPlayView()

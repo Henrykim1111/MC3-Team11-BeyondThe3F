@@ -48,7 +48,6 @@ enum AddMusicItemData: CaseIterable {
 }
 
 struct MusicNameRow: View {
-    @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
     @State var itemData: AddMusicItemData
     
     var body: some View {
@@ -119,7 +118,9 @@ struct AddMusicView: View {
                         musicItemUpdateViewModel.isUpdate = false
                         musicItemUpdateViewModel.showToastAddMusicView()
                         musicItemUpdateViewModel.showToastAddMusic = true
-                        isFirst = false
+                        withAnimation {
+                            isFirst = false
+                        }
                     } label: {
                         PrimaryButtonComponentView(buttonType: .forSave, backgroundColor: .primary)
                     }
