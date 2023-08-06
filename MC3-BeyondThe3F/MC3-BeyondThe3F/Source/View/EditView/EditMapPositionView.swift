@@ -15,10 +15,12 @@ struct EditMapPositionView: View {
     @ObservedObject private var mapSearchViewModel = MapSearchViewModel()
     @ObservedObject private var mapViewModel = MapViewModel()
     @ObservedObject private var musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
-    let locationManager = LocationManager.shared
-    
     @State private var searchTerm = ""
+    @State private var newMapPosition:CLLocationCoordinate2D = startRegion.center
+    
+    let locationManager = LocationManager.shared
     var nextProcess: NextProcess = .forward
+    
     
     var body: some View {
         NavigationStack {
@@ -53,7 +55,9 @@ struct EditMapPositionView: View {
                             isRegionSetted: $mapViewModel.isRegionSetted,
                             showDeniedLocationStatus: $mapViewModel.isLocationAuthDenied,
                             isLocationEnabled: $mapViewModel.isLocationEnabled,
-                            locationInfo: $mapViewModel.locationInfo)
+                            locationInfo: $mapViewModel.locationInfo,
+                            newMapPosition: $newMapPosition
+                        )
                         VStack {
                             Image("pinLocation")
                             Spacer()
@@ -109,6 +113,9 @@ struct EditMapPositionView: View {
             .onChange(of: searchTerm) { searchTerm in
                 mapSearchViewModel.getSearchPlace(searchTerm)
             }
+            .onChange(of: newMapPosition.latitude, perform: { newValue in
+                getSearchPlace(coord: newMapPosition)
+            })
             .onAppear {
                 locationManager.getLocationAuth()
                 mapViewModel.selectedCoordinate = mapViewModel.mapView.centerCoordinate
@@ -128,7 +135,30 @@ struct EditMapPositionView: View {
         musicItemUpdateViewModel.musicItemshared.latitude = mapViewModel.mapView.centerCoordinate.latitude
         musicItemUpdateViewModel.musicItemshared.locationInfo = mapViewModel.locationInfo
     }
-    
+    private func getSearchPlace(coord: CLLocationCoordinate2D){
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(CLLocation(latitude: coord.latitude, longitude: coord.longitude)) { placemarks, e in
+            guard e == nil else {
+                return
+            }
+            
+            if let firstPlacemark = placemarks?.first {
+                
+                if firstPlacemark.country != nil {
+                    if firstPlacemark.locality == nil {
+                        mapViewModel.selectedPositionDescription = "원하는 위치를 조금 더 자세히 표시해주세요."
+                    } else {
+                        mapViewModel.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
+                    }
+                } else {
+                    mapViewModel.selectedPositionDescription = "설정할 수 없는 위치입니다."
+                }
+            
+                mapViewModel.locationInfo = "\(firstPlacemark.locality ?? "")"
+                
+            }
+        }
+    }
 }
 
 extension EditMapPositionView {

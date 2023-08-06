@@ -89,7 +89,6 @@ struct MusicPlayerComponentView: View {
         .sheet(isPresented: $showMusicPlayListView) {
             MusicPlayView(showCurrentPlayList: true)
                 .presentationDragIndicator(.visible)
-            
         }
         .onAppear {
             self.currentPlayingMusicItem = musicPlayer.currentMusicItem
