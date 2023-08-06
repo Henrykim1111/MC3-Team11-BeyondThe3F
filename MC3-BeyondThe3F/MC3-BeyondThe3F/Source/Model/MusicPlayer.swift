@@ -21,19 +21,19 @@ class MusicPlayer: ObservableObject{
     var persistentContainer = PersistenceController.shared.container
 
     private init() {
-           NotificationCenter.default.addObserver(
-            self, selector: #selector(handleNowPlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+//           NotificationCenter.default.addObserver(
+//            self, selector: #selector(handleNowPlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
    }
     deinit {
-        NotificationCenter.default.removeObserver(self)
+//        NotificationCenter.default.removeObserver(self)
     }
 
-   @objc private func handleNowPlayingItemDidChange() {
-       if !playlist.isEmpty {
-           musicInPlaying = playlist[self.musicInPlayingIndex]
-       }
-       self.musicInPlayingIndex = self.player.indexOfNowPlayingItem
-   }
+//   @objc private func handleNowPlayingItemDidChange() {
+//       if !playlist.isEmpty {
+//           musicInPlaying = playlist[self.musicInPlayingIndex]
+//       }
+//       self.musicInPlayingIndex = self.player.indexOfNowPlayingItem
+//   }
     
     var indexOfNowPlayingItem:Int{ player.indexOfNowPlayingItem }
     
@@ -42,7 +42,6 @@ class MusicPlayer: ObservableObject{
             self.player.setQueue(with: self.playlist.map{$0.musicId})
             self.player.play()
             self.playState = .playing
-
         }
     }
     
@@ -50,7 +49,6 @@ class MusicPlayer: ObservableObject{
         self.player.indexOfNowPlayingItem == playlist.count - 1 ? true : false
     }
     
-
     var currentMusicItem:MusicItemVO?{
         let current_index = self.player.indexOfNowPlayingItem
         
@@ -108,12 +106,12 @@ extension MusicPlayer{
         }else{
             for _ in 0..<(currentIndex - index){
                 self.player.skipToPreviousItem()
-
             }
         }
         self.playState = .playing
         player.play()
     }
+    
     func insertMusicAndPlay(musicItem:MusicItemVO) {
         if self.playlist.isEmpty{
             self.playlist = [musicItem]
@@ -121,6 +119,22 @@ extension MusicPlayer{
             self.playlist.insert(musicItem, at: 0)
         }
         self.playState = .playing
+    }
+    
+    func removeMusic(_ index: Int) {
+        if self.playlist.isEmpty {
+            return
+        }
+        let enumeratedPlaylist = self.playlist.enumerated()
+        var newPlayList: [MusicItemVO] = []
+        for (i, musicItem) in enumeratedPlaylist {
+            if i != index {
+                newPlayList.append(musicItem)
+            }
+        }
+        playlist = newPlayList
+        print(playlist)
+        
     }
     
     func resetPlaylist(){

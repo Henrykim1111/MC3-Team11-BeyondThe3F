@@ -10,13 +10,13 @@ import SwiftUI
 import MediaPlayer
 
 struct MusicPlayView: View {
-    @ObservedObject private var musicPlayer = MusicPlayer.shared
     @State private var progressRate: Double = 0.0
-    @State var showCurrentPlayList: Bool = false
-    @State var currentDegrees: Double = 0
+    @State var showCurrentPlayList = false
+    @State private var currentDegrees: Double = 0
+    
     var body: some View {
         ZStack {
-            NowPlayingView(currentDegrees: $currentDegrees)
+            VinylRecordView(currentDegrees: $currentDegrees)
             CurrentPlayListView()
                 .opacity(showCurrentPlayList ? 1 : 0)
             
@@ -30,13 +30,12 @@ struct MusicPlayView: View {
 }
 
 
-struct NowPlayingView: View {
-    
+struct VinylRecordView: View {
     @StateObject var musicPlayer = MusicPlayer.shared
     @Binding var currentDegrees: Double
     
-    var foreverAnimation = Animation.linear(duration: 10.0).repeatForever(autoreverses: false)
-    var stopAnimationLinear = Animation.linear(duration: 10.0)
+    let rotateAnimation = Animation.linear(duration: 10.0).repeatForever(autoreverses: false)
+    let stopAnimationLinear = Animation.linear(duration: 10.0)
     
     var body: some View {
         VStack {
@@ -62,7 +61,7 @@ struct NowPlayingView: View {
                             .rotationEffect(Angle(degrees: currentDegrees))
                             .onAppear {
                                 currentDegrees = 0
-                                withAnimation(foreverAnimation) {
+                                withAnimation(rotateAnimation) {
                                     currentDegrees = 360
                                 }
                             }
@@ -90,9 +89,8 @@ struct NowPlayingView: View {
 
 struct CurrentPlayListView: View {
     @Environment(\.dismiss) private var dismiss
-    let musicPlayerViewModel = MusicPlayer.shared
     let musicItemUpdateViewModel = MusicItemUpdateViewModel.shared
-    let musicItemDataModel = MusicItemDataModel.shared
+    
     @ObservedObject var musicPlayer = MusicPlayer.shared
     @State var selectedMusic: MusicItemVO?
     @State var selectedIndex: Int = 0
@@ -169,15 +167,7 @@ struct CurrentPlayListView: View {
                 dismiss()
             }
             Button("삭제", role: .destructive) {
-                let deleteIndex = selectedIndex
-                var newPlayList: [MusicItemVO] = []
-                for index in 0..<musicPlayerViewModel.playlist.count {
-                    if index != deleteIndex {
-                        newPlayList.append(musicPlayerViewModel.playlist[index])
-                    }
-                }
-                musicPlayerViewModel.playlist = newPlayList
-                
+                musicPlayer.removeMusic(selectedIndex)
             }
             Button("취소", role: .cancel) {}
         }
