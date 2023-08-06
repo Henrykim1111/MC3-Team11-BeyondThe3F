@@ -9,14 +9,8 @@ import Foundation
 import MusicKit
 import MediaPlayer
 
-protocol MusicPlayerProtocol{
-    func musicPlayer(index:Int)
-}
-
 class MusicPlayer: ObservableObject{
     static let shared = MusicPlayer()
-    
-    var delegate:MusicPlayerProtocol?
     
     @Published var isPlaying: Bool = false
     @Published var playState: MPMusicPlaybackState = .paused
@@ -84,11 +78,12 @@ extension MusicPlayer{
     }
     
     func playButtonTapped(){
-        if self.player.currentPlaybackRate == 0{
+        switch self.playState {
+        case .paused, .stopped:
             self.player.play()
             self.isPlaying = true
             self.playState = .playing
-        }else{
+        default:
             self.player.pause()
             self.isPlaying = false
             self.playState = .paused
