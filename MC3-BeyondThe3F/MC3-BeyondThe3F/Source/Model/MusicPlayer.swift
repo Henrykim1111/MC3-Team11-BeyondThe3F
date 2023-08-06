@@ -21,19 +21,21 @@ class MusicPlayer: ObservableObject{
     var persistentContainer = PersistenceController.shared.container
 
     private init() {
-//           NotificationCenter.default.addObserver(
-//            self, selector: #selector(handleNowPlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+           NotificationCenter.default.addObserver(
+            self, selector: #selector(handleNowPlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
    }
     deinit {
-//        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
-//   @objc private func handleNowPlayingItemDidChange() {
-//       if !playlist.isEmpty {
-//           musicInPlaying = playlist[self.musicInPlayingIndex]
-//       }
-//       self.musicInPlayingIndex = self.player.indexOfNowPlayingItem
-//   }
+   @objc private func handleNowPlayingItemDidChange() {
+       if !playlist.isEmpty {
+           if playlist.count > musicInPlayingIndex {
+               musicInPlaying = playlist[self.musicInPlayingIndex]
+           }
+       }
+       self.musicInPlayingIndex = self.player.indexOfNowPlayingItem
+   }
     
     var indexOfNowPlayingItem:Int{ player.indexOfNowPlayingItem }
     
@@ -133,8 +135,6 @@ extension MusicPlayer{
             }
         }
         playlist = newPlayList
-        print(playlist)
-        
     }
     
     func resetPlaylist(){
