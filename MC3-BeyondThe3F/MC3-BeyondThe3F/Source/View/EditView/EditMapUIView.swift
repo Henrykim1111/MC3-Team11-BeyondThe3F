@@ -19,12 +19,12 @@ struct EditMapUIView: UIViewRepresentable{
     @Binding var showDeniedLocationStatus: Bool
     @Binding var isLocationEnabled: Bool
     @Binding var locationInfo: String
+    @Binding var newMapPosition: CLLocationCoordinate2D
     
     @ObservedObject private var musicUpdateViewModel = MusicItemUpdateViewModel.shared
     
     private let locationManager = LocationManager.shared.locationManager
     private let defaultCoordinate = CLLocationCoordinate2D(latitude: 37.4, longitude: 127)
-    let geocoder = CLGeocoder()
     
     class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
         var parent: EditMapUIView
@@ -41,36 +41,14 @@ struct EditMapUIView: UIViewRepresentable{
         }
         
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            parent.selectedCoordinate = mapView.centerCoordinate
-            getSearchPlace(coord: mapView.centerCoordinate)
+            parent.newMapPosition = mapView.centerCoordinate
+            
             if parent.isRegionSetted {
                 parent.isRegionSetted = false
             }
         }
         
-        private func getSearchPlace(coord: CLLocationCoordinate2D){
-            
-            parent.geocoder.reverseGeocodeLocation(CLLocation(latitude: coord.latitude, longitude: coord.longitude)) { placemarks, e in
-                guard e == nil else {
-                    return
-                }
-                
-                if let firstPlacemark = placemarks?.first {
-                    if firstPlacemark.country != nil {
-                        self.parent.selectedPositionDescription = "\(firstPlacemark.country ?? "") \(firstPlacemark.locality ?? "") \(firstPlacemark.subLocality ?? "")"
-                    }
-                    if firstPlacemark.locality == nil {
-                        if firstPlacemark.country == nil {
-                            self.parent.selectedPositionDescription = "설정할 수 없는 위치입니다."
-                        } else {
-                            self.parent.selectedPositionDescription = "원하는 위치를 조금 더 자세히 표시해주세요."
-                        }
-                    } else {
-                        self.parent.locationInfo = "\(firstPlacemark.locality ?? "")"
-                    }
-                }
-            }
-        }
+        
     }
 
     func makeCoordinator() -> Coordinator {
