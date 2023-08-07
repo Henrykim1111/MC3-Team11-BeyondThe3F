@@ -66,6 +66,7 @@
 		959B5B772A714B1500888942 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B762A714B1500888942 /* DateExtension.swift */; };
 		959B5B7B2A71539F00888942 /* MusicSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */; };
 		95BA717E2A76947000DD1A2D /* EditMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BA717D2A76947000DD1A2D /* EditMusicView.swift */; };
+		95CF22DC2A813EB700E14A7D /* MusicSubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CF22DB2A813EB700E14A7D /* MusicSubscriptionManager.swift */; };
 		95D6CE142A6D084E0053AE8E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE132A6D084E0053AE8E /* LocationManager.swift */; };
 		95D6CE182A6D4B0C0053AE8E /* EditMapPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */; };
 		95D6CE1A2A6E5AC30053AE8E /* MapMusicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D6CE192A6E5AC30053AE8E /* MapMusicInfoView.swift */; };
@@ -136,6 +137,7 @@
 		959B5B762A714B1500888942 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		959B5B7A2A71539F00888942 /* MusicSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchViewModel.swift; sourceTree = "<group>"; };
 		95BA717D2A76947000DD1A2D /* EditMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMusicView.swift; sourceTree = "<group>"; };
+		95CF22DB2A813EB700E14A7D /* MusicSubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSubscriptionManager.swift; sourceTree = "<group>"; };
 		95D6CE132A6D084E0053AE8E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		95D6CE172A6D4B0C0053AE8E /* EditMapPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMapPositionView.swift; sourceTree = "<group>"; };
 		95D6CE192A6E5AC30053AE8E /* MapMusicInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMusicInfoView.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				76975F482A700DE2005FEFE2 /* MusicAuthManger.swift */,
 				95D6CE132A6D084E0053AE8E /* LocationManager.swift */,
 				95713F972A74FF3800548545 /* BucketNavigationManager.swift */,
+				95CF22DB2A813EB700E14A7D /* MusicSubscriptionManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				74F025C32A77F5AB00DF39C3 /* SearchFailureComponentView.swift in Sources */,
 				95713F982A74FF3800548545 /* BucketNavigationManager.swift in Sources */,
 				95943CBD2A7DD4770049EB50 /* MapSearchViewModel.swift in Sources */,
+				95CF22DC2A813EB700E14A7D /* MusicSubscriptionManager.swift in Sources */,
 				74167D152A678D3B00F5C691 /* TestComponentView.swift in Sources */,
 				76975F492A700DE2005FEFE2 /* MusicAuthManger.swift in Sources */,
 				953BD74C2A68DE6C0047C21C /* MusicAnnotation.swift in Sources */,
