@@ -2,9 +2,9 @@
 
 <div align="center">
 
-<img width="150" height="150" alt="image" src="[https://user-images.githubusercontent.com/56781342/183575958-20f965d3-4008-490e-b63a-cd80183c127a.png](https://github.com/DeveloperAcademy-POSTECH/MC3-Team11-BeyondThe3F/assets/105622985/e67684c6-b6f3-4f59-accb-f85b5204c889)">
+<img width="100%" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/MC3-Team11-BeyondThe3F/assets/105622985/e39db53f-cf30-4d50-bac7-1294337e4f63">
 
-###내가 갔던 장소에서 내가 들었던 노래를 <br/> 지금 저장하고 추억해보세요!
+### 내가 갔던 장소에서 내가 들었던 노래를 <br/> 지금 저장하고 추억해보세요!
 
 </div>
 
@@ -18,20 +18,12 @@
 
 <br/>
 
-## 👥 Team
+## 👥 Team: Beyond The 3F👨‍👩‍👧‍👦
 
-<div align="center">
+|Austin|Muho|Eden|Henry|Aewol|Peter|
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|<img src="https://github.com/DeveloperAcademy-POSTECH/MC3-Team11-BeyondThe3F/assets/105622985/ce515807-3802-41cd-9b64-302e088473e4" width="150">|<img src="https://github.com/DeveloperAcademy-POSTECH/MC3-Team11-BeyondThe3F/assets/105622985/16166bbb-dabe-4d08-9ccd-6405f675a478" width="150">|<img src="https://github.com/DeveloperAcademy-POSTECH/MC3-Team11-BeyondThe3F/assets/105622985/372d3cad-4a1e-46a5-9683-3cb0d52c57e9" width="150">|<img src="https://avatars.githubusercontent.com/u/106143629?v=4" width="150">|<img src="https://avatars.githubusercontent.com/u/117069599?v=4" width="150">|<img src="https://avatars.githubusercontent.com/u/38762911?v=4" width="150">|
 
-### Beyond The 3F👨‍👩‍👧‍👦
-
-</div>
-
-|Austin|Henry|Eden|Muho|Aewol|Peter|
-|:-:|:-:|:-:|:-:|:-:|
-|<img src="https://github.com/DeveloperAcademy-POSTECH/MC3-Team11-BeyondThe3F/assets/105622985/ce515807-3802-41cd-9b64-302e088473e4" width="300">||||||
-
-
-## Coding Convention
 
 ## ✨ Skills & Tech Stack
 - SwiftUI
