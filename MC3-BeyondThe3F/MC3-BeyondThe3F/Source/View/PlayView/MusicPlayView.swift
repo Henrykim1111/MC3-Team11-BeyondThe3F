@@ -8,6 +8,7 @@
 
 import SwiftUI
 import MediaPlayer
+import MusicKit
 
 struct MusicPlayView: View {
     @State private var progressRate: Double = 0.0
@@ -176,11 +177,12 @@ struct CurrentPlayListView: View {
 
 
 struct ControlPanelView: View {
-    
     @ObservedObject private var musicPlayer = MusicPlayer.shared
     @Binding var progressRate: Double
     @Binding var showCurrentPlayList: Bool
     @Binding var currentDegrees: Double
+    
+    
 
     var body: some View {
         VStack {
@@ -236,11 +238,16 @@ struct ControlPanelView: View {
             .shadow(color: .black.opacity(0.25), radius: 10, x: 0, y: -10)
         }
         .ignoresSafeArea()
+        
     }
+    
+   
 }
 
 
 struct ControlButtonsView: View {
+    @StateObject private var musicSubscriptionManager = MusicSubscriptionManager.shared
+    @State private var isShowingOffer = false
     
     @ObservedObject private var musicPlayer = MusicPlayer.shared
     @Binding var progressRate: Double
@@ -297,7 +304,11 @@ struct ControlButtonsView: View {
                 Spacer().frame(width: 48)
                 
                 Button {
-                    musicPlayer.playButtonTapped()
+                    if let _ = musicSubscriptionManager.subscriptionState?.canBecomeSubscriber {
+                        showSubscriptionOffer()
+                    } else {
+                        musicPlayer.playButtonTapped()
+                    }
                 } label: {
                     switch musicPlayer.playState {
                     case .paused, .stopped:
@@ -326,6 +337,7 @@ struct ControlButtonsView: View {
                 startAnimation()
             }
         }
+        .musicSubscriptionOffer(isPresented: $isShowingOffer, options: musicSubscriptionManager.offerOptions)
     }
     
     func startAnimation(){
@@ -338,5 +350,15 @@ struct ControlButtonsView: View {
         withAnimation(stopAnimationLinear) {
             currentDegrees = 0
         }
+    }
+    
+    private func showSubscriptionOffer(){
+        // TODO: musicSubscriptionManager.currentID에 추천하는 음악 MusicItemID를 넣어주어야 한다.
+        if let currentMusic = musicPlayer.currentMusicItem {
+            musicSubscriptionManager.currentId = MusicItemID(currentMusic.musicId)
+        } else {
+            isShowingOffer = true
+        }
+
     }
 }
