@@ -671,9 +671,9 @@
 				DEVELOPMENT_TEAM = 333J2S2AQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치를 언제 허용하시겠습니까?";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "TuneSpot은 AppleMusic을 사용해서 음악을 재생할 수 있습니다. 재생기능을 사용하시려면 Apple Music 권한을 허용해주세요.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "TuneSpot은 지도에서 사용자의 현재 위치로 이동할 수 있는 기능을 제공하고 있습니다. 해당 기능을 사용하시려면 위치 권한을 허용해주세요.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "TuneSpot은 지도에서 사용자의 현재 위치로 이동할 수 있는 기능을 제공하고 있습니다. 해당 기능을 사용하시려면 위치 권한을 허용해주세요.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음 기능을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -707,9 +707,9 @@
 				DEVELOPMENT_TEAM = 333J2S2AQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple Music 사용을 허용하시겠습니까?";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치를 항상 허용하시겠습니까?";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치를 언제 허용하시겠습니까?";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "TuneSpot은 AppleMusic을 사용해서 음악을 재생할 수 있습니다. 재생기능을 사용하시려면 Apple Music 권한을 허용해주세요.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "TuneSpot은 지도에서 사용자의 현재 위치로 이동할 수 있는 기능을 제공하고 있습니다. 해당 기능을 사용하시려면 위치 권한을 허용해주세요.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "TuneSpot은 지도에서 사용자의 현재 위치로 이동할 수 있는 기능을 제공하고 있습니다. 해당 기능을 사용하시려면 위치 권한을 허용해주세요.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음 기능을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
