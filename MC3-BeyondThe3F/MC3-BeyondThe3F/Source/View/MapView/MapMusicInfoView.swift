@@ -11,10 +11,10 @@ struct MapMusicInfoView: View {
     @Binding var musicList: [MusicItem]
     @Binding var centerPlaceDescription: String
     
-    @State private var draggedYOffset: CGFloat = 500.0
-    @State private var accumulatedYOffset: CGFloat = 500.0
-    @State private var maxHeight: CGFloat = 500.0
-    @State private var minHeight: CGFloat = 100.0
+    @State private var draggedYOffset: CGFloat = 400.0
+    @State private var accumulatedYOffset: CGFloat = 400.0
+    @State private var maxHeight: CGFloat = 400.0
+    @State private var minHeight: CGFloat = 30.0
     @State private var showActionSheet = false
     @State private var showAddMusicView = false
     
@@ -140,12 +140,6 @@ struct MapMusicInfoView: View {
             .presentationDragIndicator(.visible)
             .offset(y: draggedYOffset)
             .gesture(drag)
-            .onAppear {
-                maxHeight = geo.size.height + 120
-                minHeight = 30
-                draggedYOffset = geo.size.height + 120
-                accumulatedYOffset = geo.size.height + 120
-            }
             .confirmationDialog("타이틀", isPresented: $showActionSheet) {
                 Button("편집", role: .none) {
                     showActionSheet = false
@@ -191,7 +185,6 @@ struct MapMusicInfoView: View {
                 } else {
                     draggedYOffset = caculatedValue
                 }
-                print(draggedYOffset)
             }
             .onEnded { gesture in
                 let caculatedValue = accumulatedYOffset + gesture.translation.height
