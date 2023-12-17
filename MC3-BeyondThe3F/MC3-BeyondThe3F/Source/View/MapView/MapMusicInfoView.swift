@@ -141,10 +141,10 @@ struct MapMusicInfoView: View {
             .offset(y: draggedYOffset)
             .gesture(drag)
             .onAppear {
-                maxHeight = geo.size.height - 213
+                maxHeight = geo.size.height + 120
                 minHeight = 30
-                draggedYOffset = geo.size.height - 213
-                accumulatedYOffset = geo.size.height - 213
+                draggedYOffset = geo.size.height + 120
+                accumulatedYOffset = geo.size.height + 120
             }
             .confirmationDialog("타이틀", isPresented: $showActionSheet) {
                 Button("편집", role: .none) {
@@ -191,6 +191,7 @@ struct MapMusicInfoView: View {
                 } else {
                     draggedYOffset = caculatedValue
                 }
+                print(draggedYOffset)
             }
             .onEnded { gesture in
                 let caculatedValue = accumulatedYOffset + gesture.translation.height
@@ -213,4 +214,16 @@ struct MapMusicInfoView: View {
                 }
             }
     }
+}
+
+struct MapMusicInfoViewPreview: View {
+    @State private var musicList: [MusicItem] = []
+    @State private var centerPlaceDescription = "test description"
+    var body: some View {
+        MapMusicInfoView(musicList: $musicList, centerPlaceDescription: $centerPlaceDescription)
+    }
+}
+
+#Preview {
+    MapMusicInfoViewPreview()
 }
